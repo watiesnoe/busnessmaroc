@@ -88,7 +88,7 @@
       webpack is putting everything together at asset/_js/main/app.js
     -->
       @include('layouts.partials.js')
-
+      @yield('scripts')
    
   </body>
 </html>

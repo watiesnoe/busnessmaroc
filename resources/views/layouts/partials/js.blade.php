@@ -67,8 +67,8 @@
         $('#chambres-wrapper').append(`
             <div class="chambre-row row">
                 <div class="col-lg-4 col-md-4">
-                    <div class="form-group mb-5">
-                        <label class="font-sm color-text-mutted mb-10">Categorie</label>
+                    <div class="form-group   mb-2">
+                        <label     class="form-label">Categorie</label>
                         <select name="chambres[${index}][typechambre]" class="form-control">
                             <option value="">-- Choisir catégorie --</option>
                             <option value="1">Standard</option>
@@ -80,14 +80,14 @@
                 </div>
 
                 <div class="col-lg-4 col-md-4">
-                    <div class="form-group mb-5">
-                        <label class="font-sm color-text-mutted mb-10">Capacité</label>
+                    <div class="form-group   mb-2">
+                        <label     class="form-label">Capacité</label>
                         <input type="number" name="chambres[${index}][capacite]"  class="form-control" placeholder="Capacité" required>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <div class="form-group mb-5">
-                        <label class="font-sm color-text-mutted mb-10">Statut</label>
+                    <div class="form-group   mb-2">
+                        <label     class="form-label">Statut</label>
                         <select  name="chambres[${index}][statut]" required class="form-control">
                             <option value="disponible">Disponible</option>
                             <option value="reservee">Réservée</option>
@@ -96,27 +96,27 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <div class="form-group mb-5">
-                        <label class="font-sm color-text-mutted mb-10">Prix/Jour</label>
+                    <div class="form-group   mb-2">
+                        <label     class="form-label">Prix/Jour</label>
                         <input type="number" name="chambres[${index}][prix_jour]" class="form-control"  placeholder="Prix journalier" required>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <div class="form-group mb-5">
-                        <label class="font-sm color-text-mutted mb-10">Prix/Mois</label>
+                    <div class="form-group   mb-2">
+                        <label     class="form-label">Prix/Mois</label>
                         <input type="number" name="chambres[${index}][prix_mois]" class="form-control"  placeholder="Prix mensuel" required>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <div class="form-group mb-5">
-                        <label class="font-sm color-text-mutted mb-10">Prix/Année</label>
+                    <div class="form-group   mb-2">
+                        <label     class="form-label">Prix/Année</label>
                         <input type="number" name="chambres[${index}][prix_annee]" class="form-control"  placeholder="Prix annuel" required>
                     </div>
                 </div>
 
                 <div class="col-lg-12 col-md-12">
-                    <div class="form-group mb-5">
-                        <label class="font-sm color-text-mutted mb-10">Description</label>
+                    <div class="form-group   mb-2">
+                        <label     class="form-label">Description</label>
                         <textarea name="chambres[${index}][description]"  class="form-control" id="" cols="" rows="5"></textarea>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                 <div class="row">
                     <div class="col">
                         <button type="button"  class="remove-btn btn btn-danger btn-sm float-end" >
-                            <span class="fi fi-rr-trash"></span></button>
+                            <span class="fa fa-trash"></span></button>
                     </div>
                 </div>
               </div>

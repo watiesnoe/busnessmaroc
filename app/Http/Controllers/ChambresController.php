@@ -20,13 +20,12 @@ class ChambresController extends Controller
         if ($request->ajax()) {
             $immobiliers = Immobilier::withCount('chambres'); // ajoute chambres_count
 
-            return DataTables::of($immobiliers)
-                ->editColumn('statut', fn($row) => ucfirst($row->statut))
-                ->addColumn('action', function ($row) {
-                    return '<a href="' . route('chambres.show', $row->id) . '">Voir</a>';
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+           return datatables()->of(Immobilier::withCount('chambres'))
+             ->addColumn('action', function ($row) {
+                 return '<a href="' . route('chambres.show', parameters: $row->id) . '">Voir</a>';
+             })
+    ->rawColumns(['action']) // important si tu rends du HTML
+    ->make(true);
         }
 
         return view('admin.chambres.index');

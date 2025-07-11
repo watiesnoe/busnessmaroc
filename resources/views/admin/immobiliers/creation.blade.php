@@ -10,6 +10,10 @@
         <div class="content">
           <!-- jQuery Validation (.js-validation class is initialized in js/pages/be_forms_validation.min.js which was auto compiled from _js/pages/be_forms_validation.js) -->
           <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
+            <div class="mb-3 text-end" >
+                {{-- <a href="{{ route('immobiliers.create') }}" class="btn btn-primary">Ajouter un Immeuble</a> --}}
+                <a href="{{route('immobiliers.index')}}" class="btn btn-primary">Voir la liste</a>
+            </div>
           <form class="js-validation" id="createform" data-action="{{ route('immobiliers.store') }}" method="POST" enctype="multipart/form-data">
              @csrf
             <div class="block block-rounded">
@@ -38,8 +42,8 @@
                         <input type="file" class="form-control"  name="images[]" multiple>
                     </div>
                  
-                    <div class="row text-end">
-                        <div class="col-lg-7 offset-lg-4">
+                    <div class="row ">
+                        <div class="col-12 text-end ">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
