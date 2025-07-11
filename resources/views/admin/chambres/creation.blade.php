@@ -1,9 +1,6 @@
 @extends('layouts.app')
 @section('titre')
-    Immobilier
-@endsection
-@section('page')
-    <a href="{{route('chambres.create')}}" class="btn btn-primary">Ajouter</a>
+    chambre
 @endsection
 @section('content')
   <div class="content">
@@ -11,10 +8,10 @@
           <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
             <div class="mb-3 text-end" >
                 {{-- <a href="{{ route('immobiliers.create') }}" class="btn btn-primary">Ajouter un Immeuble</a> --}}
-                <a href="{{route('immobiliers.index')}}" class="btn btn-primary">Voir la liste</a>
+                <a href="{{route('chambres.index')}}" class="btn btn-primary">Voir la liste</a>
             </div>
-          <form class="js-validation" id="createform" data-action="{{ route('immobiliers.store') }}" method="POST" enctype="multipart/form-data">
-             @csrf
+           <form id="createform" data-action="{{ route('chambres.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="block block-rounded">
               <div class="block-header block-header-default">
                 <h3 class="block-title">Validation Form</h3>
