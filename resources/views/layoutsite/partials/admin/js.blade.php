@@ -1,0 +1,1 @@
+navbare.blade.php<?php
