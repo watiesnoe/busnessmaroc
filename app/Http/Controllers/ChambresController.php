@@ -29,13 +29,13 @@ class ChambresController extends Controller
                 ->make(true);
         }
 
-        return view('admin1.chambres.index');
+        return view('admin.chambres.index');
     }
     Public function create()
     {
         // Logic to show the form for creating a new room
         $immobiliers = Immobilier::all();
-        return view('admin1.chambres.creation',compact('immobiliers'));
+        return view('admin.chambres.creation',compact('immobiliers'));
     }
     Public function store(Request $request)
     {
