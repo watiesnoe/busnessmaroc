@@ -29,7 +29,7 @@
     <script src="{{ asset('admin/js/pages/be_forms_validation.min.js') }}"></script>
 {{-- <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>--}}
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     $(document).ready(function () {
@@ -38,10 +38,10 @@
             serverSide: true,
             ajax: "{{ route('immobiliers.index') }}",
             columns: [
-    
+
                 { data: 'description', name: 'description' },
-                { data: 'typeimmeuble', name: 'typeimmeuble' },
-                { data: 'localisation', name: 'localisation' },
+                { data: 'type', name: 'type' },
+                { data: 'nom', name: 'nom' },
                 { data: 'statut', name: 'statut' },
                 { data: 'created_at', name: 'created_at' },
                  {
@@ -56,119 +56,155 @@
             }
             ]
            });
+            $('#createform').on('submit', function (e) {
+                e.preventDefault(); // empêche le rechargement
+
+                let formData = new FormData(this);
+
+                $.ajax({
+                    url: $(this).data('action'),
+                    method: 'POST',
+                    data: formData,
+                    processData: false, // ne pas transformer les données
+                    contentType: false, // ne pas définir de content-type
+                    success: function (res) {
+                        Swal.fire({
+                            icon: 'success',
+                            text: res.message
+                        });
+
+                        $('#createform')[0].reset(); // reset du formulaire
+                        $('#chambres-body').html(''); // vider les chambres
+                        window.setTimeout(function(){location.reload()},2000)
+                    },
+                    error: function (xhr) {
+                        let errors = xhr.responseJSON?.errors || {};
+                        let messages = Object.values(errors).flat().join('\n');
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur',
+                            text: messages || 'Une erreur est survenue'
+                        });
+                    }
+                });
+            });
+       
     });
     // let table = new DataTable('#immobiliers-table');
+    
 </script>
-<script>
-    let index = 1;
+{{--<script>--}}
+{{--    let index = 1;--}}
 
-    // Ajouter une ligne
-    $('#addRow').click(function () {
-        $('#chambres-wrapper').append(`
-            <div class="chambre-row row">
-                <div class="col-lg-4 col-md-4">
-                    <div class="form-group   mb-2">
-                        <label     class="form-label">Categorie</label>
-                        <select name="chambres[${index}][typechambre]" class="form-control">
-                            <option value="">-- Choisir catégorie --</option>
-                            <option value="1">Standard</option>
-                            <option value="2">Confort</option>
-                            <option value="3">VIP</option>
-                        </select>
+{{--    // Ajouter une ligne--}}
+{{--    $('#addRow').click(function () {--}}
+{{--        $('#chambres-wrapper').append(`--}}
+{{--            <div class="chambre-row row">--}}
+{{--                <div class="col-lg-4 col-md-4">--}}
+{{--                    <div class="form-group   mb-2">--}}
+{{--                        <label     class="form-label">Categorie</label>--}}
+{{--                        <select name="chambres[${index}][typechambre]" class="form-control">--}}
+{{--                            <option value="">-- Choisir catégorie --</option>--}}
+{{--                            <option value="1">Standard</option>--}}
+{{--                            <option value="2">Confort</option>--}}
+{{--                            <option value="3">VIP</option>--}}
+{{--                        </select>--}}
 
-                    </div>
-                </div>
+{{--                    </div>--}}
+{{--                </div>--}}
 
-                <div class="col-lg-4 col-md-4">
-                    <div class="form-group   mb-2">
-                        <label     class="form-label">Capacité</label>
-                        <input type="number" name="chambres[${index}][capacite]"  class="form-control" placeholder="Capacité" required>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <div class="form-group   mb-2">
-                        <label     class="form-label">Statut</label>
-                        <select  name="chambres[${index}][statut]" required class="form-control">
-                            <option value="disponible">Disponible</option>
-                            <option value="reservee">Réservée</option>
+{{--                <div class="col-lg-4 col-md-4">--}}
+{{--                    <div class="form-group   mb-2">--}}
+{{--                        <label     class="form-label">Capacité</label>--}}
+{{--                        <input type="number" name="chambres[${index}][capacite]"  class="form-control" placeholder="Capacité" required>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4 col-md-4">--}}
+{{--                    <div class="form-group   mb-2">--}}
+{{--                        <label     class="form-label">Statut</label>--}}
+{{--                        <select  name="chambres[${index}][statut]" required class="form-control">--}}
+{{--                            <option value="disponible">Disponible</option>--}}
+{{--                            <option value="reservee">Réservée</option>--}}
 
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <div class="form-group   mb-2">
-                        <label     class="form-label">Prix/Jour</label>
-                        <input type="number" name="chambres[${index}][prix_jour]" class="form-control"  placeholder="Prix journalier" required>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <div class="form-group   mb-2">
-                        <label     class="form-label">Prix/Mois</label>
-                        <input type="number" name="chambres[${index}][prix_mois]" class="form-control"  placeholder="Prix mensuel" required>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4">
-                    <div class="form-group   mb-2">
-                        <label     class="form-label">Prix/Année</label>
-                        <input type="number" name="chambres[${index}][prix_annee]" class="form-control"  placeholder="Prix annuel" required>
-                    </div>
-                </div>
+{{--                        </select>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4 col-md-4">--}}
+{{--                    <div class="form-group   mb-2">--}}
+{{--                        <label     class="form-label">Prix/Jour</label>--}}
+{{--                        <input type="number" name="chambres[${index}][prix_jour]" class="form-control"  placeholder="Prix journalier" required>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4 col-md-4">--}}
+{{--                    <div class="form-group   mb-2">--}}
+{{--                        <label     class="form-label">Prix/Mois</label>--}}
+{{--                        <input type="number" name="chambres[${index}][prix_mois]" class="form-control"  placeholder="Prix mensuel" required>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4 col-md-4">--}}
+{{--                    <div class="form-group   mb-2">--}}
+{{--                        <label     class="form-label">Prix/Année</label>--}}
+{{--                        <input type="number" name="chambres[${index}][prix_annee]" class="form-control"  placeholder="Prix annuel" required>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-                <div class="col-lg-12 col-md-12">
-                    <div class="form-group   mb-2">
-                        <label     class="form-label">Description</label>
-                        <textarea name="chambres[${index}][description]"  class="form-control" id="" cols="" rows="5"></textarea>
-                    </div>
-                </div>
+{{--                <div class="col-lg-12 col-md-12">--}}
+{{--                    <div class="form-group   mb-2">--}}
+{{--                        <label     class="form-label">Description</label>--}}
+{{--                        <textarea name="chambres[${index}][description]"  class="form-control" id="" cols="" rows="5"></textarea>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
 
-                <div class="row">
-                    <div class="col">
-                        <button type="button"  class="remove-btn btn btn-danger btn-sm float-end" >
-                            <span class="fa fa-trash"></span></button>
-                    </div>
-                </div>
-              </div>
-        `);
-        index++;
-    });
+{{--                <div class="row">--}}
+{{--                    <div class="col">--}}
+{{--                        <button type="button"  class="remove-btn btn btn-danger btn-sm float-end" >--}}
+{{--                            <span class="fa fa-trash"></span></button>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--              </div>--}}
+{{--        `);--}}
+{{--        index++;--}}
+{{--    });--}}
 
-    // Supprimer une ligne
-    $(document).on('click', '.remove-btn', function () {
-        if(index>1){
-            $(this).parent().parent().parent().remove();
-            index--;
-        }
-    });
+{{--    // Supprimer une ligne--}}
+{{--    $(document).on('click', '.remove-btn', function () {--}}
+{{--        if(index>1){--}}
+{{--            $(this).parent().parent().parent().remove();--}}
+{{--            index--;--}}
+{{--        }--}}
+{{--    });--}}
 
-    // Soumission AJAX
-    $('#createform').submit(function (e) {
-        e.preventDefault();
-        let formData = new FormData(this);
-        $.ajax({
-            url: $(this).data('action'),
-            method: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (res) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Succès',
-                    text: res.message,
-                    showConfirmButton: false
-                })
-                $('#createform')[0].reset();
-                window.setTimeout(function(){location.reload()},2000)
-            },
-            error: function(err) {
-                // console.error(err);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Erreur',
-                    text: 'Erreur lors de l\'enregistrement'
-                });
-            }
-        });
-        window.setTimeout(function(){location.reload()},1000)
-    });
-</script>
+{{--    // Soumission AJAX--}}
+{{--    $('#createform').submit(function (e) {--}}
+{{--        e.preventDefault();--}}
+{{--        let formData = new FormData(this);--}}
+{{--        $.ajax({--}}
+{{--            url: $(this).data('action'),--}}
+{{--            method: 'POST',--}}
+{{--            data: formData,--}}
+{{--            processData: false,--}}
+{{--            contentType: false,--}}
+{{--            success: function (res) {--}}
+{{--                Swal.fire({--}}
+{{--                    icon: 'success',--}}
+{{--                    title: 'Succès',--}}
+{{--                    text: res.message,--}}
+{{--                    showConfirmButton: false--}}
+{{--                })--}}
+{{--                $('#createform')[0].reset();--}}
+{{--                // window.setTimeout(function(){location.reload()},2000)--}}
+{{--            },--}}
+{{--            error: function(err) {--}}
+{{--                // console.error(err);--}}
+{{--                Swal.fire({--}}
+{{--                    icon: 'error',--}}
+{{--                    title: 'Erreur',--}}
+{{--                    text: 'Erreur lors de l\'enregistrement'--}}
+{{--                });--}}
+{{--            }--}}
+{{--        });--}}
+{{--        window.setTimeout(function(){location.reload()},1000)--}}
+{{--    });--}}
+{{--</script>--}}
+

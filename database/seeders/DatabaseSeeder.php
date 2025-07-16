@@ -2,10 +2,15 @@
 
 namespace Database\Seeders;
 
-use App\Models\Image;
+use App\Models\Category;
+use App\Models\Chambre;
+use App\Models\Contact;
+use App\Models\Favori;
 use App\Models\Immobilier;
+use App\Models\Photo;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Vue;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,9 +28,19 @@ class DatabaseSeeder extends Seeder
             'email' => 'siabaneotraore@gmail.com',
             'password' => Hash::make('watiesnoe123'),
         ]);
-        Immobilier::factory()
-            ->count(10)
-            ->has(Image::factory()->count(3)) // chaque immobilier aura 3 images
-            ->create();
+//        Immobilier::factory()
+//            ->count(10)
+//            ->has(Image::factory()->count(3)) // chaque immobilier aura 3 images
+//            ->create();
+        $this->call(CategorieSeer::class);
+
+        // Immobilier::factory(20)->create()->each(function ($bien) {
+        //     Chambre::factory(rand(1, 3))->create(['immobilier_id' => $bien->id]);
+        //     Photo::factory(3)->create(['immobilier_id' => $bien->id]);
+        //     Contact::factory(2)->create(['immobilier_id' => $bien->id]);
+        //     Vue::factory(rand(2, 6))->create(['immobilier_id' => $bien->id]);
+        // });
+
+        // Favori::factory(10)->create();
     }
 }

@@ -18,52 +18,46 @@
             </div>
             <div class="block-content block-content-full overflow-x-auto">
                 <!-- DataTables init on table by adding .js-dataTable-buttons class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-                <table id="chambreFormTable" class="table table-bordered table-striped table-vcenter ">
+                <table class="table table-bordered" id="chambres-table">
                     <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Type Immeuble</th>
-                            <th>Localisation</th>
-                            <th>Statut</th>
-                            <th>Nombre de chambres</th>
-                            <th width="15%" >Action</th>
-                        </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Capacité</th>
+                        <th>Prix Jour</th>
+                        <th>Statut</th>
+                        <th>Bien</th>
+                        <th>Catégorie</th>
+                        <th>Ville</th>
+                        <th>Action</th>
+                    </tr>
                     </thead>
                 </table>
             </div>
         </div>
         <!-- END Dynamic Table with Export Buttons -->
     </div>
-    
+
 
 @endsection
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $('#chambreFormTable').DataTable({
+            $('#chambres-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route("chambres.index") }}',
-                            columns: [
-                    { data: 'description', name: 'description' },
-                    { data: 'typeimmeuble', name: 'typeimmeuble' },
-                    { data: 'localisation', name: 'localisation' },
+                ajax: "{{ route('chambres.index') }}",
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'type', name: 'type' },
+                    { data: 'capacite', name: 'capacite' },
+                    { data: 'prix_jour', name: 'prix_jour' },
                     { data: 'statut', name: 'statut' },
-                    { data: 'chambres_count', name: 'chambres_count', searchable: false, orderable: false },
-                    {
-                        data: 'id',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        render: function (data, type, row) {
-                            return `
-                                <a href="#"><span class="btn-edit btn btn-primary btn-sm" data-id="${data}"><i class="fa fa-pencil-alt"></i></span></a>
-                                <a href="#"><span class="btn-delete btn btn-danger btn-sm" data-id="${data}"><i class="fa fa-trash"></i></span></a>
-                            `;
-                        }
-                    }
+                    { data: 'immobilier', name: 'immobilier', orderable: false },
+                    { data: 'categorie', name: 'categorie', orderable: false },
+                    { data: 'ville', name: 'ville', orderable: false },
+                    { data: 'action', name: 'action', orderable: false, searchable: false }
                 ]
-               
             });
         });
     </script>

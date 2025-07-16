@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-Route::get('/', [ SitedashboardController::class, 'index']);
+Route::get('/', [ SitedashboardController::class, 'index'])->name('home.index');
+Route::get('/location', [SitedashboardController::class, 'location'])->name('location');
+Route::post('/location/filter', [SitedashboardController::class, 'filter'])->name('location.filter');
 //Route::get('/registre', [RegisteredUserController::class, 'create'])->name('registre.create');
 Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

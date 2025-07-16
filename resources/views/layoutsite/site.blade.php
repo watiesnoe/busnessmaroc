@@ -10,6 +10,7 @@
     <meta name="msapplication-config" content="browserconfig.xml">
     <meta name="description" content="Index page">
     <meta name="keywords" content="index, page">
+     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('asset/imgs/template/favicon.svg') }}">
     <link href="{{ asset('asset/css/style.css') }}" rel="stylesheet">
@@ -26,5 +27,6 @@
      @include('layoutsite.partials.dashfooter')
     </footer>
    @include('layoutsite.partials.dashjavascript')
+   @yield('scripts')
   </body>
 </html>

@@ -18,20 +18,41 @@
             </div>
             <div class="block-content block-content-full overflow-x-auto">
                 <!-- DataTables init on table by adding .js-dataTable-buttons class, functionality is initialized in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
-                <table id="immobiliers-table" class="table table-bordered table-striped table-vcenter ">
-                        <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Type</th>
-                            <th>Localisation</th>
-                            <th>Statut</th>
-                            <th>Date de création</th>
-                            <th width='10%'>Action</th>
-                        </tr>
+                <table class="table table-bordered" id="immobilier-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Ville</th>
+                        <th>Prix</th>
+                        <th>Catégorie</th>
+                        <th>Action</th>
+                    </tr>
                     </thead>
                 </table>
+
             </div>
         </div>
         <!-- END Dynamic Table with Export Buttons -->
     </div>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#immobilier-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('immobiliers.index') }}",
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'titre', name: 'titre' },
+                    { data: 'ville', name: 'ville' },
+                    { data: 'prix', name: 'prix' },
+                    { data: 'categorie', name: 'categorie', orderable: false, searchable: false },
+                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                ]
+            });
+        });
+    </script>
+
 @endsection

@@ -11,21 +11,42 @@ class Immobilier extends Model
     protected $table = 'immobiliers'; // Specify the table name if it's not the plural of the model name
 
     protected $fillable = [
-        'description', // Example field, replace with actual fields
-        'typeimmeuble', // Example field, replace with actual fields
-        'localisation', // Example field, replace with actual fields
-        // Add other fields as necessary
+        'user_id', 'category_id', 'titre', 'description', 'ville', 'quartier',
+        'surface', 'prix', 'etage', 'en_vedette', 'statut'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function chambres()
     {
-        return $this->hasMany(Chambre::class, 'immobilier_id');
+        return $this->hasMany(Chambre::class);
     }
-    public function images()
+
+    public function photos()
     {
-        return $this->hasMany(Image::class, 'immobilier_id');
+        return $this->hasMany(Photo::class);
     }
-    public function image()
+
+    public function favoris()
     {
-        return $this->belongsTo(Image::class, 'immobilier_id');
+        return $this->hasMany(Favori::class);
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
+    }
+
+    public function vues()
+    {
+        return $this->hasMany(Vue::class);
     }
 }

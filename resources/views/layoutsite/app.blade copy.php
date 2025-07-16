@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -13,6 +13,20 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <style>
+                .main-menu li a {
+                    color: #333;
+                    text-decoration: none;
+                    padding: 10px;
+                    display: inline-block;
+                }
+
+                .main-menu li.active a {
+                    color: #fff;
+                    background-color: #007bff;
+                    border-radius: 4px;
+                }
+            </style>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">

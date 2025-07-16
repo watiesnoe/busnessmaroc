@@ -276,6 +276,42 @@
         </div>
 
     </section>
+    <section class="section-box mt-50">
+        <div class="section-box wow animate__animated animate__fadeIn">
+            <div class="container">
+                <div class="text-start">
+                    <h2 class="section-title mb-10 wow animate__animated animate__fadeInUp text-center" >Nos top annonces à la une</h2>
+                    <p class="font-lg color-text-paragraph-2 wow animate__animated animate__fadeInUp">Search and connect with the right candidates faster.</p>
+                </div>
+                <div class="box-swiper mt-50">
+                    <div class="swiper-container swiper-group-6 mh-none swiper">
+                        <div class="swiper-wrapper pb-70 pt-5">
+                            @foreach($annoncesVedette as $annonce)
+                                <div class="swiper-slide hover-up">
+                                    <div class="card-grid-5 card-category hover-up" style="background-image: url('{{ asset('storage/' . ($annonce->photos->first()->url ?? 'default.jpg')) }}')">
+                                        <a href="{{ route('immobiliers.show', $annonce->id) }}">
+                                            <div class="box-cover-img">
+                                                <div class="content-bottom">
+                                                    <h6 class="color-white mb-5">{{ $annonce->titre }}</h6>
+                                                    <p class="color-white font-xs">
+                                                        <span>{{ number_format($annonce->prix, 0, ',', ' ') }} MAD</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                           
+        
+                        </div>
+                    </div>
+                    <div class="swiper-button-next swiper-button-next-1"></div>
+                    <div class="swiper-button-prev swiper-button-prev-1"></div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="section-box mt-30">
         <div class="container">
             <div class="text-start">
@@ -297,836 +333,72 @@
                     <div class="tab-pane fade show active" id="tab-job-1" role="tabpanel" aria-labelledby="tab-job-1">
                         <div class="row">
                             @foreach($immobiliers as $immobilier)
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+
+                                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
                                     <div class="card-grid-2 grid-bd-16 hover-up">
-                                        <div class="card-grid-2-image"><span class="lbl-hot bg-green"><span>Freelancer</span></span>
-                                            <div class="image-box">
-                                                <figure><img src="{{asset('storage/'.$immobilier->images[0]->typeimage)}}" alt="jobBox"></figure>
-                                            </div>
-                                        </div>
-                                        <div class="card-block-info">
-                                            <h5><a href="job-details.html">React Native Web Developer</a></h5>
-                                            <div class="mt-5"><span class="card-location mr-15">New York, US</span><span class="card-time">3 mins ago</span></div>
-                                            <div class="card-2-bottom mt-20">
-                                                <div class="row">
-                                                    <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Figma</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Adobe XD</a>
-                                                    </div>
-                                                    <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$90 - $120</span><span class="text-muted">/Hour</span></div>
+                                        @if(strtolower($immobilier->category->nom)!=='chambre')
+                                            <div class="card-grid-2-image"><span class="lbl-hot bg-green">
+                                                <span>{{$immobilier->category->nom}}</span></span>
+                                                <div class="image-box">
+                                                    <figure><img src="{{asset('storage/'.$immobilier->photos[0]->url)}}" height="300" alt="jobBox"></figure>
                                                 </div>
                                             </div>
-                                            <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                        </div>
+                                            <div class="card-block-info">
+                                                <h5><a href="job-details.html">{{ $immobilier->titre }}</a></h5>
+                                                <div class="mt-5"><span class="card-location mr-15">{{ $immobilier->ville.'/'. $immobilier->quartier }}</span><span class="card-time">3 mins ago</span></div>
+                                                <div class="card-2-bottom mt-20">
+                                                    <div class="row">
+                                                        <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Figma</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Adobe XD</a>
+                                                        </div>
+                                                        @if($immobilier->chambres->isNotEmpty())
+
+                                                             <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">{{ $immobilier->prix}}</span><span class="text-muted">/Mois</span></div>
+                                                        @else
+                                                            Aucune chambre
+                                                        @endif
+
+                                                    </div>
+                                                </div>
+                                                <p class="font-sm color-text-paragraph mt-20">{{ $immobilier->description }}</p>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
 
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="tab-job-2" role="tabpanel" aria-labelledby="tab-job-2">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot bg-green"><span>Freelancer</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img1.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">React Native Web Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">New York, US</span><span class="card-time">3 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Figma</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Adobe XD</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$90 - $120</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img2.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Digital Marketing Manager</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">6 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">SEO</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Word</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img3.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Web Designer/Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">9 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">HTML</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">CSS</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">JS</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$120 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img4.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Full Stack Engineer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">13 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">NodeJS</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">MongoDB</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img5.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Frontend Developer Full time</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">16 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Bootstrap</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img6.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">React Native Mobile Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">30 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">React</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">NextJS                        </a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="tab-job-3" role="tabpanel" aria-labelledby="tab-job-3">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img3.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Web Designer/Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">9 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">HTML</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">CSS</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">JS</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$120 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img4.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Full Stack Engineer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">13 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">NodeJS</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">MongoDB</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img5.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Frontend Developer Full time</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">16 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Bootstrap</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img6.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">React Native Mobile Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">30 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">React</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">NextJS      </a>
-                                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12"></div>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot bg-green"><span>Freelancer</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img1.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">React Native Web Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">New York, US</span><span class="card-time">3 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Figma</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Adobe XD</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$90 - $120</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img2.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Digital Marketing Manager</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">6 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">SEO</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Word                  </a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="tab-job-4" role="tabpanel" aria-labelledby="tab-job-4">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img3.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Web Designer/Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">9 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">HTML</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">CSS</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">JS</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$120 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img4.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Full Stack Engineer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">13 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">NodeJS</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">MongoDB</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot bg-green"><span>Freelancer</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img1.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">React Native Web Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">New York, US</span><span class="card-time">3 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Figma</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Adobe XD</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$90 - $120</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img2.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Digital Marketing Manager</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">6 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">SEO</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Word</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img5.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Frontend Developer Full time</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">16 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Bootstrap</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img6.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">React Native Mobile Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">30 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">React</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">NextJS                        </a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="tab-job-5" role="tabpanel" aria-labelledby="tab-job-5">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img3.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Web Designer/Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">9 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">HTML</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">CSS</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">JS</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$120 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot bg-green"><span>Freelancer</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img1.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">React Native Web Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">New York, US</span><span class="card-time">3 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Figma</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Adobe XD</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$90 - $120</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img2.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Digital Marketing Manager</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">6 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">SEO</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Word</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img4.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Full Stack Engineer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">13 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">NodeJS</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">MongoDB</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img5.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Frontend Developer Full time</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">16 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Bootstrap</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img6.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">React Native Mobile Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">30 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">React</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">NextJS                        </a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="tab-job-6" role="tabpanel" aria-labelledby="tab-job-6">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img4.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Full Stack Engineer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">13 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">NodeJS</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">MongoDB</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot bg-green"><span>Freelancer</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img1.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">React Native Web Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">New York, US</span><span class="card-time">3 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Figma</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Adobe XD</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$90 - $120</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img2.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Digital Marketing Manager</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">6 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">SEO</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Word</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img3.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Web Designer/Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">9 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">HTML</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">CSS</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">JS</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$120 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img5.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">Frontend Developer Full time</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">16 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">Bootstrap</a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                <div class="card-grid-2 grid-bd-16 hover-up">
-                                    <div class="card-grid-2-image"><span class="lbl-hot"><span>Full time</span></span>
-                                        <div class="image-box">
-                                            <figure><img src="assets/imgs/page/homepage2/img6.png" alt="jobBox"></figure>
-                                        </div>
-                                    </div>
-                                    <div class="card-block-info">
-                                        <h5><a href="job-details.html">React Native Mobile Developer</a></h5>
-                                        <div class="mt-5"><span class="card-location mr-15">Chicago, US</span><span class="card-time">30 mins ago</span></div>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">React</a><a class="btn btn-tags-sm mr-5" href="jobs-grid.html">NextJS                        </a>
-                                                </div>
-                                                <div class="col-xl-5 col-md-5 text-lg-end"><span class="card-text-price">$80 - $150</span><span class="text-muted">/Hour</span></div>
-                                            </div>
-                                        </div>
-                                        <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo repellendus pariatur</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
     </section>
-    <section class="section-box mt-50">
-        <div class="section-box wow animate__animated animate__fadeIn">
-            <div class="container">
-                <div class="text-start">
-                    <h2 class="section-title mb-10 wow animate__animated animate__fadeInUp">Popular category</h2>
-                    <p class="font-lg color-text-paragraph-2 wow animate__animated animate__fadeInUp">Search and connect with the right candidates faster.</p>
-                </div>
-                <div class="box-swiper mt-50">
-                    <div class="swiper-container swiper-group-6 mh-none swiper">
-                        <div class="swiper-wrapper pb-70 pt-5">
-                            <div class="swiper-slide hover-up">
-                                <div class="card-grid-5 card-category hover-up" style="background-image: url('assets/imgs/page/homepage2/img-big1.png')"><a href="jobs-grid.html">
-                                        <div class="box-cover-img">
-                                            <div class="content-bottom">
-                                                <h6 class="color-white mb-5">Marketing &amp; Sales</h6>
-                                                <p class="color-white font-xs"><span>123</span><span>  Jobs Available</span></p>
-                                            </div>
-                                        </div></a></div>
-                            </div>
-                            <div class="swiper-slide hover-up">
-                                <div class="card-grid-5 card-category hover-up" style="background-image: url('assets/imgs/page/homepage2/img-big2.png')"><a href="jobs-grid.html">
-                                        <div class="box-cover-img">
-                                            <div class="content-bottom">
-                                                <h6 class="color-white mb-5">Human resource</h6>
-                                                <p class="color-white font-xs"><span>154</span><span>  Jobs Available</span></p>
-                                            </div>
-                                        </div></a></div>
-                            </div>
-                            <div class="swiper-slide hover-up">
-                                <div class="card-grid-5 card-category hover-up" style="background-image: url('assets/imgs/page/homepage2/img-big3.png')"><a href="jobs-grid.html">
-                                        <div class="box-cover-img">
-                                            <div class="content-bottom">
-                                                <h6 class="color-white mb-5">Finance</h6>
-                                                <p class="color-white font-xs"><span>546</span><span>  Jobs Available</span></p>
-                                            </div>
-                                        </div></a></div>
-                            </div>
-                            <div class="swiper-slide hover-up">
-                                <div class="card-grid-5 card-category hover-up" style="background-image: url('assets/imgs/page/homepage2/img-big1.png')"><a href="jobs-grid.html">
-                                        <div class="box-cover-img">
-                                            <div class="content-bottom">
-                                                <h6 class="color-white mb-5">Market Research</h6>
-                                                <p class="color-white font-xs"><span>24</span><span>  Jobs Available</span></p>
-                                            </div>
-                                        </div></a></div>
-                            </div>
-                            <div class="swiper-slide hover-up">
-                                <div class="card-grid-5 card-category hover-up" style="background-image: url('assets/imgs/page/homepage2/img-big2.png')"><a href="jobs-grid.html">
-                                        <div class="box-cover-img">
-                                            <div class="content-bottom">
-                                                <h6 class="color-white mb-5">Furniture design</h6>
-                                                <p class="color-white font-xs"><span>54</span><span>  Jobs Available</span></p>
-                                            </div>
-                                        </div></a></div>
-                            </div>
-                            <div class="swiper-slide hover-up">
-                                <div class="card-grid-5 card-category hover-up" style="background-image: url('assets/imgs/page/homepage2/img-big3.png')"><a href="jobs-grid.html">
-                                        <div class="box-cover-img">
-                                            <div class="content-bottom">
-                                                <h6 class="color-white mb-5">Content writer</h6>
-                                                <p class="color-white font-xs"><span>87</span><span>  Jobs Available</span></p>
-                                            </div>
-                                        </div></a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-button-next swiper-button-next-1"></div>
-                    <div class="swiper-button-prev swiper-button-prev-1"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+
     <section class="section-box mt-50">
         <div class="container">
             <div class="text-start">
-                <h2 class="section-title mb-10 wow animate__animated animate__fadeInUp">Jobs by Location</h2>
+                <h2 class="section-title mb-10 wow animate__animated animate__fadeInUp">Location par Chambre</h2>
                 <p class="font-lg color-text-paragraph-2 wow animate__animated animate__fadeInUp">Find your favourite jobs and get the benefits of yourself</p>
             </div>
             <div class="container">
                 <div class="row mt-50">
-                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-12 col-12">
-                        <div class="card-image-top hover-up"><a href="jobs-grid.html">
-                                <div class="image" style="background-image: url(assets/imgs/page/homepage1/location1.png);"><span class="lbl-hot">Hot</span></div></a>
-                            <div class="informations"><a href="jobs-grid.html">
-                                    <h5>Paris, France</h5></a>
-                                <div class="row">
-                                    <div class="col-lg-6 col-6"><span class="text-14 color-text-paragraph-2">5 Vacancy</span></div>
-                                    <div class="col-lg-6 col-6 text-end"><span class="color-text-paragraph-2 text-14">120 companies</span></div>
+                    @foreach($immobiliers as $immobi)
+                        @if(strtolower($immobi->category->nom)==='chambre')
+                            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-12 col-12">
+                                <div class="card-image-top hover-up"><a href="jobs-grid.html">
+                                        <div class="image" style="background-image: url('{{ asset('storage/' . ($immobi->photos->first()->url ?? 'default.jpg')) }}')"><span class="lbl-hot">Hot</span></div></a>
+                                    <div class="informations"><a href="jobs-grid.html">
+                                            <h5>Paris, France</h5></a>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-6"><span class="text-14 color-text-paragraph-2">5 Vacancy</span></div>
+                                            <div class="col-lg-6 col-6 text-end"><span class="color-text-paragraph-2 text-14">120 companies</span></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-7 col-sm-12 col-12">
-                        <div class="card-image-top hover-up"><a href="jobs-grid.html">
-                                <div class="image" style="background-image: url(assets/imgs/page/homepage1/location2.png);"><span class="lbl-hot">Trending</span></div></a>
-                            <div class="informations"><a href="jobs-grid.html">
-                                    <h5>London, England</h5></a>
-                                <div class="row">
-                                    <div class="col-lg-6 col-6"><span class="text-14 color-text-paragraph-2">7 Vacancy</span></div>
-                                    <div class="col-lg-6 col-6 text-end"><span class="color-text-paragraph-2 text-14">68 companies</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-lg-5 col-md-7 col-sm-12 col-12">
-                        <div class="card-image-top hover-up"><a href="jobs-grid.html">
-                                <div class="image" style="background-image: url(assets/imgs/page/homepage1/location3.png);"><span class="lbl-hot">Hot</span></div></a>
-                            <div class="informations"><a href="jobs-grid.html">
-                                    <h5>New York, USA</h5></a>
-                                <div class="row">
-                                    <div class="col-lg-6 col-6"><span class="text-14 color-text-paragraph-2">9 Vacancy</span></div>
-                                    <div class="col-lg-6 col-6 text-end"><span class="color-text-paragraph-2 text-14">80 companies</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12">
-                        <div class="card-image-top hover-up"><a href="jobs-grid.html">
-                                <div class="image" style="background-image: url(assets/imgs/page/homepage1/location4.png);"></div></a>
-                            <div class="informations"><a href="jobs-grid.html">
-                                    <h5>Amsterdam, Holland</h5></a>
-                                <div class="row">
-                                    <div class="col-lg-6 col-6"><span class="text-14 color-text-paragraph-2">16 Vacancy</span></div>
-                                    <div class="col-lg-6 col-6 text-end"><span class="color-text-paragraph-2 text-14">86 companies</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-lg-5 col-md-7 col-sm-12 col-12">
-                        <div class="card-image-top hover-up"><a href="jobs-grid.html">
-                                <div class="image" style="background-image: url(assets/imgs/page/homepage1/location5.png);"></div></a>
-                            <div class="informations"><a href="jobs-grid.html">
-                                    <h5>Copenhagen, Denmark</h5></a>
-                                <div class="row">
-                                    <div class="col-lg-6 col-6"><span class="text-14 color-text-paragraph-2">39 Vacancy</span></div>
-                                    <div class="col-lg-6 col-6 text-end"><span class="color-text-paragraph-2 text-14">186 companies</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-5 col-sm-12 col-12">
-                        <div class="card-image-top hover-up"><a href="jobs-grid.html">
-                                <div class="image" style="background-image: url(assets/imgs/page/homepage1/location6.png);"></div></a>
-                            <div class="informations"><a href="jobs-grid.html">
-                                    <h5>Berlin, Germany</h5></a>
-                                <div class="row">
-                                    <div class="col-lg-6 col-6"><span class="text-14 color-text-paragraph-2">15 Vacancy</span></div>
-                                    <div class="col-lg-6 col-6 text-end"><span class="color-text-paragraph-2 text-14">632 companies</span></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        @endif
+                    @endforeach
+                    
                 </div>
             </div>
         </div>

@@ -11,8 +11,10 @@
     <meta name="description" content="Index page">
     <meta name="keywords" content="index, page">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('admin1/imgs/template/favicon.svg')}}">
-    <link href="{{asset('admin1/css/style.css?version=4.1')}}" rel="stylesheet">
+    <link href="{{asset('admin1/css/style.css')}}" rel="stylesheet">
+   
     <title>Jobbox Dashboard - Job Portal HTML Template </title>
 </head>
 <body>

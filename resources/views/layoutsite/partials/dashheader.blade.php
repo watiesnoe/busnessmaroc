@@ -57,20 +57,30 @@
             <div class="header-logo"><a class="d-flex" href="index.html"><img alt="jobBox" src="assets/imgs/template/jobhub-logo.svg"></a></div>
           </div>
           <div class="header-nav">
-            <nav class="nav-main-menu">
-              <ul class="main-menu">
-                <li class=""><a class="active" href="index.html">Accueil</a></li>
-                <li class=""><a href="jobs-grid.html">Location</a>
+            <nav class="nav-main-menu"> 
+                <ul class="main-menu"> 
+                    <!-- Accueil -->
+                    <li class="active {{ request()->routeIs('home.index') ? 'active' : '' }}">
+                        <a href="{{ url('/') }}">Accueil</a>
+                    </li>
 
-                </li>
-                <li class=""><a href="companies-grid.html">Offre</a>
+                    <!-- Location (nom de route = location) -->
+                    <li class="{{ request()->routeIs('location') ? 'active' : '' }}">
+                        <a href="{{ route('location') }}">Location</a>
+                    </li>
 
-                </li>
-                  <li class=""><a href="jobs-grid.html">Actaalités</a>
+                    <!-- Offre (page statique .html dans public/) -->
+                    <li class="active {{ request()->is('companies-grid.html') ? 'active' : '' }}">
+                        <a href="{{ url('companies-grid.html') }}">Offre</a>
+                    </li>
 
-                  </li>
-              </ul>
+                    <!-- Actualités (page statique .html dans public/) -->
+                    <li class="{{ request()->is('jobs-grid.html') ? 'active' : '' }}">
+                        <a href="{{ url('jobs-grid.html') }}">Actualités</a>
+                    </li>
+                </ul>
             </nav>
+
             <div class="burger-icon burger-icon-white"><span class="burger-icon-top"></span><span class="burger-icon-mid"></span><span class="burger-icon-bottom"></span></div>
           </div>
           <div class="header-right">

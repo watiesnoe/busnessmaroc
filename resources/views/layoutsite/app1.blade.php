@@ -672,3 +672,104 @@
 <script src="{{asset('admin1/js/main.js?v=4.1')}}"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Location immobilière</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        .container { display: flex; }
+        .sidebar { width: 250px; padding: 20px; background: #f0f0f0; }
+        .results { flex: 1; padding: 20px; }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <form id="filterForm">
+            <h4>Filtres</h4>
+
+            <label>Catégorie</label>
+            <select name="category">
+                <option value="">Toutes</option>
+                @foreach($categories as $cat)
+                    <option value="{{ $cat->id }}">{{ $cat->nom }}</option>
+                @endforeach
+            </select>
+
+            <label>Ville</label>
+            <select name="city">
+                <option value="">Toutes</option>
+                @foreach($cities as $city)
+                    <option value="{{ $city }}">{{ $city }}</option>
+                @endforeach
+            </select>
+
+            <label>Prix min</label>
+            <input type="number" name="min_price">
+
+            <label>Prix max</label>
+            <input type="number" name="max_price">
+
+            <button type="submit">Rechercher</button>
+        </form>
+    </div>
+
+    <!-- Résultats -->
+    <div class="results" id="immobilier-data">
+        @include('layoutsite.partials.resultats', ['immobiliers' => $immobiliers])
+    </div>
+</div>
+
+<script>
+$(document).ready(function () {
+    $.ajaxSetup({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+    });
+
+    $('#filterForm').on('submit', function (e) {
+        e.preventDefault();
+        fetchData();
+    });
+
+    // Optionnel : déclenche automatique quand on change un champ
+    $('#filterForm select, #filterForm input').on('change', function () {
+        fetchData();
+    });
+
+    function fetchData() {
+        $.ajax({
+            url: "{{ route('location.filter') }}",
+            method: 'POST',
+            data: $('#filterForm').serialize(),
+            beforeSend: function () {
+                $('#immobilier-data').html('<p>Chargement...</p>');
+            },
+            success: function (data) {
+                $('#immobilier-data').html(data);
+            },
+            error: function (xhr) {
+                $('#immobilier-data').html('<p>Erreur lors du chargement.</p>');
+                console.log(xhr.responseText);
+            }
+        });
+    }
+});
+</script>
+
+</body>
+</html>

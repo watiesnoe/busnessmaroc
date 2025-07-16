@@ -6,7 +6,7 @@
     <a href="{{route('immobiliers.index')}}" class="btn btn-primary">Liste</a>
 @endsection
 @section('content')
- 
+
         <div class="content">
           <!-- jQuery Validation (.js-validation class is initialized in js/pages/be_forms_validation.min.js which was auto compiled from _js/pages/be_forms_validation.js) -->
           <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
@@ -16,81 +16,72 @@
             </div>
           <form class="js-validation" id="createform" data-action="{{ route('immobiliers.store') }}" method="POST" enctype="multipart/form-data">
              @csrf
-            <div class="block block-rounded">
-              <div class="block-header block-header-default">
-                <h3 class="block-title">Validation Form</h3>
-   
-              </div>
-              <div class="block-content block-content-full">
-                <!-- Regular -->
-            
-                <div class="row items-push">
-                    <div class="mb-4 col-6">
-                        <label class="form-label">Description <span class="text-danger">*</span> </label>
-                        <input type="text" class="form-control" name="description" placeholder="Description">
-                    </div>
-                    <div class="mb-4 col-6">
-                        <label    class="form-label">Type   appartement <span class="text-danger">*</span></label>
-                        <input type="text"  class="form-control" name="typeimmeuble" placeholder="Type">
-                    </div>
-                    <div class="mb-4 col-6">
-                            <label    class="form-label">Localisation</label>
-                            <input  type="text"  class="form-control" name="localisation" placeholder="Localisation">
-                    </div>
-                    <div class="mb-4 col-6">
-                        <label    class="form-label">Album</label>
-                        <input type="file" class="form-control"  name="images[]" multiple>
-                    </div>
-                 
-                    <div class="row ">
-                        <div class="col-12 text-end ">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                </div>
-             
-              </div>
-            </div>
+              @include('admin.immobiliers.forme')
           </form>
           <!-- jQuery Validation -->
 
           <!-- Terms Modal -->
-    
+
           <!-- END Terms Modal -->
         </div>
 @endsection
+
 @section('scripts')
-
     <script>
-        $('#createform').submit(function(e) {
-            e.preventDefault();
+        $(document).ready(function () {
+            let index = 1;
 
-            let formData = new FormData(this);
-            $.ajax({
-                url: "{{ route('immobiliers.store') }}",
-                method: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(res) {
-                    // console.log('Success:', res);
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Succès',
-                        text: res.message,
-                        timer: 2000,
-                        showConfirmButton: false
-                    });
-                    $('#immobilierForm')[0].reset();
-                },
-                error: function(err) {
-                    // console.error(err);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Erreur',
-                        text: 'Erreur lors de l\'enregistrement'
-                    });
-                }
+            $('#addChambre').on('click', function () {
+                $('#chambres-body').append(`
+                    <tr>
+                        <td>
+                            <select name="chambres[${index}][type]" class="form-control" required>
+                                <option value="">-- Sélectionner --</option>
+                                <option value="chambre_simple">Chambre simple</option>
+                                <option value="chambre_double">Chambre double</option>
+                                <option value="studio">Studio</option>
+                                <option value="suite">Suite</option>
+                                <option value="chambre_partagee">Chambre partagée</option>
+                                <option value="dortoir">Dortoir</option>
+                                <option value="chambre_deluxe">Chambre deluxe</option>
+                                <option value="chambre_familiale">Chambre familiale</option>
+                                <option value="appartement">Appartement</option>
+                                <option value="bungalow">Bungalow</option>
+                                <option value="villa">Villa</option>
+                                <option value="mezzanine">Chambre mezzanine</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" name="chambres[${index}][capacite]" class="form-control" required>
+                        </td>
+                        <td>
+                            <input type="number" name="chambres[${index}][prix_jour]" class="form-control mb-1" placeholder="Jour">
+                            <input type="number" name="chambres[${index}][prix_mois]" class="form-control mb-1" placeholder="Mois">
+                            <input type="number" name="chambres[${index}][prix_annee]" class="form-control" placeholder="Année">
+                        </td>
+                        <td>
+                            <select name="chambres[${index}][statut]" class="form-control" required>
+                                <option value="disponible">Disponible</option>
+                                <option value="reservee">Réservée</option>
+                                <option value="occupee">Occupée</option>
+                            </select>
+                        </td>
+                        <td>
+                            <textarea name="chambres[${index}][description]" class="form-control"></textarea>
+                        </td>
+                        <td>
+                            <input type="file" name="chambres[${index}][image]" class="form-control" accept="image/*">
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm remove-chambre">X</button>
+                        </td>
+                    </tr>`);
+                index++;
+            });
+
+            $(document).on('click', '.remove-chambre', function () {
+                  $(this).closest('tr').remove();
+
             });
         });
     </script>

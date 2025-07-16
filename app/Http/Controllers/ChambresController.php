@@ -15,18 +15,25 @@ class ChambresController extends Controller
     //
     Public function index(Request $request)
     {
-//         Logic to display the list of rooms
+       if ($request->ajax()) {
+        $chambres = Chambre::with(['immobilier.category'])->latest()->get();
 
-        if ($request->ajax()) {
-            $immobiliers = Immobilier::withCount('chambres'); // ajoute chambres_count
+        return datatables()->of($chambres)
+            ->addColumn('immobilier', fn($row) => $row->immobilier->titre ?? '-')
+            ->addColumn('categorie', fn($row) => $row->immobilier->category->nom ?? '-')
+            ->addColumn('ville', fn($row) => $row->immobilier->ville ?? '-')
+            ->addColumn('action', function ($row) {
+                $showUrl = route('chambres.show', $row->id);
+                $editUrl = route('chambres.edit', $row->id);
 
-           return datatables()->of(Immobilier::withCount('chambres'))
-             ->addColumn('action', function ($row) {
-                 return '<a href="' . route('chambres.show', parameters: $row->id) . '">Voir</a>';
-             })
-    ->rawColumns(['action']) // important si tu rends du HTML
-    ->make(true);
-        }
+                return '
+                    <a href="'.$showUrl.'" class="btn btn-sm btn-info">Voir</a>
+                    <a href="'.$editUrl.'" class="btn btn-sm btn-warning">Modifier</a>
+                ';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+       }
 
         return view('admin.chambres.index');
     }
@@ -86,8 +93,12 @@ class ChambresController extends Controller
     }
     Public function edit($id)
     {
+        $chambre = Chambre::with('immobilier.category')->findOrFail($id);
+        $immobiliers = Immobilier::with('category')->get(); // pour choix dans le select
+
+
         // Logic to show the form for editing a specific room
-        return view('chambres.edit', compact('id'));
+        return view('admin.chambres.edit',  compact('chambre', 'immobiliers'));
     }
     Public function update(Request $request, $id)
     {
