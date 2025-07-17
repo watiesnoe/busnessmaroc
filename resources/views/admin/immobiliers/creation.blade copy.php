@@ -6,65 +6,58 @@
     <a href="{{route('immobiliers.index')}}" class="btn btn-primary">Liste</a>
 @endsection
 @section('content')
-    <div class="row">
-        <div class="col-xxl-12 col-xl-12 col-lg-12">
-            <div class="section-box">
-                <div class="container">
-                    <div class="panel-white mb-30">
-
-                        <div class="box-padding">
-                            <form id="createform" data-action="{{ route('immobiliers.store') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-4">
-                                        <div class="form-group mb-5">
-                                            <label class="font-sm color-text-mutted mb-10">Description <span class="text-danger">*</span> </label>
-                                            <input type="text" class="form-control" name="description" placeholder="Description"><br>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4">
-                                        <div class="form-group mb-5">
-                                            <label class="font-sm color-text-mutted mb-10">Type   appartement <span class="text-danger">*</span></label>
-                                            <input type="text"  class="form-control" name="typeimmeuble" placeholder="Type"><br>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4">
-                                        <div class="form-group mb-5">
-                                            <label class="font-sm color-text-mutted mb-10">Localisation</label>
-                                            <input  type="text"  class="form-control" name="localisation" placeholder="Localisation"><br>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group mb-5">
-                                            <label class="font-sm color-text-mutted mb-10">Statut</label>
-                                            <select name="statut" class="form-control">
-                                                <option value="available">Disponible</option>
-                                                <option value="sold">Vendu</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form-group mb-5">
-                                            <label class="font-sm color-text-mutted mb-10">Album</label>
-                                            <input type="file" class="form-control"  name="images[]" multiple>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-12">
-                                        <div class="form-group mt-10">
-                                            <button class="btn btn-default btn-brand ">Ajouter</button>
-                                        </div>
-                                    </div>
-                               </div>
-                            </form>
+ 
+        <div class="content">
+          <!-- jQuery Validation (.js-validation class is initialized in js/pages/be_forms_validation.min.js which was auto compiled from _js/pages/be_forms_validation.js) -->
+          <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
+            <div class="mb-3 text-end" >
+                {{-- <a href="{{ route('immobiliers.create') }}" class="btn btn-primary">Ajouter un Immeuble</a> --}}
+                <a href="{{route('immobiliers.index')}}" class="btn btn-primary">Voir la liste</a>
+            </div>
+          <form class="js-validation" id="createform" data-action="{{ route('immobiliers.store') }}" method="POST" enctype="multipart/form-data">
+             @csrf
+            <div class="block block-rounded">
+              <div class="block-header block-header-default">
+                <h3 class="block-title">Validation Form</h3>
+   
+              </div>
+              <div class="block-content block-content-full">
+                <!-- Regular -->
+            
+                <div class="row items-push">
+                    <div class="mb-4 col-6">
+                        <label class="form-label">Description <span class="text-danger">*</span> </label>
+                        <input type="text" class="form-control" name="description" placeholder="Description">
+                    </div>
+                    <div class="mb-4 col-6">
+                        <label    class="form-label">Type   appartement <span class="text-danger">*</span></label>
+                        <input type="text"  class="form-control" name="typeimmeuble" placeholder="Type">
+                    </div>
+                    <div class="mb-4 col-6">
+                            <label    class="form-label">Localisation</label>
+                            <input  type="text"  class="form-control" name="localisation" placeholder="Localisation">
+                    </div>
+                    <div class="mb-4 col-6">
+                        <label    class="form-label">Album</label>
+                        <input type="file" class="form-control"  name="images[]" multiple>
+                    </div>
+                 
+                    <div class="row ">
+                        <div class="col-12 text-end ">
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </div>
+             
+              </div>
             </div>
+          </form>
+          <!-- jQuery Validation -->
 
+          <!-- Terms Modal -->
+    
+          <!-- END Terms Modal -->
         </div>
-    </div>
-
 @endsection
 @section('scripts')
 

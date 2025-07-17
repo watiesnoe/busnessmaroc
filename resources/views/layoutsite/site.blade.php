@@ -16,7 +16,7 @@
     <link href="{{ asset('asset/css/style.css') }}" rel="stylesheet">
     <title>Jobbox - Job Portal HTML Template </title>
   </head>
-  <body>
+  <body class="body bg-light-primary">
     @include('layoutsite.partials.dashheader')
 
    <main class="main">

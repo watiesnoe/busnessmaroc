@@ -57,6 +57,7 @@
             <div class="header-logo"><a class="d-flex" href="index.html"><img alt="jobBox" src="assets/imgs/template/jobhub-logo.svg"></a></div>
           </div>
           <div class="header-nav">
+<<<<<<< HEAD
             <nav class="nav-main-menu"> 
                 <ul class="main-menu"> 
                     <!-- Accueil -->
@@ -79,6 +80,25 @@
                         <a href="{{ url('jobs-grid.html') }}">Actualités</a>
                     </li>
                 </ul>
+=======
+            <nav class="nav-main-menu">
+                <ul class="main-menu">
+                <li class=""><a class="active" href="index.html">Accueil</a>
+                </li>
+                 <li class=""><a href="companies-grid.html">Location</a>
+                </li>
+                <li class=""><a href="{{ route('offres') }}">Offre d'emploi & stage</a>
+
+                </li>
+                <li class=""><a href="candidates-grid.html">Evenements & concerts</a>
+                
+                </li>
+                <li class=""><a href="blog-grid.html">Actualite</a>
+               
+                </li>
+               
+              </ul>
+>>>>>>> 1473e24 (mis a jours du partie front-end)
             </nav>
 
             <div class="burger-icon burger-icon-white"><span class="burger-icon-top"></span><span class="burger-icon-mid"></span><span class="burger-icon-bottom"></span></div>
@@ -102,48 +122,19 @@
               <!-- mobile menu start-->
               <nav>
                 <ul class="mobile-menu font-heading">
-                  <li class=""><a class="active" href="index.html">Home</a>
+                <li class=""><a class="active" href="index.html">Accueil</a>
+                </li>
+                 <li class=""><a href="companies-grid.html">Location</a>
+                </li>
+                <li class=""><a href="jobs-grid.html">Offre d'emploi & stage</a>
+                </li>
+                <li class=""><a href="candidates-grid.html">Evenements & concerts</a>
+                
+                </li>
+                <li class=""><a href="blog-grid.html">Actualite</a>
+               
+                </li>
 
-                  </li>
-                  <li class="has-children"><a href="jobs-grid.html">Find a Job</a>
-                    <ul class="sub-menu">
-                      <li><a href="jobs-grid.html">Jobs Grid</a></li>
-                      <li><a href="jobs-list.html">Jobs List</a></li>
-                      <li><a href="job-details.html">Jobs Details  </a></li>
-                      <li><a href="job-details-2.html">Jobs Details 2              </a></li>
-                    </ul>
-                  </li>
-                  <li class="has-children"><a href="companies-grid.html">Recruiters</a>
-                    <ul class="sub-menu">
-                      <li><a href="companies-grid.html">Recruiters</a></li>
-                      <li><a href="company-details.html">Company Details</a></li>
-                    </ul>
-                  </li>
-                  <li class="has-children"><a href="candidates-grid.html">Candidates</a>
-                    <ul class="sub-menu">
-                      <li><a href="candidates-grid.html">Candidates Grid</a></li>
-                      <li><a href="candidate-details.html">Candidate Details</a></li>
-                    </ul>
-                  </li>
-                  <li class="has-children"><a href="blog-grid.html">Pages</a>
-                    <ul class="sub-menu">
-                      <li><a href="page-about.html">About Us</a></li>
-                      <li><a href="page-pricing.html">Pricing Plan</a></li>
-                      <li><a href="page-contact.html">Contact Us</a></li>
-                      <li><a href="page-register.html">Register</a></li>
-                      <li><a href="page-signin.html">Signin</a></li>
-                      <li><a href="page-reset-password.html">Reset Password</a></li>
-                      <li><a href="page-content-protected.html">Content Protected</a></li>
-                    </ul>
-                  </li>
-                  <li class="has-children"><a href="blog-grid.html">Blog</a>
-                    <ul class="sub-menu">
-                      <li><a href="blog-grid.html">Blog Grid</a></li>
-                      <li><a href="blog-grid-2.html">Blog Grid 2</a></li>
-                      <li><a href="blog-details.html">Blog Single</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="http://wp.alithemes.com/html/jobbox/demos/dashboard" target="_blank">Dashboard</a></li>
                 </ul>
               </nav>
             </div>
@@ -175,55 +166,18 @@
               <!-- mobile menu start-->
               <nav>
                 <ul class="mobile-menu font-heading">
-                  <li class="has-children"><a class="active" href="index.html">Home</a>
-                    <ul class="sub-menu">
-                      <li><a href="index.html">Home 1</a></li>
-                      <li><a href="index-2.html">Home 2</a></li>
-                      <li><a href="index-3.html">Home 3</a></li>
-                      <li><a href="index-4.html">Home 4</a></li>
-                      <li><a href="index-5.html">Home 5</a></li>
-                      <li><a href="index-6.html">Home 6</a></li>
-                    </ul>
-                  </li>
-                  <li class="has-children"><a href="jobs-grid.html">Find a Job</a>
-                    <ul class="sub-menu">
-                      <li><a href="jobs-grid.html">Jobs Grid</a></li>
-                      <li><a href="jobs-list.html">Jobs List</a></li>
-                      <li><a href="job-details.html">Jobs Details  </a></li>
-                      <li><a href="job-details-2.html">Jobs Details 2              </a></li>
-                    </ul>
-                  </li>
-                  <li class="has-children"><a href="companies-grid.html">Recruiters</a>
-                    <ul class="sub-menu">
-                      <li><a href="companies-grid.html">Recruiters</a></li>
-                      <li><a href="company-details.html">Company Details</a></li>
-                    </ul>
-                  </li>
-                  <li class="has-children"><a href="candidates-grid.html">Candidates</a>
-                    <ul class="sub-menu">
-                      <li><a href="candidates-grid.html">Candidates Grid</a></li>
-                      <li><a href="candidate-details.html">Candidate Details</a></li>
-                    </ul>
-                  </li>
-                  <li class="has-children"><a href="blog-grid.html">Pages</a>
-                    <ul class="sub-menu">
-                      <li><a href="page-about.html">About Us</a></li>
-                      <li><a href="page-pricing.html">Pricing Plan</a></li>
-                      <li><a href="page-contact.html">Contact Us</a></li>
-                      <li><a href="page-register.html">Register</a></li>
-                      <li><a href="page-signin.html">Signin</a></li>
-                      <li><a href="page-reset-password.html">Reset Password</a></li>
-                      <li><a href="page-content-protected.html">Content Protected</a></li>
-                    </ul>
-                  </li>
-                  <li class="has-children"><a href="blog-grid.html">Blog</a>
-                    <ul class="sub-menu">
-                      <li><a href="blog-grid.html">Blog Grid</a></li>
-                      <li><a href="blog-grid-2.html">Blog Grid 2</a></li>
-                      <li><a href="blog-details.html">Blog Single</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="http://wp.alithemes.com/html/jobbox/demos/dashboard" target="_blank">Dashboard</a></li>
+                <li class=""><a class="active" href="index.html">Accueil</a>
+                </li>
+                 <li class=""><a href="companies-grid.html">Location</a>
+                </li>
+                <li class=""><a href="jobs-grid.html">Offre d'emploi & stage</a>
+                </li>
+                <li class=""><a href="candidates-grid.html">Evenements & concerts</a>
+                
+                </li>
+                <li class=""><a href="blog-grid.html">Actualite</a>
+               
+                </li>
                 </ul>
               </nav>
             </div>

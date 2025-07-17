@@ -52,8 +52,13 @@
       <!-- Main Container -->
       <main id="main-container">
         <!-- Hero -->
+<<<<<<< HEAD
 
         <div class="bg-body-light">
+=======
+      
+        {{-- <div class="bg-body-light">
+>>>>>>> 1473e24 (mis a jours du partie front-end)
           <div class="content content-full">
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
               <h4 class="flex-grow-1 fs-3 fw-semibold my-sm-3">DataTables</h4>
@@ -65,8 +70,13 @@
               </nav>
             </div>
           </div>
+<<<<<<< HEAD
         </div>
 
+=======
+        </div> --}}
+        
+>>>>>>> 1473e24 (mis a jours du partie front-end)
         <!-- END Hero -->
 
         <!-- Page Content -->

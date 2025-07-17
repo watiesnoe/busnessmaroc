@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,6 +8,7 @@ class Chambre extends Model
 {
     use HasFactory;
 
+<<<<<<< HEAD
   protected $fillable = [ 
     'immobilier_id',
     'type',
@@ -20,6 +20,19 @@ class Chambre extends Model
     'description',
     'image' // ✅ champ image ajouté ici
 ];
+=======
+    protected $fillable = [
+        'immobilier_id',
+        'typechambre',
+        'capacite',
+        'statut',
+        'prix_jour',
+        'prix_mois',
+        'prix_annee',
+        'description',
+    ];
+
+>>>>>>> 1473e24 (mis a jours du partie front-end)
     public function immobilier()
     {
         return $this->belongsTo(Immobilier::class);

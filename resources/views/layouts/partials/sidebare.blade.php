@@ -193,12 +193,12 @@
                 <li class="nav-main-item">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                         <i class="nav-main-link-icon fa fa-coffee"></i>
-                        <span class="nav-main-link-name">Get Started</span>
+                        <span class="nav-main-link-name">Offre</span>
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
-                            <a class="nav-main-link" href="gs_backend.html">
-                                <span class="nav-main-link-name">Backend</span>
+                            <a class="nav-main-link" href="{{route('offre.index')}}">
+                                <span class="nav-main-link-name">emploi</span>
                             </a>
                         </li>
                         <li class="nav-main-item">
@@ -227,6 +227,18 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                 <li class="nav-main-item">
+                    <a class="nav-main-link " aria-haspopup="true"  href="{{route('entreprises.index')}}">
+                        <i class="nav-main-link-icon fa fa-ghost"></i>
+                        <span class="nav-main-link-name">Entreprise</span>
+                    </a>
+                </li>
+                  <li class="nav-main-item">
+                    <a class="nav-main-link " aria-haspopup="true"  href="{{route('utilisateurs.index')}}">
+                        <i class="nav-main-link-icon fa fa-ghost"></i>
+                        <span class="nav-main-link-name">Configuration</span>
+                    </a>
                 </li>
             </ul>
         </div>

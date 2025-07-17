@@ -1,11 +1,11 @@
 @extends('layoutsite.site')
 @section('content')
-
     <section class="section-box">
         <div class="banner-hero hero-2">
             <div class="banner-inner">
                 <div class="block-banner">
-                    <h1 class="text-42 color-white wow animate__animated animate__fadeInUp"><span class="color-green">Trouvez</span><br class="d-none d-lg-block">une maison a louer un click</h1>
+                    <h1 class="text-42 color-white wow animate__animated animate__fadeInUp"><span
+                            class="color-green">Trouvez</span><br class="d-none d-lg-block">une maison a louer un click</h1>
                     <div class="form-find mt-40 wow animate__animated animate__fadeIn" data-wow-delay=".2s">
                         <form>
                             <div class="box-industry">
@@ -266,7 +266,8 @@
                                 <option value="ZM">Zambia</option>
                                 <option value="ZW">Zimbabwe</option>
                             </select>
-                            <input class="form-input input-keysearch mr-10" type="text" placeholder="Your keyword... ">
+                            <input class="form-input input-keysearch mr-10" type="text"
+                                placeholder="Your keyword... ">
                             <button class="btn btn-default btn-find font-sm">Search</button>
                         </form>
                     </div>
@@ -274,7 +275,6 @@
 
             </div>
         </div>
-
     </section>
     <section class="section-box mt-50">
         <div class="section-box wow animate__animated animate__fadeIn">
@@ -316,8 +316,9 @@
         <div class="container">
             <div class="text-start">
                 <h2 class="section-title mb-10 wow animate__animated animate__fadeInUp">Jobs of the day</h2>
-                <p class="font-lg color-text-paragraph-2 wow animate__animated animate__fadeInUp">Search and connect with the right candidates faster.</p>
-                <div class="list-tabs mt-40">
+                <p class="font-lg color-text-paragraph-2 wow animate__animated animate__fadeInUp">Search and connect with
+                    the right candidates faster.</p>
+                {{-- <div class="list-tabs mt-40">
                     <ul class="nav nav-tabs" role="tablist">
                         <li><a class="active" id="nav-tab-job-1" href="#tab-job-1" data-bs-toggle="tab" role="tab" aria-controls="tab-job-1" aria-selected="true"><img src="assets/imgs/page/homepage1/management.svg" alt="jobBox"> Management</a></li>
                         <li><a id="nav-tab-job-2" href="#tab-job-2" data-bs-toggle="tab" role="tab" aria-controls="tab-job-2" aria-selected="false"><img src="assets/imgs/page/homepage1/marketing.svg" alt="jobBox"> Marketing &amp; Sale</a></li>
@@ -326,12 +327,13 @@
                         <li><a id="nav-tab-job-5" href="#tab-job-5" data-bs-toggle="tab" role="tab" aria-controls="tab-job-5" aria-selected="false"><img src="assets/imgs/page/homepage1/retail.svg" alt="jobBox"> Retail &amp; Products</a></li>
                         <li><a id="nav-tab-job-6" href="#tab-job-6" data-bs-toggle="tab" role="tab" aria-controls="tab-job-6" aria-selected="false"><img src="assets/imgs/page/homepage1/content.svg" alt="jobBox"> Content Writer</a></li>
                     </ul>
-                </div>
+                </div> --}}
             </div>
             <div class="mt-50">
                 <div class="tab-content" id="myTabContent-1">
                     <div class="tab-pane fade show active" id="tab-job-1" role="tabpanel" aria-labelledby="tab-job-1">
                         <div class="row">
+<<<<<<< HEAD
                             @foreach($immobiliers as $immobilier)
 
                                  <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
@@ -362,6 +364,38 @@
                                                 <p class="font-sm color-text-paragraph mt-20">{{ $immobilier->description }}</p>
                                             </div>
                                         @endif
+=======
+                            @foreach ($immobiliers as $immobilier)
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                                    <div class="card-grid-2 grid-bd-16 hover-up">
+                                        <div class="card-grid-2-image"><span
+                                                class="lbl-hot bg-green"><span>Freelancer</span></span>
+                                            <div class="image-box">
+                                                <figure><img
+                                                        src="{{ asset('storage/' . $immobilier->images[0]->typeimage) }}"
+                                                        alt="jobBox"></figure>
+                                            </div>
+                                        </div>
+                                        <div class="card-block-info">
+                                            <h5><a href="job-details.html">React Native Web aminata</a></h5>
+                                            <div class="mt-5"><span class="card-location mr-15">New York, US</span><span
+                                                    class="card-time">3 mins ago</span></div>
+                                            <div class="card-2-bottom mt-20">
+                                                <div class="row">
+                                                    <div class="col-xl-7 col-md-7 mb-2"><a class="btn btn-tags-sm mr-5"
+                                                            href="jobs-grid.html">Figma</a><a class="btn btn-tags-sm mr-5"
+                                                            href="jobs-grid.html">Adobe XD</a>
+                                                    </div>
+                                                    <div class="col-xl-5 col-md-5 text-lg-end"><span
+                                                            class="card-text-price">$90 - $120</span><span
+                                                            class="text-muted">/Hour</span></div>
+                                                </div>
+                                            </div>
+                                            <p class="font-sm color-text-paragraph mt-20">Lorem ipsum dolor sit amet,
+                                                consectetur adipisicing elit. Recusandae architecto eveniet, dolor quo
+                                                repellendus pariatur</p>
+                                        </div>
+>>>>>>> 1473e24 (mis a jours du partie front-end)
                                     </div>
                                 </div>
                             @endforeach
@@ -373,6 +407,7 @@
             </div>
         </div>
     </section>
+<<<<<<< HEAD
 
     <section class="section-box mt-50">
         <div class="container">
@@ -399,143 +434,57 @@
                         @endif
                     @endforeach
                     
+=======
+    <!-- Autres services -->
+    <section class="section-box mt-50">
+        <div class="container">
+            <h2 class="section-title text-center mb-50 wow animate__animated animate__fadeInUp">Autres services disponibles
+            </h2>
+            <div class="row text-center">
+                <div class="col-md-4 wow animate__animated animate__zoomIn" data-wow-delay=".1s">
+                    <div class="card shadow-lg p-4 rounded-4 border-0 h-100">
+                        <img src="https://source.unsplash.com/400x250/?furniture" class="img-fluid rounded-3 mb-3"
+                            alt="Meubles">
+                        <h5>Meubles à louer</h5>
+                        <p class="text-muted">Louez des meubles de qualité pour votre chambre ou appartement.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary mt-2">Voir plus</a>
+                    </div>
+                </div>
+                <div class="col-md-4 wow animate__animated animate__zoomIn" data-wow-delay=".2s">
+                    <div class="card shadow-lg p-4 rounded-4 border-0 h-100">
+                        <img src="https://source.unsplash.com/400x250/?job,internship" class="img-fluid rounded-3 mb-3"
+                            alt="Stage et emploi">
+                        <h5>Stages & Emplois</h5>
+                        <p class="text-muted">Consultez les dernières offres de stages et d'emplois pour étudiants.</p>
+                        <a href="#" class="btn btn-sm btn-outline-success mt-2">Voir offres</a>
+                    </div>
+                </div>
+                <div class="col-md-4 wow animate__animated animate__zoomIn" data-wow-delay=".3s">
+                    <div class="card shadow-lg p-4 rounded-4 border-0 h-100">
+                        <img src="https://source.unsplash.com/400x250/?concert,tickets" class="img-fluid rounded-3 mb-3"
+                            alt="Concerts et tickets">
+                        <h5>Tickets & Évènements</h5>
+                        <p class="text-muted">Achetez vos tickets de concert et restez informé des événements à venir.</p>
+                        <a href="#" class="btn btn-sm btn-outline-danger mt-2">Acheter billet</a>
+                    </div>
+>>>>>>> 1473e24 (mis a jours du partie front-end)
                 </div>
             </div>
         </div>
     </section>
-    <section class="section-box overflow-visible mt-50 mb-50">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="text-center">
-                        <h1 class="color-brand-2"><span class="count">25</span><span> K+</span></h1>
-                        <h5>Completed Cases</h5>
-                        <p class="font-sm color-text-paragraph mt-10">We always provide people a <br class="d-none d-lg-block">complete solution upon focused of<br class="d-none d-lg-block"> any business</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="text-center">
-                        <h1 class="color-brand-2"><span class="count">17</span><span> +</span></h1>
-                        <h5>Our Office</h5>
-                        <p class="font-sm color-text-paragraph mt-10">We always provide people a <br class="d-none d-lg-block">complete solution upon focused of <br class="d-none d-lg-block">any business</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="text-center">
-                        <h1 class="color-brand-2"><span class="count">86</span><span> +</span></h1>
-                        <h5>Skilled People</h5>
-                        <p class="font-sm color-text-paragraph mt-10">We always provide people a <br class="d-none d-lg-block">complete solution upon focused of <br class="d-none d-lg-block">any business</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="text-center">
-                        <h1 class="color-brand-2"><span class="count">28</span><span> +</span></h1>
-                        <h5>CHappy Clients</h5>
-                        <p class="font-sm color-text-paragraph mt-10">We always provide people a <br class="d-none d-lg-block">complete solution upon focused of <br class="d-none d-lg-block">any business</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section-box mt-50 mb-50">
-        <div class="container">
-            <div class="text-start">
-                <h2 class="section-title mb-10 wow animate__animated animate__fadeInUp">News and Blog</h2>
-                <p class="font-lg color-text-paragraph-2 wow animate__animated animate__fadeInUp">Get the latest news, updates and tips</p>
-            </div>
-        </div>
-        <div class="container">
-            <div class="mt-50">
-                <div class="box-swiper style-nav-top">
-                    <div class="swiper-container swiper-group-3 swiper">
-                        <div class="swiper-wrapper pb-70 pt-5">
-                            <div class="swiper-slide">
-                                <div class="card-grid-3 hover-up wow animate__animated animate__fadeIn">
-                                    <div class="text-center card-grid-3-image"><a href="#">
-                                            <figure><img alt="jobBox" src="assets/imgs/page/homepage1/img-news1.png"></figure></a></div>
-                                    <div class="card-block-info">
-                                        <div class="tags mb-15"><a class="btn btn-tag" href="blog-grid.html">News</a></div>
-                                        <h5><a href="blog-details.html">21 Job Interview Tips: How To Make a Great Impression</a></h5>
-                                        <p class="mt-10 color-text-paragraph font-sm">Our mission is to create the world&amp;rsquo;s most sustainable healthcare company by creating high-quality healthcare products in iconic, sustainable packaging.</p>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-6">
-                                                    <div class="d-flex"><img class="img-rounded" src="assets/imgs/page/homepage1/user1.png" alt="jobBox">
-                                                        <div class="info-right-img"><span class="font-sm font-bold color-brand-1 op-70">Sarah Harding</span><br><span class="font-xs color-text-paragraph-2">06 September</span></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 text-end col-6 pt-15"><span class="color-text-paragraph-2 font-xs">8 mins to read</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="card-grid-3 hover-up wow animate__animated animate__fadeIn">
-                                    <div class="text-center card-grid-3-image"><a href="#">
-                                            <figure><img alt="jobBox" src="assets/imgs/page/homepage1/img-news2.png"></figure></a></div>
-                                    <div class="card-block-info">
-                                        <div class="tags mb-15"><a class="btn btn-tag" href="blog-grid.html">Events</a></div>
-                                        <h5><a href="blog-details.html">39 Strengths and Weaknesses To Discuss in a Job Interview</a></h5>
-                                        <p class="mt-10 color-text-paragraph font-sm">Our mission is to create the world&amp;rsquo;s most sustainable healthcare company by creating high-quality healthcare products in iconic, sustainable packaging.</p>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-6">
-                                                    <div class="d-flex"><img class="img-rounded" src="assets/imgs/page/homepage1/user2.png" alt="jobBox">
-                                                        <div class="info-right-img"><span class="font-sm font-bold color-brand-1 op-70">Steven Jobs</span><br><span class="font-xs color-text-paragraph-2">06 September</span></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 text-end col-6 pt-15"><span class="color-text-paragraph-2 font-xs">6 mins to read</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="card-grid-3 hover-up wow animate__animated animate__fadeIn">
-                                    <div class="text-center card-grid-3-image"><a href="#">
-                                            <figure><img alt="jobBox" src="assets/imgs/page/homepage1/img-news3.png"></figure></a></div>
-                                    <div class="card-block-info">
-                                        <div class="tags mb-15"><a class="btn btn-tag" href="blog-grid.html">News</a></div>
-                                        <h5><a href="blog-details.html">Interview Question: Why Dont You Have a Degree?</a></h5>
-                                        <p class="mt-10 color-text-paragraph font-sm">Learn how to respond if an interviewer asks you why you dont have a degree, and read example answers that can help you craft</p>
-                                        <div class="card-2-bottom mt-20">
-                                            <div class="row">
-                                                <div class="col-lg-6 col-6">
-                                                    <div class="d-flex"><img class="img-rounded" src="assets/imgs/page/homepage1/user3.png" alt="jobBox">
-                                                        <div class="info-right-img"><span class="font-sm font-bold color-brand-1 op-70">Wiliam Kend</span><br><span class="font-xs color-text-paragraph-2">06 September</span></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6 text-end col-6 pt-15"><span class="color-text-paragraph-2 font-xs">9 mins to read</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
-                <div class="text-center"><a class="btn btn-brand-1 btn-icon-load mt--30 hover-up" href="blog-grid.html">Load More Posts</a></div>
-            </div>
-        </div>
-    </section>
+
+    <!-- Newsletter -->
     <section class="section-box mt-50 mb-20">
         <div class="container">
-            <div class="box-newsletter">
+            <div class="box-newsletter wow animate__animated animate__fadeInUp">
                 <div class="row">
-                    <div class="col-xl-3 col-12 text-center d-none d-xl-block"><img src="assets/imgs/template/newsletter-left.png" alt="joxBox"></div>
-                    <div class="col-lg-12 col-xl-6 col-12">
-                        <h2 class="text-md-newsletter text-center">New Things Will Always<br> Update Regularly</h2>
-                        <div class="box-form-newsletter mt-40">
-                            <form class="form-newsletter">
-                                <input class="input-newsletter" type="text" value="" placeholder="Enter your email here">
-                                <button class="btn btn-default font-heading icon-send-letter">Subscribe</button>
-                            </form>
-                        </div>
+                    <div class="col-lg-12 col-xl-6 col-12 mx-auto text-center">
+                        <h2 class="text-md-newsletter">Recevez les nouveautés en avant-première</h2>
+                        <form class="form-newsletter mt-30">
+                            <input class="input-newsletter" type="email" placeholder="Entrez votre adresse e-mail">
+                            <button class="btn btn-default icon-send-letter">S'abonner</button>
+                        </form>
                     </div>
-                    <div class="col-xl-3 col-12 text-center d-none d-xl-block"><img src="assets/imgs/template/newsletter-right.png" alt="joxBox"></div>
                 </div>
             </div>
         </div>
