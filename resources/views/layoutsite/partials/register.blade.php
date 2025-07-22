@@ -1,7 +1,3 @@
-@extends('layoutsite.site')
-
-@section('content')
-{{--    @include('layoutsite.partials.register')--}}
 <section class="pt-100 login-register">
     <div class="container">
         <div class="row login-register-cover">
@@ -64,47 +60,3 @@
         </div>
     </div>
 </section>
-
-@endsection
-
-@section('scripts')
-    <script>
-        $(document).ready(function () {
-            $('#createform').on('submit', function (e) {
-                e.preventDefault(); // Empêche l'envoi normal du formulaire
-
-                let form = $(this);
-                let actionUrl = form.data('action');
-
-                $.ajax({
-                    type: 'POST',
-                    url: actionUrl,
-                    data: form.serialize(),
-                    dataType: 'json',
-                    headers: {
-                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                    },
-                    success: function (response) {
-                        alert('Compte créé avec succès !');
-                        // Tu peux aussi rediriger ou vider le formulaire ici :
-                        // window.location.href = '/login';
-                        form.trigger("reset");
-                    },
-                    error: function (xhr) {
-                        if (xhr.status === 422) {
-                            let errors = xhr.responseJSON.errors;
-                            let messages = '';
-                            $.each(errors, function (key, value) {
-                                messages += value[0] + '\n';
-                            });
-                            alert(messages);
-                        } else {
-                            alert("Une erreur est survenue.");
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-
-@endsection
