@@ -13,7 +13,7 @@ class SitedashboardController extends Controller
     public function index()
     {
         // Logic to show the site dashboard
-       $immobiliers = Immobilier::with(relations: ['category','photos', 'chambres'])->get();
+        $immobiliers = Immobilier::with(relations: ['category','photos', 'chambres'])->get();
         $annoncesVedette = Immobilier::where('en_vedette', true)
             ->with('photos')
             ->latest()

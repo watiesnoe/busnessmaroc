@@ -3,39 +3,6 @@
 
     <form action="{{ url('/reservation/' . $chambre->immobilier_id . '/' . $chambre->id) }}" method="POST" id="reservationForm">
         @csrf
-
-        <h4>Informations Client</h4>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label>Nom</label>
-                <input type="text" name="nom" class="form-control" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>Prénom</label>
-                <input type="text" name="prenom" class="form-control" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>Nom d'utilisateur</label>
-                <input type="text" name="name" class="form-control" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>Mot de passe</label>
-                <input type="password" name="password" class="form-control" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>Téléphone</label>
-                <input type="text" name="telephone" class="form-control" required>
-            </div>
-            <div class="col-md-12 mb-3">
-                <label>Adresse</label>
-                <input type="text" name="adresse" class="form-control" required>
-            </div>
-        </div>
-
         <h4>Détails de la réservation</h4>
         <div class="row">
             <div class="col-md-6 mb-3">

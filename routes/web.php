@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ChambresController;
 use App\Http\Controllers\ComptclientController;
 use App\Http\Controllers\ImmobiliersController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SitedashboardController;
@@ -20,31 +21,30 @@ use App\Http\Controllers\GoogleAuthController;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-Route::get('/', [ SitedashboardController::class, 'index'])->name('home.index');
+Route::get('/', [SitedashboardController::class, 'index'])->name('homesite.index');
 Route::get('/location', [SitedashboardController::class, 'location'])->name('location');
 Route::post('/location/filter', [SitedashboardController::class, 'filter'])->name('location.filter');
-
-Route::get('/', [SitedashboardController::class, 'index']);
 Route::get('/detail/{id}', [SitedashboardController::class, 'showImmobilier'])->name('immobilier.detail');
 Route::get('/chambre/{id}/reserver', [ReservationController::class, 'reserver'])->name('reserver.chambre');
 // Corrige ça :
 Route::post('/reservation/{immobilier}/{chambre}', [ReservationController::class, 'store']);
+//Route::post('/login/utilisateur', [LoginController::class, 'store'])->name('login');
 
 //Partie google forme
-Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google.redirect');
-Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-//Route::get('/', [SitedashboardController::class, 'indexOffre']);
-Route::get('/offres', [OffreController::class, 'afficher'])->name('offres');
-Route::get('/offres-filtre', [OffreController::class, 'filtrer'])->name('offres.filtrer');
-//Route::get('/details_offre', [details_offreController::class, 'index'])->name('details_offre');
-Route::get('/creation_compte',[ComptclientController::class,'index'])->name('register.client');
-// routes/web.php
-Route::post('/register/ajax', [ComptclientController::class, 'store'])->name('register.ajax');
+    Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google.redirect');
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+    //Route::get('/', [SitedashboardController::class, 'indexOffre']);
+    Route::get('/offres', [OffreController::class, 'afficher'])->name('offres');
+    Route::get('/offres-filtre', [OffreController::class, 'filtrer'])->name('offres.filtrer');
+    //Route::get('/details_offre', [details_offreController::class, 'index'])->name('details_offre');
+    Route::get('/creation_compte',[ComptclientController::class,'index'])->name('register.client');
+    // routes/web.php
+    Route::post('/register/ajax', [ComptclientController::class, 'store'])->name('register.ajax');
 
-Route::get('/details_offre/{id}', [details_offreController::class, 'show'])->name('details_offre.show');
-Route::get('/se_connecter', [connexionController::class, 'index'])->name('se_connecter');
-//Route::get('/registre', [RegisteredUserController::class, 'create'])->name('registre.create');
-Route::middleware('auth')->group(function () {
+    Route::get('/details_offre/{id}', [details_offreController::class, 'show'])->name('details_offre.show');
+    Route::get('/se_connecter', [connexionController::class, 'index'])->name('se_connecter');
+    //Route::get('/registre', [RegisteredUserController::class, 'create'])->name('registre.create');
+    Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

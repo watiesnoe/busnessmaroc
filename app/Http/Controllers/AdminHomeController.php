@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminHomeController extends Controller
 {
@@ -11,8 +12,12 @@ class AdminHomeController extends Controller
      */
     public function index()
     {
-        //
-        return view('admindash');
+        if(Auth::user() && Auth::user()->role === 'admin' && Auth::user()->role === 'superadmin') {
+            return view('admindash');
+        }else{
+            return redirect()->route('homesite.index');
+        }
+
     }
 
     /**

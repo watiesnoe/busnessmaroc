@@ -85,7 +85,10 @@
                         'X-CSRF-TOKEN': $('input[name="_token"]').val()
                     },
                     success: function (response) {
-                        alert('Compte créé avec succès !');
+                        Swal.fire({
+                            icon: 'success',
+                            text: response.message
+                        });
                         // Tu peux aussi rediriger ou vider le formulaire ici :
                         // window.location.href = '/login';
                         form.trigger("reset");

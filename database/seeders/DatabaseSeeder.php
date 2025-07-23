@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Siaba Noé',
             'email' => 'siabaneotraore@gmail.com',
             'password' => Hash::make('watiesnoe123'),
-            'role' => 'SupAdmin',
+            'role' => 'superadmin',
         ]);
 //        Immobilier::factory()
 //            ->count(10)

@@ -84,7 +84,19 @@
                 <div class="burger-icon burger-icon-white"><span class="burger-icon-top"></span><span class="burger-icon-mid"></span><span class="burger-icon-bottom"></span></div>
             </div>
             <div class="header-right">
-                <div class="block-signin"><a class="text-link-bd-btom hover-up" href="page-register.html">Register</a><a class="btn btn-default btn-shadow ml-40 hover-up" href="{{route('home.index')}}">Sign in</a></div>
+                <div class="block-signin"><a class="text-link-bd-btom hover-up" href="page-register.html">Register</a>
+                    @if(Auth::check())
+                        <a class="btn btn-default btn-shadow ml-10 hover-up" href="{{url('/logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" >Deconnexion</a>
+
+                        <form id="logout-form" action="{{url('/logout')}}" method="POST" style="display:none">
+                            {{csrf_field()}}
+                        </form>
+                    @else
+                        <a class="btn btn-sm btn-shadow ml-10 hover-up btn-primary" href="{{route('home.index')}}">Connexion</a>
+                    @endif
+
+
+                </div>
             </div>
         </div>
     </div>

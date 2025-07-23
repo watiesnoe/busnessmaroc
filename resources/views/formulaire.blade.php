@@ -1,8 +1,11 @@
-    @extends('layoutsite.site')
+@extends('layoutsite.site')
 
     @section('content')
-        @include('layoutsite.partials.connectionclient')
-
+        @if(Auth::check() && Auth::user()->role === 'client')
+            @include('layoutsite.partials.connection')
+        @else
+            @include('layoutsite.partials.connectionclient')
+        @endif
     @endsection
 
     @section('scripts')
