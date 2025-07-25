@@ -1,91 +1,51 @@
 @extends('layoutsite.site')
-
 @section('content')
-        @if(Auth::check() && Auth::user()->role === 'client')
-            @include('layoutsite.partials.connection')
-        @else
-            @include('layoutsite.partials.connectionclient')
-        @endif
-    @endsection
+    <div class="container py-4">
+        <h3>Étape 3 : Paiement</h3>
 
-    @section('scripts')
+        <div class="card p-3 mb-3">
+            <p><strong>Type contrat :</strong> {{ ucfirst($data['type_contrat']) }}</p>
+            <p><strong>Période :</strong> du {{ $data['date_debut'] }} au {{ $data['date_fin'] }}</p>
+            <p><strong>Nom :</strong> {{ $data['nom'] }}</p>
+            <p><strong>Email :</strong> {{ $data['email'] }}</p>
+            <p><strong>Téléphone :</strong> {{ $data['telephone'] }}</p>
+            <h5>Total : {{ $data['prix_total'] }} F</h5>
+        </div>
+
+        <div id="paypal-button-container"></div>
+
+        <form id="confirmForm" method="POST" action="{{ route('reservation.confirmer') }}" style="display:none">
+            @csrf
+            @foreach ($data as $key => $value)
+                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+            @endforeach
+            <input type="hidden" name="paiement_id" id="paiement_id">
+        </form>
+    </div>
+@endsection
+@section('scripts')
+
+        <script src="https://www.paypal.com/sdk/js?client-id=AekLlhlOW2jChm0nd1YZEFLDa2uUroU2yZV-dZOsaHrtf8rmhCDPmOsdmiIu7EsVzewnn2qsqML8egjW&currency=EUR"></script>
+
         <script>
-            $(document).ready(function () {
-                function calculerPrix() {
-                    let type = $('select[name="type_contrat"]').val();
-                    let debut = new Date($('input[name="date_debut"]').val());
-                    let fin = new Date($('input[name="date_fin"]').val());
-
-                    if (!type || isNaN(debut) || isNaN(fin) || debut >= fin) {
-                        $('#prix_calcule').hide();
-                        $('#prix_total').val('');
-                        return;
-                    }
-
-                    let jours = (fin - debut) / (1000 * 60 * 60 * 24);
-
-                    // Prix récupérés depuis Laravel via Blade
-                    let prixParJour = {{ $chambre->prix_jour }};
-                    let prixParMois = {{ $chambre->prix_mois }};
-                    let prixParAnnee = {{ $chambre->prix_annee }};
-
-                    let total = 0;
-                    if (type === 'jour') total = prixParJour * jours;
-                    else if (type === 'mois') total = prixParMois * Math.ceil(jours / 30);
-                    else if (type === 'annee') total = prixParAnnee * Math.ceil(jours / 365);
-
-                    if (total > 0) {
-                        $('#prix_total').val(total.toFixed(0));
-                        $('#prix_calcule').show().text('Prix estimé : ' + total.toLocaleString() + ' FCFA');
-                    } else {
-                        $('#prix_calcule').hide();
-                        $('#prix_total').val('');
-                    }
-                }
-
-                // Calculer à chaque changement sur les champs concernés
-                $('input[name="date_debut"], input[name="date_fin"], select[name="type_contrat"]').on('change', calculerPrix);
-
-                // Soumission AJAX du formulaire
-                $('#reservationForm').submit(function (e) {
-                    e.preventDefault();
-
-                    let form = $(this);
-                    let url = form.attr('action');
-                    let data = form.serialize();
-
-                    $.ajax({
-                        url: url,
-                        method: 'POST',
-                        data: data,
-                        success: function (response) {
-                            Swal.fire({
-                                icon: 'success',
-                                text: response.message,
-                                timer: 2000,
-                                showConfirmButton: false
-                            }).then(() => {
-                                // Redirection après le succès
-                                window.location.href = "{{ route('homesite.index') }}";
-                            });
-                            form[0].reset();
-                            $('#prix_calcule').hide();
-                            $('#prix_total').val('');
-                        },
-                        error: function (xhr) {
-                            let errors = xhr.responseJSON?.errors;
-                            let msg = 'Une erreur est survenue.';
-
-                            if (errors) {
-                                msg = Object.values(errors).flat().join("\n");
-                            } else if(xhr.responseJSON?.message) {
-                                msg = xhr.responseJSON.message;
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: '{{ number_format($data["prix_total"] / 655, 2) }}' // Conversion FCFA → EUR
                             }
-
-                            alert(msg);
-                        }
+                        }]
                     });
-                });
-            });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        // On capture le paiement et on soumet le formulaire caché
+                        document.getElementById('paiement_id').value = details.id;
+                        document.getElementById('confirmForm').submit();
+                    });
+                }
+            }).render('#paypal-button-container');
         </script>
     @endsection
+

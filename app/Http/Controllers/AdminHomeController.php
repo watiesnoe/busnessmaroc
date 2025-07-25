@@ -12,9 +12,9 @@ class AdminHomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user() && Auth::user()->role === 'admin' && Auth::user()->role === 'superadmin') {
+        if (Auth::check() && (Auth::user()->role === 'admin' || Auth::user()->role === 'superadmin')) {
             return view('admindash');
-        }else{
+        } else {
             return redirect()->route('homesite.index');
         }
 

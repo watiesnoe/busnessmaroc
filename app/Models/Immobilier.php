@@ -8,12 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class Immobilier extends Model
 {
     use HasFactory;
-    protected $table = 'immobiliers'; // Specify the table name if it's not the plural of the model name
+
+    protected $table = 'immobiliers';
 
     protected $fillable = [
-        'user_id', 'category_id', 'titre', 'description', 'ville', 'quartier',
-        'surface', 'prix', 'etage', 'en_vedette', 'statut'
+        'user_id',
+        'category_id',
+        'titre',
+        'description',
+        'ville',
+        'quartier',
+        'surface',
+        'prix',
+        'etage',
+        'en_vedette',
+        'statut',
     ];
+
+    // Relations
 
     public function user()
     {
@@ -33,6 +45,11 @@ class Immobilier extends Model
     public function photos()
     {
         return $this->hasMany(Photo::class);
+    }
+
+    public function photoPrincipale()
+    {
+        return $this->hasOne(Photo::class)->where('principale', true);
     }
 
     public function favoris()

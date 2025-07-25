@@ -15,10 +15,19 @@ class ContratLocation extends Model
         'date_debut',
         'date_fin',
         'type_contrat',
-        'prix_total',
-        'statut',
-        'conditions_particulieres',
+
     ];
+//    protected $fillable = [
+//        'user_id',
+//        'immobilier_id',
+//        'chambre_id',
+//        'date_debut',
+//        'date_fin',
+//        'type_contrat',
+//        'prix_total',
+//        'statut',
+//        'conditions_particulieres',
+//    ];
 
     // Relations
     public function user()

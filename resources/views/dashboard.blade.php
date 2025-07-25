@@ -1,4 +1,3 @@
-
 @extends('layoutsite.site')
 @section('content')
 
@@ -341,13 +340,15 @@
                                                 <span class="lbl-hot bg-green">
                                                     <span>{{ $immobilier->category->nom }}</span>
                                                 </span>
+
                                                 <div class="image-box">
                                                     <a href="{{ route('immobilier.detail', $immobilier->id) }}">
                                                         <figure>
-                                                            <img src="{{ asset('storage/' . $immobilier->photos[0]->url) }}" height="300" alt="jobBox">
+                                                            <img src="{{ asset('storage/' . ($immobilier->photoPrincipale->url ?? 'images/default.jpg')) }}" height="300" alt="Photo principale">
                                                         </figure>
                                                     </a>
                                                 </div>
+
                                             </div>
 
                                             <div class="card-block-info">

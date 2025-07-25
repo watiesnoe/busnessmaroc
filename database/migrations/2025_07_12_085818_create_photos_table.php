@@ -16,6 +16,7 @@ return new class extends Migration
         $table->foreignId('immobilier_id')->nullable()->constrained()->onDelete('cascade');
         $table->foreignId('chambre_id')->nullable()->constrained()->onDelete('cascade');
         $table->string('url');
+        $table->boolean('principale')->default(false);
         $table->timestamps();
     });
 

@@ -67,6 +67,9 @@
                     data: formData,
                     processData: false, // ne pas transformer les données
                     contentType: false, // ne pas définir de content-type
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="_token"]').val()
+                    },
                     success: function (res) {
                         Swal.fire({
                             icon: 'success',

@@ -6,13 +6,29 @@
                 <div class="col-md-8">
                     <h2>{{ $immobilier->titre }}</h2>
                     <p>{{ $immobilier->description }}</p>
-                    <p><strong>Ville :</strong> {{ $immobilier->ville }} | <strong>Quartier :</strong> {{ $immobilier->quartier }}</p>
-                    <p><strong>Surface :</strong> {{ $immobilier->surface }} m² | <strong>Prix :</strong> {{ number_format($immobilier->prix, 0, ',', ' ') }} FCFA</p>
+                    <p>
+                        <strong>Ville :</strong> {{ $immobilier->ville }} |
+                        <strong>Quartier :</strong> {{ $immobilier->quartier }}
+                    </p>
+                    <p>
+                        <strong>Surface :</strong> {{ $immobilier->surface }} m² |
+                        <strong>Prix :</strong> {{ number_format($immobilier->prix, 0, ',', ' ') }} FCFA
+                    </p>
                 </div>
                 <div class="col-md-4">
-                    <img src="{{ asset('storage/'.$immobilier->photos[0]->url) }}" alt="Maison" class="img-fluid rounded shadow">
+                    @php
+                        $photoPrincipale = $immobilier->photos->where('principale', true)->first();
+                        $photoAffichee = $photoPrincipale ? $photoPrincipale->url : ($immobilier->photos->first()->url ?? null);
+                    @endphp
+
+                    @if($photoAffichee)
+                        <img src="{{ asset('storage/' . $photoAffichee) }}" alt="Maison" class="img-fluid rounded shadow">
+                    @else
+                        <img src="{{ asset('images/no-image.png') }}" alt="Aucune photo disponible" class="img-fluid rounded shadow">
+                    @endif
                 </div>
             </div>
+
 
             {{-- Liste des chambres --}}
             <h4>Chambres disponibles</h4>
@@ -42,7 +58,7 @@
                                         @endif
                                     </p>
                                     @if($chambre->statut === 'disponible')
-                                        <a href="{{ route('reserver.chambre', $chambre->id) }}" class="btn btn-primary mt-2">Réserver</a>
+                                        <a href="{{ route('reservation.step1', $chambre->id) }}" class="btn btn-primary mt-2">Réserver</a>
                                     @endif
                                 </div>
                             </div>
