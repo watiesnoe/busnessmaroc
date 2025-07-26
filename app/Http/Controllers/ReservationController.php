@@ -106,6 +106,33 @@ class ReservationController extends Controller
 
         return view('etape3', ['data' => $validated]);
     }
+    public function confirmer(Request $request)
+    {
+        $validated = $request->validate([
+            'type_contrat' => 'required',
+            'date_debut' => 'required|date',
+            'date_fin' => 'required|date|after:date_debut',
+            'nom' => 'required|string',
+            'email' => 'required|email',
+            'telephone' => 'required|string',
+            'prix_total' => 'required|numeric',
+            'paiement_id' => 'required|string',
+        ]);
+
+        // Ex. : enregistrer la réservation dans la BDD
+        $reservation = new \App\Models\ContratLocation();
+        $reservation->type_contrat = $request->type_contrat;
+        $reservation->date_debut = $request->date_debut;
+        $reservation->date_fin = $request->date_fin;
+        $reservation->nom = $request->nom;
+        $reservation->email = $request->email;
+        $reservation->telephone = $request->telephone;
+        $reservation->prix_total = $request->prix_total;
+        $reservation->paiement_id = $request->paiement_id;
+        $reservation->save();
+
+        return redirect()->route('reservation.success')->with('success', 'Réservation réussie et paiement confirmé.');
+    }
 
 
 }

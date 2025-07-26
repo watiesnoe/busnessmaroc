@@ -1,11 +1,14 @@
 <?php
-
 use App\Http\Controllers\AdminHomeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ChambresController;
 use App\Http\Controllers\ComptclientController;
 use App\Http\Controllers\ImmobiliersController;
+
 use App\Http\Controllers\LoginController;
+
+use App\Http\Controllers\PayPalController;
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SitedashboardController;
@@ -71,6 +74,10 @@ Route::post('/reservation/{immobilier}/{chambre}', [ReservationController::class
         Route::post('/reservation/confirm', [ReservationController::class, 'confirmer'])->name('reservation.confirmer');
         // route pour afficher les offres côté site vitrine
 
+
+    Route::get('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
+    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+    Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
 
 });
 
