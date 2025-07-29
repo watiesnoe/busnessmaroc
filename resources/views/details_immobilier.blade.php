@@ -58,7 +58,7 @@
                                         @endif
                                     </p>
                                     @if($chambre->statut === 'disponible')
-                                        <a href="{{ route('reservation.step1', $chambre->id) }}" class="btn btn-primary mt-2">Réserver</a>
+                                        <a href="{{ route('reservation.chambre', $chambre->id) }}" class="btn btn-primary mt-2">Réserver</a>
                                     @endif
                                 </div>
                             </div>

@@ -90,7 +90,7 @@ class ReservationController extends Controller
         return view('etape2', ['data' => $validated]);
     }
 
-    public function step3(Request $request)
+    public function paiement(Request $request)
     {
         $validated = $request->validate([
             'immobilier_id' => 'required',
@@ -99,12 +99,9 @@ class ReservationController extends Controller
             'date_debut' => 'required',
             'date_fin' => 'required',
             'prix_total' => 'required|numeric',
-            'nom' => 'required',
-            'email' => 'required|email',
-            'telephone' => 'required',
         ]);
 
-        return view('etape3', ['data' => $validated]);
+        return view('paiement', ['data' => $validated]);
     }
     public function confirmer(Request $request)
     {

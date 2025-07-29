@@ -10,20 +10,20 @@
                 <input type="hidden" name="{{ $key }}" value="{{ $value }}">
             @endforeach
 
-            <div class="mb-3">
-                <label>Nom</label>
-                <input type="text" name="nom" class="form-control" value="{{ auth()->user()->name }}" required>
-            </div>
+{{--            <div class="mb-3">--}}
+{{--                <label>Nom</label>--}}
+{{--                <input type="text" name="nom" class="form-control" value="{{ auth()->user()->name }}" required>--}}
+{{--            </div>--}}
 
-            <div class="mb-3">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control" value="{{ auth()->user()->email }}" required>
-            </div>
+{{--            <div class="mb-3">--}}
+{{--                <label>Email</label>--}}
+{{--                <input type="email" name="email" class="form-control" value="{{ auth()->user()->email }}" required>--}}
+{{--            </div>--}}
 
-            <div class="mb-3">
-                <label>Téléphone</label>
-                <input type="text" name="telephone" class="form-control" required>
-            </div>
+{{--            <div class="mb-3">--}}
+{{--                <label>Téléphone</label>--}}
+{{--                <input type="text" name="telephone" class="form-control" required>--}}
+{{--            </div>--}}
 
             <button type="submit" class="btn btn-primary">Valider</button>
         </form>

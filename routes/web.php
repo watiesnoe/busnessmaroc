@@ -7,6 +7,7 @@ use App\Http\Controllers\ImmobiliersController;
 
 use App\Http\Controllers\LoginController;
 
+use App\Http\Controllers\PaiementsController;
 use App\Http\Controllers\PayPalController;
 
 use App\Http\Controllers\ProfileController;
@@ -62,16 +63,16 @@ Route::post('/reservation/{immobilier}/{chambre}', [ReservationController::class
     Route::resource('/utilisateurs', UtilisateurController::class);
     // route pour afficher les offres côté site vitrine
         // Étape 1 : Choisir le contrat
-        Route::get('/reservation/{chambre}/step1', [ReservationController::class, 'step1'])->name('reservation.step1');
+        Route::get('/reservation/{chambre}/', [ReservationController::class, 'reserver'])->name('reservation.chambre');
 
         // Étape 2 : Informations client (POST depuis step1)
-        Route::post('/reservation/step2', [ReservationController::class, 'step2'])->name('reservation.step2');
-
-        // Étape 3 : Paiement (POST depuis step2)
-        Route::post('/reservation/step3', [ReservationController::class, 'step3'])->name('reservation.step3');
+//        Route::post('/reservation/step2', [ReservationController::class, 'step2'])->name('reservation.step2');
+//
+//        // Étape 3 : Paiement (POST depuis step2)
+        Route::post('/reservation/paiement', [ReservationController::class, 'paiement'])->name('reservation.paiement');
 
         // Paiement confirmé (POST depuis PayPal ou autre)
-        Route::post('/reservation/confirm', [ReservationController::class, 'confirmer'])->name('reservation.confirmer');
+        Route::resource('/paiements', PaiementsController::class);
         // route pour afficher les offres côté site vitrine
 
 

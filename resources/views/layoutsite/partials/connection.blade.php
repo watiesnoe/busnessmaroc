@@ -6,10 +6,8 @@
                 <div class="card mb-3 mt-3">
                     <div class="card-header ">  <span>Détails de la réservation</span></div>
                     <div class="card-body">
-                        <form action="{{ url('/reservation/' . $chambre->immobilier_id . '/' . $chambre->id) }}" method="POST" id="reservationForm">
+                        <form action="{{ route('reservation.paiement') }}" method="POST" id="reservationForm">
                             @csrf
-
-
                             <div class="row ">
                                 <div class=" mb-3">
                                     <label>Type de contrat</label>
@@ -46,6 +44,8 @@
 
                                 <div class=" mb-3">
                                     <label>Prix total (calculé automatiquement)</label>
+                                    <input type="hidden" id="immobilier_id" name="immobilier_id"  value="{{$chambre->immobilier_id}}" class="form-control" readonly required>
+                                    <input type="hidden" id="chambre_id" name="chambre_id" class="form-control" value="{{$chambre->id}}" readonly required>
                                     <input type="hidden" id="prix_total" name="prix_total" class="form-control" readonly required>
                                     <small id="prix_calcule" class="text-success mt-2 d-block" style="display:none;"></small>
                                 </div>

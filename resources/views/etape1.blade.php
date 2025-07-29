@@ -4,10 +4,8 @@
 @section('content')
     <div class="container py-5">
         <h2 class="mb-4">Étape 1 : Choix du contrat</h2>
-
         <form method="POST" action="{{ route('reservation.step2') }}">
             @csrf
-
             <input type="hidden" name="immobilier_id" value="{{ $immobilierId }}">
             <input type="hidden" name="chambre_id" value="{{ $chambre->id }}">
 
