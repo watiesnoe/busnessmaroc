@@ -1,8 +1,8 @@
 <div class="row g-4">
     @forelse($offres as $offre)
-        <div class="col-12">
-            <div class="card-grid-2 hover-up rounded shadow-sm">
-                <div class="card-body">
+        <div class="col-12 ">
+            <div class="card-grid-2 hover-up rounded shadow-sm mb-2">
+                <div class="card-body p-2">
                     <h5 class="card-title fw-bold text-primary">{{ $offre->titre }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ $offre->entreprise }}</h6>
                     <p class="card-text">
