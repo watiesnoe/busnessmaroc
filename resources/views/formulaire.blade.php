@@ -43,6 +43,7 @@
 {{--                // Calculer à chaque changement sur les champs concernés--}}
 {{--                $('input[name="date_debut"], input[name="date_fin"], select[name="type_contrat"]').on('change', calculerPrix);--}}
 
+<<<<<<< Updated upstream
 {{--                // Soumission AJAX du formulaire--}}
 {{--                $('#reservationForm').submit(function (e) {--}}
 {{--                    e.preventDefault();--}}
@@ -77,4 +78,10 @@
 {{--                });--}}
 {{--            });--}}
 {{--        </script>--}}
+=======
+                // Soumission AJAX du formulaire
+
+            });
+        </script>
+>>>>>>> Stashed changes
     @endsection

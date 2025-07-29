@@ -13,11 +13,11 @@ class Paiements extends Model
         'montant', // Amount of the payment
         'date_paiement', // Date of the payment
         'mode_paiement', // Mode of payment (cash, card, etc.)
-        'statut', // Status of the payment (completed, pending, etc.)
+//        'statut', // Status of the payment (completed, pending, etc.)
     ];
     public function contratlocation()
     {
-        return $this->belongsTo(Contratlocation::class, 'contratlocation_id');
+        return $this->belongsTo(ContratLocation::class, 'contratlocation_id');
     }
 
 }
