@@ -47,45 +47,45 @@
                 $('input[name="date_debut"], input[name="date_fin"], select[name="type_contrat"]').on('change', calculerPrix);
 
                 // Soumission AJAX du formulaire
-                {{--$('#reservationForm').submit(function (e) {--}}
-                {{--    e.preventDefault();--}}
+                $('#reservationForm').submit(function (e) {
+                    e.preventDefault();
 
-                {{--    let form = $(this);--}}
-                {{--    let url = form.attr('action');--}}
-                {{--    let data = form.serialize();--}}
+                    let form = $(this);
+                    let url = form.attr('action');
+                    let data = form.serialize();
 
-                {{--    $.ajax({--}}
-                {{--        url: url,--}}
-                {{--        method: 'POST',--}}
-                {{--        data: data,--}}
-                {{--        success: function (response) {--}}
-                {{--            Swal.fire({--}}
-                {{--                icon: 'success',--}}
-                {{--                text: response.message,--}}
-                {{--                timer: 2000,--}}
-                {{--                showConfirmButton: false--}}
-                {{--            }).then(() => {--}}
-                {{--                // Redirection après le succès--}}
-                {{--                window.location.href = "{{ route('homesite.index') }}";--}}
-                {{--            });--}}
-                {{--            form[0].reset();--}}
-                {{--            $('#prix_calcule').hide();--}}
-                {{--            $('#prix_total').val('');--}}
-                {{--        },--}}
-                {{--        error: function (xhr) {--}}
-                {{--            let errors = xhr.responseJSON?.errors;--}}
-                {{--            let msg = 'Une erreur est survenue.';--}}
+                    $.ajax({
+                        url: url,
+                        method: 'POST',
+                        data: data,
+                        success: function (response) {
+                            Swal.fire({
+                                icon: 'success',
+                                text: response.message,
+                                timer: 2000,
+                                showConfirmButton: false
+                            }).then(() => {
+                                // Redirection après le succès
+                                window.location.href = "{{ route('homesite.index') }}";
+                            });
+                            form[0].reset();
+                            $('#prix_calcule').hide();
+                            $('#prix_total').val('');
+                        },
+                        error: function (xhr) {
+                            let errors = xhr.responseJSON?.errors;
+                            let msg = 'Une erreur est survenue.';
 
-                {{--            if (errors) {--}}
-                {{--                msg = Object.values(errors).flat().join("\n");--}}
-                {{--            } else if(xhr.responseJSON?.message) {--}}
-                {{--                msg = xhr.responseJSON.message;--}}
-                {{--            }--}}
+                            if (errors) {
+                                msg = Object.values(errors).flat().join("\n");
+                            } else if(xhr.responseJSON?.message) {
+                                msg = xhr.responseJSON.message;
+                            }
 
-                {{--            alert(msg);--}}
-                {{--        }--}}
-                {{--    });--}}
-                {{--});--}}
+                            alert(msg);
+                        }
+                    });
+                });
             });
         </script>
     @endsection

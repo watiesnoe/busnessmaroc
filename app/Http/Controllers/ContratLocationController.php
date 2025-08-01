@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ContratlocationController extends Controller
+class ContratLocationController extends Controller
 {
     //
     Public function index()

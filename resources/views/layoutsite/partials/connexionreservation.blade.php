@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <h2>Réservation de la chambre : {{ $chambre->type }}</h2>
+    <h2>Réservation de la chambre</h2>
 
     <h3>Avez-vous déjà un compte ?</h3>
 
@@ -9,7 +9,7 @@
     </div>
 
     {{-- Connexion avec Google --}}
-    <a href="{{ route('google.login') }}" class="btn btn-danger mb-3">
+    <a href="{{ route('auth.google.redirect') }}" class="btn btn-danger mb-3">
         Se connecter avec Google
     </a>
 
@@ -52,5 +52,4 @@
             <button type="submit" class="btn btn-primary">Créer un compte</button>
         </form>
     </div>
-
 </div>

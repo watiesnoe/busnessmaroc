@@ -13,3 +13,4 @@
     <script src="{{ asset('asset/js/plugins/counterup.js') }}"></script>
     <script src="{{ asset('asset/js/main.js?v=4.1') }}"></script>
      <script src="{{ asset('asset/js/plugins/counterup.js') }}"></script>
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

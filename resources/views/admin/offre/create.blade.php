@@ -7,7 +7,7 @@
         <div class="mb-3 d-flex justify-content-end">
             <a href="{{ route('offre.index') }}" class="btn btn-primary">Voir la liste</a>
         </div>
-        <form id="createform" action="{{ route('offre.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="createform" data-action="{{ route('offre.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card shadow-sm border-0 rounded-4">
                 <div class="card-header bg-light text-primary fw-semibold  bg-primary">
@@ -123,56 +123,56 @@
     });
 </script>
 
-<script>
-    $(document).ready(function () {
-        $('#createforme').on('submit', function (e) {
-            e.preventDefault();
+{{--<script>--}}
+{{--    $(document).ready(function () {--}}
+{{--        $('#createform').on('submit', function (e) {--}}
+{{--            e.preventDefault();--}}
 
-            let formData = new FormData(this);
+{{--            let formData = new FormData(this);--}}
 
-            $.ajax({
-                url: "{{ route('offre.store') }}",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                },
-                success: function (response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Offre publiée !',
-                        text: response.message,
-                        confirmButtonColor: '#3085d6'
-                    });
-                    $('#createform')[0].reset();
-                },
-                error: function (xhr) {
-                    if (xhr.status === 422) {
-                        let errors = xhr.responseJSON.errors;
-                        let message = "";
-                        for (let key in errors) {
-                            message += `• ${errors[key][0]}\n`;
-                        }
+{{--            $.ajax({--}}
+{{--                url: "{{ route('offre.store') }}",--}}
+{{--                type: "POST",--}}
+{{--                data: formData,--}}
+{{--                processData: false,--}}
+{{--                contentType: false,--}}
+{{--                headers: {--}}
+{{--                    'X-CSRF-TOKEN': $('input[name="_token"]').val()--}}
+{{--                },--}}
+{{--                success: function (response) {--}}
+{{--                    Swal.fire({--}}
+{{--                        icon: 'success',--}}
+{{--                        title: 'Offre publiée !',--}}
+{{--                        text: response.message,--}}
+{{--                        confirmButtonColor: '#3085d6'--}}
+{{--                    });--}}
+{{--                    $('#createform')[0].reset();--}}
+{{--                },--}}
+{{--                error: function (xhr) {--}}
+{{--                    if (xhr.status === 422) {--}}
+{{--                        let errors = xhr.responseJSON.errors;--}}
+{{--                        let message = "";--}}
+{{--                        for (let key in errors) {--}}
+{{--                            message += `• ${errors[key][0]}\n`;--}}
+{{--                        }--}}
 
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Erreur de validation',
-                            text: message,
-                            confirmButtonColor: '#d33'
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Erreur serveur',
-                            text: 'Une erreur s’est produite. Veuillez réessayer.',
-                            confirmButtonColor: '#d33'
-                        });
-                    }
-                }
-            });
-        });
-    });
-</script>
+{{--                        Swal.fire({--}}
+{{--                            icon: 'error',--}}
+{{--                            title: 'Erreur de validation',--}}
+{{--                            text: message,--}}
+{{--                            confirmButtonColor: '#d33'--}}
+{{--                        });--}}
+{{--                    } else {--}}
+{{--                        Swal.fire({--}}
+{{--                            icon: 'error',--}}
+{{--                            title: 'Erreur serveur',--}}
+{{--                            text: 'Une erreur s’est produite. Veuillez réessayer.',--}}
+{{--                            confirmButtonColor: '#d33'--}}
+{{--                        });--}}
+{{--                    }--}}
+{{--                }--}}
+{{--            });--}}
+{{--        });--}}
+{{--    });--}}
+{{--</script>--}}
 @endsection

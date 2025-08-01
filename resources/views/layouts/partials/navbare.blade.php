@@ -114,9 +114,12 @@
                         <!-- END Side Overlay -->
 
                         <div role="separator" class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="op_auth_signin.html">
-                            <i class="far fa-fw fa-arrow-alt-circle-left me-1"></i> Sign Out
+                        <a href="{{url('/logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" id="user_deconnect">
+                            <em class="icon ni ni-signout"></em><span>Se déconnecter</span>
                         </a>
+                        <form id="logout-form" action="{{url('/logout')}}" method="POST" style="display:none">
+                            {{csrf_field()}}
+                        </form>
                     </div>
                 </div>
             </div>

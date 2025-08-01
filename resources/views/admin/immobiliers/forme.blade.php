@@ -86,7 +86,23 @@
                     Mettre cette annonce à la une
                 </label>
             </div>
-
+            @if(isset($immobilier) and   $immobilier->photos->isNotEmpty())
+                <div class="col-md-12 mb-3">
+                    <label for="photo_principale">Photos existantes</label>
+                    <div class="row">
+                        @foreach($immobilier->photos as $photo)
+                            <div class="col-md-3 text-center mb-3">
+                                <img src="{{ asset('storage/' . $photo->url) }}" alt="photo" height="50" class="img-fluid mb-1">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="photo_principale" value="{{ $photo->id }}"
+                                        {{ $photo->principale ? 'checked' : '' }}>
+                                    <label class="form-check-label">Photo principale</label>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
             <!-- Chambres dynamiques -->
             <div class="col-12">
                 <h5>Chambres</h5>

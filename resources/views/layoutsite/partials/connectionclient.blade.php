@@ -44,7 +44,7 @@
 
                     <div class="text-muted text-center">
                         Don't have an account?
-                        <a href="{{ route('register') }}">Sign up</a>
+                        <a href="{{ route('register.client') }}">Sign up</a>
                     </div>
                 </form>
             </div>

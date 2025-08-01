@@ -121,12 +121,18 @@ class ImmobiliersController extends Controller
 
     // 4. Ajouter les photos globales
     if ($request->hasFile('photos')) {
+        $isFirst = true;
+
         foreach ($request->file('photos') as $photo) {
             $path = $photo->store('photos', 'public');
+
             Photo::create([
                 'immobilier_id' => $immobilier->id,
                 'url' => $path,
+                'principale' => $isFirst, // la première est "principale"
             ]);
+
+            $isFirst = false;
         }
     }
 
@@ -165,6 +171,7 @@ class ImmobiliersController extends Controller
             'chambres.*.capacite' => 'required|integer',
             'chambres.*.statut' => 'required|string|in:disponible,reservee,occupee',
             'chambres.*.description' => 'nullable|string',
+            'photo_principale' => 'nullable|exists:photos,id',
         ]);
 
         $immobilier = Immobilier::findOrFail($id);
@@ -209,6 +216,15 @@ class ImmobiliersController extends Controller
                     'url' => $path,
                 ]);
             }
+        }
+
+        // Mise à jour de la photo principale
+        if ($request->filled('photo_principale')) {
+            // Réinitialiser toutes les photos de cet immobilier
+            Photo::where('immobilier_id', $immobilier->id)->update(['principale' => false]);
+
+            // Définir la nouvelle photo principale
+            Photo::where('id', $request->photo_principale)->update(['principale' => true]);
         }
 
         return response()->json(['message' => 'Annonce mise à jour avec succès']);
