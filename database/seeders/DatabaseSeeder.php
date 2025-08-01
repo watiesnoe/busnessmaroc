@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Aminata DIALLO',
             'email' => 'amitacompt90@gmail.com',
-            'password' => Hash::make('123456'),
+            'password' => Hash::make('111111'),
             'role' => 'superadmin',
         ]);
 //        Immobilier::factory()
