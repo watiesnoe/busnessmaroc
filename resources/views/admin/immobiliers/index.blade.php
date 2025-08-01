@@ -5,15 +5,17 @@
 
 @section('content')
     <div class="content">
-          <div class="mb-3 text-end" >
-                {{-- <a href="{{ route('immobiliers.create') }}" class="btn btn-primary">Ajouter un Immeuble</a> --}}
-                <a href="{{route('immobiliers.create')}}" class="btn btn-primary">Ajouter</a>
-            </div>
+        <div class="mb-3 text-end">
+    <a href="{{ route('immobiliers.create') }}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i> Ajouter
+    </a>
+</div>
+
         <!-- Dynamic Table with Export Buttons -->
         <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title">
-                    Dynamic Table <small>Export Buttons</small>
+                    Liste des Immeubles
                 </h3>
             </div>
             <div class="block-content block-content-full overflow-x-auto">

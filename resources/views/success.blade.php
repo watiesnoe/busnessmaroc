@@ -1,4 +1,4 @@
-<?php
+
 @extends('layoutsite.site')
 @section('content')
     <div class="container py-4 text-center">

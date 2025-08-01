@@ -2,64 +2,63 @@
 
 @section('content')
 {{--    @include('layoutsite.partials.register')--}}
-<section class="pt-100 login-register">
+<section class="py-5" style="background: #f5f7fa;">
     <div class="container">
-        <div class="row login-register-cover">
-            <div class="col-lg-4 col-md-12 col-sm-12 mx-auto">
-                <div class="text-center">
-                    <h3 class="mt-5 mb-5 text-brand-1">Creation de compte</h3>
-                    <button class="btn social-login hover-up mb-20"> <img src="{{ asset('asset/imgs/template/icons/icon-google.svg') }}" alt="Google login"><strong>Sign up with Google</strong></button>
-                    <div class="divider-text-center"><span>Or continue with</span></div>
-                </div>
-                <form method="POST" id="createform"  data-action="{{ route('register.ajax') }}">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <label>Nom</label>
-                            <input type="text" name="nom" class="form-control" required>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label>Prénom</label>
-                            <input type="text" name="prenom" class="form-control" required>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label>Nom d'utilisateur</label>
-                            <input type="text" name="name" class="form-control" required>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label>Email</label>
-                            <input type="email" name="email" class="form-control" required>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label>Mot de passe</label>
-                            <input type="password" name="password" class="form-control" required>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label>Confirmer le mot de passe</label>
-                            <input type="password" name="password_confirmation" class="form-control" required>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label>Téléphone</label>
-                            <input type="text" name="telephone" class="form-control" required>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label>Adresse</label>
-                            <input type="text" name="adresse" class="form-control" required>
-                        </div>
+        <div class="row align-items-center justify-content-center">
+            <!-- Image gauche -->
+            <div class="col-lg-3 d-none d-lg-block text-end">
+                <img src="{{ asset('asset/imgs/page/login-register/img-4.svg') }}" class="img-fluid" alt="Image gauche">
+            </div>
 
-                        <div class="col-md-12 mb-3 text-center">
-                            <button type="submit" class="btn btn-primary">Créer un compte</button>
-                        </div>
+            <!-- Formulaire centré dans une carte -->
+            <div class="col-lg-6 col-md-10">
+                <div class="card shadow-lg border-0 rounded-4 p-4">
+                    <div class="text-center mb-4">
+                        <h3 class="text-primary">Création de compte</h3>
+                        <button class="btn btn-outline-secondary w-100 mb-3">
+                            <img src="{{ asset('asset/imgs/template/icons/icon-google.svg') }}" class="me-2" alt="Google">
+                            S'inscrire avec Google
+                        </button>
+                        <div class="text-muted">Ou continuez avec le formulaire</div>
                     </div>
-
-                </form>
-
+                    <form method="POST" id="createform" data-action="{{ route('register.ajax') }}">
+                        @csrf
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <input type="text" name="nom" class="form-control" placeholder="Nom" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" name="prenom" class="form-control" placeholder="Prénom" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" name="name" class="form-control" placeholder="Nom d'utilisateur" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="email" name="email" class="form-control" placeholder="Email" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="password" name="password_confirmation" class="form-control" placeholder="Confirmation" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" name="telephone" class="form-control" placeholder="Téléphone" required>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" name="adresse" class="form-control" placeholder="Adresse" required>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button type="submit" class="btn btn-primary w-100">Créer un compte</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="img-1 d-none d-lg-block">
-                <img class="shape-1" src="{{ asset('asset/imgs/page/login-register/img-4.svg') }}" alt="JobBox">
-            </div>
-            <div class="img-2">
-                <img src="{{ asset('asset/imgs/page/login-register/img-3.svg') }}" alt="JobBox">
+
+            <!-- Image droite -->
+            <div class="col-lg-3 d-none d-lg-block text-start">
+                <img src="{{ asset('asset/imgs/page/login-register/img-3.svg') }}" class="img-fluid" alt="Image droite">
             </div>
         </div>
     </div>

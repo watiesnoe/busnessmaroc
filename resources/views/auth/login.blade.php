@@ -1,63 +1,54 @@
 @extends('layoutsite.site')
 @section('content')
-<div class="row login-register-cover">
-    <div class="col-lg-4 col-md-6 col-sm-12 mx-auto">
-        <div class="card shadow p-4 border-0 rounded-4">
+<section class="bg-light min-vh-100 d-flex align-items-center justify-content-center position-relative">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="card shadow-lg border-0 rounded-4 p-4 bg-white">
+                    <h3 class="text-center mb-4 text-primary">Connexion</h3>
 
-{{--            <div class="text-center">--}}
-{{--                <p class="font-sm text-brand-2">Welcome back!</p>--}}
-{{--                <h2 class="mt-10 mb-5 text-brand-1">Member Login</h2>--}}
-{{--                <p class="font-sm text-muted mb-30">Access all features. No credit card required.</p>--}}
+                    <!-- Formulaire de connexion -->
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Adresse email *</label>
+                            <input type="email" id="email" name="email" class="form-control" required placeholder="your@email.com">
+                        </div>
 
-{{--                <!-- Bouton de connexion Google -->--}}
-{{--                <a href="{{ route('auth.google.redirect') }}" class="btn social-login hover-up mb-20">--}}
-{{--                    <img src="{{ asset('asset/imgs/template/icons/icon-google.svg') }}" alt="Google login">--}}
-{{--                    <strong>Sign in with Google</strong>--}}
-{{--                </a>--}}
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mot de passe *</label>
+                            <input type="password" id="password" name="password" class="form-control" required placeholder="********">
+                        </div>
 
-{{--                <div class="divider-text-center"><span>Or continue with</span></div>--}}
-{{--            </div>--}}
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="remember" id="remember">
+                                <label class="form-check-label" for="remember">Se souvenir de moi</label>
+                            </div>
+                            <a href="{{ route('password.request') }}" class="text-decoration-none text-primary">Mot de passe oublié ?</a>
+                        </div>
 
-            <!-- Formulaire de connexion -->
-            <form class="login-register text-start mt-20" method="POST" action="{{ route('login') }}">
-                @csrf
-                <div class="form-group">
-                    <label class="form-label" for="email">Email address *</label>
-                    <input class="form-control" id="email" type="email" name="email" required placeholder="your@email.com">
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary rounded-pill">Se connecter</button>
+                        </div>
+
+                        <div class="text-center">
+                            <span class="text-muted">Pas encore de compte ?</span>
+                            <a href="{{ route('register.client') }}" class="text-primary text-decoration-none">Créer un compte</a>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="password">Password *</label>
-                    <input class="form-control" id="password" type="password" name="password" required placeholder="********">
-                </div>
-
-                <div class="login_footer form-group d-flex justify-content-between">
-                    <label class="cb-container">
-                        <input type="checkbox" name="remember">
-                        <span class="text-small">Remember me</span>
-                        <span class="checkmark"></span>
-                    </label>
-                    <a class="text-muted" href="{{ route('password.request') }}">Forgot Password?</a>
-                </div>
-
-                <div class="form-group">
-                    <button class="btn btn-brand-1 hover-up w-100" type="submit">Login</button>
-                </div>
-
-                <div class="text-muted text-center">
-                    Don't have an account?
-                    <a href="{{ route('register.client') }}">Sign up</a>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 
-    <!-- Images -->
-    <div class="img-1 d-none d-lg-block">
-        <img class="shape-1" src="{{ asset('asset/imgs/page/login-register/img-4.svg') }}" alt="JobBox">
+    <!-- Images décoratives -->
+    <div class="position-absolute top-0 start-0 d-none d-lg-block" style="z-index: 0;">
+        <img src="{{ asset('asset/imgs/page/login-register/img-4.svg') }}" alt="Décor gauche" style="max-width: 300px;">
     </div>
-    <div class="img-2">
-        <img src="{{ asset('asset/imgs/page/login-register/img-3.svg') }}" alt="JobBox">
+    <div class="position-absolute bottom-0 end-0" style="z-index: 0;">
+        <img src="{{ asset('asset/imgs/page/login-register/img-3.svg') }}" alt="Décor droite" style="max-width: 250px;">
     </div>
-</div>
+</section>
+
 @endsection

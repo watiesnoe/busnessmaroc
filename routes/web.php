@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\AdminHomeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ChambresController;
@@ -35,20 +36,20 @@ Route::post('/reservation/{immobilier}/{chambre}', [ReservationController::class
 //Route::post('/login/utilisateur', [LoginController::class, 'store'])->name('login');
 
 //Partie google forme
-    Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google.redirect');
-    Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-    //Route::get('/', [SitedashboardController::class, 'indexOffre']);
-    Route::get('/offres', [OffreController::class, 'afficher'])->name('offres');
-    Route::get('/offres-filtre', [OffreController::class, 'filtrer'])->name('offres.filtrer');
-    //Route::get('/details_offre', [details_offreController::class, 'index'])->name('details_offre');
-    Route::get('/creation_compte',[ComptclientController::class,'index'])->name('register.client');
-    // routes/web.php
-    Route::post('/register/ajax', [ComptclientController::class, 'store'])->name('register.ajax');
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google.redirect');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+//Route::get('/', [SitedashboardController::class, 'indexOffre']);
+Route::get('/offres', [OffreController::class, 'afficher'])->name('offres');
+Route::get('/offres-filtre', [OffreController::class, 'filtrer'])->name('offres.filtrer');
+//Route::get('/details_offre', [details_offreController::class, 'index'])->name('details_offre');
+Route::get('/creation_compte', [ComptclientController::class, 'index'])->name('register.client');
+// routes/web.php
+Route::post('/register/ajax', [ComptclientController::class, 'store'])->name('register.ajax');
 
-    Route::get('/details_offre/{id}', [details_offreController::class, 'show'])->name('details_offre.show');
-    Route::get('/se_connecter', [connexionController::class, 'index'])->name('se_connecter');
-    //Route::get('/registre', [RegisteredUserController::class, 'create'])->name('registre.create');
-    Route::middleware('auth')->group(function () {
+Route::get('/details_offre/{id}', [details_offreController::class, 'show'])->name('details_offre.show');
+Route::get('/se_connecter', [connexionController::class, 'index'])->name('se_connecter');
+//Route::get('/registre', [RegisteredUserController::class, 'create'])->name('registre.create');
+Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -62,24 +63,23 @@ Route::post('/reservation/{immobilier}/{chambre}', [ReservationController::class
     Route::resource('/secteurActivites', SecteuractiviteController::class);
     Route::resource('/utilisateurs', UtilisateurController::class);
     // route pour afficher les offres côté site vitrine
-        // Étape 1 : Choisir le contrat
-        Route::get('/reservation/{chambre}/', [ReservationController::class, 'reserver'])->name('reservation.chambre');
+    // Étape 1 : Choisir le contrat
+    Route::get('/reservation/{chambre}/', [ReservationController::class, 'reserver'])->name('reservation.chambre');
 
-        // Étape 2 : Informations client (POST depuis step1)
-//        Route::post('/reservation/step2', [ReservationController::class, 'step2'])->name('reservation.step2');
-//
-//        // Étape 3 : Paiement (POST depuis step2)
-        Route::post('/reservation/paiement', [ReservationController::class, 'paiement'])->name('reservation.paiement');
+    // Étape 2 : Informations client (POST depuis step1)
+    //        Route::post('/reservation/step2', [ReservationController::class, 'step2'])->name('reservation.step2');
+    //
+    //        // Étape 3 : Paiement (POST depuis step2)
+    Route::post('/reservation/paiement', [ReservationController::class, 'paiement'])->name('reservation.paiement');
 
-        // Paiement confirmé (POST depuis PayPal ou autre)
-        Route::resource('/paiements', PaiementsController::class);
-        // route pour afficher les offres côté site vitrine
+    // Paiement confirmé (POST depuis PayPal ou autre)
+    Route::resource('/paiements', PaiementsController::class);
+    // route pour afficher les offres côté site vitrine
 
 
     Route::get('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
     Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
     Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
-
 });
 
 

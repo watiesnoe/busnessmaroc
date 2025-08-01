@@ -1,136 +1,83 @@
-{{--@if($immobiliers->count())--}}
-{{--    @foreach($immobiliers as $immobilier)--}}
-{{--                    <div class="col-xl-12 col-12">--}}
-{{--                        <div class="card-grid-2 hover-up"><span class="flash"></span>--}}
-{{--                            <div class="row">--}}
-{{--                                <div class="col-lg-6 col-md-6 col-sm-12">--}}
-{{--                                    <div class="card-grid-2-image-left">--}}
-{{--                                        <div class="image-box">--}}
-{{--                                            @if($immobilier->photos->isNotEmpty())--}}
-{{--                                                <img src="{{asset('storage/'.$immobilier->photos[0]->url)}}" width="100" height="100" alt="{{ $immobilier->titre }}">--}}
-{{--                                            @else--}}
-{{--                                                <img src="{{ asset('images/default.jpg') }}" alt="Aucune image">--}}
-{{--                                            @endif--}}
-{{--                                        </div>--}}
-{{--                                        <div class="right-info">--}}
-{{--                                            <a class="name-job" href="#">--}}
-{{--                                                {{ $immobilier->category->nom ?? 'Catégorie inconnue' }}--}}
-{{--                                            </a>--}}
-{{--                                            <span class="location-small">{{ $immobilier->ville ?? 'Localisation inconnue' }}</span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                                <div class="col-lg-6 text-start text-md-end pr-60 col-md-6 col-sm-12">--}}
-{{--                                    <div class="pl-15 mb-15 mt-30">--}}
-{{--                                        @foreach($immobilier->chambres as $chambre)--}}
-{{--                                            <a class="btn btn-grey-small mr-5" href="#">--}}
-{{--                                                {{ ucfirst($chambre->type) }}--}}
-{{--                                            </a>--}}
-{{--                                        @endforeach--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="card-block-info">--}}
-{{--                                <h4>--}}
-{{--                                    <a href="#">--}}
-{{--                                        {{ $immobilier->titre ?? 'Sans titre' }}--}}
-{{--                                    </a>--}}
-{{--                                </h4>--}}
-{{--                                <div class="mt-5">--}}
-{{--                                    <span class="card-briefcase">{{ $immobilier->statut ?? 'Statut inconnu' }}</span>--}}
-{{--                                    <span class="card-time">--}}
-{{--                                        <span>{{ $immobilier->created_at->diffForHumans() }}</span>--}}
-{{--                                    </span>--}}
-{{--                                </div>--}}
-{{--                                <p class="font-sm color-text-paragraph mt-10">--}}
-{{--                                    {{ Str::limit($immobilier->description, 100) }}--}}
-{{--                                </p>--}}
-{{--                                <div class="card-2-bottom mt-20">--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="col-lg-7 col-7">--}}
-{{--                                            <span class="card-text-price">--}}
-{{--                                                {{ number_format($immobilier->prix, 0, ',', ' ') }} F CFA--}}
-{{--                                            </span>--}}
-{{--                                            <span class="text-muted">/mois</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-lg-5 col-5 text-end">--}}
-{{--                                            <div class="btn btn-apply-now" data-bs-toggle="modal" data-bs-target="#ModalApplyJobForm">--}}
-{{--                                                <a href="" class="text-white">Contacter</a>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--     @endforeach--}}
-{{--@else--}}
-{{--    <p>Aucun bien trouvé.</p>--}}
-{{--@endif--}}
-@if($immobiliers->count())
-    @foreach($immobiliers as $immobilier)
-        <div class="col-md-6 mb-4">
-            <div class="card-grid-2 hover-up"><span class="flash"></span>
+<style>
+    .image-box img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .card-grid-2 {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+</style>
+
+@if ($immobiliers->count())
+    @foreach ($immobiliers as $immobilier)
+        <div class="col-12 col-md-6 mb-4">
+            <div class="card-grid-2 hover-up">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="card-grid-2-image-left">
-                            <div class="image-box">
-                                @if($immobilier->photos->isNotEmpty())
-                                    <img src="{{asset('storage/'.$immobilier->photos[0]->url)}}" width="100" height="100" alt="{{ $immobilier->titre }}">
-                                @else
-                                    <img src="{{ asset('images/default.jpg') }}" alt="Aucune image">
-                                @endif
-                            </div>
-                            <div class="right-info">
-                                <a class="name-job" href="#">
-                                    {{ $immobilier->category->nom ?? 'Catégorie inconnue' }}
-                                </a>
-                                <span class="location-small">{{ $immobilier->ville ?? 'Localisation inconnue' }}</span>
-                            </div>
+                    <!-- Image -->
+                    <div class="col-12">
+                        <div class="image-box mb-3">
+                            @if ($immobilier->photos->isNotEmpty())
+                                <img src="{{ asset('storage/' . $immobilier->photos[0]->url) }}"
+                                    alt="{{ $immobilier->titre }}">
+                            @else
+                                <img src="{{ asset('images/default.jpg') }}" alt="Aucune image">
+                            @endif
                         </div>
                     </div>
-                    <div class="col-lg-6 text-start text-md-end pr-60 col-md-6 col-sm-12">
-                        <div class="pl-15 mb-15 mt-30">
-                            @foreach($immobilier->chambres as $chambre)
-                                <a href="#" class="btn btn-grey-small text-dark me-2">
-                                    {{ ucfirst($chambre->type) }}
-                                </a>
 
+                    <!-- Infos principales -->
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <a class="fw-bold text-primary" href="#">
+                                {{ $immobilier->category->nom ?? 'Catégorie inconnue' }}
+                            </a>
+                            <span class="text-muted">{{ $immobilier->ville ?? 'Localisation inconnue' }}</span>
+                        </div>
+
+                        <h5 class="mb-2">
+                            <a href="#" class="text-dark">{{ $immobilier->titre ?? 'Sans titre' }}</a>
+                        </h5>
+
+                        <p class="font-sm text-muted">
+                            {{ Str::limit($immobilier->description, 100) }}
+                        </p>
+
+                        <!-- Chambres -->
+                        <div class="mb-3">
+                            @foreach ($immobilier->chambres as $chambre)
+                                <span class="badge bg-light text-dark me-2">
+                                    {{ ucfirst($chambre->type) }}
+                                </span>
                             @endforeach
                         </div>
-                    </div>
-                </div>
-                <div class="card-block-info">
-                    <h4>
-                        <a href="#">
-                            {{ $immobilier->titre ?? 'Sans titre' }}
-                        </a>
-                    </h4>
-                    <div class="mt-5">
-                        <span class="card-briefcase">{{ $immobilier->statut ?? 'Statut inconnu' }}</span>
-                        <span class="card-time">
-                    <span>{{ $immobilier->created_at->diffForHumans() }}</span>
-                </span>
-                    </div>
-                    <p class="font-sm color-text-paragraph mt-10">
-                        {{ Str::limit($immobilier->description, 100) }}
-                    </p>
-                    <div class="card-2-bottom mt-20">
-                        <div class="row">
-                            <div class="col-lg-7 col-7">
-                        <span class="card-text-price">
-                            {{ number_format($immobilier->prix, 0, ',', ' ') }} F CFA
-                        </span>
-                                <span class="text-muted">/mois</span>
-                            </div>
-                            <div class="col-lg-5 col-5 text-end">
-                                <div class="text-end">
-                                    <a href="#" class="btn btn-primary text-white" data-bs-toggle="modal">
-                                        Contacter
-                                    </a>
-                                </div>
 
+                        <!-- Bas de carte -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong class="text-success">
+                                    {{ number_format($immobilier->prix, 0, ',', ' ') }} F CFA
+                                </strong>
+                                <small class="text-muted">/mois</small>
                             </div>
+                            <a href="#" class="btn btn-sm btn-primary text-white">
+                                Contacter
+                            </a>
+                        </div>
+
+                        <div class="mt-2">
+                            <span class="badge bg-secondary">{{ $immobilier->statut ?? 'Statut inconnu' }}</span>
+                            <span class="text-muted ms-2">{{ $immobilier->created_at->diffForHumans() }}</span>
                         </div>
                     </div>
                 </div>
