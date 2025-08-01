@@ -70,7 +70,7 @@
 
             <!-- Logo -->
             <a href="{{ route('home.index') }}" class="d-flex align-items-center gap-2 text-decoration-none">
-                <img src="{{ asset('assets/imgs/template/jobhub-logo.svg') }}" alt="Logo" height="40">
+                <img src="{{ asset('asset/imgs/template/jobhub-logo.svg') }}" alt="Logo" height="40">
             </a>
 
             <!-- Menu navigation desktop -->
