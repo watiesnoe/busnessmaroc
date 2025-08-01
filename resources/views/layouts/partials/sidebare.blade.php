@@ -3,12 +3,12 @@
     <div class="bg-header-dark">
         <div class="content-header bg-white-5">
             <!-- Logo -->
-            <a class="fw-semibold text-white tracking-wide" href="index.html">
+            <a class="fw-semibold text-white tracking-wide" href="">
               <span class="smini-visible">
-                D<span class="opacity-75">x</span>
+                 <span class="opacity-75"></span>
               </span>
                 <span class="smini-hidden">
-                Dash<span class="opacity-75">mix</span>
+                Maroc-<span class="opacity-75">Busness</span>
               </span>
             </a>
             <!-- END Logo -->
@@ -121,7 +121,7 @@
                 <li class="nav-main-item ">
                     <a class="nav-main-link active " href="be_pages_dashboard.html">
                         <i class="nav-main-link-icon fa fa-home-lg"></i>
-                        <span class="nav-main-link-name">Dashboard</span>
+                        <span class="nav-main-link-name">Acceuil</span>
 
                     </a>
                 </li>
@@ -147,19 +147,19 @@
 
                 <li class="nav-main-item">
                     <a class="nav-main-link " aria-haspopup="true"  href="{{route('offre.index')}}">
-                        <i class="nav-main-link-icon fa fa-coffee"></i>
+                        <i class="nav-main-link-icon fa fa-flask"></i>
                         <span class="nav-main-link-name">Offre</span>
                     </a>
                 </li>
                  <li class="nav-main-item">
                     <a class="nav-main-link " aria-haspopup="true"  href="{{route('entreprises.index')}}">
-                        <i class="nav-main-link-icon fa fa-ghost"></i>
+                        <i class="nav-main-link-icon fa fa-boxes"></i>
                         <span class="nav-main-link-name">Entreprise</span>
                     </a>
                 </li>
                   <li class="nav-main-item">
                     <a class="nav-main-link " aria-haspopup="true"  href="{{route('utilisateurs.index')}}">
-                        <i class="nav-main-link-icon fa fa-ghost"></i>
+                       <i class="nav-main-link-icon fa fa-cog"></i>
                         <span class="nav-main-link-name">Configuration</span>
                     </a>
                 </li>

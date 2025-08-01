@@ -100,32 +100,31 @@
                 background-image: url('{{ asset('asset/imgs/bg-job.jpg') }}');
                 background-size: 800px auto;
                 background-repeat: no-repeat;
-                background-position: center;">
-
+              background-position: center;">
         <!-- Overlay sombre -->
         <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.5); z-index: 1;">
         </div>
-
         <!-- Contenu centré -->
-        <div class="container position-relative" style="z-index: 2;">
-            <div class="p-4 text-center offre-card-content">
-                <div class="mb-3">
+        <div class="container position-relative z-2" style="z-index: 2;">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-10">
+                    <h1 class="display-4 fw-bold mb-4 wow animate__animated animate__fadeInDown text-white mt-5">
+                        Votre futur emploi vous attend <br class="d-none d-md-block">
+
+                    </h1>
+                    <p class="lead text-white mb-5 wow animate__animated animate__fadeInUp"
+                        style="text-shadow: 1px 1px 6px rgba(0,0,0,0.6);">
+                        Parcourez les meilleures opportunités professionnelles, que ce soit
+                        près de chez vous ou en télétravail.
+                    </p>
 
                 </div>
-                <div class="container position-relative" style="z-index: 2;">
-                    <div class="p-4 text-center offre-card-content">
-                        <div class="mb-3">
-                            <!-- Vous pouvez ajouter une icône ou une image ici si nécessaire -->
-                        </div>
-                        <h2 class="offre-card-title fw-bold fs-2">Votre futur emploi vous attend</h2>
-                        <p class="lead mt-2 text-white">Parcourez les meilleures opportunités professionnelles, que ce soit
-                            près de chez vous ou en télétravail.</p>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
+
+
+
     {{-- fin du section d'introduction --}}
 
     {{-- Section principale --}}
