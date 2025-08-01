@@ -1,4 +1,13 @@
 <style>
+    .bg-location {
+        height: 400px;
+        background-image: url('../asset/imgs/location.avif');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+    }
+
     /* contenus de la page */
     .section-box {
         padding: 40px 0;
@@ -18,6 +27,79 @@
         margin-bottom: 30px;
     }
 
+    .text-showing {
+        font-size: 1rem;
+        color: #555;
+    }
+
+    .box-border {
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+    }
+
+    .text-sortby {
+        font-size: 0.9rem;
+        margin-right: 5px;
+        color: #666;
+    }
+
+    .btn.dropdown-toggle {
+        background-color: transparent;
+        border: none;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .view-type img {
+        width: 22px;
+        margin-left: 8px;
+    }
+
+    .sidebar-filters {
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .sidebar-filters h4 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .sidebar-filters label {
+        font-weight: 500;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        display: block;
+        color: #444;
+    }
+
+    .sidebar-filters .form-control {
+        font-size: 0.95rem;
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    .filter-block h5 {
+        font-size: 1rem;
+        margin-bottom: 20px;
+        color: #444;
+    }
+
+    .filter-block .link-reset {
+        float: right;
+        font-size: 0.9rem;
+        color: #999;
+        text-decoration: underline;
+    }
 
     @media (max-width: 768px) {
         .box-filters-job {
@@ -46,28 +128,23 @@
 @extends('layoutsite.site')
 @section('content')
     <!-- SECTION HERO AVEC HAUTEUR AJUSTÉE -->
-    <section class="section-box-2 position-relative bg-location" style="height: 50vh; overflow: hidden;">
-        <img src="{{ asset('asset/imgs/location1.jpg') }}" alt="Maison"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-                object-fit: cover; z-index: 0;" />
+    <section class="section-box-2 position-relative bg-location">
         <div class="container">
             <!-- Contenu centré avec padding -->
             <div class="block-banner d-flex flex-column justify-content-center align-items-center text-center position-relative"
-                style="height: 100%; padding: 0 15px; z-index: 2; color: #eee; text-shadow: 0 2px 8px rgba(0,0,0,0.8); ">
+                style="height: 100%; padding: 0 15px; z-index: 2; color: #eee; text-shadow: 0 2px 8px rgba(0,0,0,0.8); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
 
-                <h1 class="display-4 fw-bold mb-4 wow animate__animated animate__fadeInDown text-white mt-5">
-                    <span class="text-primary">Louez</span> en toute simplicité <br class="d-none d-md-block"> votre
-                    prochain logement
-                </h1>
-                <p class="lead text-white mb-5 wow animate__animated animate__fadeInUp"
-                    style="text-shadow: 1px 1px 6px rgba(0,0,0,0.6);">
-                    Trouvez rapidement une maison, un appartement ou un immeuble adapté à vos besoins. Offres vérifiées,
-                    recherche simplifiée.
-                </p>
-
+                <h3 class="wow animate__animated animate__fadeInUp"
+                    style="font-weight: 800; font-size: 2.8rem; margin-bottom: 0.6rem; color: #f5f5f5;">
+                    <span class="color-brand-2" style="color: #5a9cff;">22 Logements</span> disponibles aujourd’hui
+                </h3>
+                <div class="font-sm wow animate__animated animate__fadeInUp" data-wow-delay=".1s"
+                    style="font-size: 1.6rem; max-width: 750px; line-height: 1.8; color: #ddd;">
+                    Trouvez rapidement votre futur chez-vous,<br class="d-none d-xl-block">
+                    entre appartements, maisons et studios adaptés à vos besoins.
+                </div>
             </div>
         </div>
-
     </section>
     {{-- section principale --}}
     <section class="section-box mt-50">
@@ -171,3 +248,4 @@
         });
     </script>
 @endsection
+

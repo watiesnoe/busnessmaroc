@@ -41,10 +41,10 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('111111'),
             'role' => 'superadmin',
         ]);
-        //        Immobilier::factory()
-        //            ->count(10)
-        //            ->has(Image::factory()->count(3)) // chaque immobilier aura 3 images
-        //            ->create();
+//        Immobilier::factory()
+//            ->count(10)
+//            ->has(Image::factory()->count(3)) // chaque immobilier aura 3 images
+//            ->create();
         $this->call([
             CategorieSeer::class,
             OffreSeeder::class,

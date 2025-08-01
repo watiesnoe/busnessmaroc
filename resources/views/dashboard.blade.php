@@ -50,15 +50,15 @@
 </style>
 @extends('layoutsite.site')
 @section('content')
-    <section class="section-box-2 position-relative bg-location" style="height: 55vh; overflow: hidden;">
-        <img src="{{ asset('asset/imgs/accueil1.jpg') }}" alt="Maison"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-                object-fit: cover; z-index: 0;" />
-        <!-- Contenu centré -->
-        <div class="container position-relative z-2" style="z-index: 2;">
+    <section class="hero-section position-relative bg-cover text-white py-5"
+        style="background-image: url('{{ asset('asset/imgs/accueil.jpg') }}');">
+
+        <div class="overlay position-absolute w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6); top: 0; left: 0;">
+        </div>
+        <div class="container position-relative z-2">
             <div class="row justify-content-center text-center">
                 <div class="col-lg-10">
-                    <h1 class="display-4 fw-bold mb-4 wow animate__animated animate__fadeInDown text-white mt-5">
+                    <h1 class="display-4 fw-bold mb-4 wow animate__animated animate__fadeInDown">
                         <span class="text-primary">Trouvez</span> votre futur <br class="d-none d-md-block"> logement en
                         quelques clics
                     </h1>
@@ -67,17 +67,20 @@
                         Découvrez les meilleures offres de location – maisons, appartements, immeubles
                     </p>
 
+
                     <form
                         class="bg-white rounded-pill d-flex p-2 shadow-lg justify-content-between align-items-center wow animate__animated animate__fadeInUp"
                         style="max-width: 850px; margin: auto;" method="GET">
                         <input type="text" name="keyword" class="form-control border-0 rounded-start-pill px-4"
                             placeholder="Ville, quartier ou mot-clé...">
+
                         <select name="type" class="form-select border-0 px-4 bg-light">
                             <option value="">Catégorie</option>
                             <option value="maison">Maison</option>
                             <option value="appartement">Appartement</option>
                             <option value="immeuble">Immeuble</option>
                         </select>
+
                         <button type="submit" class="btn btn-primary rounded-pill px-4 py-2">
                             Rechercher
                         </button>
@@ -85,9 +88,7 @@
                 </div>
             </div>
         </div>
-
     </section>
-
     {{-- section top a la une --}}
     <section class="section-box mt-5">
         <div class="container wow animate__animated animate__fadeIn">
@@ -321,7 +322,7 @@
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 hover-up"
                         style="transition: transform 0.3s; height: 450px; display: flex; flex-direction: column;">
-                        <img src="{{ asset('asset/imgs/chambre.jpeg') }}" class="card-img-top" alt="Conseil pour location"
+                        <img src="assets/imgs/news/news1.jpg" class="card-img-top" alt="Conseil pour location"
                             style="height: 180px; object-fit: cover;">
                         <div class="card-body d-flex flex-column flex-grow-1">
                             <div>
@@ -336,7 +337,8 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <div class="d-flex align-items-center">
-                                  
+                                    <img src="assets/imgs/users/author1.jpg" alt="Auteur" class="rounded-circle me-2"
+                                        width="40" height="40">
                                     <div>
                                         <div class="small fw-semibold">Aminata Diallo</div>
                                         <div class="small text-muted">15 juillet 2025</div>
@@ -352,7 +354,7 @@
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 hover-up"
                         style="transition: transform 0.3s; height: 450px; display: flex; flex-direction: column;">
-                        <img src="{{ asset('asset/imgs/salon.jpeg') }}" class="card-img-top" alt="Tendances du marché"
+                        <img src="assets/imgs/news/news2.jpg" class="card-img-top" alt="Tendances du marché"
                             style="height: 180px; object-fit: cover;">
                         <div class="card-body d-flex flex-column flex-grow-1">
                             <div>
@@ -367,7 +369,8 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <div class="d-flex align-items-center">
-                                   
+                                    <img src="assets/imgs/users/author2.jpg" alt="Auteur" class="rounded-circle me-2"
+                                        width="40" height="40">
                                     <div>
                                         <div class="small fw-semibold">Mamadou Coulibaly</div>
                                         <div class="small text-muted">10 juillet 2025</div>
@@ -382,7 +385,7 @@
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 hover-up"
                         style="transition: transform 0.3s; height: 450px; display: flex; flex-direction: column;">
-                        <img src="{{ asset('asset/imgs/terrasse.jpeg') }}" class="card-img-top" alt="Guide location"
+                        <img src="assets/imgs/news/news3.jpg" class="card-img-top" alt="Guide location"
                             style="height: 180px; object-fit: cover;">
                         <div class="card-body d-flex flex-column flex-grow-1">
                             <div>
@@ -397,7 +400,9 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <div class="d-flex align-items-center">
-                                   
+                                    <img src="assets/imgs/users/author3.jpg" alt="Auteur" class="rounded-circle me-2"
+                                        width="40" height="40">
+                                    <div>
                                         <div class="small fw-semibold">Fatoumata Traoré</div>
                                         <div class="small text-muted">5 juillet 2025</div>
                                     </div>
