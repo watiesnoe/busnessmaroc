@@ -87,9 +87,10 @@ Route::middleware('auth')->group(function () {
     // route pour afficher les offres côté site vitrine
 
     Route::get('/candidature/{offre}', [CandidatureController::class, 'create'])->name('candidature.form');
-    Route::post('/candidature', [CandidatureController::class, 'store'])->name('candidatures.store');
+//    Route::post('/candidature', [CandidatureController::class, 'store'])->name('candidatures.store');
     Route::resource('/candidature', CandidatureController::class);
     Route::get('/admin/utilisateurs/clients', [UtilisateurController::class, 'clients'])->name('utilisateurs.clients');
+    Route::get('/admin/utilisateurs/candidature', [UtilisateurController::class, 'candidats'])->name('utilisateurs.candidats');
 
 //    Route::post('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
 //    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
@@ -97,6 +98,14 @@ Route::middleware('auth')->group(function () {
     Route::post('paypal/create-order', [PayPalController::class, 'createOrder'])->name('paypal.createOrder');
     Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
     Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+
+    Route::get('/admin/candidats', [UtilisateurController::class, 'candidats'])->name('utilisateurs.candidats');
+
+// Voir CV
+    Route::get('/admin/candidats/{id}/cv', [UtilisateurController::class, 'showCv'])->name('candidats.cv');
+
+// Voir lettre de motivation
+    Route::get('/admin/candidats/{id}/lettre', [UtilisateurController::class, 'showLettre'])->name('candidats.lettre');
 });
 
 

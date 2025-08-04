@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Offre;
 use Yajra\DataTables\Facades\DataTables;
@@ -13,7 +14,10 @@ class OffreController extends Controller
     // Méthode pour afficher les offres côté site vitrine
     public function afficher(Request $request)
     {
-        $offres = Offre::latest()->paginate(6);
+        // ✅ Récupérer les offres dont la date limite n'est pas passée
+        $offres = Offre::where('date_limite', '>=', Carbon::today())
+            ->latest()
+            ->paginate(6);
 
         if ($request->ajax()) {
             return view('layoutsite.partials.liste', compact('offres'))->render();
@@ -24,16 +28,23 @@ class OffreController extends Controller
 
     public function filtrer(Request $request)
     {
-        $query = Offre::query();
+        $secteurs = $request->input('secteurs', []);
 
-        if ($request->has('secteurs') && count($request->secteurs)) {
-            $query->whereIn('secteur', $request->secteurs);
+        $offres = Offre::where('date_limite', '>=', Carbon::today());
+        if (!empty($secteurs)) {
+            $offres->whereIn('secteur', $secteurs);
         }
 
-        $offres = $query->latest()->paginate(6);
+        $offres = $offres->latest()->paginate(6);
 
-        return view('layoutsite.partials.liste', compact('offres'))->render();
+        if ($request->ajax()) {
+            return view('layoutsite.partials.liste', compact('offres'))->render();
+        }
+
+        return view('offres', compact('offres'));
     }
+
+
 
 
     // Tu pourras aussi ajouter ici une méthode pour l'administration

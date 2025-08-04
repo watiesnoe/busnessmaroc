@@ -12,7 +12,7 @@
                     @if(session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
-                        <form id="candidatureForm" action="{{ route('candidatures.store') }}" method="POST" enctype="multipart/form-data">
+                        <form id="candidatureForm" action="{{ route('candidature.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <input type="hidden" name="offre_id" value="{{ $offre->id }}">

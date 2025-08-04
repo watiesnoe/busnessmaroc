@@ -1,38 +1,36 @@
 @extends('layouts.app')
 
 @section('titre')
-    Clients
+    Candidats
 @endsection
 
 @section('content')
     <div class="content">
-        <div class="row">
-            @include('layouts.partials.utillisateur', ['clients' => $clients])
+        <div id="candidats-container">
+            @include('layouts.partials.candidats', ['candidats' => $candidats])
         </div>
     </div>
 @endsection
+
 @section('scripts')
     <script>
         $(document).ready(function() {
-            // Gestion des clics sur les liens de pagination
-            $(document).on('click', '#clients-container .pagination a', function(e) {
+            $(document).on('click', '#candidats-container .pagination a', function(e) {
                 e.preventDefault();
-
                 let url = $(this).attr('href');
-                fetchClients(url);
+                fetchCandidats(url);
             });
 
-            function fetchClients(url) {
+            function fetchCandidats(url) {
                 $.ajax({
                     url: url,
                     type: 'GET',
                     dataType: 'html',
                     success: function(data) {
-                        $('#clients-container').html(data);
-                        // Tu peux ajouter ici du code pour réinitialiser certains plugins si besoin
+                        $('#candidats-container').html(data);
                     },
                     error: function() {
-                        alert('Erreur lors du chargement des clients.');
+                        alert('Erreur lors du chargement des candidats.');
                     }
                 });
             }

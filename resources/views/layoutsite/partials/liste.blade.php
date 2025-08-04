@@ -1,13 +1,14 @@
-
-@forelse($offres as $offre)
-    <div class="col-12">
-        <div class="card p-4 rounded-4 shadow-sm border-0 bg-white h-100">
-            <div class="card-body">
+<div class="row g-4">
+    @forelse($offres as $offre)
+        <div class="col-12">
+            <div class="card p-4 rounded-4 shadow-sm border-0 bg-white h-100">
                 <div class="card-body">
                     <!-- Titre et Salaire -->
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
                         <h5 class="fw-bold text-primary mb-2 mb-md-0">{{ $offre->titre }}</h5>
-                        <span class="badge bg-success text-white fs-6">📈 Estimé : {{ $offre->salaire ?? 'Non précisé' }}</span>
+                        <span class="badge bg-success text-white fs-6">
+                            📈 Estimé : {{ $offre->salaire ?? 'Non précisé' }}
+                        </span>
                     </div>
 
                     <!-- Entreprise -->
@@ -20,19 +21,37 @@
 
                     <!-- Infos -->
                     <ul class="list-unstyled small text-dark">
-                        <li class="mb-2"><i class="bi bi-mortarboard-fill text-primary me-2"></i><strong>Niveau :</strong> {{ $offre->niveau }}</li>
-                        <li class="mb-2"><i class="bi bi-person-workspace text-primary me-2"></i><strong>Expérience :</strong> Étudiant, jeune diplômé et plus</li>
-                        <li class="mb-2"><i class="bi bi-file-earmark-text text-primary me-2"></i><strong>Contrat :</strong> {{ ucfirst($offre->type_offre) }}</li>
-                        <li class="mb-2"><i class="bi bi-geo-alt-fill text-primary me-2"></i><strong>Région :</strong> {{ $offre->lieu }}</li>
                         <li class="mb-2">
-                            <i class="bi bi-stars text-primary me-2"></i><strong>Compétences :</strong><br>
+                            <i class="bi bi-mortarboard-fill text-primary me-2"></i>
+                            <strong>Niveau :</strong> {{ $offre->niveau }}
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-person-workspace text-primary me-2"></i>
+                            <strong>Expérience :</strong> Étudiant, jeune diplômé et plus
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-file-earmark-text text-primary me-2"></i>
+                            <strong>Contrat :</strong> {{ ucfirst($offre->type_offre) }}
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                            <strong>Région :</strong> {{ $offre->lieu }}
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-stars text-primary me-2"></i>
+                            <strong>Compétences :</strong><br>
                             <div class="d-flex flex-wrap mt-1">
                                 @foreach(explode(',', $offre->profil_recherche) as $competence)
-                                    <span class="">{{ trim($competence) }}</span>
+                                    <span class="me-2 mb-1 badge bg-light text-dark border border-primary">
+                                        {{ trim($competence) }}
+                                    </span>
                                 @endforeach
                             </div>
                         </li>
-                        <li class="mb-1"><i class="bi bi-calendar-date text-primary me-2"></i><strong>Publiée le :</strong> {{ \Carbon\Carbon::parse($offre->date_publication)->format('d/m/Y') }}</li>
+                        <li class="mb-1">
+                            <i class="bi bi-calendar-date text-primary me-2"></i>
+                            <strong>Publiée le :</strong> {{ \Carbon\Carbon::parse($offre->date_publication)->format('d/m/Y') }}
+                        </li>
                     </ul>
 
                     <!-- Bouton -->
@@ -44,14 +63,14 @@
                 </div>
             </div>
         </div>
-    </div>
-@empty
-    <div class="col-12">
-        <div class="alert alert-warning">Aucune offre disponible pour le moment.</div>
-    </div>
-@endforelse
+    @empty
+        <div class="col-12">
+            <div class="alert alert-warning">Aucune offre disponible pour le moment.</div>
+        </div>
+    @endforelse
 
-{{-- Pagination --}}
-<div class="col-12 mt-4">
-    {!! $offres->links('pagination::bootstrap-5') !!}
+    {{-- Pagination --}}
+    <div class="col-12 mt-4">
+        {!! $offres->withQueryString()->links('pagination::bootstrap-5') !!}
+    </div>
 </div>
