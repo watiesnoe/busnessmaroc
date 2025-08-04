@@ -179,27 +179,41 @@
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function() {
-            $('.secteur-checkbox').on('change', function() {
-                let secteurs = [];
-                $('.secteur-checkbox:checked').each(function() {
-                    secteurs.push($(this).val());
-                });
+        function chargerOffres(page = 1) {
+            let secteurs = [];
+            $('.secteur-checkbox:checked').each(function () {
+                secteurs.push($(this).val());
+            });
 
-                $.ajax({
-                    url: "{{ route('offres.filtrer') }}",
-                    method: "GET",
-                    data: {
-                        secteurs: secteurs
-                    },
-                    success: function(response) {
-                        $('#offres-list').html(response);
-                    },
-                    error: function(xhr) {
-                        console.error("Erreur de chargement :", xhr.responseText);
-                    }
-                });
+            $.ajax({
+                url: "{{ route('offres.filtrer') }}",
+                method: "GET",
+                data: {
+                    secteurs: secteurs,
+                    page: page
+                },
+                success: function (response) {
+                    $('#offres-list').html(response);
+                },
+                error: function (xhr) {
+                    console.error("Erreur de chargement :", xhr.responseText);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            // Filtrage par checkbox
+            $('.secteur-checkbox').on('change', function () {
+                chargerOffres(1); // recharger depuis la page 1
+            });
+
+            // Pagination AJAX
+            $(document).on('click', '.pagination a', function (e) {
+                e.preventDefault();
+                let page = $(this).attr('href').split('page=')[1];
+                chargerOffres(page);
             });
         });
     </script>
+
 @endsection

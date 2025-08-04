@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class ReservationController extends Controller
 {
@@ -101,8 +102,37 @@ class ReservationController extends Controller
             'prix_total' => 'required|numeric',
         ]);
 
-        return view('paiement', ['data' => $validated]);
+        $provider = new PayPalClient;
+        $provider->setApiCredentials(config('paypal'));
+        $token = $provider->getAccessToken();
+        $provider->setAccessToken($token);
+
+        $order = $provider->createOrder([
+            "intent" => "CAPTURE",
+            "application_context" => [
+                "return_url" => route('paypal.success'),
+                "cancel_url" => route('paypal.cancel'),
+            ],
+            "purchase_units" => [[
+                "amount" => [
+                    "currency_code" => "USD",
+                    "value" => $validated['prix_total']
+                ]
+            ]]
+        ]);
+
+        // Redirection vers l'URL d'approbation PayPal
+        if (isset($order['status']) && $order['status'] == 'CREATED') {
+            foreach ($order['links'] as $link) {
+                if ($link['rel'] === 'approve') {
+                    return redirect()->away($link['href']);
+                }
+            }
+        }
+
+        return redirect()->route('reservation.erreur')->with('error', 'Erreur de création de commande PayPal.');
     }
+
     public function confirmer(Request $request)
     {
         $validated = $request->validate([

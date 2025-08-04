@@ -23,11 +23,6 @@
         </div>
     </section>
 
-
-
-
-
-
     @if (Auth::check() && Auth::user()->role === 'client')
         @include('layoutsite.partials.connection')
     @else

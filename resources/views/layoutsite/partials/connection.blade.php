@@ -7,7 +7,7 @@
 
         <div class="row justify-content-center align-items-center">
             <!-- Image gauche -->
-           
+
 
             <!-- Formulaire de réservation -->
             <div class="col-lg-6 col-md-10">
@@ -16,7 +16,8 @@
                         <h5 class="mb-0">Détails de la réservation</h5>
                     </div>
                     <div class="card-body p-4">
-                        <form action="{{ route('reservation.paiement') }}" method="POST" id="reservationForm">
+{{--                        {{ route('reservation.paiement') }}--}}
+                        <form action="{{ route('paypal.createOrder') }}" method="POST" id="reservationForm">
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label">Type de contrat</label>
@@ -66,7 +67,7 @@
             </div>
 
             <!-- Image droite -->
-           
+
         </div>
     </div>
 </section>

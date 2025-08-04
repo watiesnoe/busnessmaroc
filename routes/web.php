@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AdminHomeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CandidatureController;
 use App\Http\Controllers\ChambresController;
 use App\Http\Controllers\ComptclientController;
+use App\Http\Controllers\ContratLocationController;
 use App\Http\Controllers\ImmobiliersController;
 
 use App\Http\Controllers\LoginController;
@@ -25,6 +27,13 @@ use App\Http\Controllers\GoogleAuthController;
 
 //Route::get('/', function () {
 //    return view('welcome');
+//});
+//Route::get('/test-paypal-env', function () {
+//    return response()->json([
+//        'mode' => env('PAYPAL_MODE'),
+//        'client_id' => env('PAYPAL_SANDBOX_CLIENT_ID'),
+//        'client_secret' => env('PAYPAL_SANDBOX_CLIENT_SECRET'),
+//    ]);
 //});
 Route::get('/', [SitedashboardController::class, 'index'])->name('homesite.index');
 Route::get('/location', [SitedashboardController::class, 'location'])->name('location');
@@ -73,13 +82,21 @@ Route::middleware('auth')->group(function () {
     Route::post('/reservation/paiement', [ReservationController::class, 'paiement'])->name('reservation.paiement');
 
     // Paiement confirmé (POST depuis PayPal ou autre)
+    Route::resource('/contrats', ContratLocationController::class);
     Route::resource('/paiements', PaiementsController::class);
     // route pour afficher les offres côté site vitrine
 
+    Route::get('/candidature/{offre}', [CandidatureController::class, 'create'])->name('candidature.form');
+    Route::post('/candidature', [CandidatureController::class, 'store'])->name('candidatures.store');
+    Route::resource('/candidature', CandidatureController::class);
+    Route::get('/admin/utilisateurs/clients', [UtilisateurController::class, 'clients'])->name('utilisateurs.clients');
 
-    Route::get('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
-    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+//    Route::post('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
+//    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+//    Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
+    Route::post('paypal/create-order', [PayPalController::class, 'createOrder'])->name('paypal.createOrder');
     Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
+    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
 });
 
 

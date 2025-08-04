@@ -1,7 +1,8 @@
-<div class="row g-4">
-    @forelse($offres as $offre)
-        <div class="col-12">
-            <div class="card p-4 rounded-4 shadow-sm border-0 bg-white h-100">
+
+@forelse($offres as $offre)
+    <div class="col-12">
+        <div class="card p-4 rounded-4 shadow-sm border-0 bg-white h-100">
+            <div class="card-body">
                 <div class="card-body">
                     <!-- Titre et Salaire -->
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
@@ -43,9 +44,14 @@
                 </div>
             </div>
         </div>
-    @empty
-        <div class="col-12">
-            <div class="alert alert-warning">Aucune offre disponible pour le moment.</div>
-        </div>
-    @endforelse
+    </div>
+@empty
+    <div class="col-12">
+        <div class="alert alert-warning">Aucune offre disponible pour le moment.</div>
+    </div>
+@endforelse
+
+{{-- Pagination --}}
+<div class="col-12 mt-4">
+    {!! $offres->links('pagination::bootstrap-5') !!}
 </div>

@@ -11,8 +11,14 @@ class SitedashboardController extends Controller
 {
     public function index()
     {
-        $immobiliers = Immobilier::with(['category', 'photoPrincipale', 'chambres'])->get();
+        // Charger uniquement les biens avec AU MOINS UNE chambre qui n’est ni "occupée" ni "réservée"
+        $immobiliers = Immobilier::with(['category', 'photoPrincipale', 'chambres'])
+            ->whereHas('chambres', function ($q) {
+                $q->whereNotIn('statut', ['occupée', 'réservée']);
+            })
+            ->get();
 
+        // Annonces vedette (non filtrées par statut de chambre, sauf si tu veux)
         $annoncesVedette = Immobilier::where('en_vedette', true)
             ->with('photoPrincipale')
             ->latest()
@@ -24,6 +30,7 @@ class SitedashboardController extends Controller
             'annoncesVedette' => $annoncesVedette
         ]);
     }
+
 
     public function location(Request $request)
     {
