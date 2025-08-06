@@ -1,7 +1,7 @@
 <style>
     .bg-location {
         height: 400px;
-        background-image: url('../asset/imgs/location.avif');
+        background-image: url({{asset('admin/media/photos/bg_minecraft.png')}});
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;

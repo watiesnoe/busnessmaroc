@@ -3,6 +3,7 @@
 <section class="bg-light min-vh-100 d-flex align-items-center justify-content-center position-relative">
     <div class="container">
         <div class="row justify-content-center">
+            {{-- <img src="{{asset('admin/logo.png')}}" alt="hjfjf" width="50" height="100"> --}}
             <div class="col-lg-6 col-md-8">
                 <div class="card shadow-lg border-0 rounded-4 p-4 bg-white">
                     <h3 class="text-center mb-4 text-primary">Connexion</h3>

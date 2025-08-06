@@ -37,10 +37,10 @@
                             <div class="image-box mb-3">
                                 <a href="{{ route('immobilier.detail', $immobilier->id) }}">
                                     @if ($immobilier->photos->isNotEmpty())
-                                        <img src="{{ asset('storage/' . $immobilier->photos[0]->url) }}"
+                                        <img src="{{ asset($immobilier->photos[0]->url) }}"
                                              alt="{{ $immobilier->titre }}" class="img-fluid rounded">
                                     @else
-                                        <img src="{{ asset('images/default.jpg') }}" alt="Aucune image" class="img-fluid rounded">
+                                        <img src="{{ asset('admin/media/photos/bg_minecraft.png') }}" alt="Aucune image" class="img-fluid rounded">
                                     @endif
                                 </a>
                             </div>
