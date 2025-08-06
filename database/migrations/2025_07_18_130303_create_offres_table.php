@@ -21,12 +21,13 @@ return new class extends Migration
             $table->string('secteur');
             $table->string('niveau');
             $table->date('date_limite');
-            $table->unsignedBigInteger('salaire')->nullable();
+            $table->decimal('salaire', 15, 2)->nullable(); // facultatif
             $table->text('profil_recherche');
             $table->text('description');
+            $table->string('mode_candidature');
+            $table->string('lien_candidature');
             $table->timestamps();
         });
-
     }
 
     /**

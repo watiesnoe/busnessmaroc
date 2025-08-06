@@ -29,6 +29,13 @@ protected $fillable = [
     {
         return $this->hasMany(Candidature::class);
     }
+    // Candidature.php
+
+
+    public function offre()
+    {
+        return $this->hasMany(Offre::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -102,7 +102,7 @@
 
                 <!-- Candidats -->
                 <li class="nav-main-item">
-                    <a class="nav-main-link" href="{{ route('utilisateurs.candidats') }}">
+                <a class="nav-main-link" href="{{ route('utilisateurs.candidats') }}">
                         <i class="nav-main-link-icon fa fa-users"></i>
                         <span class="nav-main-link-name">Candidats</span>
                     </a>

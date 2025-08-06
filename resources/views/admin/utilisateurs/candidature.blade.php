@@ -7,7 +7,7 @@
 @section('content')
     <div class="content">
         <div id="candidats-container">
-            @include('layouts.partials.candidats', ['candidats' => $candidats])
+            @include('layouts.partials.candidats', ['candidatures' => $candidatures])
         </div>
     </div>
 @endsection

@@ -10,7 +10,7 @@
         <form id="createform" data-action="{{ route('offre.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card shadow-sm border-0 rounded-4">
-                <div class="card-header bg-light text-primary fw-semibold  bg-primary">
+                <div class="card-header bg-light text-primary fw-semibold bg-primary">
                     <h5 class="mb-0 text-white">🎯 Publier une offre d'emploi ou de stage</h5>
                 </div>
                 <div class="card-body">
@@ -75,7 +75,7 @@
                             </select>
                         </div>
 
-                        <!-- Date limite de candidature -->
+                        <!-- Date limite -->
                         <div class="col-md-4">
                             <label class="form-label">Date limite</label>
                             <input type="date" name="date_limite" class="form-control shadow-sm" required>
@@ -87,13 +87,29 @@
                             <input type="number" name="salaire" class="form-control shadow-sm" placeholder="Ex : 150000" min="0">
                         </div>
 
+                        <!-- Mode de candidature -->
+                        <div class="col-md-4">
+                            <label class="form-label">Mode de candidature</label>
+                            <select name="mode_candidature" class="form-select shadow-sm" required>
+                                <option value="">-- Choisir le mode --</option>
+                                <option value="interne">Interne</option>
+                                <option value="externe">Externe</option>
+                            </select>
+                        </div>
+
+                        <!-- Lien ou adresse -->
+                        <div class="col-md-8">
+                            <label class="form-label">Lien ou adresse de candidature</label>
+                            <input type="text" name="lien_candidature" class="form-control shadow-sm" placeholder="Ex : https://recrutement.exemple.com ou contact@exemple.com" required>
+                        </div>
+
                         <!-- Profil recherché -->
                         <div class="col-md-12">
                             <label class="form-label">Profil recherché</label>
                             <textarea name="profil_recherche" rows="4" class="form-control shadow-sm" placeholder="Ex : Expérience en développement web, maîtrise de Laravel..." required></textarea>
                         </div>
 
-                        <!-- Description du poste -->
+                        <!-- Description -->
                         <div class="col-md-12">
                             <label class="form-label">Description du poste</label>
                             <textarea name="description" rows="5" class="form-control shadow-sm" placeholder="Décrivez le poste ici..." required></textarea>
@@ -108,8 +124,7 @@
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
+        </form></div>
 @endsection
 @section('scripts')
 <script>
@@ -123,56 +138,5 @@
     });
 </script>
 
-{{--<script>--}}
-{{--    $(document).ready(function () {--}}
-{{--        $('#createform').on('submit', function (e) {--}}
-{{--            e.preventDefault();--}}
 
-{{--            let formData = new FormData(this);--}}
-
-{{--            $.ajax({--}}
-{{--                url: "{{ route('offre.store') }}",--}}
-{{--                type: "POST",--}}
-{{--                data: formData,--}}
-{{--                processData: false,--}}
-{{--                contentType: false,--}}
-{{--                headers: {--}}
-{{--                    'X-CSRF-TOKEN': $('input[name="_token"]').val()--}}
-{{--                },--}}
-{{--                success: function (response) {--}}
-{{--                    Swal.fire({--}}
-{{--                        icon: 'success',--}}
-{{--                        title: 'Offre publiée !',--}}
-{{--                        text: response.message,--}}
-{{--                        confirmButtonColor: '#3085d6'--}}
-{{--                    });--}}
-{{--                    $('#createform')[0].reset();--}}
-{{--                },--}}
-{{--                error: function (xhr) {--}}
-{{--                    if (xhr.status === 422) {--}}
-{{--                        let errors = xhr.responseJSON.errors;--}}
-{{--                        let message = "";--}}
-{{--                        for (let key in errors) {--}}
-{{--                            message += `• ${errors[key][0]}\n`;--}}
-{{--                        }--}}
-
-{{--                        Swal.fire({--}}
-{{--                            icon: 'error',--}}
-{{--                            title: 'Erreur de validation',--}}
-{{--                            text: message,--}}
-{{--                            confirmButtonColor: '#d33'--}}
-{{--                        });--}}
-{{--                    } else {--}}
-{{--                        Swal.fire({--}}
-{{--                            icon: 'error',--}}
-{{--                            title: 'Erreur serveur',--}}
-{{--                            text: 'Une erreur s’est produite. Veuillez réessayer.',--}}
-{{--                            confirmButtonColor: '#d33'--}}
-{{--                        });--}}
-{{--                    }--}}
-{{--                }--}}
-{{--            });--}}
-{{--        });--}}
-{{--    });--}}
-{{--</script>--}}
 @endsection

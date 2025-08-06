@@ -23,32 +23,55 @@ class ImmobiliersController extends Controller
                 ->addColumn('categorie', function ($row) {
                     return $row->category->nom ?? '-';
                 })
+                ->addColumn('statut', function ($row) {
+                    $class = match ($row->statut) {
+                        'disponible' => 'bg-success',
+                        'reserve'    => 'bg-warning',
+                        'loue'       => 'bg-danger',
+                        default      => 'bg-secondary',
+                    };
+
+                    return '<span class="badge ' . $class . '">' . ucfirst($row->statut) . '</span>';
+                })
                 ->addColumn('action', function ($row) {
                     $showUrl = route('immobiliers.show', $row->id);
                     $editUrl = route('immobiliers.edit', $row->id);
                     $deleteUrl = route('immobiliers.destroy', $row->id);
 
                     return '
-            <a href="' . $showUrl . '" class="btn btn-sm btn-info me-1" title="Voir">
-                <i class="fa fa-eye"></i>
-            </a>
-            <a href="' . $editUrl . '" class="btn btn-sm btn-primary me-1" title="Modifier">
-                <i class="fa fa-edit"></i>
-            </a>
-            <button type="button" data-url="' . $deleteUrl . '" class="btn btn-sm btn-danger btn-delete" title="Supprimer">
-                <i class="fa fa-trash"></i>
-            </button>
-        ';
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Actions
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="' . $showUrl . '" title="Voir">
+                                    <i class="fa fa-eye me-1"></i> Voir
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="' . $editUrl . '" title="Modifier">
+                                    <i class="fa fa-edit me-1"></i> Modifier
+                                </a>
+                            </li>
+                            <li>
+                                <button type="button" data-url="' . $deleteUrl . '" class="dropdown-item text-danger btn-delete" title="Supprimer">
+                                    <i class="fa fa-trash me-1"></i> Supprimer
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                ';
                 })
-                ->rawColumns(['action']) // permet l'affichage HTML
+                ->rawColumns(['statut', 'action']) // important pour rendre le HTML dans ces colonnes
                 ->make(true);
-
         }
 
         $categories = Category::all();
 
-        return view('admin.immobiliers.index',compact('categories'));
+        return view('admin.immobiliers.index', compact('categories'));
     }
+
     public function create()
     {
         $categories = Categorie::all();
@@ -141,9 +164,15 @@ class ImmobiliersController extends Controller
 
     public function show($id)
     {
-        $immobilier = Immobilier::with(['category', 'chambres', 'photos'])->findOrFail($id);
-        return view('admin.immobiliers.show', compact('immobilier'));
+        $immobilier = Immobilier::with([
+            'category',
+            'chambres',
+            'contratLocations.user'  // Charge contrats et utilisateurs liés
+        ])->findOrFail($id);
+
+        return view('admin.immobiliers.detailimmobiler', compact('immobilier'));
     }
+
     public function edit($id)
     {
         $immobilier = Immobilier::with(['category', 'chambres', 'photos'])->findOrFail($id);

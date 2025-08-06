@@ -41,6 +41,12 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('111111'),
             'role' => 'superadmin',
         ]);
+        User::factory()->create([
+            'name' => 'Keka baya',
+            'email' => 'kekabaya97@gmail.com',
+            'password' => Hash::make('123456789'),
+            'role' => 'client',
+        ]);
 //        Immobilier::factory()
 //            ->count(10)
 //            ->has(Image::factory()->count(3)) // chaque immobilier aura 3 images
@@ -50,13 +56,13 @@ class DatabaseSeeder extends Seeder
             OffreSeeder::class,
         ]);
 
-        // Immobilier::factory(20)->create()->each(function ($bien) {
-        //     Chambre::factory(rand(1, 3))->create(['immobilier_id' => $bien->id]);
-        //     Photo::factory(3)->create(['immobilier_id' => $bien->id]);
-        //     Contact::factory(2)->create(['immobilier_id' => $bien->id]);
-        //     Vue::factory(rand(2, 6))->create(['immobilier_id' => $bien->id]);
-        // });
+         Immobilier::factory(20)->create()->each(function ($bien) {
+             Chambre::factory(rand(1, 3))->create(['immobilier_id' => $bien->id]);
+             Photo::factory(3)->create(['immobilier_id' => $bien->id]);
+             Contact::factory(2)->create(['immobilier_id' => $bien->id]);
+             Vue::factory(rand(2, 6))->create(['immobilier_id' => $bien->id]);
+         });
 
-        // Favori::factory(10)->create();
+         Favori::factory(10)->create();
     }
 }

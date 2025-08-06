@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Candidature;
+use App\Models\Offre;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Utilisateur;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\DocBlock\Description;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\File;
 // Assure-toi que le modèle existe
@@ -52,18 +55,54 @@ class UtilisateurController extends Controller
         return view('admin.utilisateurs.client', compact('clients'));
     }
 
-    public function candidats(Request $request)
+    public function candidatsliste(Request $request)
     {
-        $candidats = User::where('role', 'client')
-            ->whereHas('candidatures')
-            ->paginate(12);
-
         if ($request->ajax()) {
-            return view('layouts.partials.candidats', compact('candidats'))->render();
+            // Requête de base avec jointure et count
+            $query = User::select(
+                'users.id',
+                'users.prenom',
+                'users.nom',
+                'users.email',
+                DB::raw('COUNT(candidatures.id) as total_candidatures')
+            )
+                ->leftJoin('candidatures', 'users.id', '=', 'candidatures.user_id')
+                ->groupBy('users.id', 'users.prenom', 'users.nom', 'users.email');
+
+            // Retourner la réponse DataTables en JSON
+            return DataTables::of($query)
+                ->addColumn('avatar', function($user) {
+                    $avatarNum = rand(1, 10);
+                    $url = asset("assets/media/avatars/avatar{$avatarNum}.jpg");
+                    return '<img src="'.$url.'" alt="Avatar" width="32" height="32" class="img-avatar img-avatar32">';
+                })
+                ->addColumn('actions', function($user) {
+                    $profileUrl = route('utilisateurs.profile', $user->id);
+                    return '<a class="btn btn-sm btn-alt-primary" href="'.$profileUrl.'">
+                            <i class="fa fa-user-circle"></i> Profil
+                        </a>';
+                })
+                ->rawColumns(['avatar', 'actions']) // Pour rendre le HTML
+                ->make(true);
+
         }
 
-        return view('admin.utilisateurs.candidature', compact('candidats'));
+        // Affiche la vue normale avec la table (sans données, chargées via Ajax)
+        return view('admin.utilisateurs.candidatureliste');
     }
+
+    public function candidats(Request $request, Offre $offre)
+    {
+
+        $candidatures = $offre->candidatures()->with('user')->latest()->paginate(12);
+//        dd($candidatures);
+        if ($request->ajax()) {
+            return view('layouts.partials.candidats', compact('candidatures'))->render();
+        }
+
+        return view('admin.utilisateurs.candidature', compact('offre', 'candidatures'));
+    }
+
     public function create()
     {
         return view('admin.utilisateurs.create');
@@ -97,6 +136,11 @@ class UtilisateurController extends Controller
         }
 
         return response()->file($path);
+    }
+    public function profile ($id){
+        $user = User::with(['candidatures.offre'])->findOrFail($id);
+
+        return view('admin.utilisateurs.profile', compact('user'));
     }
 
 }

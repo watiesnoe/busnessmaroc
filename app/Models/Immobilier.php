@@ -27,6 +27,23 @@ class Immobilier extends Model
 
     // Relations
 
+    public function contratLocations()
+    {
+        return $this->hasMany(ContratLocation::class, 'immobilier_id');
+    }
+
+    public function occupants()
+    {
+        return $this->hasManyThrough(
+            User::class,
+            ContratLocation::class,
+            'immobilier_id', // FK contrat_locations -> immobiliers
+            'id',            // PK users
+            'id',            // PK immobiliers
+            'user_id'        // FK contrat_locations -> users
+        );
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -41,6 +58,8 @@ class Immobilier extends Model
     {
         return $this->hasMany(Chambre::class);
     }
+
+
 
     public function photos()
     {

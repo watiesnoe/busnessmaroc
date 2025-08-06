@@ -5,7 +5,6 @@
 
 @section('content')
     <div class="content">
-
         <!-- Dynamic Table with Export Buttons -->
         <div class="block block-rounded shadow-sm border">
             <div class="block-header bg-light d-flex justify-content-between align-items-center py-3 px-4 rounded-top">
@@ -18,26 +17,26 @@
             </div>
 
             <div class="block-content block-content-full overflow-x-auto p-3">
-                <table id="offresTable"  class="table table-bordered table-striped table-hover table-vcenter mb-0 w-100">
+                <table id="offresTable" class="table table-bordered table-striped table-hover table-vcenter mb-0 w-100">
                     <thead class="table-light">
-                        <tr>
-                            <th>Titre</th>
-                            <th>Type</th>
-                            <th>Entreprise</th>
-                            <th>Lieu</th>
-                            <th>Date Publication</th>
-                            <th>Date Limite</th>
-                            <th>Actions</th>
-                        </tr>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Type</th>
+                        <th>Entreprise</th>
+                        <th>Lieu</th>
+                        <th>Nbre Postulant</th>
+                        <th>Date Publication</th>
+                        <th>Date Limitez
+                        <th style="min-width: 150px;">Actions</th>
+                    </tr>
                     </thead>
-
                 </table>
             </div>
         </div>
-
         <!-- END Dynamic Table with Export Buttons -->
     </div>
 @endsection
+
 @section('scripts')
     <script>
         $(document).ready(function () {
@@ -50,10 +49,15 @@
                     { data: 'type_offre', name: 'type_offre' },
                     { data: 'entreprise', name: 'entreprise' },
                     { data: 'lieu', name: 'lieu' },
+                    { data: 'nb_postulants', name: 'nb_postulants', title: 'Postulants' },
                     { data: 'date_publication', name: 'date_publication' },
                     { data: 'date_limite', name: 'date_limite' },
+
+                    // ✅ Nouvelle colonne ici :
+
                     { data: 'actions', name: 'actions', orderable: false, searchable: false }
                 ],
+
                 error: function(xhr) {
                     console.error("Erreur AJAX DataTables :", xhr.responseText);
                 }

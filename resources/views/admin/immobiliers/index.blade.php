@@ -23,10 +23,10 @@
                 <table class="table table-bordered" id="immobilier-table">
                     <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Titre</th>
                         <th>Ville</th>
                         <th>Prix</th>
+                        <th>Statut</th>
                         <th>Catégorie</th>
                         <th>Action</th>
                     </tr>
@@ -46,13 +46,14 @@
                 serverSide: true,
                 ajax: "{{ route('immobiliers.index') }}",
                 columns: [
-                    { data: 'id', name: 'id' },
                     { data: 'titre', name: 'titre' },
                     { data: 'ville', name: 'ville' },
                     { data: 'prix', name: 'prix' },
+                    { data: 'statut', name: 'statut' }, // ✅ Ajout
                     { data: 'categorie', name: 'categorie', orderable: false, searchable: false },
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ]
+
             });
         });
     </script>

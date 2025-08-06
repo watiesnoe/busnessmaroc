@@ -90,7 +90,12 @@ Route::middleware('auth')->group(function () {
 //    Route::post('/candidature', [CandidatureController::class, 'store'])->name('candidatures.store');
     Route::resource('/candidature', CandidatureController::class);
     Route::get('/admin/utilisateurs/clients', [UtilisateurController::class, 'clients'])->name('utilisateurs.clients');
-    Route::get('/admin/utilisateurs/candidature', [UtilisateurController::class, 'candidats'])->name('utilisateurs.candidats');
+    Route::get('/admin/offres/{offre}/candidats', [UtilisateurController::class, 'candidats'])->name('admin.offres.candidats');
+
+
+
+
+    Route::get('/admin/utilisateurs/profile/{id}', [UtilisateurController::class, 'profile'])->name('utilisateurs.profile');
 
 //    Route::post('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
 //    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
@@ -99,7 +104,7 @@ Route::middleware('auth')->group(function () {
     Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
     Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
 
-    Route::get('/admin/candidats', [UtilisateurController::class, 'candidats'])->name('utilisateurs.candidats');
+    Route::get('/admin/candidats', [UtilisateurController::class, 'candidatsliste'])->name('utilisateurs.candidats');
 
 // Voir CV
     Route::get('/admin/candidats/{id}/cv', [UtilisateurController::class, 'showCv'])->name('candidats.cv');

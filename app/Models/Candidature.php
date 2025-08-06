@@ -12,6 +12,8 @@ class Candidature extends Model
         'cv',
         'lettre_motivation',
         'message',
+        'est_approuve',       // ✅ nouveau
+        'note',               // ✅ nouveau
     ];
 
     public function user()

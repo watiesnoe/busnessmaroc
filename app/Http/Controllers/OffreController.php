@@ -50,20 +50,39 @@ class OffreController extends Controller
     // Tu pourras aussi ajouter ici une méthode pour l'administration
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
-            $offres = Offre::query();
+            $offres = Offre::withCount('candidatures');
 
             return DataTables::of($offres)
                 ->addIndexColumn()
-                ->addColumn('actions', function ($row) {
-                    return '<a href="#" class="btn btn-sm btn-info">Voir</a>';
+                ->addColumn('nb_postulants', function ($offre) {
+                    return $offre->candidatures_count;
+                })
+                ->addColumn('actions', function ($offre) {
+                    $voirUrl = route('offre.show', $offre->id);
+                    $editUrl = route('offre.edit', $offre->id);
+                    $candidatsUrl = route('admin.offres.candidats', ['offre' => $offre->id]);
+
+                    return '
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    Actions
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="' . $voirUrl . '">🔍 Voir</a></li>
+                    <li><a class="dropdown-item" href="' . $editUrl . '">✏️ Modifier</a></li>
+                    <li><a class="dropdown-item" href="' . $candidatsUrl . '">👥 Candidats</a></li>
+                  </ul>
+                </div>';
                 })
                 ->rawColumns(['actions'])
                 ->make(true);
         }
-            return view('admin.offre.index');
+
+        return view('admin.offre.index');
     }
+
+
 
     public function create()
     {

@@ -21,11 +21,16 @@ return new class extends Migration
             $table->string('lettre_motivation')->nullable();
             $table->text('message')->nullable();
 
+            // ✅ Nouvelles colonnes pour l’évaluation
+            $table->boolean('est_approuve')->default(false);
+            $table->unsignedTinyInteger('note')->nullable(); // note de 0 à 255 (généralement sur 5 ou 10)
+
             $table->timestamps();
 
             // ✅ Contrainte d'unicité composite : user_id + offre_id
             $table->unique(['user_id', 'offre_id'], 'unique_candidature_user_offre');
         });
+
     }
 
     /**

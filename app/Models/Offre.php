@@ -19,5 +19,12 @@ class Offre extends Model
         'salaire',
         'profil_recherche',
         'description',
+        'mode_candidature',
+        'lien_candidature',
     ];
+
+    public function candidatures()
+    {
+        return $this->hasMany(Candidature::class);
+    }
 }
