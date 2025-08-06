@@ -51,7 +51,7 @@
 @extends('layoutsite.site')
 @section('content')
     <section class="hero-section position-relative bg-cover text-white py-5"
-        style="background-image: url('{{ asset('asset/imgs/accueil.jpg') }}');">
+        style="background-image: url('{{ asset('admin/media/photos/photo12@2x.jpg') }}');">
 
         <div class="overlay position-absolute w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6); top: 0; left: 0;">
         </div>
@@ -106,7 +106,7 @@
                             <div class="swiper-slide">
                                 <a href="{{ route('immobiliers.show', $annonce->id) }}" class="text-decoration-none">
                                     <div class="card-grid-5 card-category position-relative rounded-3 shadow-sm overflow-hidden"
-                                        style="background-image: url('{{ asset('storage/' . ($annonce->photos->first()->url ?? 'default.jpg')) }}'); background-size: cover; background-position: center; height: 280px;">
+                                        style="background-image: url('{{ asset(($annonce->photos->first()->url ?? 'bg_minecraft.png')) }}'); background-size: cover; background-position: center; height: 280px;">
 
                                         <div class="box-cover-img position-relative h-100">
                                             <div class="content-bottom">
@@ -161,7 +161,7 @@
                                                 <div class="image-box">
                                                     <a href="{{ route('immobilier.detail', $immobilier->id) }}">
                                                         <figure>
-                                                            <img src="{{ asset('storage/' . ($immobilier->photoPrincipale->url ?? 'images/default.jpg')) }}"
+                                                            <img src="{{ asset(($immobilier->photoPrincipale->url ?? 'bg_minecraft.png')) }}"
                                                                 height="300" alt="Photo principale">
                                                         </figure>
                                                     </a>
@@ -239,7 +239,7 @@
                                     <div class="image-box">
                                         <a href="{{ route('reservation.chambre', $immobi->id) }}">
                                             <figure>
-                                                <img src="{{ asset('storage/' . ($immobi->photos->first()->url ?? 'images/default.jpg')) }}"
+                                                <img src="{{ asset(($immobi->photos->first()->url ?? 'images/default.jpg')) }}"
                                                     height="250" style="object-fit: cover; width: 100%;"
                                                     alt="Photo chambre">
                                             </figure>
@@ -322,7 +322,7 @@
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 hover-up"
                         style="transition: transform 0.3s; height: 450px; display: flex; flex-direction: column;">
-                        <img src="assets/imgs/news/news1.jpg" class="card-img-top" alt="Conseil pour location"
+                        <img src="{{asset('admin/media/photos/bg_minecraft.png')}}" class="card-img-top" alt="Conseil pour location"
                             style="height: 180px; object-fit: cover;">
                         <div class="card-body d-flex flex-column flex-grow-1">
                             <div>
@@ -337,7 +337,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <div class="d-flex align-items-center">
-                                    <img src="assets/imgs/users/author1.jpg" alt="Auteur" class="rounded-circle me-2"
+                                    <img src="{{asset('admin/media/photos/bg_minecraft.png')}}" alt="Auteur" class="rounded-circle me-2"
                                         width="40" height="40">
                                     <div>
                                         <div class="small fw-semibold">Aminata Diallo</div>
@@ -354,7 +354,7 @@
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 hover-up"
                         style="transition: transform 0.3s; height: 450px; display: flex; flex-direction: column;">
-                        <img src="assets/imgs/news/news2.jpg" class="card-img-top" alt="Tendances du marché"
+                        <img src="{{asset('admin/media/photos/bg_minecraft.png')}}" class="card-img-top" alt="Tendances du marché"
                             style="height: 180px; object-fit: cover;">
                         <div class="card-body d-flex flex-column flex-grow-1">
                             <div>
@@ -369,7 +369,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <div class="d-flex align-items-center">
-                                    <img src="assets/imgs/users/author2.jpg" alt="Auteur" class="rounded-circle me-2"
+                                    <img src="{{asset('admin/media/photos/bg_minecraft.png')}}" alt="Auteur" class="rounded-circle me-2"
                                         width="40" height="40">
                                     <div>
                                         <div class="small fw-semibold">Mamadou Coulibaly</div>
@@ -385,7 +385,7 @@
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 hover-up"
                         style="transition: transform 0.3s; height: 450px; display: flex; flex-direction: column;">
-                        <img src="assets/imgs/news/news3.jpg" class="card-img-top" alt="Guide location"
+                        <img src="{{asset('admin/media/photos/bg_minecraft.png')}}" class="card-img-top" alt="Guide location"
                             style="height: 180px; object-fit: cover;">
                         <div class="card-body d-flex flex-column flex-grow-1">
                             <div>
@@ -400,7 +400,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <div class="d-flex align-items-center">
-                                    <img src="assets/imgs/users/author3.jpg" alt="Auteur" class="rounded-circle me-2"
+                                    <img src="{{asset('admin/media/photos/bg_minecraft.png')}}" alt="Auteur" class="rounded-circle me-2"
                                         width="40" height="40">
                                     <div>
                                         <div class="small fw-semibold">Fatoumata Traoré</div>

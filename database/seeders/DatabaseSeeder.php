@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
             OffreSeeder::class,
         ]);
 
-         Immobilier::factory(20)->create()->each(function ($bien) {
+         Immobilier::factory(15)->create()->each(function ($bien) {
              Chambre::factory(rand(1, 3))->create(['immobilier_id' => $bien->id]);
              Photo::factory(3)->create(['immobilier_id' => $bien->id]);
              Contact::factory(2)->create(['immobilier_id' => $bien->id]);
