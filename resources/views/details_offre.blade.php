@@ -28,7 +28,6 @@
                 font-weight: 500;
             }
         </style>
-
         <main class="main bg-light-primary">
             <div class="container my-5">
                 <div class="card shadow-lg">

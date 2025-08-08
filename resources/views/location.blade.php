@@ -1,7 +1,7 @@
 <style>
     .bg-location {
         height: 400px;
-        background-image: url({{asset('admin/media/photos/bg_minecraft.png')}});
+        background-image: url('../asset/imgs/location.avif');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -127,24 +127,24 @@
 </style>
 @extends('layoutsite.site')
 @section('content')
-    <!-- SECTION HERO AVEC HAUTEUR AJUSTÉE -->
-    <section class="section-box-2 position-relative bg-location">
-        <div class="container">
-            <!-- Contenu centré avec padding -->
-            <div class="block-banner d-flex flex-column justify-content-center align-items-center text-center position-relative"
-                style="height: 100%; padding: 0 15px; z-index: 2; color: #eee; text-shadow: 0 2px 8px rgba(0,0,0,0.8); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-
-                <h3 class="wow animate__animated animate__fadeInUp"
-                    style="font-weight: 800; font-size: 2.8rem; margin-bottom: 0.6rem; color: #f5f5f5;">
-                    <span class="color-brand-2" style="color: #5a9cff;">22 Logements</span> disponibles aujourd’hui
+   <!-- SECTION HERO AVEC HAUTEUR AJUSTÉE -->
+    <section class="text-white d-flex align-items-center"
+        style="background-image: url('{{ asset('asset/imgs/location.jpg') }}'); background-size: cover; background-position: center; height: 400px;">
+        <div class="container text-center">
+            <div class="container text-center">
+                <h3 class="fw-bold mb-3" style="font-size: 2.8rem; color: #f5f5f5;">
+                    <span class="text-primary">Trouvez</span> le logement idéal <br class="d-none d-md-block"> pour vous dès
+                    aujourd’hui
                 </h3>
-                <div class="font-sm wow animate__animated animate__fadeInUp" data-wow-delay=".1s"
-                    style="font-size: 1.6rem; max-width: 750px; line-height: 1.8; color: #ddd;">
-                    Trouvez rapidement votre futur chez-vous,<br class="d-none d-xl-block">
-                    entre appartements, maisons et studios adaptés à vos besoins.
-                </div>
+                <p class="lead mx-auto" style="max-width: 750px; color: #f0f0f0; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">
+                    Explorez une large sélection d’appartements, maisons et studios, soigneusement choisis pour répondre à
+                    toutes vos envies.
+                </p>
             </div>
+
+
         </div>
+
     </section>
     {{-- section principale --}}
     <section class="section-box mt-50">
@@ -204,48 +204,44 @@
             </div>
         </div>
     </section>
-
-
-
-
     {{-- fin  section principale --}}
-@endsection
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $('#filterForm').on('submit', function(e) {
-                e.preventDefault();
-                fetchData();
-            });
-
-            $('#filterForm select, #filterForm input').on('change', function() {
-                fetchData();
-            });
-
-            function fetchData() {
-                $.ajax({
-                    url: "{{ route('location.filter') }}",
-                    method: 'POST',
-                    data: $('#filterForm').serialize(),
-                    beforeSend: function() {
-                        $('#immobilier-data').html('<p>Chargement...</p>');
-                    },
-                    success: function(data) {
-                        $('#immobilier-data').html(data);
-                    },
-                    error: function(xhr) {
-                        $('#immobilier-data').html('<p>Erreur lors du chargement.</p>');
-                        console.log(xhr.responseText);
+    @endsection
+    @section('scripts')
+        <script>
+            $(document).ready(function() {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-            }
-        });
-    </script>
+
+                $('#filterForm').on('submit', function(e) {
+                    e.preventDefault();
+                    fetchData();
+                });
+
+                $('#filterForm select, #filterForm input').on('change', function() {
+                    fetchData();
+                });
+
+                function fetchData() {
+                    $.ajax({
+                        url: "{{ route('location.filter') }}",
+                        method: 'POST',
+                        data: $('#filterForm').serialize(),
+                        beforeSend: function() {
+                            $('#immobilier-data').html('<p>Chargement...</p>');
+                        },
+                        success: function(data) {
+                            $('#immobilier-data').html(data);
+                        },
+                        error: function(xhr) {
+                            $('#immobilier-data').html('<p>Erreur lors du chargement.</p>');
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }
+            });
+        </script>
 @endsection
 

@@ -1,5 +1,4 @@
 @extends('layoutsite.site')
-
 @section('content')
     <style>
         .bg-offres {
@@ -127,9 +126,7 @@
         </div>
     </section>
     {{-- fin du section d'introduction --}}
-
     {{-- Section principale --}}
-
     <section class="section-box mt-5">
         <div class="container-fluid px-3 px-md-5">
             <div class="row justify-content-center" style="max-width: 90%; margin: auto;">
@@ -177,43 +174,43 @@
     </section>
     {{-- fin du section --}}
 @endsection
-@section('scripts')
-    <script>
-        function chargerOffres(page = 1) {
-            let secteurs = [];
-            $('.secteur-checkbox:checked').each(function () {
-                secteurs.push($(this).val());
-            });
+    @section('scripts')
+        <script>
+            function chargerOffres(page = 1) {
+                let secteurs = [];
+                $('.secteur-checkbox:checked').each(function () {
+                    secteurs.push($(this).val());
+                });
 
-            $.ajax({
-                url: "{{ route('offres.filtrer') }}",
-                method: "GET",
-                data: {
-                    secteurs: secteurs,
-                    page: page
-                },
-                success: function (response) {
-                    $('#offres-list').html(response);
-                },
-                error: function (xhr) {
-                    console.error("Erreur de chargement :", xhr.responseText);
-                }
-            });
-        }
+                $.ajax({
+                    url: "{{ route('offres.filtrer') }}",
+                    method: "GET",
+                    data: {
+                        secteurs: secteurs,
+                        page: page
+                    },
+                    success: function (response) {
+                        $('#offres-list').html(response);
+                    },
+                    error: function (xhr) {
+                        console.error("Erreur de chargement :", xhr.responseText);
+                    }
+                });
+            }
 
-        $(document).ready(function () {
-            // Filtrage par checkbox
-            $('.secteur-checkbox').on('change', function () {
-                chargerOffres(1); // recharger depuis la page 1
-            });
+            $(document).ready(function () {
+                // Filtrage par checkbox
+                $('.secteur-checkbox').on('change', function () {
+                    chargerOffres(1); // recharger depuis la page 1
+                });
 
-            // Pagination AJAX
-            $(document).on('click', '.pagination a', function (e) {
-                e.preventDefault();
-                let page = $(this).attr('href').split('page=')[1];
-                chargerOffres(page);
+                // Pagination AJAX
+                $(document).on('click', '.pagination a', function (e) {
+                    e.preventDefault();
+                    let page = $(this).attr('href').split('page=')[1];
+                    chargerOffres(page);
+                });
             });
-        });
-    </script>
+        </script>
 
 @endsection

@@ -1,57 +1,8 @@
-<style>
-    .card-grid-5 {
-        position: relative;
-        border-radius: 12px;
-        overflow: hidden;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-    }
 
-    .card-grid-5:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .card-grid-5 .box-cover-img {
-        position: relative;
-        height: 100%;
-        width: 100%;
-    }
-
-    .card-grid-5 .box-cover-img::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 50%;
-        background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-        border-radius: inherit;
-        pointer-events: none;
-    }
-
-    .card-grid-5 .content-bottom {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 12px 16px;
-        color: #fff;
-        z-index: 2;
-    }
-
-    .card-grid-5 h6,
-    .card-grid-5 p {
-        margin: 0;
-        color: #fff;
-        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
-        font-weight: 600;
-    }
-</style>
 @extends('layoutsite.site')
 @section('content')
     <section class="hero-section position-relative bg-cover text-white py-5"
-        style="background-image: url('{{ asset('admin/media/photos/photo12@2x.jpg') }}');">
+        style="background-image: url('{{ asset('asset/imgs/accueil.jpg') }}');">
 
         <div class="overlay position-absolute w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6); top: 0; left: 0;">
         </div>
@@ -67,24 +18,22 @@
                         Découvrez les meilleures offres de location – maisons, appartements, immeubles
                     </p>
 
+                <!-- Form Card -->
+                <div class="bg-white rounded-pill shadow-lg mx-auto px-3 py-2 d-flex flex-column flex-md-row align-items-center justify-content-between gap-2"
+                    style="max-width: 850px;">
+                    <input type="text" name="keyword" class="form-control border-0 rounded-pill px-4"
+                        placeholder="Ville, quartier ou mot-clé..." />
 
-                    <form
-                        class="bg-white rounded-pill d-flex p-2 shadow-lg justify-content-between align-items-center wow animate__animated animate__fadeInUp"
-                        style="max-width: 850px; margin: auto;" method="GET">
-                        <input type="text" name="keyword" class="form-control border-0 rounded-start-pill px-4"
-                            placeholder="Ville, quartier ou mot-clé...">
+                    <select name="type" class="form-select border-0 bg-light rounded-pill px-4">
+                        <option value="">Catégorie</option>
+                        <option value="maison">Maison</option>
+                        <option value="appartement">Appartement</option>
+                        <option value="immeuble">Immeuble</option>
+                    </select>
 
-                        <select name="type" class="form-select border-0 px-4 bg-light">
-                            <option value="">Catégorie</option>
-                            <option value="maison">Maison</option>
-                            <option value="appartement">Appartement</option>
-                            <option value="immeuble">Immeuble</option>
-                        </select>
-
-                        <button type="submit" class="btn btn-primary rounded-pill px-4 py-2">
-                            Rechercher
-                        </button>
-                    </form>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 py-2">
+                        Rechercher
+                    </button>
                 </div>
             </div>
         </div>
@@ -134,8 +83,8 @@
     <section class="section-box mt-30">
         <div class="container">
             <div class="text-center mb-3">
-                <h2 class="section-title fw-bold mb-1 wow animate__animated animate__fadeInUp"
-                    style="font-size: 2.2rem; color: #222;">
+                <h2 class="section-title fw-bold mb-1 wow animate__animated animate__fadeInUp text-primary"
+                    style="font-size: 2.2rem; ">
                     Maisons à louer au Maroc
                 </h2>
                 <p class="lead text-muted wow animate__animated animate__fadeInUp text-nowrap"
@@ -206,15 +155,12 @@
 
 
                         </div>
-
-
                     </div>
                 </div>
             </div>
         </div>
     </section>
     {{-- fin section maison a loue --}}
-
     {{-- Section Location par Chambre --}}
     <section class="py-5 bg-light">
         <div class="container">
@@ -296,11 +242,7 @@
 
         </div>
     </section>
-
-
-
     {{-- fin Section Location par Chambre --}}
-
     {{-- Section actualite --}}
     <section class="section-box mt-50 mb-50">
         <div class="container">
@@ -322,7 +264,7 @@
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 hover-up"
                         style="transition: transform 0.3s; height: 450px; display: flex; flex-direction: column;">
-                        <img src="{{asset('admin/media/photos/bg_minecraft.png')}}" class="card-img-top" alt="Conseil pour location"
+                        <img src="assets/imgs/news/news1.jpg" class="card-img-top" alt="Conseil pour location"
                             style="height: 180px; object-fit: cover;">
                         <div class="card-body d-flex flex-column flex-grow-1">
                             <div>
@@ -337,7 +279,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{asset('admin/media/photos/bg_minecraft.png')}}" alt="Auteur" class="rounded-circle me-2"
+                                    <img src="assets/imgs/users/author1.jpg" alt="Auteur" class="rounded-circle me-2"
                                         width="40" height="40">
                                     <div>
                                         <div class="small fw-semibold">Aminata Diallo</div>
@@ -354,7 +296,7 @@
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 hover-up"
                         style="transition: transform 0.3s; height: 450px; display: flex; flex-direction: column;">
-                        <img src="{{asset('admin/media/photos/bg_minecraft.png')}}" class="card-img-top" alt="Tendances du marché"
+                        <img src="assets/imgs/news/news2.jpg" class="card-img-top" alt="Tendances du marché"
                             style="height: 180px; object-fit: cover;">
                         <div class="card-body d-flex flex-column flex-grow-1">
                             <div>
@@ -369,7 +311,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{asset('admin/media/photos/bg_minecraft.png')}}" alt="Auteur" class="rounded-circle me-2"
+                                    <img src="assets/imgs/users/author2.jpg" alt="Auteur" class="rounded-circle me-2"
                                         width="40" height="40">
                                     <div>
                                         <div class="small fw-semibold">Mamadou Coulibaly</div>
@@ -385,7 +327,7 @@
                 <div class="col-md-4">
                     <div class="card shadow-sm border-0 hover-up"
                         style="transition: transform 0.3s; height: 450px; display: flex; flex-direction: column;">
-                        <img src="{{asset('admin/media/photos/bg_minecraft.png')}}" class="card-img-top" alt="Guide location"
+                        <img src="assets/imgs/news/news3.jpg" class="card-img-top" alt="Guide location"
                             style="height: 180px; object-fit: cover;">
                         <div class="card-body d-flex flex-column flex-grow-1">
                             <div>
@@ -400,7 +342,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{asset('admin/media/photos/bg_minecraft.png')}}" alt="Auteur" class="rounded-circle me-2"
+                                    <img src="assets/imgs/users/author3.jpg" alt="Auteur" class="rounded-circle me-2"
                                         width="40" height="40">
                                     <div>
                                         <div class="small fw-semibold">Fatoumata Traoré</div>
@@ -420,7 +362,6 @@
             </div>
         </div>
     </section>
-
     {{-- fin Section actualite  --}}
 @endsection
 {{-- ancien --}}

@@ -1,27 +1,26 @@
 @extends('layoutsite.site')
 
 @section('content')
-    <section class="section-box-2 position-relative text-white d-flex align-items-center"
-        style="
-    height: 400px;
-    background-image: url('{{ asset('asset/imgs/bg-job.jpg') }}');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;">
-
-        <!-- Overlay sombre -->
-        <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.5); z-index: 1;">
-        </div>
-
-        <!-- Contenu centré -->
-        <div class="container position-relative text-center" style="z-index: 2;">
-            <div class="p-4 offre-card-content">
-
-                <h2 class="offre-card-title fw-bold fs-2">Réservez votre chambre idéale dès aujourd’hui</h2>
-                <p class="lead mt-2">Choisissez parmi nos logements confortables et flexibles selon vos besoins.</p>
+   <!-- SECTION HERO AVEC HAUTEUR AJUSTÉE -->
+    <section class="text-white d-flex align-items-center"
+        style="background-image: url('{{ asset('asset/imgs/location.jpg') }}'); background-size: cover; background-position: center; height: 400px;">
+        <div class="container text-center">
+            <div class="container text-center">
+                <h3 class="fw-bold mb-3" style="font-size: 2.8rem; color: #f5f5f5;">
+                    <span class="text-primary">Trouvez</span> le logement idéal <br class="d-none d-md-block"> pour vous dès
+                    aujourd’hui
+                </h3>
+                <p class="lead mx-auto" style="max-width: 750px; color: #f0f0f0; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">
+                    Explorez une large sélection d’appartements, maisons et studios, soigneusement choisis pour répondre à
+                    toutes vos envies.
+                </p>
             </div>
+
+
         </div>
+
     </section>
+    {{-- section principale --}}
 
     @if (Auth::check() && Auth::user()->role === 'client')
         @include('layoutsite.partials.connection')
@@ -110,5 +109,6 @@
             {{--    }); --}}
             {{-- }); --}}
         });
+    
     </script>
 @endsection

@@ -1,30 +1,24 @@
     @extends('layoutsite.site')
 
     @section('content')
-        <section class="section-box-2 d-flex align-items-center position-relative text-white"
-            style="height: 400px;
-                background-image: url('{{ asset('asset/imgs/bg-job.jpg') }}');
-                background-size: 800px auto;
-                background-repeat: no-repeat;
-                background-position: center;">
-
-            <!-- Overlay sombre -->
-            <div class="position-absolute top-0 start-0 w-100 h-100"
-                style="background-color: rgba(0, 0, 0, 0.5); z-index: 1;">
+        <section class="text-white d-flex align-items-center"
+        style="background-image: url('{{ asset('asset/imgs/location.jpg') }}'); background-size: cover; background-position: center; height: 400px;">
+        <div class="container text-center">
+            <div class="container text-center">
+                <h3 class="fw-bold mb-3" style="font-size: 2.8rem; color: #f5f5f5;">
+                    <span class="text-primary">Trouvez</span> le logement idéal <br class="d-none d-md-block"> pour vous dès
+                    aujourd’hui
+                </h3>
+                <p class="lead mx-auto" style="max-width: 750px; color: #f0f0f0; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">
+                    Explorez une large sélection d’appartements, maisons et studios, soigneusement choisis pour répondre à
+                    toutes vos envies.
+                </p>
             </div>
 
-            <!-- Contenu centré -->
-            <div class="container position-relative" style="z-index: 2;">
-                <div class="p-4 text-center offre-card-content">
-                    <div class="mb-3">
-                        <span class="badge badge-custom bg-warning text-dark">🔥 22 Offres disponibles</span>
-                    </div>
-                    <h2 class="offre-card-title fw-bold fs-2">Trouvez votre prochain emploi de rêve</h2>
-                    <p class="lead mt-2">Explorez les meilleures opportunités de carrière près de chez vous ou à distance.
-                    </p>
-                </div>
-            </div>
-        </section>
+
+        </div>
+
+    </section>
 
         <div class="bg-light py-5">
             <div class="container">
