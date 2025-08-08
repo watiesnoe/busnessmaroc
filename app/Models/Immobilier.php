@@ -66,11 +66,10 @@ class Immobilier extends Model
         return $this->hasMany(Photo::class);
     }
 
-    public function photoPrincipale()
-    {
-        return $this->hasOne(Photo::class)->where('principale', true);
-    }
-
+   public function photoPrincipale()
+{
+    return $this->hasOne(Photo::class)->where('principale', 1);
+}
     public function favoris()
     {
         return $this->hasMany(Favori::class);

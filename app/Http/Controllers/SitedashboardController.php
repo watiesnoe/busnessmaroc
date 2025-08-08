@@ -32,15 +32,20 @@ class SitedashboardController extends Controller
     }
 
 
-    public function location(Request $request)
-    {
-        $categories = Category::all();
-        $cities = Immobilier::select('ville')->distinct()->pluck('ville');
+   public function location(Request $request)
+{
+    $categories = Category::all();
+    $cities = Immobilier::select('ville')->distinct()->pluck('ville');
 
-        $immobiliers = Immobilier::with(['category', 'photoPrincipale'])->paginate(10);
+    $immobiliers = Immobilier::with(['category', 'photoPrincipale', 'photos', 'chambres'])
+        ->whereNotIn('statut', ['loue', 'occupe', 'reserve']) // exclure ces statuts du bien
+        ->whereHas('chambres', function ($query) {
+            $query->whereNotIn('statut', ['occupee', 'reservee', 'loue']); // au moins une chambre libre
+        })
+        ->paginate(10);
 
-        return view('location', compact('categories', 'cities', 'immobiliers'));
-    }
+    return view('location', compact('categories', 'cities', 'immobiliers'));
+}
 
     public function filter(Request $request)
     {

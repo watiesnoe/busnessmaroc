@@ -24,9 +24,10 @@
 
     @if (Auth::check() && Auth::user()->role === 'client')
         @include('layoutsite.partials.connection')
-    @else
-        @include('layoutsite.partials.connectionclient')
     @endif
+    {{-- @else
+        @include('layoutsite.partials.connectionclient')
+    @endif --}}
 @endsection
 
 @section('scripts')

@@ -55,11 +55,11 @@
                             <div class="swiper-slide">
                                 <a href="{{ route('immobiliers.show', $annonce->id) }}" class="text-decoration-none">
                                     <div class="card-grid-5 card-category position-relative rounded-3 shadow-sm overflow-hidden"
-                                        style="background-image: url('{{ asset(($annonce->photos->first()->url ?? 'bg_minecraft.png')) }}'); background-size: cover; background-position: center; height: 280px;">
+                                        style="background-image: url('{{ asset('storage/' . $annonce->photoPrincipale->url) }}'); background-size: cover; background-position: center; height: 280px;">
 
                                         <div class="box-cover-img position-relative h-100">
                                             <div class="content-bottom">
-                                                <h6 class="mb-1">{{ $annonce->titre }}</h6>
+                                                <h6 class="mb-1 text-white">{{ $annonce->titre }}</h6>
                                                 <p class="font-xs mb-0">
                                                     {{ number_format($annonce->prix, 0, ',', ' ') }} MAD
                                                 </p>
@@ -110,8 +110,13 @@
                                                 <div class="image-box">
                                                     <a href="{{ route('immobilier.detail', $immobilier->id) }}">
                                                         <figure>
-                                                            <img src="{{ asset(($immobilier->photoPrincipale->url ?? 'bg_minecraft.png')) }}"
-                                                                height="300" alt="Photo principale">
+                                                           @if ($immobilier->photoPrincipale)
+                                                                <img src="{{ asset('storage/' . $immobilier->photoPrincipale->url) }}"  height="250" style="object-fit: cover; width: 100%;"
+                                                    alt="Photo chambre" alt="Photo principale" class="img-fluid rounded">
+                                                            @else
+                                                                <img src="{{ asset('admin/media/photos/bg_minecraft.png') }}"   height="250" style="object-fit: cover; width: 100%;"
+                                                    alt="Photo chambre" alt="Aucune image" class="img-fluid rounded">
+                                                            @endif
                                                         </figure>
                                                     </a>
                                                 </div>

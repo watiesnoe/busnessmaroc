@@ -165,8 +165,10 @@ class ImmobiliersController extends Controller
     public function show($id)
     {
         $immobilier = Immobilier::with([
-            'category',
-            'chambres',
+        'category',
+        'chambres' => function ($query) {
+            $query->where('statut', 'disponible');
+        },
             'contratLocations.user'  // Charge contrats et utilisateurs liés
         ])->findOrFail($id);
 

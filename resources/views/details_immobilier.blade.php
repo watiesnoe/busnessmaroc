@@ -62,43 +62,25 @@
                 {{-- Liste des chambres --}}
                 <h4 class="fw-semibold text-secondary mb-4">Chambres disponibles</h4>
                 <div class="row">
-                    @foreach ($immobilier->chambres as $chambre)
+                    @foreach ($immobilier->chambres->where('statut', 'disponible') as $chambre)
                         <div class="col-md-6 mb-4">
                             <div class="card border-0 shadow-sm h-100 rounded-4 overflow-hidden bg-white">
                                 <div class="row g-0">
-                                    {{-- Image chambre avec taille fixe --}}
                                     <div class="col-md-5">
-                                        <img src="{{ asset('storage/' . $chambre->image) }}" alt="Chambre" class="w-100"
-                                            style="height: 200px; object-fit: cover;">
+                                        <img src="{{ asset('storage/' . $chambre->image) }}" alt="Chambre" class="w-100" style="height: 200px; object-fit: cover;">
                                     </div>
-
-                                    {{-- Infos chambre dans la carte --}}
                                     <div class="col-md-7 d-flex align-items-center">
                                         <div class="p-3 w-100">
                                             <h5 class="text-primary">{{ $chambre->type }}</h5>
-                                            <p class="mb-1"><strong>Capacité :</strong> {{ $chambre->capacite }}
-                                                personnes</p>
+                                            <p class="mb-1"><strong>Capacité :</strong> {{ $chambre->capacite }} personnes</p>
                                             <p class="mb-2">
                                                 <strong>Prix :</strong><br>
-                                                <span class="text-success">Jour :</span>
-                                                {{ number_format($chambre->prix_jour, 0, ',', ' ') }} FCFA<br>
-                                                <span class="text-success">Mois :</span>
-                                                {{ number_format($chambre->prix_mois, 0, ',', ' ') }} FCFA<br>
-                                                <span class="text-success">Année :</span>
-                                                {{ number_format($chambre->prix_annee, 0, ',', ' ') }} FCFA
+                                                <span class="text-success">Jour :</span> {{ number_format($chambre->prix_jour, 0, ',', ' ') }} FCFA<br>
+                                                <span class="text-success">Mois :</span> {{ number_format($chambre->prix_mois, 0, ',', ' ') }} FCFA<br>
+                                                <span class="text-success">Année :</span> {{ number_format($chambre->prix_annee, 0, ',', ' ') }} FCFA
                                             </p>
-                                            <p><strong>Statut :</strong>
-                                                @if ($chambre->statut === 'disponible')
-                                                    <span class="badge bg-success">Disponible</span>
-                                                @else
-                                                    <span class="badge bg-secondary">{{ ucfirst($chambre->statut) }}</span>
-                                                @endif
-                                            </p>
-
-                                            @if ($chambre->statut === 'disponible')
-                                                <a href="{{ route('reservation.chambre', $chambre->id) }}"
-                                                    class="btn btn-outline-primary w-100 mt-2">Réserver</a>
-                                            @endif
+                                            <p><strong>Statut :</strong> <span class="badge bg-success">Disponible</span></p>
+                                            <a href="{{ route('reservation.chambre', $chambre->id) }}" class="btn btn-outline-primary w-100 mt-2">Réserver</a>
                                         </div>
                                     </div>
                                 </div>
