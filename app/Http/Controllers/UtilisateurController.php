@@ -84,9 +84,7 @@ class UtilisateurController extends Controller
                 })
                 ->rawColumns(['avatar', 'actions']) // Pour rendre le HTML
                 ->make(true);
-
         }
-
         // Affiche la vue normale avec la table (sans données, chargées via Ajax)
         return view('admin.utilisateurs.candidatureliste');
     }

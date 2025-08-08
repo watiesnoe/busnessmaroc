@@ -2,10 +2,10 @@
 @extends('layoutsite.site')
 @section('content')
     <section class="hero-section position-relative bg-cover text-white py-5"
-        style="background-image: url('{{ asset('asset/imgs/accueil.jpg') }}');">
+         style="background-image: url('{{ asset('asset/imgs/accueil1.jpg') }}'); background-size: cover; background-position: center; height: 400px;">
 
-        <div class="overlay position-absolute w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6); top: 0; left: 0;">
-        </div>
+        {{-- <div class="overlay position-absolute w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6); top: 0; left: 0;">
+        </div> --}}
         <div class="container position-relative z-2">
             <div class="row justify-content-center text-center">
                 <div class="col-lg-10">
