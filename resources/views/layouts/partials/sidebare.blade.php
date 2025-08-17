@@ -4,12 +4,12 @@
         <div class="content-header bg-white-5">
             <!-- Logo -->
             <a class="fw-semibold text-white tracking-wide" href="{{ route('home.index') }}">
-              <span class="smini-visible">
-                D<span class="opacity-75">x</span>
-              </span>
+                <span class="smini-visible">
+                    D<span class="opacity-75">x</span>
+                </span>
                 <span class="smini-hidden">
-                Dash<span class="opacity-75">mix</span>
-              </span>
+                    Dash<span class="opacity-75">mix</span>
+                </span>
             </a>
 
             <!-- Options -->
@@ -37,7 +37,7 @@
                     <button type="button" class="btn btn-sm btn-alt-secondary" id="sidebar-themes-dropdown" data-bs-toggle="dropdown">
                         <i class="fa fa-fw fa-paint-brush"></i>
                     </button>
-                    <!-- (liste des thèmes conservée ici, inchangée) -->
+                    <!-- liste des thèmes ici -->
                 </div>
 
                 <!-- Mobile Close -->
@@ -57,7 +57,7 @@
                 <!-- Dashboard -->
                 <li class="nav-main-item">
                     <a class="nav-main-link active" href="{{ route('home.index') }}">
-                        <i class="nav-main-link-icon fa fa-home"></i>
+                        <i class="nav-main-link-icon fa fa-tachometer-alt"></i>
                         <span class="nav-main-link-name">Dashboard</span>
                     </a>
                 </li>
@@ -65,13 +65,13 @@
                 <!-- Maison -->
                 <li class="nav-main-item">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" href="#">
-                        <i class="nav-main-link-icon fa fa-building"></i>
+                        <i class="nav-main-link-icon fa fa-home"></i>
                         <span class="nav-main-link-name">Maison</span>
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item">
                             <a class="nav-main-link" href="{{ route('immobiliers.index') }}">
-                                <i class="nav-main-link-icon fa fa-city"></i>
+                                <i class="nav-main-link-icon fa fa-building"></i>
                                 <span class="nav-main-link-name">Immeubles</span>
                             </a>
                         </li>
@@ -87,7 +87,7 @@
                 <!-- Offres -->
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="{{ route('offre.index') }}">
-                        <i class="nav-main-link-icon fa fa-bullhorn"></i>
+                        <i class="nav-main-link-icon fa fa-tags"></i>
                         <span class="nav-main-link-name">Offres</span>
                     </a>
                 </li>
@@ -95,15 +95,15 @@
                 <!-- Clients -->
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="{{ route('utilisateurs.clients') }}">
-                        <i class="nav-main-link-icon fa fa-user"></i>
+                        <i class="nav-main-link-icon fa fa-user-friends"></i>
                         <span class="nav-main-link-name">Clients</span>
                     </a>
                 </li>
 
                 <!-- Candidats -->
                 <li class="nav-main-item">
-                <a class="nav-main-link" href="{{ route('utilisateurs.candidats') }}">
-                        <i class="nav-main-link-icon fa fa-users"></i>
+                    <a class="nav-main-link" href="{{ route('utilisateurs.candidats') }}">
+                        <i class="nav-main-link-icon fa fa-user-graduate"></i>
                         <span class="nav-main-link-name">Candidats</span>
                     </a>
                 </li>
@@ -111,26 +111,31 @@
                 <!-- Entreprises -->
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="{{ route('entreprises.index') }}">
-                        <i class="nav-main-link-icon fa fa-building-user"></i>
+                        <i class="nav-main-link-icon fa fa-building"></i>
                         <span class="nav-main-link-name">Entreprises</span>
                     </a>
                 </li>
 
+                <!-- Université -->
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="{{ route('adminuniversite.index_admin') }}">
-                        <i class="nav-main-link-icon fa fa-building-user"></i>
+                        <i class="nav-main-link-icon fa fa-university"></i>
                         <span class="nav-main-link-name">Université</span>
                     </a>
                 </li>
+
+                <!-- Événements -->
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="{{ route('evenements.index') }}">
-                        <i class="nav-main-link-icon fa fa-building-user"></i>
-                        <span class="nav-main-link-name">Evenements</span>
+                        <i class="nav-main-link-icon fa fa-calendar-alt"></i>
+                        <span class="nav-main-link-name">Événements</span>
                     </a>
                 </li>
+
+                <!-- Actualités -->
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="{{ route('adminactualite.index') }}">
-                        <i class="nav-main-link-icon fa fa-building-user"></i>
+                        <i class="nav-main-link-icon fa fa-newspaper"></i>
                         <span class="nav-main-link-name">Actualités</span>
                     </a>
                 </li>
