@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Offre;
 use App\Models\Candidature;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CandidatureController extends Controller
 {
@@ -49,4 +50,37 @@ class CandidatureController extends Controller
         return redirect()->route('details_offre.show', $request->offre_id)
             ->with('success', 'Votre candidature a été envoyée avec succès.');
     }
+    public function envoyerAlerte(Request $request, $id)
+    {
+        $candidature = Candidature::findOrFail($id);
+        $type = $request->type;
+
+        if ($type === 'entretien') {
+            // mise à jour du statut
+            $candidature->statut = 'entretien';
+            $candidature->save();
+
+            // envoi du mail
+            Mail::to($candidature->user->email)
+                ->send(new \App\Mail\ConvocationEntretienMail($candidature));
+
+            $message = "Email d’entretien envoyé avec succès.";
+        } elseif ($type === 'definitif') {
+            // mise à jour du statut
+            $candidature->statut = 'retenue';
+            $candidature->save();
+
+            // envoi du mail
+            Mail::to($candidature->user->email)
+                ->send(new \App\Mail\SelectionDefinitiveMail($candidature));
+
+            $message = "Email de sélection définitive envoyé avec succès.";
+        } else {
+            return response()->json(['message' => 'Type invalide.'], 400);
+        }
+
+        return response()->json(['message' => $message]);
+    }
+
+
 }

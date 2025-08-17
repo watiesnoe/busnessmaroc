@@ -89,16 +89,47 @@ class UtilisateurController extends Controller
         return view('admin.utilisateurs.candidatureliste');
     }
 
+//    public function candidats(Request $request, Offre $offre)
+//    {
+//
+//        $candidatures = $offre->candidatures()->with('user')->latest()->paginate(12);
+////        dd($candidatures);
+//        if ($request->ajax()) {
+//            return view('layouts.partials.candidats', compact('candidatures'))->render();
+//        }
+//
+//        return view('admin.utilisateurs.candidature', compact('offre', 'candidatures'));
+//    }
     public function candidats(Request $request, Offre $offre)
     {
-
         $candidatures = $offre->candidatures()->with('user')->latest()->paginate(12);
-//        dd($candidatures);
+
         if ($request->ajax()) {
             return view('layouts.partials.candidats', compact('candidatures'))->render();
         }
 
         return view('admin.utilisateurs.candidature', compact('offre', 'candidatures'));
+    }
+
+    // Mettre à jour le statut d'un candidat (apprové/refusé)
+    public function updateStatus(Request $request, $id)
+    {
+        $candidature = Candidature::findOrFail($id);
+
+        $request->validate([
+            'status' => 'required|in:accepte,refuse',
+            'note' => 'nullable|integer|min:1|max:5',
+            'remarque' => 'nullable|string|max:500'
+        ]);
+
+        $candidature->update([
+            'est_approuve' => $request->status === 'accepte',
+            'note' => $request->note,
+            'remarque' => $request->remarque,
+//            'status' => $request->status, // optionnel pour suivi
+        ]);
+
+        return response()->json(['success' => true]);
     }
 
     public function create()

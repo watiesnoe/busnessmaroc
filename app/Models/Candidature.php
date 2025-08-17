@@ -14,6 +14,8 @@ class Candidature extends Model
         'message',
         'est_approuve',       // ✅ nouveau
         'note',               // ✅ nouveau
+        'remarque',           // ✅ nouveau
+        'statut'
     ];
 
     public function user()

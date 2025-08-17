@@ -13,30 +13,61 @@
                          src="{{ asset('assets/media/avatars/avatar' . rand(1, 10) . '.jpg') }}"
                          alt="Avatar candidat">
                 </div>
+
                 <div class="block-content block-content-full block-content-sm bg-body-light">
                     <div class="fw-semibold">{{ $candidat->prenom }} {{ $candidat->nom }}</div>
                     <div class="fs-sm text-muted">{{ $candidat->email }}</div>
                     <div class="fs-sm">Offre : <strong>{{ $offre->titre ?? 'N/A' }}</strong></div>
                 </div>
+
                 <div class="block-content block-content-full d-flex justify-content-center gap-2 flex-wrap">
+                    <!-- CV -->
                     <a class="btn btn-sm btn-outline-primary" href="{{ route('candidats.cv', $candidature->id) }}" target="_blank">
                         <i class="fa fa-file-pdf me-1"></i> CV
                     </a>
+
+                    <!-- Lettre -->
                     <a class="btn btn-sm btn-outline-secondary" href="{{ route('candidats.lettre', $candidature->id) }}" target="_blank">
                         <i class="fa fa-file-alt me-1"></i> Lettre
                     </a>
+
+                    <!-- Profil -->
                     <a class="btn btn-sm btn-alt-primary" href="{{ route('utilisateurs.profile', $candidat->id) }}">
                         <i class="fa fa-user-circle me-1"></i> Profil
                     </a>
 
+                    <!-- Approuver / Refuser -->
                     @if (!$candidature->est_approuve)
                         <button class="btn btn-sm btn-success btn-approuver" data-id="{{ $candidature->id }}">
                             ✅ Approuver
                         </button>
+                        <button class="btn btn-sm btn-danger btn-refuser" data-id="{{ $candidature->id }}">
+                            ❌ Refuser
+                        </button>
                     @else
+                        <!-- 🔔 Boutons en fonction du statut -->
+                        @if ($candidature->statut === 'en_attente')
+                            <button class="btn btn-sm btn-warning btn-alerte-entretien" data-id="{{ $candidature->id }}">
+                                📅 Alerter entretien
+                            </button>
+                            <button class="btn btn-sm btn-primary btn-alerte-definitif" data-id="{{ $candidature->id }}">
+                                🏆 Retenue définitive
+                            </button>
+                        @elseif ($candidature->statut === 'entretien')
+                            <button class="btn btn-sm btn-primary btn-alerte-definitif" data-id="{{ $candidature->id }}">
+                                🏆 Retenue définitive
+                            </button>
+                        @endif
+
+                        <!-- Badge d'approbation -->
                         <span class="badge bg-success">
                             Approuvé ({{ $candidature->note }}/5 ⭐)
                         </span>
+
+                        <!-- Remarque -->
+                        @if($candidature->remarque)
+                            <div class="text-muted fs-sm">{{ $candidature->remarque }}</div>
+                        @endif
                     @endif
                 </div>
             </div>

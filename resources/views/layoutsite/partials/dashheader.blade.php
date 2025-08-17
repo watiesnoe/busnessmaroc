@@ -81,8 +81,10 @@
                    class="nav-link {{ request()->routeIs('location') ? 'text-primary fw-bold' : 'text-dark' }}">Location</a>
                 <a href="{{ route('offres') }}"
                    class="nav-link {{ request()->is('offres') ? 'text-primary fw-bold' : 'text-dark' }}">Offres</a>
-                <a href="{{ url('jobs-grid.html') }}"
-                   class="nav-link {{ request()->is('jobs-grid.html') ? 'text-primary fw-bold' : 'text-dark' }}">Actualités</a>
+                <a href="{{ url('actualite') }}"
+                   class="nav-link {{ request()->is('actualite') ? 'text-primary fw-bold' : 'text-dark' }}">Actualités</a>
+                <a href="{{ url('universite') }}"
+                   class="nav-link {{ request()->is('universite') ? 'text-primary fw-bold' : 'text-dark' }}">Universités</a>
             </nav>
 
             <!-- Actions utilisateur -->

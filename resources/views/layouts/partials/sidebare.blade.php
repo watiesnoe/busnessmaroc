@@ -116,6 +116,25 @@
                     </a>
                 </li>
 
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="{{ route('adminuniversite.index_admin') }}">
+                        <i class="nav-main-link-icon fa fa-building-user"></i>
+                        <span class="nav-main-link-name">Université</span>
+                    </a>
+                </li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="{{ route('evenements.index') }}">
+                        <i class="nav-main-link-icon fa fa-building-user"></i>
+                        <span class="nav-main-link-name">Evenements</span>
+                    </a>
+                </li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link" href="{{ route('adminactualite.index') }}">
+                        <i class="nav-main-link-icon fa fa-building-user"></i>
+                        <span class="nav-main-link-name">Actualités</span>
+                    </a>
+                </li>
+
                 <!-- Configuration -->
                 <li class="nav-main-item">
                     <a class="nav-main-link" href="{{ route('utilisateurs.index') }}">

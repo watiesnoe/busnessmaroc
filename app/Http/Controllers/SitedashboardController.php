@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Actualite;
 use App\Models\Category;
+use App\Models\Evenement;
 use App\Models\Immobilier;
 use App\Models\Offre;
 use Illuminate\Http\Request;
@@ -89,4 +91,28 @@ class SitedashboardController extends Controller
         $immobilier = Immobilier::with(['category', 'photos', 'chambres'])->findOrFail($id);
         return view('details_immobilier', compact('immobilier'));
     }
+    public function actualite(Request $request)
+    {
+        $evenements = Evenement::where('statut', 'à venir')
+            ->where('date_debut','>=', now())
+            ->orderBy('date_debut','asc')
+            ->paginate()
+            ->appends(request()->query());
+
+        $actualites = Actualite::orderBy('date_publication','desc')
+            ->paginate(12)
+            ->appends(request()->query());
+
+        if($request->ajax()){
+            if($request->section === 'evenements'){
+                return view('layoutsite.partials._evenements', compact('evenements'))->render();
+            } elseif($request->section === 'actualites'){
+                return view('layoutsite.partials._actualites', compact('actualites'))->render();
+            }
+        }
+
+        return view('evenement', compact('evenements','actualites'));
+    }
+
+
 }

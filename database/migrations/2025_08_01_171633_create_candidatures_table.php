@@ -24,7 +24,10 @@ return new class extends Migration
             // ✅ Nouvelles colonnes pour l’évaluation
             $table->boolean('est_approuve')->default(false);
             $table->unsignedTinyInteger('note')->nullable(); // note de 0 à 255 (généralement sur 5 ou 10)
-
+            $table->string('remarque', 500)->nullable();
+            $table->enum('statut', ['en_attente', 'entretien', 'retenue', 'refuse'])
+                ->default('en_attente')
+                ->after('remarque');
             $table->timestamps();
 
             // ✅ Contrainte d'unicité composite : user_id + offre_id
