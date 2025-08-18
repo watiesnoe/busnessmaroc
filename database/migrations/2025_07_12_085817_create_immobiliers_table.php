@@ -13,22 +13,39 @@ return new class extends Migration
     {
         Schema::create('immobiliers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('entreprise_id')->nullable()->constrained()->onDelete('set null');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+
+            // Relation avec une entreprise (optionnelle)
+            $table->foreignId('entreprise_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete(); // équivalent à onDelete('set null')
+
+            // Relation avec utilisateur (obligatoire)
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            // Relation avec catégorie (obligatoire)
+            $table->foreignId('category_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            // Informations du bien
             $table->string('titre');
             $table->text('description');
             $table->string('ville');
             $table->string('quartier')->nullable();
-            $table->integer('surface')->nullable();
+            $table->unsignedInteger('surface')->nullable();
             $table->decimal('prix', 12, 2)->nullable();
-            $table->integer('etage')->nullable();
+            $table->unsignedInteger('etage')->nullable();
+
+            // Options
             $table->boolean('en_vedette')->default(false);
-            $table->string('statut')->default('disponible');
+            $table->enum('statut', ['disponible', 'occupe', 'en_attente'])
+                ->default('disponible');
+
             $table->timestamps();
         });
-
-
     }
 
     /**

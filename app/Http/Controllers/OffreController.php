@@ -101,19 +101,56 @@ class OffreController extends Controller
             'niveau' => 'required|string|max:255',
             'date_limite' => 'required|date|after_or_equal:date_publication',
             'salaire' => 'nullable|numeric|min:0',
+            'mode_candidature' => 'required|in:interne,externe',
+            'lien_candidature' => 'nullable|string|max:255',
             'profil_recherche' => 'required|string',
             'description' => 'required|string',
         ]);
 //dd($validated);
         Offre::create($validated);
 
-        return response()->json(['success' => true, 'message' => 'Offre enregistrée avec succès.']);
+        return response()->json([
+            'success' => true,
+            'message' => 'Offre créée avec succès !'
+        ]);
     }
+    public function update(Request $request, $id)
+    {
+        $offre = Offre::findOrFail($id);
+
+        $validated = $request->validate([
+            'titre' => 'required|string|max:255',
+            'type_offre' => 'required|in:emploi,stage',
+            'date_publication' => 'required|date',
+            'entreprise' => 'required|string|max:255',
+            'lieu' => 'required|string|max:255',
+            'secteur' => 'required|string|max:255',
+            'niveau' => 'required|string|max:255',
+            'date_limite' => 'required|date|after_or_equal:date_publication',
+            'salaire' => 'nullable|numeric|min:0',
+            'mode_candidature' => 'required|in:interne,externe',
+            'lien_candidature' => 'nullable|string|max:255',
+            'profil_recherche' => 'required|string',
+            'description' => 'required|string',
+        ]);
+
+        $offre->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Offre mise à jour avec succès !'
+        ]);
+    }
+
 
     public function edit($id)
     {
         $offre = Offre::findOrFail($id);
         return view('admin.offre.create', compact('offre'));
+    }
+    public function show($id){
+        $offre = Offre::findOrFail($id);
+        return view('admin.offre.show', compact('offre'));
     }
 
 }

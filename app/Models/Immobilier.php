@@ -9,9 +9,8 @@ class Immobilier extends Model
 {
     use HasFactory;
 
-    protected $table = 'immobiliers';
-
     protected $fillable = [
+        'entreprise_id',
         'user_id',
         'category_id',
         'titre',
@@ -26,22 +25,9 @@ class Immobilier extends Model
     ];
 
     // Relations
-
-    public function contratLocations()
+    public function entreprise()
     {
-        return $this->hasMany(ContratLocation::class, 'immobilier_id');
-    }
-
-    public function occupants()
-    {
-        return $this->hasManyThrough(
-            User::class,
-            ContratLocation::class,
-            'immobilier_id', // FK contrat_locations -> immobiliers
-            'id',            // PK users
-            'id',            // PK immobiliers
-            'user_id'        // FK contrat_locations -> users
-        );
+        return $this->belongsTo(Entreprise::class);
     }
 
     public function user()
@@ -59,17 +45,16 @@ class Immobilier extends Model
         return $this->hasMany(Chambre::class);
     }
 
-
-
     public function photos()
     {
         return $this->hasMany(Photo::class);
     }
 
-   public function photoPrincipale()
-{
-    return $this->hasOne(Photo::class)->where('principale', 1);
-}
+    public function photoPrincipale()
+    {
+        return $this->hasOne(Photo::class)->where('principale', true);
+    }
+
     public function favoris()
     {
         return $this->hasMany(Favori::class);
@@ -84,9 +69,21 @@ class Immobilier extends Model
     {
         return $this->hasMany(Vue::class);
     }
-    public function entreprise()
+
+    public function contratLocations()
     {
-        return $this->belongsTo(Entreprise::class);
+        return $this->hasMany(ContratLocation::class, 'immobilier_id');
     }
 
+    public function occupants()
+    {
+        return $this->hasManyThrough(
+            User::class,
+            ContratLocation::class,
+            'immobilier_id', // FK sur contrat_locations
+            'id',            // PK sur users
+            'id',            // PK sur immobiliers
+            'user_id'        // FK sur contrat_locations -> users
+        );
+    }
 }
