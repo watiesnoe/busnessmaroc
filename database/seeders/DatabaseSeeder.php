@@ -53,6 +53,9 @@ class DatabaseSeeder extends Seeder
 //            ->has(Image::factory()->count(3)) // chaque immobilier aura 3 images
 //            ->create();
         $this->call([
+            EntrepriseSeeder::class,
+        ]);
+        $this->call([
             CategorieSeer::class,
             OffreSeeder::class,
         ]);
@@ -110,7 +113,7 @@ class DatabaseSeeder extends Seeder
     }
 });
 
-    
+
 
 
          Favori::factory(10)->create();

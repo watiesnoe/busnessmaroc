@@ -113,7 +113,7 @@ class OffreController extends Controller
     public function edit($id)
     {
         $offre = Offre::findOrFail($id);
-        return view('admin.offre.edit', compact('offre'));
+        return view('admin.offre.create', compact('offre'));
     }
 
 }

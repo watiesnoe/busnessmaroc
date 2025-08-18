@@ -5,7 +5,6 @@
 
 @section('content')
     <div class="content">
-        <!-- Navigation -->
         <div class="row">
             <div class="card mt-2">
                 <div class="card-body">
@@ -16,24 +15,62 @@
                         </a>
                     </div>
                     <div class="block-content block-content-full overflow-x-auto">
-                        <table id="immobiliers-table" class="table table-bordered table-striped table-vcenter">
+                        <table id="entreprises-table" class="table table-bordered table-striped table-vcenter">
                             <thead>
-                                <tr>
-                                    <th>Nom</th>
-                                    <th>Email</th>
-                                    <th>Rôle</th>
-                                    <th>Statut</th>
-                                    <th>Date de création</th>
-                                    <th width="10%">Action</th>
-                                </tr>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Adresse</th>
+                                <th>Date de création</th>
+                                <th width="15%">Action</th>
+                            </tr>
                             </thead>
                         </table>
                     </div>
                 </div>
-
             </div>
         </div>
-        <!-- END Navigation -->
-
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#entreprises-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('entreprises.index') }}",
+                columns: [
+                    { data: 'nom', name: 'nom' },
+                    { data: 'email', name: 'email' },
+                    { data: 'telephone', name: 'telephone' },
+                    { data: 'adresse', name: 'adresse' },
+                    { data: 'created_at', name: 'created_at' },
+                    { data: 'action', name: 'action', orderable: false, searchable: false }
+                ]
+            });
+
+            // ✅ Suppression AJAX
+            $(document).on('click', '.delete-btn', function(){
+                let id = $(this).data('id');
+                if(confirm("Voulez-vous vraiment supprimer cette entreprise ?")) {
+                    $.ajax({
+                        url: '/entreprises/' + id,
+                        type: 'DELETE',
+                        data: {
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            $('#entreprises-table').DataTable().ajax.reload();
+                            alert("Entreprise supprimée !");
+                        },
+                        error: function() {
+                            alert("Erreur lors de la suppression !");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

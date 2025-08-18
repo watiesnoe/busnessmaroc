@@ -5,12 +5,46 @@ namespace App\Http\Controllers;
 use App\Models\Evenement;
 use App\Models\Ticket;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class TicketController extends Controller
 {
+    public function confirmer(Ticket $ticket)
+    {
+        if($ticket->statut === 'paye') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ce ticket est déjà confirmé.'
+            ]);
+        }
+
+        $ticket->statut = 'paye';
+        $ticket->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Réservation confirmée avec succès !'
+        ]);
+    }
+
+    /**
+     * Générer le ticket à imprimer
+     */
+    public function print(Ticket $ticket)
+    {
+        // Récupère l'événement lié au ticket
+        $evenement = $ticket->evenement;
+
+        // Charge la vue du ticket avec le ticket et l'événement
+        $pdf = PDF::loadView('admin.evenements.print', compact('ticket', 'evenement'));
+
+        // Affiche le PDF dans le navigateur
+        return $pdf->stream('ticket-'.$ticket->id.'.pdf');
+    }
+
     public function store(Request $request)
     {
         $request->validate([

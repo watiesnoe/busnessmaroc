@@ -84,4 +84,9 @@ class Immobilier extends Model
     {
         return $this->hasMany(Vue::class);
     }
+    public function entreprise()
+    {
+        return $this->belongsTo(Entreprise::class);
+    }
+
 }

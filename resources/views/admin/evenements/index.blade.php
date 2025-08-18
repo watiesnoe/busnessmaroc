@@ -22,6 +22,7 @@
                                 <th>Date fin</th>
                                 <th>Lieu</th>
                                 <th>Prix ticket</th>
+                                <th>Tickets pris</th> <!-- 👈 Nouvelle colonne -->
                                 <th>Statut</th>
                                 <th>Actions</th>
                             </tr>
@@ -49,9 +50,11 @@
                 { data: 'date_fin', name: 'date_fin' },
                 { data: 'lieu', name: 'lieu' },
                 { data: 'prix_ticket', name: 'prix_ticket' },
+                { data: 'tickets', name: 'tickets' }, // 👈 ajout
                 { data: 'statut', name: 'statut' },
                 { data: 'actions', name: 'actions', orderable: false, searchable: false },
-            ],
+            ]
+            ,
             language: {
                 // url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json"
             }

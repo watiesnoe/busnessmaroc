@@ -123,6 +123,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('/universites', UniversiteController::class);
     Route::resource('/evenements', EvenementController::class);
     Route::resource('/adminactualite', ActualiteController::class);
+        Route::get('/evenements/{evenement}/reservations', [EvenementController::class, 'parEvenement'])
+            ->name('evenements.clients');
+
+    Route::post('/tickets/{ticket}/confirmer', [TicketController::class, 'confirmer'])->name('tickets.confirmer');
+    Route::get('/tickets/{ticket}/print', [TicketController::class, 'print'])->name('tickets.print');
+
+    Route::resource('entreprises', EntrepriseController::class);
+
+// ✅ Route Ajax
+//    Route::get('/entreprises/data', [EntrepriseController::class, 'getData'])->name('entreprises.data');
 
 });
 

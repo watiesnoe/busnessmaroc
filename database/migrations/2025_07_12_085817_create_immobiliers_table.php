@@ -11,21 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('immobiliers', function (Blueprint $table) {
+        Schema::create('immobiliers', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('entreprise_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('titre');
             $table->text('description');
             $table->string('ville');
             $table->string('quartier')->nullable();
-            $table->float('surface');
-            $table->float('prix');
+            $table->integer('surface')->nullable();
+            $table->decimal('prix', 12, 2)->nullable();
             $table->integer('etage')->nullable();
-            $table->enum('statut', ['disponible', 'reserve', 'loue'])->default('disponible');
-           $table->boolean('en_vedette')->default(false); // ✅ Champ ajouté ici
+            $table->boolean('en_vedette')->default(false);
+            $table->string('statut')->default('disponible');
             $table->timestamps();
         });
+
 
     }
 
