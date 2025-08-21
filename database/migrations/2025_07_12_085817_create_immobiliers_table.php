@@ -41,7 +41,7 @@ return new class extends Migration
 
             // Options
             $table->boolean('en_vedette')->default(false);
-            $table->enum('statut', ['disponible', 'occupe', 'en_attente'])
+            $table->enum('statut', ['disponible', 'occupe', 'en_attente','loue','reserve'])
                 ->default('disponible');
 
             $table->timestamps();

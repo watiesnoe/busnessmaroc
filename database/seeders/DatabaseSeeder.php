@@ -48,6 +48,12 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456789'),
             'role' => 'client',
         ]);
+         User::factory()->create([
+            'name' => 'Oumar Ouologuem',
+            'email' => 'ouologuem.digitafrika@gmail.com',
+            'password' => Hash::make('123456789'),
+            'role' => 'superadmin',
+        ]);
 //        Immobilier::factory()
 //            ->count(10)
 //            ->has(Image::factory()->count(3)) // chaque immobilier aura 3 images
