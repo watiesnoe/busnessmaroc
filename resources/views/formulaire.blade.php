@@ -22,7 +22,7 @@
     </section>
     {{-- section principale --}}
 
-    @if (Auth::check() && Auth::user()->role === 'client')
+    @if (Auth::check() && Auth::user()->role === 'client' || Auth::user()->role === 'superadmin')
         @include('layoutsite.partials.connection')
     @endif
     {{-- @else

@@ -1,8 +1,7 @@
-
 @extends('layoutsite.site')
 @section('content')
     <section class="hero-section position-relative bg-cover text-white py-5"
-         style="background-image: url('{{ asset('asset/imgs/accueil1.jpg') }}'); background-size: cover; background-position: center; height: 400px;">
+        style="background-image: url('{{ asset('asset/imgs/accueil1.jpg') }}'); background-size: cover; background-position: center; height: 400px;">
 
         {{-- <div class="overlay position-absolute w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6); top: 0; left: 0;">
         </div> --}}
@@ -10,7 +9,8 @@
             <div class="row justify-content-center text-center">
                 <div class="col-lg-10">
                     <h1 class="display-4 fw-bold mb-4 wow animate__animated animate__fadeInDown">
-                        <span class="text-primary">Trouvez</span> votre futur <br class="d-none d-md-block"> logement en
+                        <span class="" style="color: #d50100;">Trouvez</span> votre futur <br class="d-none d-md-block">
+                        logement en
                         quelques clics
                     </h1>
                     <p class="lead text-white mb-5 wow animate__animated animate__fadeInUp"
@@ -18,31 +18,34 @@
                         Découvrez les meilleures offres de location – maisons, appartements, immeubles
                     </p>
 
-                <!-- Form Card -->
-                <div class="bg-white rounded-pill shadow-lg mx-auto px-3 py-2 d-flex flex-column flex-md-row align-items-center justify-content-between gap-2"
-                    style="max-width: 850px;">
-                    <input type="text" name="keyword" class="form-control border-0 rounded-pill px-4"
-                        placeholder="Ville, quartier ou mot-clé..." />
+                    <!-- Form Card -->
+                    <div class="bg-white rounded-pill shadow-lg mx-auto px-3 py-2 d-flex flex-column flex-md-row align-items-center justify-content-between gap-2"
+                        style="max-width: 850px;">
+                        <input type="text" name="keyword" class="form-control border-0 rounded-pill px-4"
+                            placeholder="Ville, quartier ou mot-clé..." />
 
-                    <select name="type" class="form-select border-0 bg-light rounded-pill px-4">
-                        <option value="">Catégorie</option>
-                        <option value="maison">Maison</option>
-                        <option value="appartement">Appartement</option>
-                        <option value="immeuble">Immeuble</option>
-                    </select>
+                        <select name="type" class="form-select border-0 bg-light rounded-pill px-4">
+                            <option value="">Catégorie</option>
+                            <option value="maison">Maison</option>
+                            <option value="appartement">Appartement</option>
+                            <option value="immeuble">Immeuble</option>
+                        </select>
 
-                    <button type="submit" class="btn btn-primary rounded-pill px-4 py-2">
-                        Rechercher
-                    </button>
+                        <button type="submit" class="btn rounded-pill px-4 py-2"
+                            style="background-color: #d50100; color: #ffffff; border: none;">
+                            Rechercher
+                        </button>
+
+                    </div>
                 </div>
             </div>
-        </div>
     </section>
     {{-- section top a la une --}}
-    <section class="section-box mt-5">
+    <section class="section-box mt-5 ">
         <div class="container wow animate__animated animate__fadeIn">
             <div class="text-center mb-4">
-                <h2 class="section-title wow animate__animated animate__fadeInUp">Top annonces à la une</h2>
+                <h2 class="section-title wow animate__animated animate__fadeInUp" style="color: #d50100;">Top annonces à la
+                    une</h2>
                 <p class="text-muted wow animate__animated animate__fadeInUp">
                     Parcourez nos meilleures offres immobilières en un clic
                 </p>
@@ -83,8 +86,8 @@
     <section class="section-box mt-30">
         <div class="container">
             <div class="text-center mb-3">
-                <h2 class="section-title fw-bold mb-1 wow animate__animated animate__fadeInUp text-primary"
-                    style="font-size: 2.2rem; ">
+                <h2 class="section-title fw-bold mb-1 wow animate__animated animate__fadeInUp "
+                    style="font-size: 2.2rem; color: #d50100;">
                     Maisons à louer au Maroc
                 </h2>
                 <p class="lead text-muted wow animate__animated animate__fadeInUp text-nowrap"
@@ -110,12 +113,16 @@
                                                 <div class="image-box">
                                                     <a href="{{ route('immobilier.detail', $immobilier->id) }}">
                                                         <figure>
-                                                           @if ($immobilier->photoPrincipale)
-                                                                <img src="{{ asset('storage/' . $immobilier->photoPrincipale->url) }}"  height="250" style="object-fit: cover; width: 100%;"
-                                                    alt="Photo chambre" alt="Photo principale" class="img-fluid rounded">
+                                                            @if ($immobilier->photoPrincipale)
+                                                                <img src="{{ asset('storage/' . $immobilier->photoPrincipale->url) }}"
+                                                                    height="250" style="object-fit: cover; width: 100%;"
+                                                                    alt="Photo chambre" alt="Photo principale"
+                                                                    class="img-fluid rounded">
                                                             @else
-                                                                <img src="{{ asset('admin/media/photos/bg_minecraft.png') }}"   height="250" style="object-fit: cover; width: 100%;"
-                                                    alt="Photo chambre" alt="Aucune image" class="img-fluid rounded">
+                                                                <img src="{{ asset('admin/media/photos/bg_minecraft.png') }}"
+                                                                    height="250" style="object-fit: cover; width: 100%;"
+                                                                    alt="Photo chambre" alt="Aucune image"
+                                                                    class="img-fluid rounded">
                                                             @endif
                                                         </figure>
                                                     </a>
@@ -143,8 +150,8 @@
                                                         @endif
                                                     </div>
                                                     <div class="text-end">
-                                                        <span
-                                                            class="card-text-price fw-bold">{{ $immobilier->prix }}</span>
+                                                        <span class="card-text-price fw-bold"
+                                                            style="color: #d50100;">{{ $immobilier->prix }}</span>
                                                         <span class="text-muted">/Mois</span>
                                                     </div>
                                                 </div>
@@ -171,7 +178,7 @@
         <div class="container">
             <!-- En-tête section -->
             <div class="text-center mb-5">
-                <h1 class="fw-bold text-primary display-5">Location par Chambre</h1>
+                <h1 class="fw-bold  display-5" style="font-size: 2.2rem; color: #d50100;">Location par Chambre</h1>
                 <p class="text-muted fs-5">
                     Découvrez nos offres de chambres à louer — confortables, pratiques et bien situées.
                 </p>
@@ -190,7 +197,7 @@
                                     <div class="image-box">
                                         <a href="{{ route('reservation.chambre', $immobi->id) }}">
                                             <figure>
-                                                <img src="{{ asset(($immobi->photos->first()->url ?? 'images/default.jpg')) }}"
+                                                <img src="{{ asset($immobi->photos->first()->url ?? 'images/default.jpg') }}"
                                                     height="250" style="object-fit: cover; width: 100%;"
                                                     alt="Photo chambre">
                                             </figure>
@@ -201,7 +208,8 @@
                                 <!-- Contenu principal -->
                                 <div class="card-block-info">
                                     <h5>
-                                        <a href="{{ route('reservation.chambre', $immobi->id) }}">{{ $immobi->titre }}</a>
+                                        <a
+                                            href="{{ route('reservation.chambre', $immobi->id) }}">{{ $immobi->titre }}</a>
                                     </h5>
                                     <div class="mt-2 mb-3">
                                         <span class="card-location me-2">
@@ -214,7 +222,7 @@
                                     <div class="card-2-bottom mt-3">
                                         <div class="row">
                                             <div class="col text-end">
-                                                <span class="card-text-price text-primary fw-bold">
+                                                <span class="card-text-price  fw-bold" style="color: #d50100;">
                                                     {{ number_format($immobi->prix, 0, ',', ' ') }} FCFA
                                                 </span>
                                                 <span class="text-muted">/mois</span>
@@ -229,10 +237,9 @@
 
                                     <!-- Bouton réserver -->
                                     <div class="mt-3 text-end">
-                                        <a href="{{ route('reservation.chambre', $immobi->id) }}"
-                                            class="btn btn-sm btn-outline-primary rounded-pill">
-                                            Réserver
-                                        </a>
+
+                                        <a href="{{ route('reservation.chambre', $immobi->id) }}" class="btn mb-3"
+                                            style="color: #28a745; border: 1px solid #28a745; background-color: #fff;">Réserver</a>
                                     </div>
                                 </div>
                             </div>
@@ -253,7 +260,8 @@
         <div class="container">
             <!-- Titre + description -->
             <div class="text-center mb-4">
-                <h2 class="section-title fw-bold wow animate__animated animate__fadeInUp text-primary">
+                <h2 class="section-title fw-bold wow animate__animated animate__fadeInUp "
+                    style="font-size: 2.2rem; color: #d50100;">
                     Actualités & Conseils
                 </h2>
                 <p class="font-lg text-muted wow animate__animated animate__fadeInUp"
@@ -361,10 +369,7 @@
                 </div>
             </div>
 
-            <!-- Bouton voir plus -->
-            <div class="text-center mt-5">
-                <a href="#" class="btn btn-primary btn-lg px-5 shadow-sm hover-up">Voir plus d’articles</a>
-            </div>
+
         </div>
     </section>
     {{-- fin Section actualite  --}}

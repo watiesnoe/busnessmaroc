@@ -7,24 +7,21 @@
 @section('content')
     <div class="content">
 
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <form
-            action="{{ isset($universite) ? route('universites.update', $universite->id) : route('universites.store') }}"
-            method="POST"
-            enctype="multipart/form-data"
-            id="universiteForm">
+        <form action="{{ isset($universite) ? route('universites.update', $universite->id) : route('universites.store') }}"
+            method="POST" enctype="multipart/form-data" id="universiteForm">
             @csrf
-            @if(isset($universite))
+            @if (isset($universite))
                 @method('PUT')
             @endif
 
             <!-- input caché pour les photos à supprimer -->
             <input type="hidden" name="photos_to_delete" value="">
 
-            <div class="card shadow-sm border-0 rounded-4">
+            {{-- <div class="card shadow-sm border-0 rounded-4">
                 <div class="card-header bg-light text-white fw-semibold bg-primary">
                     <h2>{{ isset($universite) ? 'Modifier une Université' : 'Ajouter une Université' }}</h2>
                 </div>
@@ -83,7 +80,7 @@
                         <div class="col-md-12 mb-3">
                             <label>Logo</label>
                             <input type="file" name="logo" class="form-control" accept="image/*">
-                            @if(isset($universite) && $universite->logo)
+                            @if (isset($universite) && $universite->logo)
                                 <img src="{{ asset('storage/' . $universite->logo) }}" alt="Logo" style="max-height:100px; margin-top:10px;">
                             @endif
                             @error('logo')<small class="text-danger">{{ $message }}</small>@enderror
@@ -105,8 +102,8 @@
                             $filieres = old('filieres', isset($universite) ? $universite->filieres->toArray() : []);
                         @endphp
 
-                        @if(count($filieres) > 0)
-                            @foreach($filieres as $index => $filiere)
+                        @if (count($filieres) > 0)
+                            @foreach ($filieres as $index => $filiere)
                                 <div class="row filiere-item align-items-center">
                                     <div class="col-md-5 mb-3">
                                         <input type="text" name="filieres[{{ $index }}][nom]" class="form-control" placeholder="Nom de la filière" value="{{ $filiere['nom'] ?? '' }}" required>
@@ -141,9 +138,9 @@
                         <input type="file" name="photos[]" class="form-control" multiple accept="image/*">
                         @error('photos.*')<small class="text-danger">{{ $message }}</small>@enderror
 
-                        @if(isset($universite) && $universite->photos->count())
+                        @if (isset($universite) && $universite->photos->count())
                             <div class="mt-2 d-flex flex-wrap gap-2">
-                                @foreach($universite->photos as $photo)
+                                @foreach ($universite->photos as $photo)
                                     <div class="position-relative" style="width: 80px; height: 80px; margin-right: 8px;">
                                         <img src="{{ asset('storage/' . $photo->photo) }}" alt="Photo" style="height:80px; object-fit:cover; border-radius:4px;">
                                         <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 remove-photo-btn"
@@ -156,7 +153,87 @@
 
                     <button type="submit" class="btn btn-success">{{ isset($universite) ? 'Modifier' : 'Enregistrer' }}</button>
                 </div>
+            </div> --}}
+
+
+            <div class="card shadow-sm rounded-4 border-0">
+                <div class="card-header bg-primary text-white">
+                    <h2>{{ isset($universite) ? 'Modifier une Université' : 'Ajouter une Université' }}</h2>
+                </div>
+                <div class="card-body">
+
+                    <!-- Informations générales -->
+                    <h4 class="mb-3">Informations générales</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label>Nom de l'universite <span class="text-danger">*</span></label>
+                            <input type="text" name="nom" class="form-control" required
+                                value="{{ old('nom', $universite->nom ?? '') }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Adresse <span class="text-danger">*</span></label>
+                            <input type="text" name="adresse" class="form-control"
+                                value="{{ old('adresse', $universite->adresse ?? '') }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Ville <span class="text-danger">*</span></label>
+                            <input type="text" name="ville" class="form-control"
+                                value="{{ old('ville', $universite->ville ?? '') }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Pays <span class="text-danger">*</span></label>
+                            <input type="text" name="pays" class="form-control"
+                                value="{{ old('pays', $universite->pays ?? '') }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Email <span class="text-danger">*</span></label>
+                            <input type="email" name="email" class="form-control"
+                                value="{{ old('email', $universite->email ?? '') }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Téléphone <span class="text-danger">*</span></label>
+                            <input type="text" name="telephone" class="form-control"
+                                value="{{ old('telephone', $universite->telephone ?? '') }}">
+                        </div>
+                    </div>
+
+                    <!-- Logo et description -->
+                    <h4 class="mt-4 mb-3">Logo & Description </h4>
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label>Logo <span class="text-danger">*</span></label>
+                            <input type="file" name="logo" class="form-control" accept="image/*">
+                        </div>
+                        <div class="col-md-12">
+                            <label>Description <span class="text-danger">*</span></label>
+                            <textarea name="description" class="form-control" rows="4">{{ old('description', $universite->description ?? '') }}</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Filières -->
+                    <h4 class="mt-4 mb-3">Filières <span class="text-danger">*</span></h4>
+                    <div id="filiere-container"></div>
+                    <button type="button" id="add-filiere" class="btn mb-3"
+                        style="color: #28a745; border: 1px solid #28a745; background-color: #fff;">+ Ajouter une
+                        filière</button>
+
+                    <!-- Photos -->
+                    <h4 class="mt-4 mb-3">Photos</h4>
+                    <input type="file" name="photos[]" class="form-control mb-2" multiple accept="image/*">
+                    <div class="d-flex flex-wrap gap-2 mt-2"></div>
+
+                    <!-- Bouton enregistrer -->
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn mb-3"
+                            style="color: #28a745; border: 1px solid #28a745; background-color: #fff;">
+                            {{ isset($universite) ? 'Modifier' : 'Enregistrer' }}
+                        </button>
+
+                    </div>
+
+                </div>
             </div>
+
 
         </form>
     </div>
@@ -171,7 +248,7 @@
             filieres.find('.remove-filiere').prop('disabled', filieres.length === 1);
         }
 
-        $("#add-filiere").click(function () {
+        $("#add-filiere").click(function() {
             $("#filiere-container").append(`
             <div class="row filiere-item align-items-center mt-2">
                 <div class="col-md-5 mb-3">
@@ -189,7 +266,7 @@
             toggleRemoveButtons();
         });
 
-        $(document).on("click", ".remove-filiere", function () {
+        $(document).on("click", ".remove-filiere", function() {
             $(this).closest(".filiere-item").remove();
             toggleRemoveButtons();
         });
@@ -204,7 +281,7 @@
             $(this).closest('div.position-relative').hide();
         });
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             toggleRemoveButtons();
         });
     </script>
