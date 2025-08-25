@@ -26,8 +26,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('note')->nullable(); // note de 0 à 255 (généralement sur 5 ou 10)
             $table->string('remarque', 500)->nullable();
             $table->enum('statut', ['en_attente', 'entretien', 'retenue', 'refuse'])
-                ->default('en_attente')
-                ->after('remarque');
+                ->default('en_attente');
             $table->timestamps();
 
             // ✅ Contrainte d'unicité composite : user_id + offre_id
