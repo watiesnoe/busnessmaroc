@@ -5,10 +5,19 @@
 @endsection
 
 @section('content')
-    <div class="content">
-        <div id="candidats-container">
-            <div class="content">
-                <table class="table table-striped table-hover" id="tableCandidatures" style="width:100%">
+ 
+     <div class="content">
+        <!-- Dynamic Table with Export Buttons -->
+        <div class="block block-rounded shadow-sm border">
+            <div class="block-header bg-light d-flex justify-content-between align-items-center py-3 px-4 rounded-top">
+                <h4 class="mb-0 text-primary fw-bold">
+                    📋 Liste des candidats
+                </h4>
+              
+            </div>
+
+            <div class="block-content block-content-full overflow-x-auto p-3">
+               <table class="table table-striped table-hover" id="tableCandidatures" style="width:100%">
                     <thead class="table-dark">
                     <tr>
                         <th>Avatar</th>
@@ -23,6 +32,7 @@
                 </table>
             </div>
         </div>
+        <!-- END Dynamic Table with Export Buttons -->
     </div>
 @endsection
 

@@ -29,12 +29,6 @@
                         value="{{ old('titre', $immobilier->titre ?? '') }}" required>
                 </div>
 
-                {{-- DESCRIPTION --}}
-                <div class="col-md-12 mb-4">
-                    <label class="form-label">Description <span class="text-danger">*</span></label>
-                    <textarea name="description" class="form-control" rows="4" required>{{ old('description', $immobilier->description ?? '') }}</textarea>
-                </div>
-
                 {{-- VILLE --}}
                 <div class="col-md-6 mb-4">
                     <label class="form-label">Ville <span class="text-danger">*</span></label>
@@ -50,14 +44,14 @@
                 </div>
 
                 {{-- SURFACE --}}
-                <div class="col-md-4 mb-4">
+                <div class="col-md-6 mb-4">
                     <label class="form-label">Surface (m²) <span class="text-danger">*</span></label>
                     <input type="number" step="0.1" name="surface" class="form-control"
                         value="{{ old('surface', $immobilier->surface ?? '') }}" required>
                 </div>
 
                 {{-- PRIX --}}
-                <div class="col-md-4 mb-4">
+                <div class="col-md-6 mb-4">
                     <label class="form-label">Prix <span class="text-danger">*</span></label>
                     <input type="number" step="0.01" name="prix" class="form-control"
                         value="{{ old('prix', $immobilier->prix ?? '') }}" required>
@@ -100,6 +94,12 @@
                             Mettre cette annonce à la une
                         </label>
                     </div>
+                </div>
+
+                 {{-- DESCRIPTION --}}
+                <div class="col-md-12 mb-4">
+                    <label class="form-label">Description <span class="text-danger">*</span></label>
+                    <textarea name="description" class="form-control" rows="4" required>{{ old('description', $immobilier->description ?? '') }}</textarea>
                 </div>
 
                 {{-- PHOTOS EXISTANTES --}}

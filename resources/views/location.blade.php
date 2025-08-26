@@ -133,7 +133,7 @@
         <div class="container text-center">
             <div class="container text-center">
                 <h3 class="fw-bold mb-3" style="font-size: 2.8rem; color: #f5f5f5;">
-                    <span class="text-primary">Trouvez</span> le logement idéal <br class="d-none d-md-block"> pour vous dès
+                    <span class="" style="color: #d50100;">Trouvez</span> le logement idéal <br class="d-none d-md-block"> pour vous dès
                     aujourd’hui
                 </h3>
                 <p class="lead mx-auto" style="max-width: 750px; color: #f0f0f0; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">

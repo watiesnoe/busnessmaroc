@@ -40,7 +40,7 @@
                     <!-- Infos principales -->
                     <div class="col-12">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <a class="fw-bold text-primary" href="{{ route('immobilier.detail', $immobilier->id) }}">
+                            <a class="fw-bold " href="{{ route('immobilier.detail', $immobilier->id) }}" style="color: #28a745;">
                                 {{ $immobilier->category->nom ?? 'Catégorie inconnue' }}
                             </a>
                             <span class="text-muted">{{ $immobilier->ville ?? 'Localisation inconnue' }}</span>
@@ -79,9 +79,10 @@
                                 </strong>
                                 <small class="text-muted">/mois</small>
                             </div>
-                            <a href="{{ route('immobilier.detail', $immobilier->id) }}" class="btn btn-sm btn-primary text-white">
-                                voir detail
-                            </a>
+
+
+                                        <a href="{{ route('immobilier.detail', $immobilier->id) }}" class="btn mb-3"
+                                            style="color: #28a745; border: 1px solid #28a745; background-color: #fff;">voir detail</a>
                         </div>
 
                         <div class="mt-2">

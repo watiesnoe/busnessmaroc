@@ -37,7 +37,7 @@
         .badge-custom {
             font-size: 1rem;
             padding: 0.75rem 1.5rem;
-            background: #0d6efd;
+            background: #d50100;
             color: #fff;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
         }
@@ -55,7 +55,7 @@
             font-weight: 700;
             letter-spacing: 1px;
             text-transform: uppercase;
-            background: #007bff;
+            background: #d50100;
             border-radius: 12px 12px 0 0;
         }
 
@@ -134,7 +134,8 @@
                 <!-- Secteurs : mobile en haut (order 1), desktop à gauche (order-lg-1) -->
                 <div class="col-lg-3 col-md-12 col-12 fadeInUp order-1 order-lg-1">
                     <div class="card secteurs-card p-4 h-auto">
-                        <h5 class="text-white text-center py-3 mb-4">Secteurs d'activité</h5>
+                      <h5 class="text-white text-center py-3 mb-4">Secteurs d'activité</h5>
+
                         <ul class="list-unstyled secteurs-list">
                             @php
                                 $secteurs = [
