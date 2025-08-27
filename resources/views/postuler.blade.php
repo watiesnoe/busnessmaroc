@@ -110,8 +110,8 @@
                             <span style="color: #d50100;">Découvrez</span> nos meilleures offres
                         </h1>
                         <p class="lead"
-                            style="color: #ffffff; 
-                            text-shadow: 1px 1px 5px rgba(0,0,0,0.6); 
+                            style="color: #ffffff;
+                            text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
                             font-size: 1.5rem;    /* texte plus grand */
                             line-height: 1.8;">
                             Parcourez toutes les opportunités disponibles et trouvez l’offre qui vous correspond le mieux.
@@ -181,6 +181,7 @@
         </div>
     @endsection
     @section('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             $(document).ready(function() {
                 $('#candidatureForm').on('submit', function(e) {
@@ -192,39 +193,48 @@
                         url: $(this).attr('action'),
                         type: 'POST',
                         data: formData,
-                        processData: false, // Important pour envoyer FormData
-                        contentType: false, // Important pour envoyer FormData
+                        processData: false,
+                        contentType: false,
                         headers: {
                             'X-CSRF-TOKEN': $('input[name="_token"]').val()
                         },
                         beforeSend: function() {
-                            // Optionnel : bloquer bouton etc.
                             $('#candidatureForm button[type="submit"]').prop('disabled', true).text(
                                 'Envoi en cours...');
                         },
                         success: function(response) {
-                            $('#formFeedback').html(
-                                '<div class="alert alert-success">Votre candidature a été envoyée avec succès.</div>'
-                            );
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Candidature envoyée !',
+                                text: 'Votre candidature a été envoyée avec succès.',
+                                confirmButtonColor: '#28a745'
+                            });
+
                             $('#candidatureForm')[0].reset();
                         },
                         error: function(xhr) {
                             if (xhr.status === 422) {
                                 let errors = xhr.responseJSON.errors;
-                                let errorHtml = '<div class="alert alert-danger"><ul>';
-
+                                let errorHtml = '';
                                 $.each(errors, function(key, messages) {
                                     $.each(messages, function(index, message) {
-                                        errorHtml += '<li>' + message + '</li>';
+                                        errorHtml += message + '<br>';
                                     });
                                 });
 
-                                errorHtml += '</ul></div>';
-                                $('#formFeedback').html(errorHtml);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erreur de validation',
+                                    html: errorHtml,
+                                    confirmButtonColor: '#dc3545'
+                                });
                             } else {
-                                $('#formFeedback').html(
-                                    '<div class="alert alert-danger">Une erreur est survenue, veuillez réessayer.</div>'
-                                );
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erreur',
+                                    text: 'Une erreur est survenue, veuillez réessayer.',
+                                    confirmButtonColor: '#dc3545'
+                                });
                             }
                         },
                         complete: function() {
@@ -236,3 +246,60 @@
             });
         </script>
     @endsection
+
+    {{--    @section('scripts')--}}
+{{--        <script>--}}
+{{--            $(document).ready(function() {--}}
+{{--                $('#candidatureForm').on('submit', function(e) {--}}
+{{--                    e.preventDefault();--}}
+
+{{--                    let formData = new FormData(this);--}}
+
+{{--                    $.ajax({--}}
+{{--                        url: $(this).attr('action'),--}}
+{{--                        type: 'POST',--}}
+{{--                        data: formData,--}}
+{{--                        processData: false, // Important pour envoyer FormData--}}
+{{--                        contentType: false, // Important pour envoyer FormData--}}
+{{--                        headers: {--}}
+{{--                            'X-CSRF-TOKEN': $('input[name="_token"]').val()--}}
+{{--                        },--}}
+{{--                        beforeSend: function() {--}}
+{{--                            // Optionnel : bloquer bouton etc.--}}
+{{--                            $('#candidatureForm button[type="submit"]').prop('disabled', true).text(--}}
+{{--                                'Envoi en cours...');--}}
+{{--                        },--}}
+{{--                        success: function(response) {--}}
+{{--                            $('#formFeedback').html(--}}
+{{--                                '<div class="alert alert-success">Votre candidature a été envoyée avec succès.</div>'--}}
+{{--                            );--}}
+{{--                            $('#candidatureForm')[0].reset();--}}
+{{--                        },--}}
+{{--                        error: function(xhr) {--}}
+{{--                            if (xhr.status === 422) {--}}
+{{--                                let errors = xhr.responseJSON.errors;--}}
+{{--                                let errorHtml = '<div class="alert alert-danger"><ul>';--}}
+
+{{--                                $.each(errors, function(key, messages) {--}}
+{{--                                    $.each(messages, function(index, message) {--}}
+{{--                                        errorHtml += '<li>' + message + '</li>';--}}
+{{--                                    });--}}
+{{--                                });--}}
+
+{{--                                errorHtml += '</ul></div>';--}}
+{{--                                $('#formFeedback').html(errorHtml);--}}
+{{--                            } else {--}}
+{{--                                $('#formFeedback').html(--}}
+{{--                                    '<div class="alert alert-danger">Une erreur est survenue, veuillez réessayer.</div>'--}}
+{{--                                );--}}
+{{--                            }--}}
+{{--                        },--}}
+{{--                        complete: function() {--}}
+{{--                            $('#candidatureForm button[type="submit"]').prop('disabled', false)--}}
+{{--                                .text('Envoyer la candidature');--}}
+{{--                        }--}}
+{{--                    });--}}
+{{--                });--}}
+{{--            });--}}
+{{--        </script>--}}
+{{--    @endsection--}}
