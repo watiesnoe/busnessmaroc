@@ -1,6 +1,6 @@
     @extends('layoutsite.site')
     @section('content')
-        <style>
+        {{-- <style>
             .bg-offres {
                 height: 500px;
                 background-image: url('../asset/imgs/Offre-demploi.jpg');
@@ -92,94 +92,132 @@
                     transform: translateY(15px);
                 }
             }
-        </style>
+        </style> --}}
         {{-- Section d'introduction --}}
-        <section class="section-box-2 d-flex align-items-center position-relative text-white"
-            style="height: 400px;
-                background-image: url('{{ asset('asset/imgs/bg-job.jpg') }}');
-                background-size: 800px auto;
+
+        <section class="hero-section position-relative text-white d-flex align-items-center py-5"
+            style="
+                background-image: url('{{ asset('asset/imgs/offre2.jpg') }}');
+                background-size: cover;
                 background-repeat: no-repeat;
-                background-position: center;">
+                background-position: center;
+                width: 100%;
+                height: 400px;  /* hauteur réduite */
+            ">
 
-            <!-- Overlay sombre -->
-            <div class="position-absolute top-0 start-0 w-100 h-100"
-                style="background-color: rgba(0, 0, 0, 0.5); z-index: 1;">
-            </div>
-
-            <!-- Contenu centré -->
-            <div class="container position-relative" style="z-index: 2;">
-                <div class="p-4 text-center offre-card-content">
-                    <div class="mb-3">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h1 class="display-5 fw-bold mb-3" style="color: #ffffff; text-shadow: 2px 2px 6px rgba(0,0,0,0.7);">
+                            <span style="color: #d50100;">Découvrez</span> nos meilleures offres
+                        </h1>
+                        <p class="lead"
+                            style="color: #ffffff; 
+                            text-shadow: 1px 1px 5px rgba(0,0,0,0.6); 
+                            font-size: 1.5rem;    /* texte plus grand */
+                            line-height: 1.8;">
+                            Parcourez toutes les opportunités disponibles et trouvez l’offre qui vous correspond le mieux.
+                        </p>
 
                     </div>
-                    <div class="container position-relative" style="z-index: 2;">
-                        <div class="p-4 text-center offre-card-content">
-                            <div class="mb-3">
-                                <!-- Vous pouvez ajouter une icône ou une image ici si nécessaire -->
-                            </div>
-                            <h2 class="offre-card-title fw-bold fs-2">Votre futur emploi vous attend</h2>
-                            <p class="lead mt-2 text-white">Parcourez les meilleures opportunités professionnelles, que ce
-                                soit
-                                près de chez vous ou en télétravail.</p>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </section>
+
+
+
         {{-- fin du section d'introduction --}}
 
         <div class="container my-5">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h4>Postuler à l'offre : {{ $offre->titre }}</h4>
-                </div>
-                <div class="card-body">
-                    @if (session('error'))
-                        <div class="alert alert-danger">{{ session('error') }}</div>
-                    @endif
-                    @if (session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
-                    <form id="candidatureForm" action="{{ route('candidature.store') }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
-
-                        <input type="hidden" name="offre_id" value="{{ $offre->id }}">
-
-                        <div class="mb-3">
-                            <label for="cv" class="form-label">CV (fichier PDF obligatoire) <span
-                                    class="text-danger">*</span></label>
-                            <input type="file" class="form-control @error('cv') is-invalid @enderror" id="cv"
-                                name="cv" accept=".pdf" required>
-                            @error('cv')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-lg border-0 rounded-4">
+                        <!-- Header -->
+                        <div class="card-header text-white py-3 rounded-top"
+                            style="background: linear-gradient(135deg, #d50100, #ff4d4d);">
+                            <h4 class="mb-0"><i class="bi bi-send-fill me-2"></i>Postuler à l'offre : <span
+                                    class="fw-bold">{{ $offre->titre }}</span></h4>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="lettre_motivation" class="form-label">Lettre de motivation (PDF, DOC, DOCX)</label>
-                            <input type="file" class="form-control @error('lettre_motivation') is-invalid @enderror"
-                                id="lettre_motivation" name="lettre_motivation" accept=".pdf,.doc,.docx">
-                            @error('lettre_motivation')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                        <!-- Body -->
+                        <div class="card-body p-4">
+                            @if (session('error'))
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>{{ session('error') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            @endif
+
+                            @if (session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            @endif
+
+                            <form id="candidatureForm" action="{{ route('candidature.store') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="offre_id" value="{{ $offre->id }}">
+
+                                <!-- CV Upload -->
+                                <div class="mb-4">
+                                    <label for="cv" class="form-label fw-bold">
+                                        <i class="bi bi-file-earmark-pdf-fill text-danger me-1"></i>
+                                        CV (PDF obligatoire) <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="file" class="form-control @error('cv') is-invalid @enderror"
+                                        id="cv" name="cv" accept=".pdf" required>
+                                    @error('cv')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Lettre de motivation -->
+                                <div class="mb-4">
+                                    <label for="lettre_motivation" class="form-label fw-bold">
+                                        <i class="bi bi-file-earmark-word-fill text-primary me-1"></i>
+                                        Lettre de motivation (PDF, DOC, DOCX)
+                                    </label>
+                                    <input type="file"
+                                        class="form-control @error('lettre_motivation') is-invalid @enderror"
+                                        id="lettre_motivation" name="lettre_motivation" accept=".pdf,.doc,.docx">
+                                    @error('lettre_motivation')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Message -->
+                                <div class="mb-4">
+                                    <label for="message" class="form-label fw-bold">
+                                        <i class="bi bi-chat-dots-fill text-secondary me-1"></i>
+                                        Message / Commentaire
+                                    </label>
+                                    <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="4"
+                                        placeholder="Expliquez brièvement votre motivation...">{{ old('message') }}</textarea>
+                                    @error('message')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-danger px-4">
+                                        <i class="bi bi-upload me-1"></i> Envoyer
+                                    </button>
+                                    <a href="{{ route('details_offre.show', $offre->id) }}"
+                                        class="btn btn-outline-secondary px-4 ms-2">
+                                        <i class="bi bi-arrow-left me-1"></i> Annuler
+                                    </a>
+                                </div>
+                            </form>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Message / Commentaire</label>
-                            <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="4">{{ old('message') }}</textarea>
-                            @error('message')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                        <!-- Footer -->
+                        <div class="card-footer text-muted small text-center py-2">
+                            <i class="bi bi-lock-fill me-1"></i>Vos informations resteront confidentielles.
                         </div>
-
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-success">Envoyer la candidature</button>
-                            <a href="{{ route('details_offre.show', $offre->id) }}"
-                                class="btn btn-secondary ms-2">Annuler</a>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -211,7 +249,7 @@
                         success: function(response) {
                             $('#formFeedback').html(
                                 '<div class="alert alert-success">Votre candidature a été envoyée avec succès.</div>'
-                                );
+                            );
                             $('#candidatureForm')[0].reset();
                         },
                         error: function(xhr) {
@@ -230,7 +268,7 @@
                             } else {
                                 $('#formFeedback').html(
                                     '<div class="alert alert-danger">Une erreur est survenue, veuillez réessayer.</div>'
-                                    );
+                                );
                             }
                         },
                         complete: function() {

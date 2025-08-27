@@ -94,37 +94,34 @@
         }
     </style>
     {{-- Section d'introduction --}}
-    <section class="section-box-2 d-flex align-items-center position-relative text-white"
-        style="height: 400px;
-                background-image: url('{{ asset('asset/imgs/bg-job.jpg') }}');
-                background-size: 800px auto;
+    <section class="hero-section position-relative text-white d-flex align-items-center py-5"
+            style="
+                background-image: url('{{ asset('asset/imgs/offre2.jpg') }}');
+                background-size: cover;
                 background-repeat: no-repeat;
-                background-position: center;">
+                background-position: center;
+                width: 100%;
+                height: 400px;  /* hauteur réduite */
+            ">
 
-        <!-- Overlay sombre -->
-        <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.5); z-index: 1;">
-        </div>
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h1 class="display-5 fw-bold mb-3" style="color: #ffffff; text-shadow: 2px 2px 6px rgba(0,0,0,0.7);">
+                            <span style="color: #d50100;">Découvrez</span> nos meilleures offres
+                        </h1>
+                        <p class="lead"
+                            style="color: #ffffff; 
+                            text-shadow: 1px 1px 5px rgba(0,0,0,0.6); 
+                            font-size: 1.5rem;    /* texte plus grand */
+                            line-height: 1.8;">
+                            Parcourez toutes les opportunités disponibles et trouvez l’offre qui vous correspond le mieux.
+                        </p>
 
-        <!-- Contenu centré -->
-        <div class="container position-relative" style="z-index: 2;">
-            <div class="p-4 text-center offre-card-content">
-                <div class="mb-3">
-
-                </div>
-                <div class="container position-relative" style="z-index: 2;">
-                    <div class="p-4 text-center offre-card-content">
-                        <div class="mb-3">
-                            <!-- Vous pouvez ajouter une icône ou une image ici si nécessaire -->
-                        </div>
-                        <h2 class="offre-card-title fw-bold fs-2">Votre futur emploi vous attend</h2>
-                        <p class="lead mt-2 text-white">Parcourez les meilleures opportunités professionnelles, que ce soit
-                            près de chez vous ou en télétravail.</p>
                     </div>
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
     {{-- fin du section d'introduction --}}
     {{-- Section principale --}}
     <section class="section-box mt-5">

@@ -58,7 +58,7 @@
 
             <!-- Candidatures -->
             <div class="col-md-6 col-xl-4">
-                <a class="block block-rounded bg-gd-dusk" href="{{ route('candidature.index') }}">
+                <a class="block block-rounded bg-gd-dusk" href="{{ route('utilisateurs.candidats')  }}">
                     <div class="block-content block-content-full d-flex flex-row-reverse align-items-center justify-content-between">
                         <i class="fa fa-users fa-2x text-white"></i>
                         <div class="me-3">
