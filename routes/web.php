@@ -130,6 +130,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/tickets/{ticket}/print', [TicketController::class, 'print'])->name('tickets.print');
 
     Route::resource('entreprises', EntrepriseController::class);
+    Route::post('/utilisateurs/{user}/toggle', [UtilisateurController::class,'toggleStatus'])->name('utilisateurs.toggle');
 
 // ✅ Route Ajax
 //    Route::get('/entreprises/data', [EntrepriseController::class, 'getData'])->name('entreprises.data');

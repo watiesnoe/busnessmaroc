@@ -219,10 +219,10 @@ a {
   color: #05264E;
 }
 a:hover {
-  color: #3C65F5;
+  color:  #d50100;
 }
 a *:hover {
-  color: #3C65F5;
+  color:  #d50100;
 }
 
 li.hr span {
@@ -665,7 +665,7 @@ h6 {
 }
 
 .color-brand-2 {
-  color: #3C65F5;
+  color:  #d50100;
 }
 
 .op-70 {
@@ -711,7 +711,7 @@ h6 {
   overflow: visible;
   border-radius: 10px;
   position: relative;
-  background-color: #3C65F5 !important;
+  background-color:  #d50100 !important;
 }
 .box-progress-bar .progress .bg-brand-2 span {
   position: absolute;
@@ -726,7 +726,7 @@ h6 {
   height: 16px;
   width: 16px;
   border-radius: 50%;
-  background-color: #3C65F5;
+  background-color:  #d50100;
   position: absolute;
   top: -5px;
   right: -5px;
@@ -901,7 +901,7 @@ h6,
 }
 .btn.btn-default {
   color: #ffffff;
-  background-color: #3C65F5;
+  background-color:  #d50100;
   padding: 11px 20px 13px 20px;
 }
 .btn.btn-default:hover {
@@ -1030,7 +1030,7 @@ h6,
 }
 .btn.btn-apply-now {
   background-color: #E0E6F7;
-  color: #3C65F5;
+  color:  #d50100;
   padding: 12px 10px;
   min-width: 95px;
   border-radius: 4px;
@@ -1042,7 +1042,7 @@ h6,
   padding: 6px 18px;
   color: #66789C;
   border-radius: 5px;
-  color: #3C65F5;
+  color:  #d50100;
   min-width: 42px;
   font-size: 12px;
   line-height: 18px;
@@ -1186,7 +1186,7 @@ h6,
   text-align: right;
 }
 .card-style-2 .card-price strong {
-  color: #3C65F5;
+  color:  #d50100;
   font-weight: bold;
   font-size: 16px;
   line-height: 26px;
@@ -1361,7 +1361,7 @@ h6,
   margin-left: 0;
 }
 .card-grid-2 .btn-apply-now {
-  color: #3C65F5;
+  color:  #d50100;
 }
 .card-grid-2:hover {
   border-color: #B4C0E0;
@@ -1369,14 +1369,14 @@ h6,
 }
 .card-grid-2:hover .btn-apply-now {
   color: #ffffff;
-  background-color: #3C65F5;
+  background-color:  #d50100;
 }
 .card-grid-2 a {
   text-decoration: none;
   color: #05264E;
 }
 .card-grid-2 a:hover {
-  color: #3C65F5;
+  color:  #d50100;
 }
 .card-grid-2 .card-grid-2-image-rd {
   padding: 0px 15px 0px 0px;
@@ -1418,7 +1418,7 @@ h6,
   align-items: center;
   padding: 0px 10px;
   height: 24px;
-  background: #3C65F5;
+  background:  #d50100;
   border-radius: 5px;
   color: #ffffff;
   min-width: 42px;
@@ -1483,7 +1483,7 @@ h6,
   max-width: 100%;
 }
 .card-grid-2 .card-block-info .card-text-price {
-  color: #3C65F5;
+  color:  #d50100;
   font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: bold;
   font-size: 22px;
@@ -1579,7 +1579,7 @@ h6,
   display: block;
 }
 .card-grid-2 .card-grid-2-image-left .right-info .name-job:hover {
-  color: #3C65F5;
+  color:  #d50100;
 }
 .card-grid-2 .card-grid-2-image-left .right-info .location-small {
   background: url(../imgs/template/icons/location.svg) no-repeat 0px 5px;
@@ -1780,7 +1780,7 @@ svg .icon {
 /*Customize the style representation when pager is activated*/
 .swiper-pagination-customs-active,
 .swiper-pagination-customs:hover {
-  background: #3C65F5;
+  background:  #d50100;
   border-radius: 50%;
   width: 12px;
   height: 12px;
@@ -1836,7 +1836,7 @@ svg .icon {
 }
 
 .cb-container input:checked ~ .checkmark {
-  border: 2px solid #3C65F5;
+  border: 2px solid  #d50100;
 }
 
 .checkmark:after {
@@ -1855,7 +1855,7 @@ svg .icon {
   width: 21px;
   height: 22px;
   border-radius: 5px;
-  background: #3C65F5 url(../imgs/template/icons/tick.svg) no-repeat center;
+  background:  #d50100 url(../imgs/template/icons/tick.svg) no-repeat center;
 }
 
 /*COMPONENTS -> FORM*/
@@ -2008,7 +2008,7 @@ option {
   background-color: #E0E6F7;
   border-radius: 50%;
   text-align: center;
-  color: #3C65F5;
+  color:  #d50100;
 }
 
 .job-text-desc {
@@ -2288,7 +2288,7 @@ option {
 }
 
 .text-brand-2 {
-  color: #3C65F5;
+  color:  #d50100;
 }
 
 .w-lg-50 {
@@ -2380,7 +2380,7 @@ option {
   text-decoration-line: underline;
 }
 .header .text-link-bd-btom:hover {
-  color: #3C65F5;
+  color:  #d50100;
 }
 .header .block-signin .btn-shadow {
   box-shadow: 0px 18px 40px rgba(25, 15, 9, 0.1);
@@ -2420,10 +2420,10 @@ option {
 }
 
 .header-brand-2 {
-  background: #3C65F5;
+  background:  #d50100;
 }
 .header-brand-2.sticky-bar.stick {
-  background: #3C65F5;
+  background:  #d50100;
 }
 .header-brand-2 .main-menu > li > a {
   color: #E0E6F6;
@@ -2455,14 +2455,14 @@ option {
   background-color: #ffffff;
 }
 .header-brand-2 .main-menu li ul li a:hover {
-  color: #3C65F5;
+  color:  #d50100;
 }
 .header-brand-2 .text-link-bd-btom {
   color: #ffffff;
 }
 .header-brand-2 .btn-default {
   background-color: #ffffff;
-  color: #3C65F5;
+  color:  #d50100;
   font-weight: 500;
 }
 
@@ -2543,7 +2543,7 @@ option {
   vertical-align: middle;
 }
 .main-menu li a:hover, .main-menu li a.active {
-  background-color: #3C65F5 !important;
+  background-color:  #d50100 !important;
   color: #ffffff !important;
   border-radius: 8px;
 }
@@ -3125,7 +3125,7 @@ option {
   border: 0;
   background-color: #fff;
   transition-duration: 0.2s;
-  background-color: #3C65F5;
+  background-color:  #d50100;
   background-image: url(../imgs/template/icons/go-top.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -3955,7 +3955,7 @@ option {
 }
 
 /***************************
-    Page section margin 
+    Page section margin
 ****************************/
 .mtb-0 {
   margin: 0;
@@ -4760,7 +4760,7 @@ option {
 .text-blue {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 20px;
-  color: #3C65F5;
+  color:  #d50100;
   font-weight: 600;
   line-height: 24px;
 }
@@ -4934,7 +4934,7 @@ option {
   box-shadow: 0px 10px 20px -5px rgba(10, 42, 105, 0.06);
 }
 .block-pricing .box-pricing-item:hover .btn-border {
-  background-color: #3C65F5;
+  background-color:  #d50100;
   color: #ffffff;
 }
 .block-pricing .box-pricing-item .for-year,
@@ -4948,12 +4948,12 @@ option {
   display: inline-block;
 }
 .block-pricing .box-pricing-item .btn-border {
-  border: 1px solid #3C65F5;
-  color: #3C65F5;
+  border: 1px solid  #d50100;
+  color:  #d50100;
   width: 100%;
 }
 .block-pricing .box-pricing-item .btn-border:hover {
-  background-color: #3C65F5;
+  background-color:  #d50100;
   color: #ffffff;
 }
 .block-pricing .box-info-price {
@@ -4964,7 +4964,7 @@ option {
 }
 .block-pricing .box-info-price .text-price {
   font-size: 56px;
-  color: #3C65F5;
+  color:  #d50100;
   font-family: "Plus Jakarta Sans", sans-serif;
   line-height: 56px;
   font-weight: 800;
@@ -5381,7 +5381,7 @@ select {
   background-color: #EFF2FB;
   padding: 1px 15px 2px 15px;
   min-width: 130px;
-  color: #3C65F5;
+  color:  #d50100;
   text-align: center;
   display: inline-block;
 }
@@ -5421,11 +5421,11 @@ select {
 }
 .panel-head .dropdown-menu .dropdown-item.active, .panel-head .dropdown-menu .dropdown-item:active {
   background-color: transparent;
-  color: #3C65F5;
+  color:  #d50100;
 }
 .panel-head .dropdown-menu .dropdown-item:hover {
   background-color: transparent;
-  color: #3C65F5;
+  color:  #d50100;
 }
 
 .panel-body {

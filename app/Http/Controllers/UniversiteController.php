@@ -70,9 +70,9 @@ class UniversiteController extends Controller
             'telephone' => 'nullable|string|max:50',
             'description' => 'nullable|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'filieres.*.nom' => 'required|string|max:255',
+            'filieres.*.nom' => 'required|string',
             'filieres.*.description' => 'nullable|string',
-            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg|max:8000',
         ]);
 
         // 📌 Sauvegarde de l'université
@@ -130,7 +130,7 @@ class UniversiteController extends Controller
             'telephone' => 'nullable|string|max:50',
             'description' => 'nullable|string',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
-            'filieres.*.nom' => 'required|string|max:255',
+            'filieres.*.nom' => 'required|string|',
             'filieres.*.description' => 'nullable|string',
             'photos.*' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
             'photos_to_delete' => 'nullable|string',

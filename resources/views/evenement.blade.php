@@ -31,7 +31,7 @@
         .btn-reserver {
             background: #e63946;
             color: white;
-            border-radius: 25px;
+            border-radius: 0;
         }
 
         .btn-reserver:hover {
@@ -51,14 +51,14 @@
     <!-- Carrousel des événements -->
     <!-- Carrousel des images des événements -->
     <section class="py-5 bg-dark text-white">
-        <div class="container">
-            <h1 class="fw-bold text-center mb-4">Ne manquez aucun événement !</h1>
+        <h4 class="fw-bold text-center ">Ne manquez aucun événement !</h4>
+        <div class="container-fluid">
 
             <div id="evenementsCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     @foreach($evenements as $key => $event)
                         <div class="carousel-item @if($key==0) active @endif">
-                            <img src="{{ asset('storage/' . $event->image) }}" class="card-img-top"
+                            <img src="{{ asset('storage/' . $event->image) }}" class="card-img-top" height="400"
                                  alt="{{ $event->titre }}">
                         </div>
                     @endforeach

@@ -34,6 +34,23 @@ class CandidatureController extends Controller
             'message' => 'nullable|string',
         ]);
 
+        $offre = Offre::findOrFail($request->offre_id);
+
+        $nombreCandidats = $offre->candidatures()->count();
+
+        if ($nombreCandidats >= $offre->nombre_limite_candidats) {
+            // Si c'est une requête AJAX, retourne JSON
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Le nombre maximal de candidatures est déjà atteint pour cette offre.'
+                ], 403);
+            }
+
+            // Sinon redirige normalement
+            return redirect()->back()->with('error', 'Le nombre maximal de candidatures est déjà atteint pour cette offre.');
+        }
+
         $cvPath = $request->file('cv')->store('cvs', 'public');
         $lettrePath = $request->file('lettre_motivation')
             ? $request->file('lettre_motivation')->store('lettres', 'public')
@@ -47,9 +64,19 @@ class CandidatureController extends Controller
             'message' => $request->message,
         ]);
 
+        // Réponse AJAX ou redirect classique
+        if ($request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Votre candidature a été envoyée avec succès.'
+            ]);
+        }
+
         return redirect()->route('details_offre.show', $request->offre_id)
             ->with('success', 'Votre candidature a été envoyée avec succès.');
     }
+
+
     public function envoyerAlerte(Request $request, $id)
     {
         $candidature = Candidature::findOrFail($id);

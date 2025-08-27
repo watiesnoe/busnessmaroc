@@ -148,6 +148,13 @@
                             <label class="form-label">Description du poste</label>
                             <textarea name="description" rows="5" class="form-control shadow-sm" required>{{ old('description', $offre->description ?? '') }}</textarea>
                         </div>
+                        <!-- Nombre limite de candidats -->
+                        <div class="col-md-4">
+                            <label class="form-label">Nombre limite de candidats</label>
+                            <input type="number" name="nombre_limite_candidats" class="form-control shadow-sm" min="1"
+                                   value="{{ old('nombre_limite_candidats', $offre->nombre_limite_candidats ?? '') }}"
+                                   placeholder="Ex : 50" required>
+                        </div>
 
                         <!-- Boutons -->
                         <div class="col-md-12 text-end mt-4">
@@ -165,7 +172,7 @@
 @endsection
 
 @section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{--    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>--}}
     <script>
         $(document).ready(function() {
 

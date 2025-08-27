@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Evenement;
 use App\Models\Ticket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
@@ -17,7 +19,7 @@ class EvenementController extends Controller
     {
         if ($request->ajax()) {
             $evenements = Evenement::withCount(['tickets as total_tickets' => function($query) {
-                $query->select(\DB::raw("COALESCE(SUM(quantite),0)"));
+                $query->select(DB::raw("COALESCE(SUM(quantite),0)"));
             }])
                 ->orderBy('date_debut', 'desc');
 
@@ -44,10 +46,10 @@ class EvenementController extends Controller
                     return number_format($event->prix_ticket, 0, ',', ' ') . ' FCFA';
                 })
                 ->editColumn('date_debut', function($event){
-                    return \Carbon\Carbon::parse($event->date_debut)->format('d M Y H:i');
+                    return Carbon::parse($event->date_debut)->format('d M Y H:i');
                 })
                 ->editColumn('date_fin', function($event){
-                    return \Carbon\Carbon::parse($event->date_fin)->format('d M Y H:i');
+                    return Carbon::parse($event->date_fin)->format('d M Y H:i');
                 })
                 ->addColumn('tickets', function($event) {
                     return $event->total_tickets; // nombre total de tickets pris
