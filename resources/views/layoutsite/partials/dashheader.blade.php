@@ -1,7 +1,7 @@
 <!-- Bootstrap + Icons -->
-{{--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5#f26522.3.3/dist/css/bootstrap.min.css" rel="stylesheet">--}}
-{{--<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">--}}
-{{--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>--}}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <div id="preloader-active">
     <div class="preloader d-flex align-items-center justify-content-center">
@@ -27,8 +27,7 @@
     }
 
     nav.d-lg-flex a.nav-link:hover {
-        /*color: #f26522;*/
-        color: #f26522;
+        color: #0d6efd;
         background-color: rgba(13, 110, 253, 0.1);
         border-radius: 0.3rem;
     }
@@ -71,9 +70,7 @@
 
             <!-- Logo -->
             <a href="{{ route('home.index') }}" class="d-flex align-items-center gap-2 text-decoration-none">
-
-                <img src="{{ asset('asset/imgs/logobus.png') }}" class="" width="150" height="80" alt="Logo" >
-
+                <img src="{{ asset('asset/imgs/logo.jpeg') }}" alt="Logo" height="40">
             </a>
 
             <!-- Menu navigation desktop -->
@@ -96,9 +93,8 @@
             </nav>
 
             <!-- Actions utilisateur -->
-
+           
             <div class="d-flex align-items-center gap-3">
-
                 <div class="block-signin d-none d-lg-flex">
                     <!-- Bouton "S'inscrire" -->
                     <a class="btn btn-sm btn-shadow hover-up me-2" href="{{ route('register.client') }}"
@@ -125,52 +121,23 @@
                         </a>
                     @endif
                 </div>
+
                 <!-- Burger menu mobile (toujours visible sur mobile) -->
                 <button class="btn d-lg-none border-0" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Toggle menu">
                     <i class="bi bi-list fs-3 text-dark"></i>
                 </button>
             </div>
+
+
+
+
+
         </div>
     </div>
 </header>
 
 <!-- Menu mobile -->
-
-{{--<div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">--}}
-{{--    <div class="offcanvas-header">--}}
-{{--        <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>--}}
-{{--        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>--}}
-{{--    </div>--}}
-{{--    <div class="offcanvas-body">--}}
-{{--        <ul>--}}
-{{--            <li><a href="{{ url('/') }}">Accueil</a></li>--}}
-{{--            <li><a href="{{ route('location') }}">Location</a></li>--}}
-{{--            <li><a href="{{ route('offres') }}">Offres</a></li>--}}
-{{--            <li><a href="{{ url('jobs-grid.html') }}">Actualités</a></li>--}}
-{{--        </ul>--}}
-{{--        <hr>--}}
-
-{{--        --}}{{-- <a href="{{ route('home.index') }}" class="btn btn-primary w-100">Se connecter</a> --}}
-{{--        <div class="block-signin">--}}
-{{--            <a href="{{ url('page-register.html') }}" class="btn btn-outline-primary w-100 mb-2">S'inscrire</a>--}}
-{{--            @if (Auth::check())--}}
-{{--                <a class="btn btn-sm btn-shadow  hover-up w-100 mb-2 btn-primary" href="{{ url('/logout') }}"--}}
-{{--                   onclick="event.preventDefault();document.getElementById('logout-form').submit();">Deconnexion</a>--}}
-
-{{--                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display:none">--}}
-{{--                    {{ csrf_field() }}--}}
-{{--                </form>--}}
-{{--            @else--}}
-{{--                <a class="btn btn-sm btn-shadow  hover-up w-100 mb-2 btn-primary"--}}
-{{--                   href="{{ route('home.index') }}">Connexion</a>--}}
-{{--            @endif--}}
-
-
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
-
 <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
@@ -203,7 +170,7 @@
         </ul>
         <hr>
 
-
+       
         <div class="block-signin">
             <!-- Bouton "S'inscrire" -->
             <a href="{{ route('register.client') }}"  class="btn w-100 mb-2"
@@ -233,4 +200,3 @@
 
     </div>
 </div>
-
