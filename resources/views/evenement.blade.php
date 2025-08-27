@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <style>
+    {{-- <style>
         body {
             background: #f8f9fa;
         }
@@ -38,26 +38,17 @@
             background: #c1121f;
         }
 
-        /*footer { background: #212529; color: #ccc; padding: 20px; margin-top: 50px; }*/
     </style>
 
-    <!-- Hero -->
-    {{--    <section class="text-center py-5 bg-dark text-white">--}}
-    {{--        <div class="container">--}}
-    {{--            <h1 class="fw-bold">Ne manquez aucun événement !</h1>--}}
-    {{--            <p class="lead">Découvrez les dernières actualités, concerts, festivals et spectacles près de chez vous.</p>--}}
-    {{--        </div>--}}
-    {{--    </section>--}}
-    <!-- Carrousel des événements -->
-    <!-- Carrousel des images des événements -->
+ 
     <section class="py-5 bg-dark text-white">
         <h4 class="fw-bold text-center ">Ne manquez aucun événement !</h4>
         <div class="container-fluid">
 
             <div id="evenementsCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    @foreach($evenements as $key => $event)
-                        <div class="carousel-item @if($key==0) active @endif">
+                    @foreach ($evenements as $key => $event)
+                        <div class="carousel-item @if ($key == 0) active @endif">
                             <img src="{{ asset('storage/' . $event->image) }}" class="card-img-top" height="400"
                                  alt="{{ $event->titre }}">
                         </div>
@@ -78,12 +69,114 @@
 
                 <!-- Indicateurs -->
                 <div class="carousel-indicators mt-3">
-                    @foreach($evenements as $key => $event)
+                    @foreach ($evenements as $key => $event)
                         <button type="button" data-bs-target="#evenementsCarousel" data-bs-slide-to="{{ $key }}"
-                                class="@if($key==0) active @endif" aria-current="true"
+                                class="@if ($key == 0) active @endif" aria-current="true"
                                 aria-label="Slide {{ $key+1 }}"></button>
                     @endforeach
                 </div>
+            </div>
+        </div>
+    </section> --}
+
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #212529;
+        }
+
+        .navbar-brand {
+            color: #fff;
+        }
+
+        /* Section événements */
+        .evenements-section {
+            position: relative;
+            height: 500px;
+            /* Ajuste la hauteur comme tu veux */
+            overflow: hidden;
+        }
+
+        .evenements-section h4 {
+            position: absolute;
+            z-index: 10;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #d50100;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Carousel images */
+        .evenement-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Carousel controls */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            padding: 15px;
+        }
+
+        /* Indicators */
+        .carousel-indicators {
+            bottom: 15px;
+        }
+
+        .carousel-indicators button {
+            background-color: #ccc;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .carousel-indicators .active {
+            background-color: #d50100;
+        }
+    </style>
+
+    <section class="evenements-section">
+        <h4>🎉 Ne manquez aucun événement !</h4>
+
+        <div id="evenementsCarousel" class="carousel slide h-100" data-bs-ride="carousel">
+            <!-- Slides -->
+            <div class="carousel-inner h-100">
+                @foreach ($evenements as $key => $event)
+                    <div class="carousel-item @if ($key == 0) active @endif h-100">
+                        <img src="{{ asset('storage/' . $event->image) }}" class="evenement-img" alt="{{ $event->titre }}">
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#evenementsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Précédent</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#evenementsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Suivant</span>
+            </button>
+
+            <!-- Indicators -->
+            <div class="carousel-indicators">
+                @foreach ($evenements as $key => $event)
+                    <button type="button" data-bs-target="#evenementsCarousel" data-bs-slide-to="{{ $key }}"
+                        class="@if ($key == 0) active @endif" aria-label="Slide {{ $key + 1 }}">
+                    </button>
+                @endforeach
             </div>
         </div>
     </section>
@@ -96,59 +189,15 @@
     <div id="actualites-container">
         @include('layoutsite.partials._actualites', ['actualites' => $actualites])
     </div>
-    <!-- Événements -->
-    {{--    <div class="container py-5">--}}
-    {{--        <h2 class="mb-4 fw-bold">🎉 Prochains événements</h2>--}}
-    {{--        <div class="row g-4">--}}
-    {{--            @foreach($evenements as $event)--}}
-    {{--                <div class="col-md-4">--}}
-    {{--                    <div class="card shadow-sm h-100">--}}
-    {{--                        <img src="{{ asset('storage/' . $event->image) }}" class="card-img-top" alt="{{ $event->titre }}">--}}
-    {{--                        <div class="card-body">--}}
-    {{--                            <h5 class="card-title">{{ $event->titre }}</h5>--}}
-    {{--                            <p class="card-text">{{ Str::limit($event->description, 100) }}</p>--}}
-    {{--                            <p><strong>Date :</strong> {{ \Carbon\Carbon::parse($event->date_debut)->format('d M Y H:i') }}</p>--}}
-    {{--                            <p><strong>Lieu :</strong> {{ $event->lieu }}</p>--}}
-    {{--                            <p><strong>Prix :</strong> {{ number_format($event->prix_ticket, 0, ',', ' ') }} FCFA</p>--}}
-    {{--                            <button class="btn btn-reserver w-100"--}}
-    {{--                                    onclick="reserverTicket('{{ $event->id }}', '{{ $event->titre }}', {{ $event->prix_ticket }})">--}}
-    {{--                                Réserver un ticket--}}
-    {{--                            </button>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            @endforeach--}}
 
-    {{--        </div>--}}
-    {{--    </div>--}}
-
-    {{--    <!-- Actualités -->--}}
-    {{--    <div class="container py-5">--}}
-    {{--        <h2 class="mb-4 fw-bold">📰 Actualités</h2>--}}
-    {{--        <div class="row g-4">--}}
-    {{--            @foreach($actualites as $actu)--}}
-    {{--                <div class="col-md-6">--}}
-    {{--                    <div class="p-4 bg-white shadow-sm rounded h-100">--}}
-    {{--                        @if($actu->image)--}}
-    {{--                            <img src="{{ asset('images/'.$actu->image) }}" class="img-fluid mb-3 rounded" alt="{{ $actu->titre }}">--}}
-    {{--                        @endif--}}
-    {{--                        <h5>{{ $actu->titre }}</h5>--}}
-    {{--                        <p>{{ Str::limit($actu->contenu, 150) }}</p>--}}
-    {{--                        <p><small class="text-muted">Publié le {{ \Carbon\Carbon::parse($actu->date_publication)->format('d M Y') }}</small></p>--}}
-    {{--                        <a href="#" class="btn btn-primary btn-sm">Lire plus</a>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            @endforeach--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
     <!-- Modal réservation -->
     <div class="modal fade" id="reservationModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Réservation de ticket</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
+                 <div class="modal-header" style="background-color: #f48181; color: #fff;">
+                <h5 class="modal-title">Réservation de ticket</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
                 <div class="modal-body">
                     <form id="formReservation" method="POST" action="{{ route('tickets.store') }}">
                         @csrf
@@ -168,34 +217,76 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Quantité de tickets</label>
-                            <input type="number" class="form-control" id="quantite" name="quantite" min="1" value="1"
-                                   required>
+                            <input type="number" class="form-control" id="quantite" name="quantite" min="1"
+                                value="1" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Montant total</label>
                             <input type="text" class="form-control" id="montantTotal" readonly>
                         </div>
 
-                        <button type="submit" class="btn btn-success w-100">Confirmer la réservation</button>
+                        <button type="submit" class="btn btn-success w-100" style="background-color: #d50100; color: #fff;">Confirmer la réservation</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    {{-- <div class="modal fade" id="reservationModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #d50100; color: #fff;">
+                <h5 class="modal-title">Réservation de ticket</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <form id="formReservation" method="POST" action="{{ route('tickets.store') }}">
+                    @csrf
+                    <input type="hidden" id="eventId" name="evenement_id">
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Événement</label>
+                        <input type="text" id="eventName" class="form-control" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Nom</label>
+                        <input type="text" class="form-control" name="nom" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Email</label>
+                        <input type="email" class="form-control" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Quantité de tickets</label>
+                        <input type="number" class="form-control" id="quantite" name="quantite" min="1"
+                            value="1" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Montant total</label>
+                        <input type="text" class="form-control" id="montantTotal" readonly>
+                    </div>
+
+                    <button type="submit" class="btn w-100" style="background-color: #d50100; color: #fff;">
+                        Confirmer la réservation
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> --}}
 
 @endsection
 @section('scripts')
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             // Ouvrir modal avec infos de l'événement
-            window.reserverTicket = function (eventId, eventName, prixTicket) {
+            window.reserverTicket = function(eventId, eventName, prixTicket) {
                 $('#eventId').val(eventId);
                 $('#eventName').val(eventName);
                 $('#quantite').val(1);
                 $('#montantTotal').val(prixTicket.toLocaleString() + ' FCFA');
 
-                $('#quantite').off('input').on('input', function () {
+                $('#quantite').off('input').on('input', function() {
                     let quantite = parseInt($(this).val()) || 1;
                     $('#montantTotal').val((quantite * prixTicket).toLocaleString() + ' FCFA');
                 });
@@ -204,19 +295,19 @@
             };
 
             // Soumission du formulaire via AJAX
-            $('#formReservation').submit(function (e) {
+            $('#formReservation').submit(function(e) {
                 e.preventDefault();
                 let form = $(this);
                 $.ajax({
                     url: form.attr('action'),
                     method: 'POST',
                     data: form.serialize(),
-                    success: function (response) {
+                    success: function(response) {
                         alert('✅ Votre ticket a été réservé avec succès !');
                         $('#reservationModal').modal('hide');
                         form[0].reset();
                     },
-                    error: function (xhr) {
+                    error: function(xhr) {
                         alert('❌ Une erreur est survenue. Veuillez réessayer.');
                     }
                 });
@@ -225,23 +316,27 @@
         });
     </script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             // Pagination événements
-            $(document).on('click', '#evenements-container .pagination a', function (e) {
+            $(document).on('click', '#evenements-container .pagination a', function(e) {
                 e.preventDefault();
                 let url = $(this).attr('href');
-                $.get(url, {section: 'evenements'}, function (data) {
+                $.get(url, {
+                    section: 'evenements'
+                }, function(data) {
                     $('#evenements-container').html(data);
                     window.scrollTo(0, 0);
                 });
             });
 
             // Pagination actualités
-            $(document).on('click', '#actualites-container .pagination a', function (e) {
+            $(document).on('click', '#actualites-container .pagination a', function(e) {
                 e.preventDefault();
                 let url = $(this).attr('href');
-                $.get(url, {section: 'actualites'}, function (data) {
+                $.get(url, {
+                    section: 'actualites'
+                }, function(data) {
                     $('#actualites-container').html(data);
                     window.scrollTo(0, 0);
                 });
@@ -249,5 +344,4 @@
 
         });
     </script>
-
 @endsection

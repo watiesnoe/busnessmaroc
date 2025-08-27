@@ -1,5 +1,5 @@
 <!-- Bootstrap + Icons -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5#f26522.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -27,8 +27,7 @@
     }
 
     nav.d-lg-flex a.nav-link:hover {
-        /*color: #f26522;*/
-        color: #f26522;
+        color: #0d6efd;
         background-color: rgba(13, 110, 253, 0.1);
         border-radius: 0.3rem;
     }
@@ -71,9 +70,7 @@
 
             <!-- Logo -->
             <a href="{{ route('home.index') }}" class="d-flex align-items-center gap-2 text-decoration-none">
-
-                <img src="{{ asset('asset/imgs/logobus.png') }}" class="" width="150" height="80" alt="Logo" >
-
+                <img src="{{ asset('asset/imgs/logo.jpeg') }}" alt="Logo" height="40">
             </a>
 
             <!-- Menu navigation desktop -->
@@ -96,9 +93,9 @@
             </nav>
 
             <!-- Actions utilisateur -->
-
+           
             <div class="d-flex align-items-center gap-3">
-            <div class="block-signin d-none d-lg-flex">
+                <div class="block-signin d-none d-lg-flex">
                     <!-- Bouton "S'inscrire" -->
                     <a class="btn btn-sm btn-shadow hover-up me-2" href="{{ route('register.client') }}"
                         style="background-color: #d50100; color: #fff; border: 1px solid #d50100;">
@@ -140,7 +137,7 @@
     </div>
 </header>
 
-
+<!-- Menu mobile -->
 <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
@@ -173,7 +170,7 @@
         </ul>
         <hr>
 
-
+       
         <div class="block-signin">
             <!-- Bouton "S'inscrire" -->
             <a href="{{ route('register.client') }}"  class="btn w-100 mb-2"

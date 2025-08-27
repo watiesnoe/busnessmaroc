@@ -8,10 +8,9 @@
         <div class="col-md-6 col-xl-3 mb-4">
             <div class="block block-rounded text-center h-100">
                 <div class="block-content block-content-full bg-image"
-                     style="background-image: url('{{ asset('assets/media/photos/photo' . rand(1, 20) . '.jpg') }}'); height: 120px;">
+                    style="background-image: url('{{ asset('admin1/media/photos/photo' . rand(1, 20) . '.jpg') }}'); height: 120px;">
                     <img class="img-avatar img-avatar-thumb mt-5"
-                         src="{{ asset('assets/media/avatars/avatar' . rand(1, 10) . '.jpg') }}"
-                         alt="Avatar candidat">
+                        src="{{ asset('admin1/media/avatars/avatar' . rand(1, 10) . '.jpg') }}" alt="Avatar candidat">
                 </div>
 
                 <div class="block-content block-content-full block-content-sm bg-body-light">
@@ -22,12 +21,14 @@
 
                 <div class="block-content block-content-full d-flex justify-content-center gap-2 flex-wrap">
                     <!-- CV -->
-                    <a class="btn btn-sm btn-outline-primary" href="{{ route('candidats.cv', $candidature->id) }}" target="_blank">
+                    <a class="btn btn-sm btn-outline-primary" href="{{ route('candidats.cv', $candidature->id) }}"
+                        target="_blank">
                         <i class="fa fa-file-pdf me-1"></i> CV
                     </a>
 
                     <!-- Lettre -->
-                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('candidats.lettre', $candidature->id) }}" target="_blank">
+                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('candidats.lettre', $candidature->id) }}"
+                        target="_blank">
                         <i class="fa fa-file-alt me-1"></i> Lettre
                     </a>
 
@@ -47,14 +48,17 @@
                     @else
                         <!-- 🔔 Boutons en fonction du statut -->
                         @if ($candidature->statut === 'en_attente')
-                            <button class="btn btn-sm btn-warning btn-alerte-entretien" data-id="{{ $candidature->id }}">
+                            <button class="btn btn-sm btn-warning btn-alerte-entretien"
+                                data-id="{{ $candidature->id }}">
                                 📅 Alerter entretien
                             </button>
-                            <button class="btn btn-sm btn-primary btn-alerte-definitif" data-id="{{ $candidature->id }}">
+                            <button class="btn btn-sm btn-primary btn-alerte-definitif"
+                                data-id="{{ $candidature->id }}">
                                 🏆 Retenue définitive
                             </button>
                         @elseif ($candidature->statut === 'entretien')
-                            <button class="btn btn-sm btn-primary btn-alerte-definitif" data-id="{{ $candidature->id }}">
+                            <button class="btn btn-sm btn-primary btn-alerte-definitif"
+                                data-id="{{ $candidature->id }}">
                                 🏆 Retenue définitive
                             </button>
                         @endif
@@ -65,7 +69,7 @@
                         </span>
 
                         <!-- Remarque -->
-                        @if($candidature->remarque)
+                        @if ($candidature->remarque)
                             <div class="text-muted fs-sm">{{ $candidature->remarque }}</div>
                         @endif
                     @endif
