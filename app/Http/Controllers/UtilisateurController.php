@@ -20,10 +20,33 @@ class UtilisateurController extends Controller
 
 
     // Tu pourras aussi ajouter ici une méthode pour l'administration
-      public function index()
+    public function index(Request $request)
     {
-       // $utilisateurs = Utilisateur::latest()->get(); // Récupère les utilisateurs
+        if($request->ajax()){
+            $query = User::where('role', '!=', 'client');
+
+            return datatables()->of($query)
+                ->addColumn('statut', function($user){
+                    return $user->active ? 'Actif' : 'Désactivé';
+                })
+                ->addColumn('actions', function($user){
+                    $btn = '<button class="btn btn-sm '.($user->active ? 'btn-danger' : 'btn-success').'" onclick="toggleUser('.$user->id.')">';
+                    $btn .= $user->active ? 'Désactiver' : 'Activer';
+                    $btn .= '</button>';
+                    return $btn;
+                })
+                ->rawColumns(['actions'])
+                ->make(true);
+        }
+
         return view('admin.utilisateurs.index');
+    }
+    public function toggleStatus(User $user)
+    {
+        $user->active = !$user->active;
+        $user->save();
+
+        return response()->json(['success' => true, 'status' => $user->active]);
     }
 //    public function clients(Request $request)
 //    {

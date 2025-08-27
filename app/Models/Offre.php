@@ -21,6 +21,8 @@ class Offre extends Model
         'description',
         'mode_candidature',
         'lien_candidature',
+        "nombre_limite_candidats",
+        'is_active',
     ];
 
     public function candidatures()

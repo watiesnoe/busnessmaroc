@@ -105,6 +105,7 @@ class OffreController extends Controller
             'lien_candidature' => 'nullable|string|max:255',
             'profil_recherche' => 'required|string',
             'description' => 'required|string',
+            'nombre_limite_candidats' => 'required|integer|min:1',
         ]);
 //dd($validated);
         Offre::create($validated);
@@ -132,6 +133,7 @@ class OffreController extends Controller
             'lien_candidature' => 'nullable|string|max:255',
             'profil_recherche' => 'required|string',
             'description' => 'required|string',
+            'nombre_limite_candidats' => 'required|integer|min:1',
         ]);
 
         $offre->update($validated);

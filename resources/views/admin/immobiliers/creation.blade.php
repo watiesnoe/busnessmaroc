@@ -7,22 +7,16 @@
 @endsection
 @section('content')
 
-        <div class="content">
-          <!-- jQuery Validation (.js-validation class is initialized in js/pages/be_forms_validation.min.js which was auto compiled from _js/pages/be_forms_validation.js) -->
-          <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
-            <div class="mb-3 text-end" >
-                <a href="{{route('immobiliers.index')}}" class="btn btn-primary">Voir la liste</a>
-            </div>
-          <form class="js-validation" id="createform" data-action="{{ route('immobiliers.store') }}" method="POST" enctype="multipart/form-data">
-             @csrf
-              @include('admin.immobiliers.forme')
-          </form>
-          <!-- jQuery Validation -->
-
-          <!-- Terms Modal -->
-
-          <!-- END Terms Modal -->
+    <div class="container mt-4">
+        <div class="mb-3 text-end">
+            <a href="{{route('immobiliers.index')}}" class="btn btn-primary">Voir la liste</a>
         </div>
+
+        <form class="js-validation" id="createform" data-action="{{ route('immobiliers.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @include('admin.immobiliers.forme')
+        </form>
+    </div>
 @endsection
 
 @section('scripts')
@@ -30,6 +24,13 @@
         $(document).ready(function () {
             let index = 1;
 
+            // Toggle formulaire nouvelle entreprise
+            $('#btnNewEntreprise').on('click', function () {
+                $('#newEntrepriseForm').slideToggle();
+                $('#entreprise_select').val('');
+            });
+
+            // Ajout chambre dynamique
             $('#addChambre').on('click', function () {
                 $('#chambres-body').append(`
                     <tr>
@@ -79,7 +80,7 @@
             });
 
             $(document).on('click', '.remove-chambre', function () {
-                  $(this).closest('tr').remove();
+                $(this).closest('tr').remove();
 
             });
         });

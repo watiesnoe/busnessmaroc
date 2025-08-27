@@ -12,8 +12,8 @@
     <meta name="keywords" content="index, page">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('admin1/imgs/template/favicon.svg')}}">
-    <link href="{{asset('admin1/css/style.css')}}" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('asset/imgs/template/favicon.svg')}}">
+    <link href="{{asset('asset/css/style.css')}}" rel="stylesheet">
 
     <title>Jobbox Dashboard - Job Portal HTML Template </title>
 </head>
@@ -21,7 +21,7 @@
 <div id="preloader-active">
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="preloader-inner position-relative">
-            <div class="text-center"><img src="{{asset('admin1/imgs/template/loading.gif')}}" alt="jobBox"></div>
+            <div class="text-center"><img src="{{asset('asset/imgs/template/loading.gif')}}" alt="jobBox"></div>
         </div>
     </div>
 </div>
@@ -42,23 +42,23 @@
                         <ul class="main-menu">
                             <li> <a class="dashboard2 active" href="index.html"><img src="admin/imgs/page/dashboard/dashboard.svg" alt="jobBox"><span class="name">Dashboard</span></a>
                             </li>
-                            <li> <a class="dashboard2" href="candidates.html"><img src="{{asset('admin1/imgs/page/dashboard/candidates.svg')}}" alt="jobBox"><span class="name">Candidates</span></a>
+                            <li> <a class="dashboard2" href="candidates.html"><img src="{{asset('asset/imgs/page/dashboard/candidates.svg')}}" alt="jobBox"><span class="name">Candidates</span></a>
                             </li>
-                            <li> <a class="dashboard2" href="recruiters.html"><img src="{{asset('admin1/imgs/page/dashboard/recruiters.svg')}}" alt="jobBox"><span class="name">Recruiters</span></a>
+                            <li> <a class="dashboard2" href="recruiters.html"><img src="{{asset('asset/imgs/page/dashboard/recruiters.svg')}}" alt="jobBox"><span class="name">Recruiters</span></a>
                             </li>
-                            <li> <a class="dashboard2" href="my-job-grid.html"><img src="{{asset('admin1/imgs/page/dashboard/jobs.svg')}}" alt="jobBox"><span class="name">My Jobs</span></a>
+                            <li> <a class="dashboard2" href="my-job-grid.html"><img src="{{asset('asset/imgs/page/dashboard/jobs.svg')}}" alt="jobBox"><span class="name">My Jobs</span></a>
                             </li>
-                            <li> <a class="dashboard2" href="my-tasks-list.html"><img src="{{asset('admin1/imgs/page/dashboard/tasks.svg')}}" alt="jobBox"><span class="name">Tasks List</span></a>
+                            <li> <a class="dashboard2" href="my-tasks-list.html"><img src="{{asset('asset/imgs/page/dashboard/tasks.svg')}}" alt="jobBox"><span class="name">Tasks List</span></a>
                             </li>
-                            <li> <a class="dashboard2" href="profile.html"><img src="{{asset('admin1/imgs/page/dashboard/profiles.svg')}}" alt="jobBox"><span class="name">My Profiles</span></a>
+                            <li> <a class="dashboard2" href="profile.html"><img src="{{asset('asset/imgs/page/dashboard/profiles.svg')}}" alt="jobBox"><span class="name">My Profiles</span></a>
                             </li>
-                            <li> <a class="dashboard2" href="my-resume.html"><img src="{{asset('admin1/imgs/page/dashboard/cv-manage.svg')}}" alt="jobBox"><span class="name">CV Manage</span></a>
+                            <li> <a class="dashboard2" href="my-resume.html"><img src="{{asset('asset/imgs/page/dashboard/cv-manage.svg')}}" alt="jobBox"><span class="name">CV Manage</span></a>
                             </li>
-                            <li> <a class="dashboard2" href="settings.html"><img src="{{asset('admin1/imgs/page/dashboard/settings.svg')}}" alt="jobBox"><span class="name">Setting</span></a>
+                            <li> <a class="dashboard2" href="settings.html"><img src="{{asset('asset/imgs/page/dashboard/settings.svg')}}" alt="jobBox"><span class="name">Setting</span></a>
                             </li>
-                            <li> <a class="dashboard2" href="authentication.html"><img src="{{asset('admin1/imgs/page/dashboard/authentication.svg')}}" alt="jobBox"><span class="name">Authentication</span></a>
+                            <li> <a class="dashboard2" href="authentication.html"><img src="{{asset('asset/imgs/page/dashboard/authentication.svg')}}" alt="jobBox"><span class="name">Authentication</span></a>
                             </li>
-                            <li> <a class="dashboard2" href="login.html"><img src="{{asset('admin1/imgs/page/dashboard/logout.svg')}}" alt="jobBox"><span class="name">Logout</span></a>
+                            <li> <a class="dashboard2" href="login.html"><img src="{{asset('asset/imgs/page/dashboard/logout.svg')}}" alt="jobBox"><span class="name">Logout</span></a>
                             </li>
                         </ul>
                     </nav>
@@ -83,25 +83,25 @@
     <div class="nav"><a class="btn btn-expanded"></a>
         <nav class="nav-main-menu">
             <ul class="main-menu">
-                <li> <a class="dashboard2 active" href="index.html"><img src="{{asset('admin1/imgs/page/dashboard/dashboard.svg')}}" alt="jobBox"><span class="name">Dashboard</span></a>
+                <li> <a class="dashboard2 active" href="index.html"><img src="{{asset('asset/imgs/page/dashboard/dashboard.svg')}}" alt="jobBox"><span class="name">Dashboard</span></a>
                 </li>
-                <li> <a class="dashboard2" href="candidates.html"><img src="{{asset('admin1/imgs/page/dashboard/candidates.svg')}}" alt="jobBox"><span class="name">Candidates</span></a>
+                <li> <a class="dashboard2" href="candidates.html"><img src="{{asset('asset/imgs/page/dashboard/candidates.svg')}}" alt="jobBox"><span class="name">Candidates</span></a>
                 </li>
-                <li> <a class="dashboard2" href="recruiters.html"><img src="{{asset('admin1/imgs/page/dashboard/recruiters.svg')}}" alt="jobBox"><span class="name">Recruiters</span></a>
+                <li> <a class="dashboard2" href="recruiters.html"><img src="{{asset('asset/imgs/page/dashboard/recruiters.svg')}}" alt="jobBox"><span class="name">Recruiters</span></a>
                 </li>
-                <li> <a class="dashboard2" href="my-job-grid.html"><img src="{{asset('admin1/imgs/page/dashboard/jobs.svg')}}" alt="jobBox"><span class="name">My Jobs</span></a>
+                <li> <a class="dashboard2" href="my-job-grid.html"><img src="{{asset('asset/imgs/page/dashboard/jobs.svg')}}" alt="jobBox"><span class="name">My Jobs</span></a>
                 </li>
-                <li> <a class="dashboard2" href="my-tasks-list.html"><img src="{{asset('admin1/imgs/page/dashboard/tasks.svg')}}" alt="jobBox"><span class="name">Tasks List</span></a>
+                <li> <a class="dashboard2" href="my-tasks-list.html"><img src="{{asset('asset/imgs/page/dashboard/tasks.svg')}}" alt="jobBox"><span class="name">Tasks List</span></a>
                 </li>
-                <li> <a class="dashboard2" href="profile.html"><img src="{{asset('admin1/imgs/page/dashboard/profiles.svg')}}" alt="jobBox"><span class="name">My Profiles</span></a>
+                <li> <a class="dashboard2" href="profile.html"><img src="{{asset('asset/imgs/page/dashboard/profiles.svg')}}" alt="jobBox"><span class="name">My Profiles</span></a>
                 </li>
-                <li> <a class="dashboard2" href="my-resume.html"><img src="{{asset('admin1/imgs/page/dashboard/cv-manage.svg')}}" alt="jobBox"><span class="name">CV Manage</span></a>
+                <li> <a class="dashboard2" href="my-resume.html"><img src="{{asset('asset/imgs/page/dashboard/cv-manage.svg')}}" alt="jobBox"><span class="name">CV Manage</span></a>
                 </li>
-                <li> <a class="dashboard2" href="settings.html"><img src="{{asset('admin1/imgs/page/dashboard/settings.svg')}}" alt="jobBox"><span class="name">Setting</span></a>
+                <li> <a class="dashboard2" href="settings.html"><img src="{{asset('asset/imgs/page/dashboard/settings.svg')}}" alt="jobBox"><span class="name">Setting</span></a>
                 </li>
-                <li> <a class="dashboard2" href="authentication.html"><img src="{{asset('admin1/imgs/page/dashboard/authentication.svg')}}" alt="jobBox"><span class="name">Authentication</span></a>
+                <li> <a class="dashboard2" href="authentication.html"><img src="{{asset('asset/imgs/page/dashboard/authentication.svg')}}" alt="jobBox"><span class="name">Authentication</span></a>
                 </li>
-                <li> <a class="dashboard2" href="login.html"><img src="{{asset('admin1/imgs/page/dashboard/logout.svg')}}" alt="jobBox"><span class="name">Logout</span></a>
+                <li> <a class="dashboard2" href="login.html"><img src="{{asset('asset/imgs/page/dashboard/logout.svg')}}" alt="jobBox"><span class="name">Logout</span></a>
                 </li>
             </ul>
         </nav>
@@ -136,7 +136,7 @@
                     <div class="row">
                         <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-4 col-sm-6">
                             <div class="card-style-1 hover-up">
-                                <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/computer.svg')}}" alt="jobBox"></div>
+                                <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/computer.svg')}}" alt="jobBox"></div>
                                 <div class="card-info">
                                     <div class="card-title">
                                         <h3>1568<span class="font-sm status up">25<span>%</span></span>
@@ -148,7 +148,7 @@
                         </div>
                         <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-4 col-sm-6">
                             <div class="card-style-1 hover-up">
-                                <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/bank.svg')}}" alt="jobBox"></div>
+                                <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/bank.svg')}}" alt="jobBox"></div>
                                 <div class="card-info">
                                     <div class="card-title">
                                         <h3>284<span class="font-sm status up">5<span>%</span></span>
@@ -160,7 +160,7 @@
                         </div>
                         <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-4 col-sm-6">
                             <div class="card-style-1 hover-up">
-                                <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/lamp.svg')}}" alt="jobBox"></div>
+                                <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/lamp.svg')}}" alt="jobBox"></div>
                                 <div class="card-info">
                                     <div class="card-title">
                                         <h3>136<span class="font-sm status up">12<span>%</span></span>
@@ -172,7 +172,7 @@
                         </div>
                         <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-4 col-sm-6">
                             <div class="card-style-1 hover-up">
-                                <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/headphone.svg')}}" alt="jobBox"></div>
+                                <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/headphone.svg')}}" alt="jobBox"></div>
                                 <div class="card-info">
                                     <div class="card-title">
                                         <h3>985<span class="font-sm status up">5<span>%</span></span>
@@ -184,7 +184,7 @@
                         </div>
                         <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-4 col-sm-6">
                             <div class="card-style-1 hover-up">
-                                <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/look.svg')}}" alt="jobBox"></div>
+                                <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/look.svg')}}" alt="jobBox"></div>
                                 <div class="card-info">
                                     <div class="card-title">
                                         <h3>165<span class="font-sm status up">15<span>%</span></span>
@@ -196,7 +196,7 @@
                         </div>
                         <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-4 col-sm-6">
                             <div class="card-style-1 hover-up">
-                                <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/open-file.svg')}}" alt="jobBox"></div>
+                                <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/open-file.svg')}}" alt="jobBox"></div>
                                 <div class="card-info">
                                     <div class="card-title">
                                         <h3>2356<span class="font-sm status down">- 2%</span>
@@ -208,7 +208,7 @@
                         </div>
                         <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-4 col-sm-6">
                             <div class="card-style-1 hover-up">
-                                <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/doc.svg')}}" alt="jobBox"></div>
+                                <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/doc.svg')}}" alt="jobBox"></div>
                                 <div class="card-info">
                                     <div class="card-title">
                                         <h3>254<span class="font-sm status up">2<span>%</span></span>
@@ -220,7 +220,7 @@
                         </div>
                         <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-4 col-sm-6">
                             <div class="card-style-1 hover-up">
-                                <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/man.svg')}}" alt="jobBox"></div>
+                                <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/man.svg')}}" alt="jobBox"></div>
                                 <div class="card-info">
                                     <div class="card-title">
                                         <h3>548<span class="font-sm status up">48<span>%</span></span>
@@ -263,7 +263,7 @@
                             <div class="panel-body">
                                 <div class="card-style-2 hover-up">
                                     <div class="card-head">
-                                        <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/img1.png')}}" alt="jobBox"></div>
+                                        <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/img1.png')}}" alt="jobBox"></div>
                                         <div class="card-title">
                                             <h6>Senior Full Stack Engineer, Creator Success</h6><span class="job-type">Full time</span><span class="time-post">3mins ago</span><span class="location">New York, US</span>
                                         </div>
@@ -274,7 +274,7 @@
                                 </div>
                                 <div class="card-style-2 hover-up">
                                     <div class="card-head">
-                                        <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/img2.png')}}" alt="jobBox"></div>
+                                        <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/img2.png')}}" alt="jobBox"></div>
                                         <div class="card-title">
                                             <h6>Senior Full Stack Engineer, Creator Success</h6><span class="job-type">Full time</span><span class="time-post">3mins ago</span><span class="location">Chicago, US</span>
                                         </div>
@@ -285,7 +285,7 @@
                                 </div>
                                 <div class="card-style-2 hover-up">
                                     <div class="card-head">
-                                        <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/img3.png')}}" alt="jobBox"></div>
+                                        <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/img3.png')}}" alt="jobBox"></div>
                                         <div class="card-title">
                                             <h6>Lead Product/UX/UI Designer Role</h6><span class="job-type">Full time</span><span class="time-post">3mins ago</span><span class="location">Paris, France</span>
                                         </div>
@@ -296,7 +296,7 @@
                                 </div>
                                 <div class="card-style-2 hover-up">
                                     <div class="card-head">
-                                        <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/img4.png')}}" alt="jobBox"></div>
+                                        <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/img4.png')}}" alt="jobBox"></div>
                                         <div class="card-title">
                                             <h6>Marketing Graphic Designer</h6><span class="job-type">Full time</span><span class="time-post">3mins ago</span><span class="location">Tokyto, Japan</span>
                                         </div>
@@ -307,7 +307,7 @@
                                 </div>
                                 <div class="card-style-2 hover-up">
                                     <div class="card-head">
-                                        <div class="card-image"> <img src="{{asset('admin1/imgs/page/dashboard/img5.png')}}" alt="jobBox"></div>
+                                        <div class="card-image"> <img src="{{asset('asset/imgs/page/dashboard/img5.png')}}" alt="jobBox"></div>
                                         <div class="card-title">
                                             <h6>Director, Product Design - Creator</h6><span class="job-type">Full time</span><span class="time-post">3mins ago</span><span class="location">Ha Noi, Vietnam</span>
                                         </div>
@@ -335,48 +335,48 @@
                             </div>
                             <div class="panel-body">
                                 <div class="card-style-3 hover-up">
-                                    <div class="card-image online"><img src="{{asset('admin1/imgs/page/dashboard/avata1.png')}}" alt="jobBox"></div>
+                                    <div class="card-image online"><img src="{{asset('asset/imgs/page/dashboard/avata1.png')}}" alt="jobBox"></div>
                                     <div class="card-title">
                                         <h6>Robert Fox</h6><span class="job-position">UI/UX Designer</span>
                                     </div>
                                     <div class="card-location"> <span class="location">Chicago, US</span></div>
-                                    <div class="card-rating"><img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
+                                    <div class="card-rating"><img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
                            (65)</span></div>
                                 </div>
                                 <div class="card-style-3 hover-up">
-                                    <div class="card-image online"><img src="{{asset('admin1/imgs/page/dashboard/avata2.png')}}" alt="jobBox"></div>
+                                    <div class="card-image online"><img src="{{asset('asset/imgs/page/dashboard/avata2.png')}}" alt="jobBox"></div>
                                     <div class="card-title">
                                         <h6>Cody Fisher</h6><span class="job-position">Network Engineer</span>
                                     </div>
                                     <div class="card-location"> <span class="location">New York, US</span></div>
-                                    <div class="card-rating"><img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
+                                    <div class="card-rating"><img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
                            (65)</span></div>
                                 </div>
                                 <div class="card-style-3 hover-up">
-                                    <div class="card-image online"><img src="{{asset('admin1/imgs/page/dashboard/avata3.png')}}" alt="jobBox"></div>
+                                    <div class="card-image online"><img src="{{asset('asset/imgs/page/dashboard/avata3.png')}}" alt="jobBox"></div>
                                     <div class="card-title">
                                         <h6>Jane Cooper</h6><span class="job-position">Content Manager</span>
                                     </div>
                                     <div class="card-location"> <span class="location">Chicago, US</span></div>
-                                    <div class="card-rating"><img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
+                                    <div class="card-rating"><img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
                            (65)</span></div>
                                 </div>
                                 <div class="card-style-3 hover-up">
-                                    <div class="card-image online"><img src="{{asset('admin1/imgs/page/dashboard/avata4.png')}}" alt="jobBox"></div>
+                                    <div class="card-image online"><img src="{{asset('asset/imgs/page/dashboard/avata4.png')}}" alt="jobBox"></div>
                                     <div class="card-title">
                                         <h6>Jerome Bell</h6><span class="job-position">Frontend Developer</span>
                                     </div>
                                     <div class="card-location"> <span class="location">Chicago, US</span></div>
-                                    <div class="card-rating"><img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
+                                    <div class="card-rating"><img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
                            (65)</span></div>
                                 </div>
                                 <div class="card-style-3 hover-up">
-                                    <div class="card-image online"><img src="{{asset('admin1/imgs/page/dashboard/avata5.png')}}" alt="jobBox"></div>
+                                    <div class="card-image online"><img src="{{asset('asset/imgs/page/dashboard/avata5.png')}}" alt="jobBox"></div>
                                     <div class="card-title">
                                         <h6>Floyd Miles</h6><span class="job-position">NodeJS Dev</span>
                                     </div>
                                     <div class="card-location"> <span class="location">Chicago, US</span></div>
-                                    <div class="card-rating"><img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
+                                    <div class="card-rating"><img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
                            (65)</span></div>
                                 </div>
                             </div>
@@ -399,9 +399,9 @@
                                     <div class="col-lg-6 col-md-6 pr-5 pl-5">
                                         <div class="card-style-4 hover-up">
                                             <div class="d-flex">
-                                                <div class="card-image"><img src="{{asset('admin1/imgs/page/dashboard/avata1.png')}}" alt="jobBox"></div>
+                                                <div class="card-image"><img src="{{asset('asset/imgs/page/dashboard/avata1.png')}}" alt="jobBox"></div>
                                                 <div class="card-title">
-                                                    <h6>Robert Fox</h6><img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
+                                                    <h6>Robert Fox</h6><img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
                                  (65)</span>
                                                 </div>
                                             </div>
@@ -411,9 +411,9 @@
                                     <div class="col-lg-6 col-md-6 pr-5 pl-5">
                                         <div class="card-style-4 hover-up">
                                             <div class="d-flex">
-                                                <div class="card-image"><img src="{{asset('admin1/imgs/page/dashboard/avata2.png')}}" alt="jobBox"></div>
+                                                <div class="card-image"><img src="{{asset('asset/imgs/page/dashboard/avata2.png')}}" alt="jobBox"></div>
                                                 <div class="card-title">
-                                                    <h6>Cody Fisher</h6><img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
+                                                    <h6>Cody Fisher</h6><img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
                                  (65)</span>
                                                 </div>
                                             </div>
@@ -423,9 +423,9 @@
                                     <div class="col-lg-6 col-md-6 pr-5 pl-5">
                                         <div class="card-style-4 hover-up">
                                             <div class="d-flex">
-                                                <div class="card-image"><img src="{{asset('admin1/imgs/page/dashboard/avata3.png')}}" alt="jobBox"></div>
+                                                <div class="card-image"><img src="{{asset('asset/imgs/page/dashboard/avata3.png')}}" alt="jobBox"></div>
                                                 <div class="card-title">
-                                                    <h6>Jane Cooper</h6><img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
+                                                    <h6>Jane Cooper</h6><img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
                                  (65)</span>
                                                 </div>
                                             </div>
@@ -435,9 +435,9 @@
                                     <div class="col-lg-6 col-md-6 pr-5 pl-5">
                                         <div class="card-style-4 hover-up">
                                             <div class="d-flex">
-                                                <div class="card-image"><img src="{{asset('admin1/imgs/page/dashboard/avata4.png')}}" alt="jobBox"></div>
+                                                <div class="card-image"><img src="{{asset('asset/imgs/page/dashboard/avata4.png')}}" alt="jobBox"></div>
                                                 <div class="card-title">
-                                                    <h6>Jerome Bell</h6><img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
+                                                    <h6>Jerome Bell</h6><img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
                                  (65)</span>
                                                 </div>
                                             </div>
@@ -447,9 +447,9 @@
                                     <div class="col-lg-6 col-md-6 pr-5 pl-5">
                                         <div class="card-style-4 hover-up">
                                             <div class="d-flex">
-                                                <div class="card-image"><img src="{{asset('admin1/imgs/page/dashboard/avata5.png')}}" alt="jobBox"></div>
+                                                <div class="card-image"><img src="{{asset('asset/imgs/page/dashboard/avata5.png')}}" alt="jobBox"></div>
                                                 <div class="card-title">
-                                                    <h6>Floyd Miles</h6><img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
+                                                    <h6>Floyd Miles</h6><img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
                                  (65)</span>
                                                 </div>
                                             </div>
@@ -459,9 +459,9 @@
                                     <div class="col-lg-6 col-md-6 pr-5 pl-5">
                                         <div class="card-style-4 hover-up">
                                             <div class="d-flex">
-                                                <div class="card-image"><img src="{{asset('admin1/imgs/page/dashboard/avata1.png')}}" alt="jobBox"></div>
+                                                <div class="card-image"><img src="{{asset('asset/imgs/page/dashboard/avata1.png')}}" alt="jobBox"></div>
                                                 <div class="card-title">
-                                                    <h6>Devon Lane</h6><img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <img src="{{asset('admin1/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
+                                                    <h6>Devon Lane</h6><img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <img src="{{asset('asset/imgs/page/dashboard/star-none.svg')}}" alt="jobBox"> <span class="font-xs color-text-mutted">
                                  (65)</span>
                                                 </div>
                                             </div>
@@ -575,16 +575,16 @@
                         <div class="box-swiper">
                             <div class="swiper-container swiper-group-10">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide"> <img src="{{asset('admin1/imgs/page/dashboard/microsoft.svg')}}" alt="jobBox"></div>
-                                    <div class="swiper-slide"> <img src="{{asset('admin1/imgs/page/dashboard/sony.svg')}}" alt="jobBox"></div>
-                                    <div class="swiper-slide"> <img src="{{asset('admin1/imgs/page/dashboard/acer.svg')}}" alt="jobBox"></div>
-                                    <div class="swiper-slide"> <img src="{{asset('admin1/imgs/page/dashboard/nokia.svg')}}" alt="jobBox"></div>
-                                    <div class="swiper-slide"> <img src="{{asset('admin1/imgs/page/dashboard/asus.svg')}}" alt="jobBox"></div>
-                                    <div class="swiper-slide"> <img src="{{asset('admin1/imgs/page/dashboard/casio.svg')}}" alt="jobBox"></div>
-                                    <div class="swiper-slide"> <img src="{{asset('admin1/imgs/page/dashboard/dell.svg')}}" alt="jobBox"></div>
-                                    <div class="swiper-slide"> <img src="{{asset('admin1/imgs/page/dashboard/panasonic.svg')}}" alt="jobBox"></div>
-                                    <div class="swiper-slide"> <img src="{{asset('admin1/imgs/page/dashboard/vaio.svg')}}" alt="jobBox"></div>
-                                    <div class="swiper-slide"> <img src="{{asset('admin1/imgs/page/dashboard/sony.svg')}}" alt="jobBox"></div>
+                                    <div class="swiper-slide"> <img src="{{asset('asset/imgs/page/dashboard/microsoft.svg')}}" alt="jobBox"></div>
+                                    <div class="swiper-slide"> <img src="{{asset('asset/imgs/page/dashboard/sony.svg')}}" alt="jobBox"></div>
+                                    <div class="swiper-slide"> <img src="{{asset('asset/imgs/page/dashboard/acer.svg')}}" alt="jobBox"></div>
+                                    <div class="swiper-slide"> <img src="{{asset('asset/imgs/page/dashboard/nokia.svg')}}" alt="jobBox"></div>
+                                    <div class="swiper-slide"> <img src="{{asset('asset/imgs/page/dashboard/asus.svg')}}" alt="jobBox"></div>
+                                    <div class="swiper-slide"> <img src="{{asset('asset/imgs/page/dashboard/casio.svg')}}" alt="jobBox"></div>
+                                    <div class="swiper-slide"> <img src="{{asset('asset/imgs/page/dashboard/dell.svg')}}" alt="jobBox"></div>
+                                    <div class="swiper-slide"> <img src="{{asset('asset/imgs/page/dashboard/panasonic.svg')}}" alt="jobBox"></div>
+                                    <div class="swiper-slide"> <img src="{{asset('asset/imgs/page/dashboard/vaio.svg')}}" alt="jobBox"></div>
+                                    <div class="swiper-slide"> <img src="{{asset('asset/imgs/page/dashboard/sony.svg')}}" alt="jobBox"></div>
                                 </div>
                             </div>
                         </div>
@@ -613,20 +613,20 @@
         </footer>
     </div>
 </main>
-<script src="{{asset('admin1/js/vendor/modernizr-3.6.0.min.js')}}"></script>
-<script src="{{asset('admin1/js/vendor/jquery-3.6.0.min.js')}}"></script>
-<script src="{{asset('admin1/js/vendor/jquery-migrate-3.3.0.min.js')}}"></script>
-<script src="{{asset('admin1/js/vendor/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('admin1/js/plugins/waypoints.js')}}"></script>
-<script src="{{asset('admin1/js/plugins/magnific-popup.js')}}"></script>
-<script src="{{asset('admin1/js/plugins/perfect-scrollbar.min.js')}}"></script>
-<script src="{{asset('admin1/js/plugins/select2.min.js')}}"></script>
-<script src="{{asset('admin1/js/plugins/swiper-bundle.min.js')}}"></script>
-<script src="{{asset('admin1/js/plugins/jquery.circliful.js')}}"></script>
-<script src="{{asset('admin1/js/plugins/charts/index.js')}}"></script>
-<script src="{{asset('admin1/js/plugins/charts/xy.js')}}"></script>
-<script src="{{asset('admin1/js/plugins/charts/Animated.js')}}"></script>
-<script src="{{asset('admin1/js/plugins/armcharts5-script.js')}}"></script>
-<script src="{{asset('admin1/js/main.js?v=4.1')}}"></script>
+<script src="{{asset('asset/js/vendor/modernizr-3.6.0.min.js')}}"></script>
+<script src="{{asset('asset/js/vendor/jquery-3.6.0.min.js')}}"></script>
+<script src="{{asset('asset/js/vendor/jquery-migrate-3.3.0.min.js')}}"></script>
+<script src="{{asset('asset/js/vendor/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('asset/js/plugins/waypoints.js')}}"></script>
+<script src="{{asset('asset/js/plugins/magnific-popup.js')}}"></script>
+<script src="{{asset('asset/js/plugins/perfect-scrollbar.min.js')}}"></script>
+<script src="{{asset('asset/js/plugins/select2.min.js')}}"></script>
+<script src="{{asset('asset/js/plugins/swiper-bundle.min.js')}}"></script>
+<script src="{{asset('asset/js/plugins/jquery.circliful.js')}}"></script>
+<script src="{{asset('asset/js/plugins/charts/index.js')}}"></script>
+<script src="{{asset('asset/js/plugins/charts/xy.js')}}"></script>
+<script src="{{asset('asset/js/plugins/charts/Animated.js')}}"></script>
+<script src="{{asset('asset/js/plugins/armcharts5-script.js')}}"></script>
+<script src="{{asset('asset/js/main.js?v=4.1')}}"></script>
 </body>
 </html>

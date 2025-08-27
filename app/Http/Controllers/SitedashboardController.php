@@ -94,7 +94,7 @@ class SitedashboardController extends Controller
     public function actualite(Request $request)
     {
         $evenements = Evenement::where('statut', 'à venir')
-            ->where('date_debut','>=', now())
+            ->where('date_fin', '>=', now())
             ->orderBy('date_debut','asc')
             ->paginate()
             ->appends(request()->query());

@@ -95,7 +95,7 @@
     </style>
     {{-- Section d'introduction --}}
     <section class="hero-section position-relative text-white d-flex align-items-center py-5"
-            style="
+        style="
                 background-image: url('{{ asset('asset/imgs/offre2.jpg') }}');
                 background-size: cover;
                 background-repeat: no-repeat;
@@ -104,24 +104,24 @@
                 height: 400px;  /* hauteur réduite */
             ">
 
-            <div class="container text-center">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                        <h1 class="display-5 fw-bold mb-3" style="color: #ffffff; text-shadow: 2px 2px 6px rgba(0,0,0,0.7);">
-                            <span style="color: #d50100;">Découvrez</span> nos meilleures offres
-                        </h1>
-                        <p class="lead"
-                            style="color: #ffffff; 
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="display-5 fw-bold mb-3" style="color: #ffffff; text-shadow: 2px 2px 6px rgba(0,0,0,0.7);">
+                        <span style="color: #d50100;">Découvrez</span> nos meilleures offres
+                    </h1>
+                    <p class="lead"
+                        style="color: #ffffff; 
                             text-shadow: 1px 1px 5px rgba(0,0,0,0.6); 
                             font-size: 1.5rem;    /* texte plus grand */
                             line-height: 1.8;">
-                            Parcourez toutes les opportunités disponibles et trouvez l’offre qui vous correspond le mieux.
-                        </p>
+                        Parcourez toutes les opportunités disponibles et trouvez l’offre qui vous correspond le mieux.
+                    </p>
 
-                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
     {{-- fin du section d'introduction --}}
     {{-- Section principale --}}
     <section class="section-box mt-5">
@@ -131,7 +131,7 @@
                 <!-- Secteurs : mobile en haut (order 1), desktop à gauche (order-lg-1) -->
                 <div class="col-lg-3 col-md-12 col-12 fadeInUp order-1 order-lg-1">
                     <div class="card secteurs-card p-4 h-auto">
-                      <h5 class="text-white text-center py-3 mb-4">Secteurs d'activité</h5>
+                        <h5 class="text-white text-center py-3 mb-4">Secteurs d'activité</h5>
 
                         <ul class="list-unstyled secteurs-list">
                             @php
@@ -172,43 +172,42 @@
     </section>
     {{-- fin du section --}}
 @endsection
-    @section('scripts')
-        <script>
-            function chargerOffres(page = 1) {
-                let secteurs = [];
-                $('.secteur-checkbox:checked').each(function () {
-                    secteurs.push($(this).val());
-                });
-
-                $.ajax({
-                    url: "{{ route('offres.filtrer') }}",
-                    method: "GET",
-                    data: {
-                        secteurs: secteurs,
-                        page: page
-                    },
-                    success: function (response) {
-                        $('#offres-list').html(response);
-                    },
-                    error: function (xhr) {
-                        console.error("Erreur de chargement :", xhr.responseText);
-                    }
-                });
-            }
-
-            $(document).ready(function () {
-                // Filtrage par checkbox
-                $('.secteur-checkbox').on('change', function () {
-                    chargerOffres(1); // recharger depuis la page 1
-                });
-
-                // Pagination AJAX
-                $(document).on('click', '.pagination a', function (e) {
-                    e.preventDefault();
-                    let page = $(this).attr('href').split('page=')[1];
-                    chargerOffres(page);
-                });
+@section('scripts')
+    <script>
+        function chargerOffres(page = 1) {
+            let secteurs = [];
+            $('.secteur-checkbox:checked').each(function() {
+                secteurs.push($(this).val());
             });
-        </script>
 
+            $.ajax({
+                url: "{{ route('offres.filtrer') }}",
+                method: "GET",
+                data: {
+                    secteurs: secteurs,
+                    page: page
+                },
+                success: function(response) {
+                    $('#offres-list').html(response);
+                },
+                error: function(xhr) {
+                    console.error("Erreur de chargement :", xhr.responseText);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            // Filtrage par checkbox
+            $('.secteur-checkbox').on('change', function() {
+                chargerOffres(1); // recharger depuis la page 1
+            });
+
+            // Pagination AJAX
+            $(document).on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                let page = $(this).attr('href').split('page=')[1];
+                chargerOffres(page);
+            });
+        });
+    </script>
 @endsection
