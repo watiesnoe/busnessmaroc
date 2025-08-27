@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('prix_ticket', 10, 2);
             $table->string('image')->nullable();
             $table->string('statut')->default('à venir'); // à venir, terminé, annulé
+            $table->integer('nombre_limite_places')->default(0);
             $table->timestamps();
         });
 

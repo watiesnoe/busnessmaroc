@@ -25,7 +25,7 @@ return new class extends Migration
             $table->text('profil_recherche');
             $table->text('description');
             $table->string('mode_candidature');
-            $table->string('lien_candidature');
+            $table->string('lien_candidature')->nullable();
             $table->integer('nombre_limite_candidats')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();

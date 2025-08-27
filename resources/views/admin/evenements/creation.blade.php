@@ -73,7 +73,11 @@
                             <input type="number" name="prix_ticket" class="form-control" id="prix_ticket" step="0.01"
                                    value="{{ old('prix_ticket', $evenement->prix_ticket ?? '') }}" required>
                         </div>
-
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label" for="nombre_limite_places">Nombre limite de place</label>
+                            <input type="number" name="nombre_limite_places" class="form-control" id="nombre_limite_places" min="1"
+                                   value="{{ old('nombre_limite_places', $evenement->nombre_limite_places ?? '') }}" required>
+                        </div>
                         <div class="col-md-6 mb-4">
                             <label class="form-label" for="statut">Statut</label>
                             <select name="statut" id="statut" class="form-control">

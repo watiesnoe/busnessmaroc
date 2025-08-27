@@ -85,6 +85,8 @@ class EvenementController extends Controller
             'prix_ticket'  => 'required|numeric|min:0',
             'statut'       => 'required|in:à venir,terminé,annulé',
             'image'        => 'nullable|image|mimes:jpg,jpeg,png,gif|max:4000',
+            'nombre_limite_places' => 'required|integer|min:1',
+
         ]);
 
         // ✅ Gestion de l'image
@@ -103,6 +105,7 @@ class EvenementController extends Controller
             'prix_ticket' => $validated['prix_ticket'],
             'statut'      => $validated['statut'],
             'image'       => $imagePath,
+            'nombre_limite_places'       => $validated['nombre_limite_places'],
         ]);
 
         // ✅ Si AJAX
@@ -151,6 +154,7 @@ class EvenementController extends Controller
             'prix_ticket'  => 'required|numeric|min:0',
             'statut'       => 'required|in:à venir,terminé,annulé',
             'image'        => 'nullable|image|mimes:jpg,jpeg,png,gif|max:4000',
+            'nombre_limite_places' => 'required|integer|min:1',
         ]);
 
         // ✅ Gestion de l'image
