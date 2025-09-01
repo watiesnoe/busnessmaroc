@@ -80,7 +80,25 @@
     @empty
         <div class="col-12">
             <div class="alert alert-warning text-center">
-                Aucun candidat trouvé.
+                @php
+                    // On récupère le filtre statut depuis la requête AJAX ou défaut
+
+                    $statut = request()->get('statut', 'en_attente');
+
+                    if ($statut === 'en_attente') {
+                        $message = 'Aucun candidat non évalué pour cette offre.';
+                    } elseif ($statut === 'entretien') {
+                        $message = 'Aucun candidat en entretien pour cette offre.';
+                    } elseif ($statut === 'accepte') {
+                        $message = 'Aucun candidat retenu pour cette offre.';
+                    } elseif ($statut === 'refuse') {
+                        $message = 'Aucun candidat refusé pour cette offre.';
+                    } else {
+                        $message = 'Aucun candidat trouvé pour cette offre.';
+                    }
+
+                @endphp
+                {{ $message }}
             </div>
         </div>
     @endforelse

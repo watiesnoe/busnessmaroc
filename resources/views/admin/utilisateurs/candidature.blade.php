@@ -1,80 +1,113 @@
-{{--@extends('layouts.app')--}}
+{{-- @extends('layouts.app') --}}
 
-{{--@section('titre')--}}
-{{--    Candidats--}}
-{{--@endsection--}}
+{{-- @section('titre') --}}
+{{--    Candidats --}}
+{{-- @endsection --}}
 
-{{--@section('content')--}}
-{{--    <div class="content">--}}
-{{--        <div id="candidats-container">--}}
-{{--            @include('layouts.partials.candidats', ['candidatures' => $candidatures])--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--@endsection--}}
+{{-- @section('content') --}}
+{{--    <div class="content"> --}}
+{{--        <div id="candidats-container"> --}}
+{{--            @include('layouts.partials.candidats', ['candidatures' => $candidatures]) --}}
+{{--        </div> --}}
+{{--    </div> --}}
+{{-- @endsection --}}
 
-{{--@section('scripts')--}}
-{{--    <script>--}}
-{{--        $(document).ready(function() {--}}
-{{--            $(document).on('click', '#candidats-container .pagination a', function(e) {--}}
-{{--                e.preventDefault();--}}
-{{--                let url = $(this).attr('href');--}}
-{{--                fetchCandidats(url);--}}
-{{--            });--}}
+{{-- @section('scripts') --}}
+{{--    <script> --}}
+{{--        $(document).ready(function() { --}}
+{{--            $(document).on('click', '#candidats-container .pagination a', function(e) { --}}
+{{--                e.preventDefault(); --}}
+{{--                let url = $(this).attr('href'); --}}
+{{--                fetchCandidats(url); --}}
+{{--            }); --}}
 
-{{--            function fetchCandidats(url) {--}}
-{{--                $.ajax({--}}
-{{--                    url: url,--}}
-{{--                    type: 'GET',--}}
-{{--                    dataType: 'html',--}}
-{{--                    success: function(data) {--}}
-{{--                        $('#candidats-container').html(data);--}}
-{{--                    },--}}
-{{--                    error: function() {--}}
-{{--                        alert('Erreur lors du chargement des candidats.');--}}
-{{--                    }--}}
-{{--                });--}}
-{{--            }--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--@endsection--}}
+{{--            function fetchCandidats(url) { --}}
+{{--                $.ajax({ --}}
+{{--                    url: url, --}}
+{{--                    type: 'GET', --}}
+{{--                    dataType: 'html', --}}
+{{--                    success: function(data) { --}}
+{{--                        $('#candidats-container').html(data); --}}
+{{--                    }, --}}
+{{--                    error: function() { --}}
+{{--                        alert('Erreur lors du chargement des candidats.'); --}}
+{{--                    } --}}
+{{--                }); --}}
+{{--            } --}}
+{{--        }); --}}
+{{--    </script> --}}
+{{-- @endsection --}}
 @extends('layouts.app')
 @section('titre', 'Dépouillement des candidats')
 
 @section('content')
-    <div class="content">
-        <h2 class="mb-4">Candidatures pour : {{ $offre->titre }}</h2>
+    <div class="content container py-5">
+        <!-- Bouton de retour -->
+        <div class="mb-4">
+            <a href="{{ route('offre.index')}}" class="btn btn-outline-secondary">
+                ← Retour aux offres
+            </a>
+        </div>
 
+        <!-- Titre de la page -->
+        <div class="mb-4 p-3 bg-light rounded shadow-sm">
+            <h2 class="fw-bold mb-0">Candidatures pour :
+                <span class="text-primary">{{ $offre->titre }}</span>
+            </h2>
+            <small class="text-muted">Gérez les candidatures de cette offre facilement</small>
+        </div>
+
+        <!-- Filtres -->
+        <div class="mb-5 p-3 bg-white rounded shadow-sm d-flex flex-wrap align-items-center gap-3">
+            <div class="d-flex align-items-center gap-2">
+                <label for="filtreStatut" class="form-label mb-0 fw-semibold">Filtrer par statut :</label>
+                <select id="filtreStatut" class="form-select" style="width: 200px;">
+                    <option value="en_attente">Non évalué</option>
+                    <option value="entretien">Entretien</option>
+                    <option value="accepte">Accepté</option>
+                    <option value="refuse">Refusé</option>
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- Container des candidats -->
         <div id="candidats-container">
             @include('layouts.partials.candidats', ['candidatures' => $candidatures])
         </div>
     </div>
+
+
 @endsection
 
 @section('scripts')
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
 
             function updateCandidatureStatus(candidatureId, status) {
                 let note = null;
                 let remarque = null;
 
-                if(status === 'accepte') {
+                if (status === 'accepte') {
                     // Demande note
                     note = prompt("Entrez une note (1 à 5) :");
-                    if(!note) return;
+                    if (!note) return;
 
                     note = parseInt(note);
-                    if(isNaN(note) || note < 1 || note > 5) {
+                    if (isNaN(note) || note < 1 || note > 5) {
                         alert("Veuillez entrer un nombre valide entre 1 et 5.");
                         return;
                     }
 
                     // Demande remarque
                     remarque = prompt("Entrez un commentaire (optionnel) :") || null;
+                } else {
+                    status === 'refuse'
                 }
 
                 $.ajax({
-                    url: '{{ route("candidature.updateStatus", ":id") }}'.replace(':id', candidatureId),
+                    url: '{{ route('candidature.updateStatus', ':id') }}'.replace(':id', candidatureId),
                     type: 'POST',
                     data: {
                         _token: '{{ csrf_token() }}',
@@ -82,8 +115,8 @@
                         note: note,
                         remarque: remarque
                     },
-                    success: function(response){
-                        if(response.success){
+                    success: function(response) {
+                        if (response.success) {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Mise à jour réussie !',
@@ -100,14 +133,20 @@
                             });
                         }
                     },
-                    error: function(xhr){
+                    error: function(xhr) {
                         alert('Une erreur est survenue : ' + xhr.responseText);
                     }
                 });
             }
 
+
+
+
+
+
+
             function envoyerAlerte(candidatureId, type) {
-                let url = '{{ route("candidature.alerte", ["id" => ":id"]) }}'; // Laravel garde :id
+                let url = '{{ route('candidature.alerte', ['id' => ':id']) }}'; // Laravel garde :id
                 url = url.replace(':id', candidatureId); // JS remplace ici
 
                 $.ajax({
@@ -127,20 +166,20 @@
             }
 
             // Boutons approuver / refuser
-            $(document).on('click', '.btn-approuver', function(){
+            $(document).on('click', '.btn-approuver', function() {
                 const id = $(this).data('id');
                 updateCandidatureStatus(id, 'accepte');
             });
 
-            $(document).on('click', '.btn-refuser', function(){
+            $(document).on('click', '.btn-refuser', function() {
                 const id = $(this).data('id');
-                if(confirm('Êtes-vous sûr de vouloir refuser ce candidat ?')){
+                if (confirm('Êtes-vous sûr de vouloir refuser ce candidat ?')) {
                     updateCandidatureStatus(id, 'refuse');
                 }
             });
 
             // Bouton alerte entretien
-            $(document).on('click', '.btn-alerte-entretien', function(){
+            $(document).on('click', '.btn-alerte-entretien', function() {
                 let id = $(this).data('id');
                 Swal.fire({
                     title: 'Alerter pour entretien ?',
@@ -157,7 +196,7 @@
             });
 
             // Bouton alerte définitive
-            $(document).on('click', '.btn-alerte-definitif', function(){
+            $(document).on('click', '.btn-alerte-definitif', function() {
                 let id = $(this).data('id');
                 Swal.fire({
                     title: 'Confirmer la sélection définitive ?',
@@ -175,4 +214,45 @@
 
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+            function chargerCandidats(statut, recherche = '') {
+                $.ajax({
+                    url: '{{ route('candidature.candidats', $offre->id) }}',
+                    type: 'GET',
+                    data: {
+                        statut: statut,
+                        search: recherche
+                    },
+                    success: function(response) {
+                        $('#candidats-container').html(response);
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                        alert('Erreur lors du chargement des candidats.');
+                    }
+                });
+            }
+
+            // Filtre par statut
+            $('#filtreStatut').change(function() {
+                const statut = $(this).val();
+                const recherche = $('#rechercheCandidat').val();
+                chargerCandidats(statut, recherche);
+            });
+
+            // Recherche en temps réel
+            $('#rechercheCandidat').keyup(function() {
+                const recherche = $(this).val();
+                const statut = $('#filtreStatut').val();
+                chargerCandidats(statut, recherche);
+            });
+
+            // Charger les candidats non évalués au chargement de la page
+            chargerCandidats('en_attente');
+        });
+    </script>
+
+
 @endsection

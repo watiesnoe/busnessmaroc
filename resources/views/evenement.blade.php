@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    {{-- <style>
+     {{-- <style>
         body {
             background: #f8f9fa;
         }
@@ -77,7 +77,7 @@
                 </div>
             </div>
         </div>
-    </section> --}
+    </section>  --}}
 
     <style>
         body {
@@ -231,7 +231,7 @@
             </div>
         </div>
     </div>
-    {{-- <div class="modal fade" id="reservationModal" tabindex="-1">
+     <div class="modal fade" id="reservationModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #d50100; color: #fff;">
@@ -272,7 +272,7 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div> 
 
 @endsection
 @section('scripts')

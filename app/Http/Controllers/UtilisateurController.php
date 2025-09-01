@@ -22,15 +22,15 @@ class UtilisateurController extends Controller
     // Tu pourras aussi ajouter ici une méthode pour l'administration
     public function index(Request $request)
     {
-        if($request->ajax()){
+        if ($request->ajax()) {
             $query = User::where('role', '!=', 'client');
 
             return datatables()->of($query)
-                ->addColumn('statut', function($user){
+                ->addColumn('statut', function ($user) {
                     return $user->active ? 'Actif' : 'Désactivé';
                 })
-                ->addColumn('actions', function($user){
-                    $btn = '<button class="btn btn-sm '.($user->active ? 'btn-danger' : 'btn-success').'" onclick="toggleUser('.$user->id.')">';
+                ->addColumn('actions', function ($user) {
+                    $btn = '<button class="btn btn-sm ' . ($user->active ? 'btn-danger' : 'btn-success') . '" onclick="toggleUser(' . $user->id . ')">';
                     $btn .= $user->active ? 'Désactiver' : 'Activer';
                     $btn .= '</button>';
                     return $btn;
@@ -48,24 +48,24 @@ class UtilisateurController extends Controller
 
         return response()->json(['success' => true, 'status' => $user->active]);
     }
-//    public function clients(Request $request)
-//    {
-//        if ($request->ajax()) {
-//            $clients = User::where('role', 'client');
-//
-//            return DataTables::of($clients)
-//                ->addColumn('statut', function ($row) {
-//                    return '<span class="badge bg-success">Actif</span>';
-//                })
-//                ->addColumn('actions', function ($row) {
-//                    return '<a href="'.route('utilisateurs.show', $row->id).'" class="btn btn-sm btn-info">Voir</a>';
-//                })
-//                ->rawColumns(['statut', 'actions'])
-//                ->make(true);
-//        }
-//
-//        return view('admin.utilisateurs.client');
-//    }
+    //    public function clients(Request $request)
+    //    {
+    //        if ($request->ajax()) {
+    //            $clients = User::where('role', 'client');
+    //
+    //            return DataTables::of($clients)
+    //                ->addColumn('statut', function ($row) {
+    //                    return '<span class="badge bg-success">Actif</span>';
+    //                })
+    //                ->addColumn('actions', function ($row) {
+    //                    return '<a href="'.route('utilisateurs.show', $row->id).'" class="btn btn-sm btn-info">Voir</a>';
+    //                })
+    //                ->rawColumns(['statut', 'actions'])
+    //                ->make(true);
+    //        }
+    //
+    //        return view('admin.utilisateurs.client');
+    //    }
     public function clients(Request $request)
     {
         $clients = User::where('role', 'client')->paginate(12);
@@ -94,14 +94,14 @@ class UtilisateurController extends Controller
 
             // Retourner la réponse DataTables en JSON
             return DataTables::of($query)
-                ->addColumn('avatar', function($user) {
+                ->addColumn('avatar', function ($user) {
                     $avatarNum = rand(1, 10);
                     $url = asset("assets/media/avatars/avatar{$avatarNum}.jpg");
-                    return '<img src="'.$url.'" alt="Avatar" width="32" height="32" class="img-avatar img-avatar32">';
+                    return '<img src="' . $url . '" alt="Avatar" width="32" height="32" class="img-avatar img-avatar32">';
                 })
-                ->addColumn('actions', function($user) {
+                ->addColumn('actions', function ($user) {
                     $profileUrl = route('utilisateurs.profile', $user->id);
-                    return '<a class="btn btn-sm btn-alt-primary" href="'.$profileUrl.'">
+                    return '<a class="btn btn-sm btn-alt-primary" href="' . $profileUrl . '">
                             <i class="fa fa-user-circle"></i> Profil
                         </a>';
                 })
@@ -112,20 +112,36 @@ class UtilisateurController extends Controller
         return view('admin.utilisateurs.candidatureliste');
     }
 
-//    public function candidats(Request $request, Offre $offre)
-//    {
-//
-//        $candidatures = $offre->candidatures()->with('user')->latest()->paginate(12);
-////        dd($candidatures);
-//        if ($request->ajax()) {
-//            return view('layouts.partials.candidats', compact('candidatures'))->render();
-//        }
-//
-//        return view('admin.utilisateurs.candidature', compact('offre', 'candidatures'));
-//    }
+    //    public function candidats(Request $request, Offre $offre)
+    //    {
+    //
+    //        $candidatures = $offre->candidatures()->with('user')->latest()->paginate(12);
+    ////        dd($candidatures);
+    //        if ($request->ajax()) {
+    //            return view('layouts.partials.candidats', compact('candidatures'))->render();
+    //        }
+    //
+    //        return view('admin.utilisateurs.candidature', compact('offre', 'candidatures'));
+    //    }
+   
+
     public function candidats(Request $request, Offre $offre)
     {
-        $candidatures = $offre->candidatures()->with('user')->latest()->paginate(12);
+        $statut = $request->get('statut', 'en_attente'); // filtre par défaut
+
+        $candidatures = $offre->candidatures()->with('user')->latest();
+
+        if ($statut === 'en_attente') {
+            $candidatures = $candidatures->where('statut', 'en_attente');
+        } elseif ($statut === 'entretien') {
+            $candidatures = $candidatures->where('statut', 'entretien');
+        } elseif ($statut === 'accepte') {
+            $candidatures = $candidatures->where('statut', 'retenue');
+        } elseif ($statut === 'refuse') {
+            $candidatures = $candidatures->where('statut', 'refuse');
+        }
+
+        $candidatures = $candidatures->paginate(12);
 
         if ($request->ajax()) {
             return view('layouts.partials.candidats', compact('candidatures'))->render();
@@ -134,7 +150,30 @@ class UtilisateurController extends Controller
         return view('admin.utilisateurs.candidature', compact('offre', 'candidatures'));
     }
 
+
+
     // Mettre à jour le statut d'un candidat (apprové/refusé)
+    //     public function updateStatus(Request $request, $id)
+    //     {
+    //         $candidature = Candidature::findOrFail($id);
+
+    //         $request->validate([
+    //             'status' => 'required|in:accepte,refuse',
+    //             'note' => 'nullable|integer|min:1|max:5',
+    //             'remarque' => 'nullable|string|max:500'
+    //         ]);
+
+    //         $candidature->update([
+    //             'est_approuve' => $request->status === 'accepte',
+    //             'note' => $request->note,
+    //             'remarque' => $request->remarque,
+    // //            'status' => $request->status, // optionnel pour suivi
+    //         ]);
+
+    //         return response()->json(['success' => true]);
+    //     }
+
+
     public function updateStatus(Request $request, $id)
     {
         $candidature = Candidature::findOrFail($id);
@@ -146,14 +185,17 @@ class UtilisateurController extends Controller
         ]);
 
         $candidature->update([
-            'est_approuve' => $request->status === 'accepte',
+            'est_approuve' => $request->status === 'accepte', // true si accepté
+            'statut' => $request->status === 'accepte' ? 'en_attente' : 'refuse', // statut "refuse" si refusé
             'note' => $request->note,
             'remarque' => $request->remarque,
-//            'status' => $request->status, // optionnel pour suivi
         ]);
 
         return response()->json(['success' => true]);
     }
+
+
+
 
     public function create()
     {
@@ -189,10 +231,10 @@ class UtilisateurController extends Controller
 
         return response()->file($path);
     }
-    public function profile ($id){
+    public function profile($id)
+    {
         $user = User::with(['candidatures.offre'])->findOrFail($id);
 
         return view('admin.utilisateurs.profile', compact('user'));
     }
-
 }

@@ -57,6 +57,11 @@ Route::get('/offres', [OffreController::class, 'afficher'])->name('offres');
 Route::get('/offres-filtre', [OffreController::class, 'filtrer'])->name('offres.filtrer');
 //Route::get('/details_offre', [details_offreController::class, 'index'])->name('details_offre');
 Route::get('/creation_compte', [ComptclientController::class, 'index'])->name('register.client');
+
+
+
+
+
 // routes/web.php
 Route::post('/register/ajax', [ComptclientController::class, 'store'])->name('register.ajax');
 Route::get('/universite', [UniversiteController::class,'index']);
@@ -99,6 +104,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/utilisateurs/clients', [UtilisateurController::class, 'clients'])->name('utilisateurs.clients');
     Route::get('/admin/offres/{offre}/candidats', [UtilisateurController::class, 'candidats'])->name('admin.offres.candidats');
     Route::post('candidature/{candidature}/status', [UtilisateurController::class, 'updateStatus'])->name('candidature.updateStatus');
+// Pour lister les candidats d’une offre avec filtrage
+Route::get('/candidature/{offre}', [UtilisateurController::class, 'candidats'])
+    ->name('candidature.candidats');
 
     Route::post('/candidatures/{id}/alerte', [CandidatureController::class, 'envoyerAlerte'])->name('candidature.alerte');
 
