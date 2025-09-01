@@ -19,6 +19,7 @@ class ContratLocation extends Model
         'prix_total',
         'statut',
         'conditions_particulieres',
+        'transaction_id'
     ];
 
     // 🔗 Relations

@@ -5,79 +5,7 @@
 @endsection
 
 @section('content')
-    {{-- <style>
-        body {
-            background: #f8f9fa;
-        }
 
-        .navbar {
-            background: #212529;
-        }
-
-        .navbar-brand {
-            color: #fff;
-        }
-
-        .card {
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .card img {
-            height: 220px;
-            object-fit: cover;
-        }
-
-        .btn-reserver {
-            background: #e63946;
-            color: white;
-            border-radius: 0;
-        }
-
-        .btn-reserver:hover {
-            background: #c1121f;
-        }
-
-    </style>
-
- 
-    <section class="py-5 bg-dark text-white">
-        <h4 class="fw-bold text-center ">Ne manquez aucun événement !</h4>
-        <div class="container-fluid">
-
-            <div id="evenementsCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @foreach ($evenements as $key => $event)
-                        <div class="carousel-item @if ($key == 0) active @endif">
-                            <img src="{{ asset('storage/' . $event->image) }}" class="card-img-top" height="400"
-                                 alt="{{ $event->titre }}">
-                        </div>
-                    @endforeach
-                </div>
-
-                <!-- Contrôles -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#evenementsCarousel"
-                        data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Précédent</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#evenementsCarousel"
-                        data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Suivant</span>
-                </button>
-
-                <!-- Indicateurs -->
-                <div class="carousel-indicators mt-3">
-                    @foreach ($evenements as $key => $event)
-                        <button type="button" data-bs-target="#evenementsCarousel" data-bs-slide-to="{{ $key }}"
-                                class="@if ($key == 0) active @endif" aria-current="true"
-                                aria-label="Slide {{ $key+1 }}"></button>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </section> --}
 
     <style>
         body {
@@ -231,7 +159,7 @@
             </div>
         </div>
     </div>
-    {{-- <div class="modal fade" id="reservationModal" tabindex="-1">
+ <div class="modal fade" id="reservationModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #d50100; color: #fff;">
@@ -272,7 +200,7 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 
 @endsection
 @section('scripts')
@@ -295,6 +223,7 @@
             };
 
             // Soumission du formulaire via AJAX
+            // Soumission du formulaire via AJAX
             $('#formReservation').submit(function(e) {
                 e.preventDefault();
                 let form = $(this);
@@ -303,15 +232,33 @@
                     method: 'POST',
                     data: form.serialize(),
                     success: function(response) {
-                        alert('✅ Votre ticket a été réservé avec succès !');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Réservation réussie 🎉',
+                            text: response.message,
+                            confirmButtonColor: '#d50100'
+                        });
+
                         $('#reservationModal').modal('hide');
                         form[0].reset();
                     },
                     error: function(xhr) {
-                        alert('❌ Une erreur est survenue. Veuillez réessayer.');
+                        let errorMessage = '❌ Une erreur est survenue. Veuillez réessayer.';
+
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oups...',
+                            text: errorMessage,
+                            confirmButtonColor: '#d50100'
+                        });
                     }
                 });
             });
+
 
         });
     </script>

@@ -13,6 +13,7 @@ use App\Http\Controllers\ImmobiliersController;
 use App\Http\Controllers\LoginController;
 
 use App\Http\Controllers\PaiementsController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PayPalController;
 
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SitedashboardController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UniversiteController;
+use App\Services\AuthorizeNetGateway;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OffreController;
 use App\Http\Controllers\UtilisateurController;
@@ -39,6 +41,35 @@ use App\Http\Controllers\GoogleAuthController;
 //        'client_secret' => env('PAYPAL_SANDBOX_CLIENT_SECRET'),
 //    ]);
 //});
+//Route::get('/test-auth', function() {
+//    $gateway = new \App\Services\AuthorizeNetGateway();
+//
+//    return [
+//        'apiLoginId' => config('services.authorize.api_login_id'),
+//        'transactionKey' => config('services.authorize.transaction_key'),
+//        'sandbox' => config('services.authorize.sandbox'),
+//    ];
+//});
+
+//Route::get('/test-payment', function () {
+//    $gateway = new AuthorizeNetGateway();
+//
+//    $response = $gateway->charge([
+//        'amount' => 1.00,
+//        'currency' => 'USD',
+//        'card_number' => '4111111111111111',
+//        'expiry_month' => '12',
+//        'expiry_year' => '2026',
+//        'cvv' => '123',
+//    ]);
+//
+//    if($response->isSuccessful()){
+//        return "Success: " . $response->getTransactionReference();
+//    } else {
+//        return "Error: " . $response->getMessage();
+//    }
+//});
+
 Route::get('/', [SitedashboardController::class, 'index'])->name('homesite.index');
 Route::get('/actualite', [SitedashboardController::class, 'actualite']);
 Route::get('/location', [SitedashboardController::class, 'location'])->name('location');
@@ -107,9 +138,13 @@ Route::middleware('auth')->group(function () {
 //    Route::post('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
 //    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
 //    Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
-    Route::post('paypal/create-order', [PayPalController::class, 'createOrder'])->name('paypal.createOrder');
-    Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
-    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+//    Route::post('paypal/create-order', [PayPalController::class, 'createOrder'])->name('paypal.createOrder');
+//    Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
+//    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+
+
+    Route::get('/paypal/pay', [PayPalController::class, 'pay'])->name('paypal.pay');
+    Route::post('/paypal/capture', [PayPalController::class, 'capture'])->name('paypal.capture');
 
     Route::get('/admin/candidats', [UtilisateurController::class, 'candidatsliste'])->name('utilisateurs.candidats');
 
@@ -134,6 +169,10 @@ Route::middleware('auth')->group(function () {
 
 // ✅ Route Ajax
 //    Route::get('/entreprises/data', [EntrepriseController::class, 'getData'])->name('entreprises.data');
+
+
+    Route::get('/payment', [PaymentController::class, 'showForm'])->name('payment.form');
+    Route::post('/payment', [PaymentController::class, 'charge'])->name('payment.charge');
 
 });
 

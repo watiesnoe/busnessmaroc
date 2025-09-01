@@ -55,7 +55,7 @@ class TicketController extends Controller
         ]);
 
         // Vérifier si l'utilisateur est connecté
-        if(Auth::check()){
+        if (Auth::check()) {
             $user = Auth::user();
         } else {
             // Récupérer ou créer l'utilisateur
@@ -66,6 +66,18 @@ class TicketController extends Controller
         }
 
         $evenement = Evenement::findOrFail($request->evenement_id);
+
+        // 🔹 Vérifier le nombre de places restantes
+        $placesReservees = $evenement->tickets()->sum('quantite'); // somme des tickets déjà pris
+        $placesRestantes = $evenement->nombre_limite_places - $placesReservees;
+
+        if ($placesRestantes < $request->quantite) {
+            return response()->json([
+                'success' => false,
+                'message' => "Il ne reste plus de place(s) disponible(s) pour cet événement."
+            ], 400);
+        }
+
         $montant_total = $evenement->prix_ticket * $request->quantite;
 
         Ticket::create([
@@ -78,5 +90,6 @@ class TicketController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Ticket réservé avec succès !']);
     }
+
 }
 

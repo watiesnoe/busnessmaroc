@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->decimal('prix_total', 15, 2);
             $table->string('statut')->default('en attente');
             $table->text('conditions_particulieres')->nullable();
+            $table->string('transaction_id')->nullable();
 
             $table->timestamps();
         });

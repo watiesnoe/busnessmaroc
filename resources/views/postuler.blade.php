@@ -1,305 +1,237 @@
-    @extends('layoutsite.site')
-    @section('content')
-        <style>
-            .bg-offres {
-                height: 500px;
-                background-image: url('../asset/imgs/Offre-demploi.jpg');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                position: relative;
-                color: #fff;
-            }
+@extends('layoutsite.site')
 
-            .bg-offres::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 1;
-            }
+@section('content')
+    <style>
+        /* --- Styles généraux --- */
+        .bg-offres {
+            height: 500px;
+            background-image: url('../asset/imgs/Offre-demploi.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+            color: #fff;
+        }
 
-            .offre-card-content {
-                position: relative;
-                z-index: 2;
-            }
+        .bg-offres::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
 
-            .offre-card-title {
-                font-size: 2.5rem;
-                font-weight: 700;
-                color: #fff;
-            }
+        .offre-card-content {
+            position: relative;
+            z-index: 2;
+        }
 
-            .badge-custom {
-                font-size: 1rem;
-                padding: 0.75rem 1.5rem;
-                background: #0d6efd;
-                color: #fff;
-                box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-            }
+        .offre-card-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
 
-            /* fin du style pour premier section */
-            /* Pour adoucir la carte des secteurs */
-            .secteurs-card {
-                border-radius: 12px;
-                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-                background: #f8f9fa;
-            }
+        .badge-custom {
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: #d50100;
+            color: #fff;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
 
-            /* Titres */
-            .secteurs-card h5 {
-                font-weight: 700;
-                letter-spacing: 1px;
-                text-transform: uppercase;
-                background: #007bff;
-                border-radius: 12px 12px 0 0;
-            }
+        /* Styles formulaire et prévisualisation */
+        .preview-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
 
-            /* Checkbox custom */
-            .form-check-input:checked {
-                background-color: #007bff;
-                border-color: #007bff;
-            }
+        .preview-box {
+            flex: 1 1 45%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            min-height: 200px;
+            overflow: auto;
+        }
 
-            /* Liste secteurs */
-            .secteurs-list li {
-                padding: 8px 0;
-                border-bottom: 1px solid #dee2e6;
-            }
+        .preview-box object {
+            width: 100%;
+            height: 200px;
+            border-radius: 4px;
+        }
 
-            .secteurs-list li:last-child {
-                border-bottom: none;
-            }
+    </style>
 
-            /* Animation fadeIn douce */
-            .fadeInUp {
-                animation: fadeInUp 0.8s ease forwards;
-                opacity: 0;
-            }
-
-            @keyframes fadeInUp {
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-
-                from {
-                    opacity: 0;
-                    transform: translateY(15px);
-                }
-            }
-        </style>
-        {{-- Section d'introduction --}}
-        <section class="hero-section position-relative text-white d-flex align-items-center py-5"
-            style="
-                background-image: url('{{ asset('asset/imgs/offre2.jpg') }}');
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center;
-                width: 100%;
-                height: 400px;  /* hauteur réduite */
-            ">
-
-            <div class="container text-center">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                        <h1 class="display-5 fw-bold mb-3" style="color: #ffffff; text-shadow: 2px 2px 6px rgba(0,0,0,0.7);">
-                            <span style="color: #d50100;">Découvrez</span> nos meilleures offres
-                        </h1>
-                        <p class="lead"
-                            style="color: #ffffff;
-                            text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
-                            font-size: 1.5rem;    /* texte plus grand */
-                            line-height: 1.8;">
-                            Parcourez toutes les opportunités disponibles et trouvez l’offre qui vous correspond le mieux.
-                        </p>
-
-                    </div>
-                </div>
-            </div>
-        </section>
-        {{-- fin du section d'introduction --}}
-
-        <div class="container my-5">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h4>Postuler à l'offre : {{ $offre->titre }}</h4>
-                </div>
-                <div class="card-body">
-                    @if (session('error'))
-                        <div class="alert alert-danger">{{ session('error') }}</div>
-                    @endif
-                    @if (session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
-                    <form id="candidatureForm" action="{{ route('candidature.store') }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
-
-                        <input type="hidden" name="offre_id" value="{{ $offre->id }}">
-
-                        <div class="mb-3">
-                            <label for="cv" class="form-label">CV (fichier PDF obligatoire) <span
-                                    class="text-danger">*</span></label>
-                            <input type="file" class="form-control @error('cv') is-invalid @enderror" id="cv"
-                                name="cv" accept=".pdf" required>
-                            @error('cv')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="lettre_motivation" class="form-label">Lettre de motivation (PDF, DOC, DOCX)</label>
-                            <input type="file" class="form-control @error('lettre_motivation') is-invalid @enderror"
-                                id="lettre_motivation" name="lettre_motivation" accept=".pdf,.doc,.docx">
-                            @error('lettre_motivation')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Message / Commentaire</label>
-                            <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="4">{{ old('message') }}</textarea>
-                            @error('message')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-success">Envoyer la candidature</button>
-                            <a href="{{ route('details_offre.show', $offre->id) }}"
-                                class="btn btn-outline-secondary px-4 ms-2">
-                                <i class="bi bi-arrow-left me-1"></i> Annuler
-                            </a>
-                        </div>
-                    </form>
+    {{-- Section d'introduction --}}
+    <section class="hero-section position-relative text-white d-flex align-items-center py-5"
+             style="background-image: url('{{ asset('asset/imgs/offre2.jpg') }}'); background-size: cover; background-repeat: no-repeat; background-position: center; width: 100%; height: 400px;">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="display-5 fw-bold mb-3" style="color: #ffffff; text-shadow: 2px 2px 6px rgba(0,0,0,0.7);">
+                        <span style="color: #d50100;">Découvrez</span> nos meilleures offres
+                    </h1>
+                    <p class="lead" style="color: #ffffff; text-shadow: 1px 1px 5px rgba(0,0,0,0.6); font-size: 1.5rem; line-height: 1.8;">
+                        Parcourez toutes les opportunités disponibles et trouvez l’offre qui vous correspond le mieux.
+                    </p>
                 </div>
             </div>
         </div>
-    @endsection
-    @section('scripts')
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            $(document).ready(function() {
-                $('#candidatureForm').on('submit', function(e) {
-                    e.preventDefault();
+    </section>
+    {{-- fin du section d'introduction --}}
 
-                    let formData = new FormData(this);
+    <div class="container my-5">
+        <div class="card shadow">
+            <div class="card-header text-white" style="background-color: #d50100;">
+                <h4>Postuler à l'offre : {{ $offre->titre }}</h4>
+            </div>
+            <div class="card-body">
+                @if (session('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                @endif
+                @if (session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
 
-                    $.ajax({
-                        url: $(this).attr('action'),
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        headers: {
-                            'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                        },
-                        beforeSend: function() {
-                            $('#candidatureForm button[type="submit"]').prop('disabled', true).text(
-                                'Envoi en cours...');
-                        },
-                        success: function(response) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Candidature envoyée !',
-                                text: 'Votre candidature a été envoyée avec succès.',
-                                confirmButtonColor: '#28a745'
+                <form id="candidatureForm" action="{{ route('candidature.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+
+                    <input type="hidden" name="offre_id" value="{{ $offre->id }}">
+
+                    <div class="row">
+                        {{-- CV --}}
+                        <div class="col-md-6 mb-3">
+                            <label for="cv" class="form-label">CV (fichier PDF obligatoire) <span class="text-danger">*</span></label>
+                            <input type="file" class="form-control @error('cv') is-invalid @enderror" id="cv" name="cv" accept=".pdf" required>
+                            <div id="cvPreview" class="preview-box mt-2"></div>
+                            @error('cv')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Lettre de motivation --}}
+                        <div class="col-md-6 mb-3">
+                            <label for="lettre_motivation" class="form-label">Lettre de motivation (PDF, DOC, DOCX)</label>
+                            <input type="file" class="form-control @error('lettre_motivation') is-invalid @enderror" id="lettre_motivation" name="lettre_motivation" accept=".pdf,.doc,.docx">
+                            <div id="lettrePreview" class="preview-box mt-2"></div>
+                            @error('lettre_motivation')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Message / commentaire --}}
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message / Commentaire</label>
+                        <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="4">{{ old('message') }}</textarea>
+                        @error('message')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-success">Envoyer la candidature</button>
+                        <a href="{{ route('details_offre.show', $offre->id) }}" class="btn btn-outline-secondary px-4 ms-2">
+                            <i class="bi bi-arrow-left me-1"></i> Annuler
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function() {
+            // Soumission AJAX
+            $('#candidatureForm').on('submit', function(e) {
+                e.preventDefault();
+                let formData = new FormData(this);
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: { 'X-CSRF-TOKEN': $('input[name="_token"]').val() },
+                    beforeSend: function() {
+                        $('#candidatureForm button[type="submit"]').prop('disabled', true).text('Envoi en cours...');
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Candidature envoyée !',
+                            text: 'Votre candidature a été envoyée avec succès.',
+                            confirmButtonColor: '#28a745'
+                        });
+                        $('#candidatureForm')[0].reset();
+                        $('#cvPreview, #lettrePreview').html('');
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            let errors = xhr.responseJSON.errors;
+                            let errorHtml = '';
+                            $.each(errors, function(key, messages) {
+                                $.each(messages, function(index, message) {
+                                    errorHtml += message + '<br>';
+                                });
                             });
-
-                            $('#candidatureForm')[0].reset();
-                        },
-                        error: function(xhr) {
-                            if (xhr.status === 422) {
-                                let errors = xhr.responseJSON.errors;
-                                let errorHtml = '';
-                                $.each(errors, function(key, messages) {
-                                    $.each(messages, function(index, message) {
-                                        errorHtml += message + '<br>';
-                                    });
-                                });
-
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Erreur de validation',
-                                    html: errorHtml,
-                                    confirmButtonColor: '#dc3545'
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Erreur',
-                                    text: 'Une erreur est survenue, veuillez réessayer.',
-                                    confirmButtonColor: '#dc3545'
-                                });
-                            }
-                        },
-                        complete: function() {
-                            $('#candidatureForm button[type="submit"]').prop('disabled', false)
-                                .text('Envoyer la candidature');
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erreur de validation',
+                                html: errorHtml,
+                                confirmButtonColor: '#dc3545'
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erreur',
+                                text: 'Une erreur est survenue, veuillez réessayer.',
+                                confirmButtonColor: '#dc3545'
+                            });
                         }
-                    });
+                    },
+                    complete: function() {
+                        $('#candidatureForm button[type="submit"]').prop('disabled', false).text('Envoyer la candidature');
+                    }
                 });
             });
-        </script>
-    @endsection
 
-    {{--    @section('scripts')--}}
-{{--        <script>--}}
-{{--            $(document).ready(function() {--}}
-{{--                $('#candidatureForm').on('submit', function(e) {--}}
-{{--                    e.preventDefault();--}}
+            // Prévisualisation fichiers
+            function previewFile(input, previewDivId) {
+                const preview = document.getElementById(previewDivId);
+                preview.innerHTML = '';
+                const file = input.files[0];
+                if (!file) return;
+                const fileType = file.type;
 
-{{--                    let formData = new FormData(this);--}}
+                if (fileType === 'application/pdf') {
+                    const object = document.createElement('object');
+                    object.data = URL.createObjectURL(file);
+                    object.type = 'application/pdf';
+                    object.width = '100%';
+                    object.height = '200px';
+                    object.style.border = '1px solid #ccc';
+                    preview.appendChild(object);
+                } else {
+                    const span = document.createElement('span');
+                    span.textContent = `Fichier sélectionné : ${file.name}`;
+                    span.classList.add('badge', 'bg-secondary', 'mt-1');
+                    preview.appendChild(span);
+                }
+            }
 
-{{--                    $.ajax({--}}
-{{--                        url: $(this).attr('action'),--}}
-{{--                        type: 'POST',--}}
-{{--                        data: formData,--}}
-{{--                        processData: false, // Important pour envoyer FormData--}}
-{{--                        contentType: false, // Important pour envoyer FormData--}}
-{{--                        headers: {--}}
-{{--                            'X-CSRF-TOKEN': $('input[name="_token"]').val()--}}
-{{--                        },--}}
-{{--                        beforeSend: function() {--}}
-{{--                            // Optionnel : bloquer bouton etc.--}}
-{{--                            $('#candidatureForm button[type="submit"]').prop('disabled', true).text(--}}
-{{--                                'Envoi en cours...');--}}
-{{--                        },--}}
-{{--                        success: function(response) {--}}
-{{--                            $('#formFeedback').html(--}}
-{{--                                '<div class="alert alert-success">Votre candidature a été envoyée avec succès.</div>'--}}
-{{--                            );--}}
-{{--                            $('#candidatureForm')[0].reset();--}}
-{{--                        },--}}
-{{--                        error: function(xhr) {--}}
-{{--                            if (xhr.status === 422) {--}}
-{{--                                let errors = xhr.responseJSON.errors;--}}
-{{--                                let errorHtml = '<div class="alert alert-danger"><ul>';--}}
-
-{{--                                $.each(errors, function(key, messages) {--}}
-{{--                                    $.each(messages, function(index, message) {--}}
-{{--                                        errorHtml += '<li>' + message + '</li>';--}}
-{{--                                    });--}}
-{{--                                });--}}
-
-{{--                                errorHtml += '</ul></div>';--}}
-{{--                                $('#formFeedback').html(errorHtml);--}}
-{{--                            } else {--}}
-{{--                                $('#formFeedback').html(--}}
-{{--                                    '<div class="alert alert-danger">Une erreur est survenue, veuillez réessayer.</div>'--}}
-{{--                                );--}}
-{{--                            }--}}
-{{--                        },--}}
-{{--                        complete: function() {--}}
-{{--                            $('#candidatureForm button[type="submit"]').prop('disabled', false)--}}
-{{--                                .text('Envoyer la candidature');--}}
-{{--                        }--}}
-{{--                    });--}}
-{{--                });--}}
-{{--            });--}}
-{{--        </script>--}}
-{{--    @endsection--}}
+            $('#cv').on('change', function() { previewFile(this, 'cvPreview'); });
+            $('#lettre_motivation').on('change', function() { previewFile(this, 'lettrePreview'); });
+        });
+    </script>
+@endsection
