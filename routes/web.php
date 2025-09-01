@@ -13,6 +13,7 @@ use App\Http\Controllers\ImmobiliersController;
 use App\Http\Controllers\LoginController;
 
 use App\Http\Controllers\PaiementsController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PayPalController;
 
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SitedashboardController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UniversiteController;
+use App\Services\AuthorizeNetGateway;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OffreController;
 use App\Http\Controllers\UtilisateurController;
@@ -39,6 +41,35 @@ use App\Http\Controllers\GoogleAuthController;
 //        'client_secret' => env('PAYPAL_SANDBOX_CLIENT_SECRET'),
 //    ]);
 //});
+//Route::get('/test-auth', function() {
+//    $gateway = new \App\Services\AuthorizeNetGateway();
+//
+//    return [
+//        'apiLoginId' => config('services.authorize.api_login_id'),
+//        'transactionKey' => config('services.authorize.transaction_key'),
+//        'sandbox' => config('services.authorize.sandbox'),
+//    ];
+//});
+
+//Route::get('/test-payment', function () {
+//    $gateway = new AuthorizeNetGateway();
+//
+//    $response = $gateway->charge([
+//        'amount' => 1.00,
+//        'currency' => 'USD',
+//        'card_number' => '4111111111111111',
+//        'expiry_month' => '12',
+//        'expiry_year' => '2026',
+//        'cvv' => '123',
+//    ]);
+//
+//    if($response->isSuccessful()){
+//        return "Success: " . $response->getTransactionReference();
+//    } else {
+//        return "Error: " . $response->getMessage();
+//    }
+//});
+
 Route::get('/', [SitedashboardController::class, 'index'])->name('homesite.index');
 Route::get('/actualite', [SitedashboardController::class, 'actualite']);
 Route::get('/location', [SitedashboardController::class, 'location'])->name('location');
@@ -64,9 +95,9 @@ Route::get('/creation_compte', [ComptclientController::class, 'index'])->name('r
 
 // routes/web.php
 Route::post('/register/ajax', [ComptclientController::class, 'store'])->name('register.ajax');
-Route::get('/universite', [UniversiteController::class,'index']);
-Route::get('/admin/universite', [UniversiteController::class,'index_admin'])->name('adminuniversite.index_admin');
-Route::get('/universite/{id}/daille', [UniversiteController::class,'deitalle'])->name('universite.detaille');
+Route::get('/universite', [UniversiteController::class, 'index']);
+Route::get('/admin/universite', [UniversiteController::class, 'index_admin'])->name('adminuniversite.index_admin');
+Route::get('/universite/{id}/daille', [UniversiteController::class, 'deitalle'])->name('universite.detaille');
 Route::get('/details_offre/{id}', [details_offreController::class, 'show'])->name('details_offre.show');
 Route::get('/se_connecter', [connexionController::class, 'index'])->name('se_connecter');
 //Route::get('/registre', [RegisteredUserController::class, 'create'])->name('registre.create');
@@ -99,50 +130,57 @@ Route::middleware('auth')->group(function () {
     // route pour afficher les offres côté site vitrine
 
     Route::get('/candidature/{offre}', [CandidatureController::class, 'create'])->name('candidature.form');
-//    Route::post('/candidature', [CandidatureController::class, 'store'])->name('candidatures.store');
+    //    Route::post('/candidature', [CandidatureController::class, 'store'])->name('candidatures.store');
     Route::resource('/candidature', CandidatureController::class);
     Route::get('/admin/utilisateurs/clients', [UtilisateurController::class, 'clients'])->name('utilisateurs.clients');
     Route::get('/admin/offres/{offre}/candidats', [UtilisateurController::class, 'candidats'])->name('admin.offres.candidats');
     Route::post('candidature/{candidature}/status', [UtilisateurController::class, 'updateStatus'])->name('candidature.updateStatus');
-// Pour lister les candidats d’une offre avec filtrage
-Route::get('/candidature/{offre}', [UtilisateurController::class, 'candidats'])
-    ->name('candidature.candidats');
+    // Pour lister les candidats d’une offre avec filtrage
+    Route::get('/candidature/{offre}', [UtilisateurController::class, 'candidats'])
+        ->name('candidature.candidats');
 
     Route::post('/candidatures/{id}/alerte', [CandidatureController::class, 'envoyerAlerte'])->name('candidature.alerte');
 
     Route::get('/admin/utilisateurs/profile/{id}', [UtilisateurController::class, 'profile'])->name('utilisateurs.profile');
 
-//    Route::post('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
-//    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
-//    Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
-    Route::post('paypal/create-order', [PayPalController::class, 'createOrder'])->name('paypal.createOrder');
-    Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
-    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+    //    Route::post('paypal/payment', [PayPalController::class, 'payment'])->name('paypal.payment');
+    //    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+    //    Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
+    //    Route::post('paypal/create-order', [PayPalController::class, 'createOrder'])->name('paypal.createOrder');
+    //    Route::get('paypal/success', [PayPalController::class, 'success'])->name('paypal.success');
+    //    Route::get('paypal/cancel', [PayPalController::class, 'cancel'])->name('paypal.cancel');
+
+
+    Route::get('/paypal/pay', [PayPalController::class, 'pay'])->name('paypal.pay');
+    Route::post('/paypal/capture', [PayPalController::class, 'capture'])->name('paypal.capture');
 
     Route::get('/admin/candidats', [UtilisateurController::class, 'candidatsliste'])->name('utilisateurs.candidats');
 
-// Voir CV
+    // Voir CV
     Route::get('/admin/candidats/{id}/cv', [UtilisateurController::class, 'showCv'])->name('candidats.cv');
 
-// Voir lettre de motivation
+    // Voir lettre de motivation
     Route::get('/admin/candidats/{id}/lettre', [UtilisateurController::class, 'showLettre'])->name('candidats.lettre');
 
-//    universite
+    //    universite
     Route::resource('/universites', UniversiteController::class);
     Route::resource('/evenements', EvenementController::class);
     Route::resource('/adminactualite', ActualiteController::class);
-        Route::get('/evenements/{evenement}/reservations', [EvenementController::class, 'parEvenement'])
-            ->name('evenements.clients');
+    Route::get('/evenements/{evenement}/reservations', [EvenementController::class, 'parEvenement'])
+        ->name('evenements.clients');
 
     Route::post('/tickets/{ticket}/confirmer', [TicketController::class, 'confirmer'])->name('tickets.confirmer');
     Route::get('/tickets/{ticket}/print', [TicketController::class, 'print'])->name('tickets.print');
 
     Route::resource('entreprises', EntrepriseController::class);
-    Route::post('/utilisateurs/{user}/toggle', [UtilisateurController::class,'toggleStatus'])->name('utilisateurs.toggle');
+    Route::post('/utilisateurs/{user}/toggle', [UtilisateurController::class, 'toggleStatus'])->name('utilisateurs.toggle');
 
-// ✅ Route Ajax
-//    Route::get('/entreprises/data', [EntrepriseController::class, 'getData'])->name('entreprises.data');
+    // ✅ Route Ajax
+    //    Route::get('/entreprises/data', [EntrepriseController::class, 'getData'])->name('entreprises.data');
 
+
+    Route::get('/payment', [PaymentController::class, 'showForm'])->name('payment.form');
+    Route::post('/payment', [PaymentController::class, 'charge'])->name('payment.charge');
 });
 
 

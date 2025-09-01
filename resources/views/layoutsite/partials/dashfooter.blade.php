@@ -1,118 +1,106 @@
-{{-- <div class="container">--}}
-{{--        <div class="row">--}}
-{{--          <div class="footer-col-1 col-md-3 col-sm-12"><a href="index.html"><img alt="jobBox" src="assets/imgs/template/jobhub-logo.svg"></a>--}}
-{{--            <div class="mt-20 mb-20 font-xs color-text-paragraph-2">JobBox is the heart of the design community and the best resource to discover and connect with designers and jobs worldwide.</div>--}}
-{{--            <div class="footer-social"><a class="icon-socials icon-facebook" href="#"></a><a class="icon-socials icon-twitter" href="#"></a><a class="icon-socials icon-linkedin" href="#"></a></div>--}}
-{{--          </div>--}}
-{{--          <div class="footer-col-2 col-md-2 col-xs-6">--}}
-{{--            <h6 class="mb-20">Resources</h6>--}}
-{{--            <ul class="menu-footer">--}}
-{{--              <li><a href="#">About us</a></li>--}}
-{{--              <li><a href="#">Our Team</a></li>--}}
-{{--              <li><a href="#">Products</a></li>--}}
-{{--              <li><a href="#">Contact</a></li>--}}
-{{--            </ul>--}}
-{{--          </div>--}}
-{{--          <div class="footer-col-3 col-md-2 col-xs-6">--}}
-{{--            <h6 class="mb-20">Community</h6>--}}
-{{--            <ul class="menu-footer">--}}
-{{--              <li><a href="#">Feature</a></li>--}}
-{{--              <li><a href="#">Pricing</a></li>--}}
-{{--              <li><a href="#">Credit</a></li>--}}
-{{--              <li><a href="#">FAQ</a></li>--}}
-{{--            </ul>--}}
-{{--          </div>--}}
-{{--          <div class="footer-col-4 col-md-2 col-xs-6">--}}
-{{--            <h6 class="mb-20">Quick links</h6>--}}
-{{--            <ul class="menu-footer">--}}
-{{--              <li><a href="#">iOS</a></li>--}}
-{{--              <li><a href="#">Android</a></li>--}}
-{{--              <li><a href="#">Microsoft</a></li>--}}
-{{--              <li><a href="#">Desktop</a></li>--}}
-{{--            </ul>--}}
-{{--          </div>--}}
-{{--          <div class="footer-col-5 col-md-2 col-xs-6">--}}
-{{--            <h6 class="mb-20">More</h6>--}}
-{{--            <ul class="menu-footer">--}}
-{{--              <li><a href="#">Privacy</a></li>--}}
-{{--              <li><a href="#">Help</a></li>--}}
-{{--              <li><a href="#">Terms</a></li>--}}
-{{--              <li><a href="#">FAQ</a></li>--}}
-{{--            </ul>--}}
-{{--          </div>--}}
-{{--          <div class="footer-col-6 col-md-3 col-sm-12">--}}
-{{--            <h6 class="mb-20">Download App</h6>--}}
-{{--            <p class="color-text-paragraph-2 font-xs">Download our Apps and get extra 15% Discount on your first Order&mldr;!</p>--}}
-{{--            <div class="mt-15"><a class="mr-5" href="#"><img src="assets/imgs/template/icons/app-store.png" alt="joxBox"></a><a href="#"><img src="assets/imgs/template/icons/android.png" alt="joxBox"></a></div>--}}
-{{--          </div>--}}
-{{--        </div>--}}
-{{--        <div class="footer-bottom mt-50">--}}
-{{--          <div class="row">--}}
-{{--            <div class="col-md-6"><span class="font-xs color-text-paragraph">Copyright &copy; 2022. JobBox all right reserved</span></div>--}}
-{{--            <div class="col-md-6 text-md-end text-start">--}}
-{{--              <div class="footer-social"><a class="font-xs color-text-paragraph" href="#">Privacy Policy</a><a class="font-xs color-text-paragraph mr-30 ml-30" href="#">Terms &amp; Conditions</a><a class="font-xs color-text-paragraph" href="#">Security</a></div>--}}
-{{--            </div>--}}
-{{--          </div>--}}
-{{--        </div>--}}
-{{--      </div>--}}
-
-<footer class="bg-light text-dark pt-5 border-top shadow-sm">
+<footer style="background: #0d1b2a; color: #fff; padding: 80px 0; font-family: 'Poppins', sans-serif;">
     <div class="container">
-        <div class="row gy-4">
+        <div class="row gy-5">
 
-            <!-- Section 1 : Logo + description -->
-            <div class="col-md-4 col-sm-12">
-                <a href="{{ url('/') }}">
-                    <img src="assets/imgs/logo-location-dark.svg" alt="Logo" style="height: 40px;">
+            <!-- Logo + Description -->
+            <div class="col-lg-4 col-md-6">
+                <a href="{{ route('home.index') }}">
+                    <img src="{{ asset('asset/imgs/logo.jpeg') }}" alt="Logo" style="height: 50px; filter: brightness(0) invert(1);">
                 </a>
-                <p class="mt-3 text-muted">
+                <p class="mt-3 text-white-50">
                     Trouvez rapidement des chambres, appartements et maisons à louer à Ségou et ailleurs. Simple, rapide et fiable.
                 </p>
                 <div class="d-flex gap-3 mt-3">
-                    <a href="#"><i class="fab fa-facebook fa-lg text-secondary"></i></a>
-                    <a href="#"><i class="fab fa-twitter fa-lg text-secondary"></i></a>
-                    <a href="#"><i class="fab fa-instagram fa-lg text-secondary"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
 
-            <!-- Section 2 : Navigation -->
-            <div class="col-md-2 col-sm-6">
-                <h6 class="fw-bold mb-3">Navigation</h6>
+            <!-- Navigation -->
+            <div class="col-lg-2 col-md-6">
+                <h6 class="fw-bold text-uppercase mb-4">Navigation</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-muted text-decoration-none">Accueil</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">Nos Offres</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">À propos</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">Contact</a></li>
+                    <li><a href="{{ url('/') }}" class="footer-link">Accueil</a></li>
+                    <li><a href="{{ route('location') }}" class="footer-link">Location</a></li>
+                    <li><a href="{{ route('offres') }}" class="footer-link">Offres</a></li>
+                    <li><a href="{{ url('actualite') }}" class="footer-link">Actualités</a></li>
+                    <li><a href="{{ url('universite') }}" class="footer-link">Universités</a></li>
                 </ul>
             </div>
 
-            <!-- Section 3 : Aide -->
-            <div class="col-md-2 col-sm-6">
-                <h6 class="fw-bold mb-3">Aide</h6>
+            <!-- Liens utiles -->
+            <div class="col-lg-2 col-md-6">
+                <h6 class="fw-bold text-uppercase mb-4">Liens utiles</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-muted text-decoration-none">FAQ</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">Support</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">Conditions</a></li>
-                    <li><a href="#" class="text-muted text-decoration-none">Confidentialité</a></li>
+                    <li><a href="#" class="footer-link">FAQ</a></li>
+                    <li><a href="#" class="footer-link">Support</a></li>
+                    <li><a href="#" class="footer-link">Conditions</a></li>
+                    <li><a href="#" class="footer-link">Confidentialité</a></li>
                 </ul>
             </div>
 
-            <!-- Section 4 : Contact -->
-            <div class="col-md-4 col-sm-12">
-                <h6 class="fw-bold mb-3">Nous contacter</h6>
-                <p class="text-muted mb-1"><i class="fas fa-map-marker-alt me-2"></i> Ségou, Mali</p>
-                <p class="text-muted mb-1"><i class="fas fa-envelope me-2"></i> contact@locationchambres.ml</p>
-                <p class="text-muted"><i class="fas fa-phone me-2"></i> +223 76 00 00 00</p>
+            <!-- Newsletter & Contact -->
+            <div class="col-lg-4 col-md-6">
+                <h6 class="fw-bold text-uppercase mb-3">Newsletter</h6>
+                <p class="text-white-50">Recevez les dernières offres directement dans votre boîte mail :</p>
+                <form class="d-flex mb-3">
+                    <input type="email" class="form-control me-2" placeholder="Votre email" required>
+                    <button type="submit" class="btn btn-cyan fw-bold">S'abonner</button>
+                </form>
+                <h6 class="fw-bold text-uppercase mb-3 mt-3">Contact</h6>
+                <p class="mb-1"><i class="fas fa-map-marker-alt me-2 text-cyan"></i> Ségou, Mali</p>
+                <p class="mb-1"><i class="fas fa-envelope me-2 text-cyan"></i> contact@locationchambres.ml</p>
+                <p><i class="fas fa-phone me-2 text-cyan"></i> +223 76 00 00 00</p>
             </div>
+
         </div>
 
-        <!-- Ligne du bas -->
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 pt-3 border-top text-muted small">
+        <!-- Bas du footer -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-5 pt-3 border-top border-white-25 small">
             <p class="mb-2 mb-md-0">&copy; 2025 LocationChambres. Tous droits réservés.</p>
             <div class="d-flex gap-3">
-                <a href="#" class="text-muted text-decoration-none">Politique de confidentialité</a>
-                <a href="#" class="text-muted text-decoration-none">Conditions d’utilisation</a>
+                <a href="#" class="footer-link">Politique de confidentialité</a>
+                <a href="#" class="footer-link">Conditions d’utilisation</a>
             </div>
         </div>
     </div>
+
+    <style>
+        /* Couleurs et hover */
+        .text-white-50 { color: rgba(255,255,255,0.7); }
+        .footer-link { color: rgba(255,255,255,0.9); text-decoration: none; transition: 0.3s; }
+        .footer-link:hover { color: #00bcd4; text-decoration: underline; }
+
+        .social-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+            color: #fff;
+        }
+        .social-icon:hover {
+            background: #00bcd4;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .btn-cyan {
+            background-color: #00bcd4;
+            color: #0d1b2a;
+            border: none;
+        }
+        .btn-cyan:hover {
+            background-color: #00acc1;
+            color: #fff;
+        }
+
+        @media (max-width: 576px) {
+            footer .d-flex.flex-md-row { flex-direction: column !important; text-align: center; gap: 10px; }
+        }
+    </style>
 </footer>

@@ -39,5 +39,20 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT_URL'),
     ],
+//    'authorize' => [
+//        'api_login_id' =>'5vPBPg75gB',
+//        'transaction_key' => '8mK2wC6T5b56T7ax',
+//        'sandbox' => env('AUTHORIZE_NET_SANDBOX', true),
+//    ],
+    'authorizenet' => [
+        'api_login_id'     => env('AUTHORIZE_NET_API_LOGIN_ID'),
+        'transaction_key'  => env('AUTHORIZE_NET_TRANSACTION_KEY'),
+        'sandbox'          => true, // ✅ activer sandbox par défaut
+    ],
+    'paypal' => [
+        'client_id' => env('PAYPAL_CLIENT_ID'),
+        'client_secret' => env('PAYPAL_CLIENT_SECRET'),
+        'mode' => env('PAYPAL_MODE'),
+    ],
 
 ];

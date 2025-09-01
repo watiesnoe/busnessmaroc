@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-     {{-- <style>
+    {{-- <style>
         body {
             background: #f8f9fa;
         }
@@ -77,7 +77,7 @@
                 </div>
             </div>
         </div>
-    </section>  --}}
+    </section> --}
 
     <style>
         body {
@@ -231,7 +231,7 @@
             </div>
         </div>
     </div>
-     <div class="modal fade" id="reservationModal" tabindex="-1">
+    {{-- <div class="modal fade" id="reservationModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #d50100; color: #fff;">
@@ -272,7 +272,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div> --}}
 
 @endsection
 @section('scripts')
@@ -295,6 +295,7 @@
             };
 
             // Soumission du formulaire via AJAX
+            // Soumission du formulaire via AJAX
             $('#formReservation').submit(function(e) {
                 e.preventDefault();
                 let form = $(this);
@@ -303,15 +304,33 @@
                     method: 'POST',
                     data: form.serialize(),
                     success: function(response) {
-                        alert('✅ Votre ticket a été réservé avec succès !');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Réservation réussie 🎉',
+                            text: response.message,
+                            confirmButtonColor: '#d50100'
+                        });
+
                         $('#reservationModal').modal('hide');
                         form[0].reset();
                     },
                     error: function(xhr) {
-                        alert('❌ Une erreur est survenue. Veuillez réessayer.');
+                        let errorMessage = '❌ Une erreur est survenue. Veuillez réessayer.';
+
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        }
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oups...',
+                            text: errorMessage,
+                            confirmButtonColor: '#d50100'
+                        });
                     }
                 });
             });
+
 
         });
     </script>

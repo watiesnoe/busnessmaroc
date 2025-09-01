@@ -8,9 +8,9 @@
         <div class="col-md-6 col-xl-3 mb-4">
             <div class="block block-rounded text-center h-100">
                 <div class="block-content block-content-full bg-image"
-                    style="background-image: url('{{ asset('admin1/media/photos/photo' . rand(1, 20) . '.jpg') }}'); height: 120px;">
+                    style="background-image: url('{{ asset('admin/media/photos/photo' . rand(1, 20) . '.jpg') }}'); height: 120px;">
                     <img class="img-avatar img-avatar-thumb mt-5"
-                        src="{{ asset('admin1/media/avatars/avatar' . rand(1, 10) . '.jpg') }}" alt="Avatar candidat">
+                        src="{{ asset('admin/media/avatars/avatar' . rand(1, 10) . '.jpg') }}" alt="Avatar candidat">
                 </div>
 
                 <div class="block-content block-content-full block-content-sm bg-body-light">
