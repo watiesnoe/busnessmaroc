@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photo extends Model
 {
-    use HasFactory; // ✅ C'est ce trait qui permet d'appeler ->factory()
+    use HasFactory, \App\Traits\HasUuid; // ✅ C'est ce trait qui permet d'appeler ->factory()
 
     protected $fillable = ['immobilier_id', 'chambre_id', 'url', 'principale'];
 

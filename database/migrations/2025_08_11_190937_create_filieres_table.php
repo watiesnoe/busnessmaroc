@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('filieres', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->foreignId('universite_id')->constrained()->onDelete('cascade');
             $table->string('nom');
             $table->text('description')->nullable();

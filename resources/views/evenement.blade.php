@@ -1,84 +1,8 @@
 @extends('layoutsite.site')
 
-@section('titre')
-    Actualités & Événements
-@endsection
+@section('titre', 'Actualités & Événements — Business Maroc')
 
-@section('content')
-    {{-- <style>
-        body {
-            background: #f8f9fa;
-        }
-
-        .navbar {
-            background: #212529;
-        }
-
-        .navbar-brand {
-            color: #fff;
-        }
-
-        .card {
-            border-radius: 15px;
-            overflow: hidden;
-        }
-
-        .card img {
-            height: 220px;
-            object-fit: cover;
-        }
-
-        .btn-reserver {
-            background: #e63946;
-            color: white;
-            border-radius: 0;
-        }
-
-        .btn-reserver:hover {
-            background: #c1121f;
-        }
-
-    </style>
-
- 
-    <section class="py-5 bg-dark text-white">
-        <h4 class="fw-bold text-center ">Ne manquez aucun événement !</h4>
-        <div class="container-fluid">
-
-            <div id="evenementsCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @foreach ($evenements as $key => $event)
-                        <div class="carousel-item @if ($key == 0) active @endif">
-                            <img src="{{ asset('storage/' . $event->image) }}" class="card-img-top" height="400"
-                                 alt="{{ $event->titre }}">
-                        </div>
-                    @endforeach
-                </div>
-
-                <!-- Contrôles -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#evenementsCarousel"
-                        data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Précédent</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#evenementsCarousel"
-                        data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Suivant</span>
-                </button>
-
-                <!-- Indicateurs -->
-                <div class="carousel-indicators mt-3">
-                    @foreach ($evenements as $key => $event)
-                        <button type="button" data-bs-target="#evenementsCarousel" data-bs-slide-to="{{ $key }}"
-                                class="@if ($key == 0) active @endif" aria-current="true"
-                                aria-label="Slide {{ $key+1 }}"></button>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </section> --}
-
+@push('styles')
     <style>
         body {
             background: #f8f9fa;
@@ -146,6 +70,9 @@
             background-color: #d50100;
         }
     </style>
+@endpush
+
+@section('content')
 
     <section class="evenements-section">
         <h4>🎉 Ne manquez aucun événement !</h4>
@@ -192,46 +119,6 @@
 
     <!-- Modal réservation -->
     <div class="modal fade" id="reservationModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                 <div class="modal-header" style="background-color: #f48181; color: #fff;">
-                <h5 class="modal-title">Réservation de ticket</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-                <div class="modal-body">
-                    <form id="formReservation" method="POST" action="{{ route('tickets.store') }}">
-                        @csrf
-                        <input type="hidden" id="eventId" name="evenement_id">
-
-                        <div class="mb-3">
-                            <label class="form-label">Événement</label>
-                            <input type="text" id="eventName" class="form-control" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Nom</label>
-                            <input type="text" class="form-control" name="nom" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Quantité de tickets</label>
-                            <input type="number" class="form-control" id="quantite" name="quantite" min="1"
-                                value="1" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Montant total</label>
-                            <input type="text" class="form-control" id="montantTotal" readonly>
-                        </div>
-
-                        <button type="submit" class="btn btn-success w-100" style="background-color: #d50100; color: #fff;">Confirmer la réservation</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{-- <div class="modal fade" id="reservationModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background-color: #d50100; color: #fff;">
@@ -272,7 +159,7 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 
 @endsection
 @section('scripts')

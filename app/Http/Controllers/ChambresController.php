@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chambre;
-use App\Models\Image;
 use App\Models\Immobilier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -64,10 +63,10 @@ class ChambresController extends Controller
             foreach ($request->chambres as $chambreData) {
                 Chambre::create([
                     'immobilier_id' => $request->immobilier_id,
-                    'typechambre'   => $chambreData['typechambre'],
-                    'prix_jour'          => $chambreData['prix_jour'],
-                    'prix_mois'          => $chambreData['prix_mois'],
-                    'prix_annee'          => $chambreData['prix_annee'],
+                    'type'          => $chambreData['typechambre'],
+                    'prix_jour'     => $chambreData['prix_jour'],
+                    'prix_mois'     => $chambreData['prix_mois'],
+                    'prix_annee'    => $chambreData['prix_annee'],
                     'capacite'      => $chambreData['capacite'],
                     'statut'        => $chambreData['statut'],
                     'description'   => $chambreData['description'],
@@ -86,12 +85,12 @@ class ChambresController extends Controller
         }
 
     }
-    Public function show($id)
+    public function show($id)
     {
         // Logic to display a specific room
         return view('chambres.show', compact('id'));
     }
-    Public function edit($id)
+    public function edit($id)
     {
         $chambre = Chambre::with('immobilier.category')->findOrFail($id);
         $immobiliers = Immobilier::with('category')->get(); // pour choix dans le select
@@ -100,11 +99,43 @@ class ChambresController extends Controller
         // Logic to show the form for editing a specific room
         return view('admin.chambres.edit',  compact('chambre', 'immobiliers'));
     }
-    Public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
-        // Logic to update a specific room
-        // Validate and update the room data
-        // Redirect or return a response
+        $request->validate([
+            'immobilier_id' => 'required|exists:immobiliers,id',
+            'type' => 'required',
+            'prix_jour' => 'required|numeric',
+            'prix_mois' => 'required|numeric',
+            'prix_annee' => 'required|numeric',
+            'capacite' => 'required|integer',
+            'statut' => 'required',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        $chambre = Chambre::findOrFail($id);
+
+        $data = [
+            'immobilier_id' => $request->immobilier_id,
+            'type' => $request->type,
+            'prix_jour' => $request->prix_jour,
+            'prix_mois' => $request->prix_mois,
+            'prix_annee' => $request->prix_annee,
+            'capacite' => $request->capacite,
+            'statut' => $request->statut,
+            'description' => $request->description,
+        ];
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('chambres', 'public');
+        }
+
+        $chambre->update($data);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Chambre mise à jour avec succès !'
+        ]);
     }
 
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vue extends Model
 {
-    use HasFactory; // ✅ Ce trait est ESSENTIEL
+    use HasFactory, \App\Traits\HasUuid; // ✅ Ce trait est ESSENTIEL
 
     protected $fillable = ['immobilier_id', 'ip_visiteur', 'user_agent'];
 

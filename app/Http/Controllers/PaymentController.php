@@ -39,7 +39,17 @@ class PaymentController extends Controller
             'cvv' => 'required|digits_between:3,4',
             'immobilier_id' => 'required|exists:immobiliers,id',
             'chambre_id' => 'required|exists:chambres,id',
+            'poulet_chair_qty' => 'nullable|integer|min:0',
+            'poulet_cuit_qty' => 'nullable|integer|min:0',
         ]);
+
+        // 🔹 1. Vérifier la disponibilité de la chambre avant de facturer
+        $chambreModel = Chambre::findOrFail($validated['chambre_id']);
+        if ($chambreModel->statut !== 'disponible') {
+            return response()->json([
+                'message' => 'Désolé, cette chambre n\'est plus disponible pour la réservation.'
+            ], 422);
+        }
 
         $paymentData = [
             'amount' => $validated['amount'],
@@ -50,59 +60,73 @@ class PaymentController extends Controller
             'cvv' => $validated['cvv'],
         ];
 
-        DB::beginTransaction();
-
         try {
-            // 🔹 Paiement via Authorize.Net
+            // 🔹 2. Paiement via Authorize.Net (appel réseau externe, fait HORS de la transaction DB)
             $response = $this->gatewayService->charge($paymentData);
 
             if ($response->isSuccessful()) {
                 $responseData = $response->getData();
                 $testRequest = (string) $responseData->transactionResponse->testRequest;
 
-                // ✅ Mettre la chambre en statut "réservée"
-                $chambreModel = Chambre::findOrFail($validated['chambre_id']);
-                $chambreModel->update(['statut' => 'reservee']);
+                // 🔹 3. Enregistrement en base de données ( transaction DB très rapide )
+                DB::beginTransaction();
+                try {
+                    // Double-check de sécurité avec lock
+                    $chambreModel = Chambre::lockForUpdate()->findOrFail($validated['chambre_id']);
+                    if ($chambreModel->statut !== 'disponible') {
+                        throw new \Exception('La chambre a été réservée par un autre utilisateur pendant le paiement.');
+                    }
 
-                // 🔹 Créer le contrat de location
-                $contrat = ContratLocation::create([
-                    'user_id' => auth()->id(),
-                    'chambre_id' => $validated['chambre_id'],
-                    'immobilier_id' => $validated['immobilier_id'],
-                    'type_contrat' => $validated['type_contrat'],
-                    'date_debut' => $validated['date_debut'],
-                    'date_fin' => $validated['date_fin'],
-                    'prix_total' => $validated['amount'],
-                    'conditions_particulieres' => $request->conditions_particulieres,
-                    'statut' => 'confirmé',
-                    'transaction_id' => $testRequest,
-                ]);
+                    // ✅ Mettre la chambre en statut "réservée"
+                    $chambreModel->update(['statut' => 'reservee']);
 
-                // 🔹 Enregistrer le paiement
-                Paiements::create([
-                    'contratlocation_id' => $contrat->id,
-                    'montant' => $validated['amount'],
-                    'date_paiement' => now(),
-                    'mode_paiement' => 'card',
-                    'statut' => 'completed',
-                ]);
+                    // 🔹 Créer le contrat de location
+                    $contrat = ContratLocation::create([
+                        'user_id' => auth()->id(),
+                        'chambre_id' => $validated['chambre_id'],
+                        'immobilier_id' => $validated['immobilier_id'],
+                        'type_contrat' => $validated['type_contrat'],
+                        'date_debut' => $validated['date_debut'],
+                        'date_fin' => $validated['date_fin'],
+                        'prix_total' => $validated['amount'],
+                        'poulet_chair_qty' => (int) $request->input('poulet_chair_qty', 0),
+                        'poulet_cuit_qty' => (int) $request->input('poulet_cuit_qty', 0),
+                        'conditions_particulieres' => $request->conditions_particulieres,
+                        'statut' => 'confirmé',
+                        'transaction_id' => $testRequest,
+                    ]);
 
-                DB::commit();
+                    // 🔹 Enregistrer le paiement
+                    Paiements::create([
+                        'contratlocation_id' => $contrat->id,
+                        'montant' => $validated['amount'],
+                        'date_paiement' => now(),
+                        'mode_paiement' => 'card',
+                        'statut' => 'completed',
+                    ]);
 
-                return response()->json([
-                    'message' => 'Paiement effectué avec succès. Transaction ID: ' . $response->getTransactionReference()
-                ]);
+                    DB::commit();
+
+                    return response()->json([
+                        'message' => 'Paiement effectué avec succès. Transaction ID: ' . $response->getTransactionReference()
+                    ]);
+                } catch (\Exception $dbEx) {
+                    DB::rollBack();
+                    // Note: Le client a été facturé mais la base de données a échoué à s'enregistrer.
+                    // On log l'erreur pour intervention manuelle.
+                    logger()->critical('Erreur base de données après paiement réussi. Transaction ID: ' . $testRequest . '. Erreur: ' . $dbEx->getMessage());
+                    
+                    return response()->json([
+                        'message' => 'Paiement autorisé mais une erreur interne est survenue. Veuillez contacter le support technique avec le numéro de transaction: ' . $testRequest
+                    ], 500);
+                }
             } else {
-                DB::rollBack();
-
                 return response()->json([
                     'message' => 'Erreur paiement: ' . $response->getMessage()
                 ], 422);
             }
 
         } catch (\Exception $e) {
-            DB::rollBack();
-
             return response()->json([
                 'message' => 'Exception: ' . $e->getMessage()
             ], 500);

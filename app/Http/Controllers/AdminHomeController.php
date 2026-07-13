@@ -8,6 +8,9 @@ use App\Models\ContratLocation;
 use App\Models\Immobilier;
 use App\Models\Offre;
 use App\Models\User;
+use App\Models\Ticket;
+use App\Models\Evenement;
+use App\Models\Paiements;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +26,7 @@ class AdminHomeController extends Controller
         if (Auth::check() && (Auth::user()->role === 'admin' || Auth::user()->role === 'superadmin')) {
             $totalImmobiliers = Immobilier::count();
             $immobiliersDisponibles = Immobilier::where('statut', 'disponible')->count();
-            $immobiliersOccupes = Immobilier::whereIn('statut', ['reserve', 'loue'])->count();
+            $immobiliersOccupes = Chambre::whereIn('statut', ['reservee', 'occupee'])->count(); // more accurate: count chambers reserved/occupied
 
             $chambresDisponibles = Chambre::where('statut', 'disponible')->count();
             $contratsActifs = ContratLocation::where('statut', 'actif')->count();
@@ -34,6 +37,16 @@ class AdminHomeController extends Controller
             $clientsNonCandidats = User::where('role', 'client')
                 ->whereDoesntHave('candidatures')
                 ->count();
+
+            // ✅ Statistiques Evenements / Tickets
+            $totalEvenements = Evenement::count();
+            $totalTicketsVendus = Ticket::where('statut', 'paye')->sum('quantite');
+            $totalRevenueTickets = Ticket::where('statut', 'paye')->sum('montant_total');
+            $totalRevenueLogements = Paiements::where('statut', 'completed')->sum('montant');
+            
+            // ✅ Listes récentes
+            $recentContrats = ContratLocation::with(['user', 'chambre.immobilier'])->latest()->take(5)->get();
+            $recentTickets = Ticket::with(['user', 'evenement'])->latest()->take(5)->get();
 
             // Graphique des offres par mois
             $offresParMois = Offre::selectRaw('MONTH(date_publication) as mois, COUNT(*) as total')
@@ -58,7 +71,13 @@ class AdminHomeController extends Controller
                 'contratsActifs',
                 'totalCandidatures',
                 'totalOffres',
-                'clientsNonCandidats', // ✅ passer à la vue
+                'clientsNonCandidats',
+                'totalEvenements',
+                'totalTicketsVendus',
+                'totalRevenueTickets',
+                'totalRevenueLogements',
+                'recentContrats',
+                'recentTickets',
                 'labels',
                 'data'
             ));

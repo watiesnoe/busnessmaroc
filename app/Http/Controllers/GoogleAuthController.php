@@ -37,7 +37,7 @@ class GoogleAuthController extends Controller
 
             return redirect('/')->with('success', 'Connexion réussie via Google');
         } catch (\Exception $e) {
-            return redirect('/login')->withErrors(['google' => 'Erreur lors de la connexion Google.']);
+            return redirect('/se_connecter')->withErrors(['google' => 'Erreur lors de la connexion Google.']);
         }
     }
 }

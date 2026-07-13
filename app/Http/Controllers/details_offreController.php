@@ -37,8 +37,17 @@ class details_offreController extends Controller
      */
     public function show(string $id)
     {
-        //
-        $offre = Offre::findOrFail($id);
+        $query = Offre::query();
+        if (\Illuminate\Support\Facades\Schema::hasColumn('offres', 'uuid')) {
+            $query->where('uuid', $id)->orWhere('id', $id);
+        } else {
+            $query->where('id', $id);
+        }
+        $offre = $query->firstOrFail();
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn('offres', 'uuid') && $id == $offre->id && !empty($offre->uuid)) {
+            return redirect()->route('details_offre.show', $offre->uuid);
+        }
 
         return view('details_offre', compact('offre'));
     }

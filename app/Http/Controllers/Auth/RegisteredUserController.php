@@ -23,7 +23,12 @@ class RegisteredUserController extends Controller
 //    }
     public function create(): View
     {
-        return view('auth.register');
+        if (!Auth::check()) {
+            return view('auth.register');
+        }else{
+            return back();
+        }
+//        return view('auth.register');
     }
 
     /**

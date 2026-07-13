@@ -76,12 +76,23 @@
                                 <p class="text-muted">Aucun contrat pour cette chambre.</p>
                             @else
                                 @foreach ($contrats as $contrat)
-                                    <div class="border rounded p-2 mb-2">
+                                    <div class="border rounded p-2 mb-2" style="border-left: 3px solid #f2994a !important;">
                                         <p><strong>Client :</strong> {{ $contrat->user->prenom ?? '-' }} {{ $contrat->user->nom ?? '-' }}</p>
                                         <p><strong>Début :</strong> {{ \Carbon\Carbon::parse($contrat->date_debut)->format('d/m/Y') }}</p>
                                         <p><strong>Fin :</strong> {{ \Carbon\Carbon::parse($contrat->date_fin)->format('d/m/Y') }}</p>
                                         <p><strong>Type contrat :</strong> {{ ucfirst($contrat->type_contrat) }}</p>
                                         <p><strong>Prix total :</strong> {{ number_format($contrat->prix_total, 0, ',', ' ') }} FCFA</p>
+                                        @if($contrat->poulet_chair_qty > 0 || $contrat->poulet_cuit_qty > 0)
+                                            <p class="text-warning-dark mb-2">
+                                                <strong>🐔 Poulets de chair commandés :</strong><br>
+                                                @if($contrat->poulet_chair_qty > 0)
+                                                    • Vif/Frais : {{ $contrat->poulet_chair_qty }} unité(s) ({{ number_format($contrat->poulet_chair_qty * 3000, 0, ',', ' ') }} FCFA)<br>
+                                                @endif
+                                                @if($contrat->poulet_cuit_qty > 0)
+                                                    • Viande cuite : {{ $contrat->poulet_cuit_qty }} unité(s) ({{ number_format($contrat->poulet_cuit_qty * 4000, 0, ',', ' ') }} FCFA)
+                                                @endif
+                                            </p>
+                                        @endif
                                         <p><strong>Statut :</strong> {{ ucfirst($contrat->statut) }}</p>
                                         <p><strong>Conditions :</strong> {{ $contrat->conditions_particulieres ?? '-' }}</p>
                                     </div>

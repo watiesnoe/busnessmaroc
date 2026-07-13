@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
         $table->id();
+        $table->uuid('uuid')->unique();
         $table->foreignId('immobilier_id')->nullable()->constrained()->onDelete('cascade');
         $table->foreignId('chambre_id')->nullable()->constrained()->onDelete('cascade');
         $table->string('url');

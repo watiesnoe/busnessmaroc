@@ -5,7 +5,7 @@
         /* --- Styles généraux --- */
         .bg-offres {
             height: 500px;
-            background-image: url('../asset/imgs/Offre-demploi.jpg');
+            background-image: url('../asset/imgs/Offre-demploi.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -66,20 +66,34 @@
             border-radius: 4px;
         }
 
+        /* Amélioration de la visibilité des textes de saisie */
+        .form-control {
+            color: #1e293b !important;
+            background-color: #ffffff !important;
+            border: 1px solid #cbd5e1 !important;
+        }
+        .form-control:focus {
+            color: #0f172a !important;
+            background-color: #ffffff !important;
+            border-color: var(--brand-navy) !important;
+        }
+        .form-control::placeholder {
+            color: #64748b !important;
+        }
     </style>
 
     {{-- Section d'introduction --}}
-    <section class="hero-section position-relative text-white d-flex align-items-center py-5"
-             style="background-image: url('{{ asset('asset/imgs/offre2.jpg') }}'); background-size: cover; background-repeat: no-repeat; background-position: center; width: 100%; height: 400px;">
-        <div class="container text-center">
+    <section class="position-relative text-white d-flex align-items-center py-5"
+             style="min-height: 340px; background-image: url('{{ asset('asset/imgs/offre2.png') }}'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+        <div class="hero-overlay position-absolute w-100 h-100" style="top:0;left:0;"></div>
+        <div class="container position-relative z-2 text-center py-5">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
-                    <h1 class="display-5 fw-bold mb-3" style="color: #ffffff; text-shadow: 2px 2px 6px rgba(0,0,0,0.7);">
-                        <span style="color: #d50100;">Découvrez</span> nos meilleures offres
+                    <span class="section-badge bg-white bg-opacity-10 border border-white border-opacity-25 text-white mb-3 d-inline-block" style="letter-spacing:2px;">Candidature</span>
+                    <h1 class="display-5 fw-bold text-white mb-2" style="text-shadow:0 2px 16px rgba(0,0,0,0.5);">
+                        Postuler à une <span style="color:#f87171;">opportunité</span>
                     </h1>
-                    <p class="lead" style="color: #ffffff; text-shadow: 1px 1px 5px rgba(0,0,0,0.6); font-size: 1.5rem; line-height: 1.8;">
-                        Parcourez toutes les opportunités disponibles et trouvez l’offre qui vous correspond le mieux.
-                    </p>
+                    <p class="lead opacity-90 mb-0">Prenez la prochaine étape dans votre carrière professionnelle.</p>
                 </div>
             </div>
         </div>
@@ -87,17 +101,11 @@
     {{-- fin du section d'introduction --}}
 
     <div class="container my-5">
-        <div class="card shadow">
-            <div class="card-header text-white" style="background-color: #d50100;">
-                <h4>Postuler à l'offre : {{ $offre->titre }}</h4>
+        <div class="card shadow border-0 rounded-4 overflow-hidden">
+            <div class="card-header text-white border-0" style="background: var(--brand-navy); border-bottom: 4px solid var(--brand-red) !important; padding: 1.5rem 2rem;">
+                <h4 class="mb-0 fw-bold text-white" style="color: #ffffff !important;"><i class="bi bi-send-fill text-brand-red me-2"></i>Postuler à l'offre : {{ $offre->titre }}</h4>
             </div>
-            <div class="card-body">
-                @if (session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
-                @if (session('success'))
-                    <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
+            <div class="card-body p-4 bg-white">
 
                 <form id="candidatureForm" action="{{ route('candidature.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -107,7 +115,7 @@
                     <div class="row">
                         {{-- CV --}}
                         <div class="col-md-6 mb-3">
-                            <label for="cv" class="form-label">CV (fichier PDF obligatoire) <span class="text-danger">*</span></label>
+                            <label for="cv" class="form-label fw-bold text-navy">CV (fichier PDF obligatoire) <span class="text-danger">*</span></label>
                             <input type="file" class="form-control @error('cv') is-invalid @enderror" id="cv" name="cv" accept=".pdf" required>
                             <div id="cvPreview" class="preview-box mt-2"></div>
                             @error('cv')
@@ -117,7 +125,7 @@
 
                         {{-- Lettre de motivation --}}
                         <div class="col-md-6 mb-3">
-                            <label for="lettre_motivation" class="form-label">Lettre de motivation (PDF, DOC, DOCX)</label>
+                            <label for="lettre_motivation" class="form-label fw-bold text-navy">Lettre de motivation (PDF, DOC, DOCX)</label>
                             <input type="file" class="form-control @error('lettre_motivation') is-invalid @enderror" id="lettre_motivation" name="lettre_motivation" accept=".pdf,.doc,.docx">
                             <div id="lettrePreview" class="preview-box mt-2"></div>
                             @error('lettre_motivation')
@@ -128,16 +136,19 @@
 
                     {{-- Message / commentaire --}}
                     <div class="mb-3">
-                        <label for="message" class="form-label">Message / Commentaire</label>
+                        <label for="message" class="form-label fw-bold text-navy">Message / Commentaire</label>
                         <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="4">{{ old('message') }}</textarea>
                         @error('message')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-success">Envoyer la candidature</button>
-                        <a href="{{ route('details_offre.show', $offre->id) }}" class="btn btn-outline-secondary px-4 ms-2">
+                    <div class="text-end pt-3 border-top mt-4">
+                        <button type="submit" class="btn btn-brand px-4 py-2">
+                            <i class="bi bi-send me-1"></i> Envoyer la candidature
+                        </button>
+
+                        <a href="{{ route('details_offre.show', $offre->uuid ?? $offre->id) }}" class="btn btn-light border px-4 ms-2">
                             <i class="bi bi-arrow-left me-1"></i> Annuler
                         </a>
                     </div>
@@ -147,126 +158,73 @@
     </div>
 @endsection
 
+
 @section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).ready(function() {
-            // Soumission AJAX
-            $('#candidatureForm').on('submit', function(e) {
-                e.preventDefault();
-                let formData = new FormData(this);
-
-                    $.ajax({
-                        url: $(this).attr('action'),
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        headers: {
-                            'X-CSRF-TOKEN': $('input[name="_token"]').val()
-                        },
-                        beforeSend: function() {
-                            $('#candidatureForm button[type="submit"]').prop('disabled', true).text(
-                                'Envoi en cours...');
-                        },
-                        success: function(response) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Candidature envoyée !',
-                                text: 'Votre candidature a été envoyée avec succès.',
-                                confirmButtonColor: '#28a745'
-                            });
-
-                            $('#candidatureForm')[0].reset();
-                        },
-                        error: function(xhr) {
-                            if (xhr.status === 422) {
-                                let errors = xhr.responseJSON.errors;
-                                let errorHtml = '';
-                                $.each(errors, function(key, messages) {
-                                    $.each(messages, function(index, message) {
-                                        errorHtml += message + '<br>';
-                                    });
-                                });
-
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Erreur de validation',
-                                    html: errorHtml,
-                                    confirmButtonColor: '#dc3545'
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Erreur',
-                                    text: 'Une erreur est survenue, veuillez réessayer.',
-                                    confirmButtonColor: '#dc3545'
-                                });
-                            }
-                        },
-                        complete: function() {
-                            $('#candidatureForm button[type="submit"]').prop('disabled', false)
-                                .text('Envoyer la candidature');
-                        }
-                    });
-                });
+        $(document).ready(function () {
+            // SweetAlert pour messages de session
+            @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès',
+                text: "{{ session('success') }}",
+                confirmButtonColor: '#28a745',
+                confirmButtonText: 'OK'
             });
-        </script>
-    @endsection
+            @endif
 
-    {{--    @section('scripts')--}}
-{{--        <script>--}}
-{{--            $(document).ready(function() {--}}
-{{--                $('#candidatureForm').on('submit', function(e) {--}}
-{{--                    e.preventDefault();--}}
+            @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: "{{ session('error') }}",
+                confirmButtonColor: '#d50100',
+                confirmButtonText: 'OK'
+            });
+            @endif
 
-{{--                    let formData = new FormData(this);--}}
+            // Fonction de prévisualisation (déjà dans ton code)
+            function previewFile(input, previewId) {
+                let file = input.files[0];
+                let previewBox = $("#" + previewId);
+                previewBox.empty();
 
-{{--                    $.ajax({--}}
-{{--                        url: $(this).attr('action'),--}}
-{{--                        type: 'POST',--}}
-{{--                        data: formData,--}}
-{{--                        processData: false, // Important pour envoyer FormData--}}
-{{--                        contentType: false, // Important pour envoyer FormData--}}
-{{--                        headers: {--}}
-{{--                            'X-CSRF-TOKEN': $('input[name="_token"]').val()--}}
-{{--                        },--}}
-{{--                        beforeSend: function() {--}}
-{{--                            // Optionnel : bloquer bouton etc.--}}
-{{--                            $('#candidatureForm button[type="submit"]').prop('disabled', true).text(--}}
-{{--                                'Envoi en cours...');--}}
-{{--                        },--}}
-{{--                        success: function(response) {--}}
-{{--                            $('#formFeedback').html(--}}
-{{--                                '<div class="alert alert-success">Votre candidature a été envoyée avec succès.</div>'--}}
-{{--                            );--}}
-{{--                            $('#candidatureForm')[0].reset();--}}
-{{--                        },--}}
-{{--                        error: function(xhr) {--}}
-{{--                            if (xhr.status === 422) {--}}
-{{--                                let errors = xhr.responseJSON.errors;--}}
-{{--                                let errorHtml = '<div class="alert alert-danger"><ul>';--}}
+                if (file) {
+                    let fileURL = URL.createObjectURL(file);
+                    let ext = file.name.split('.').pop().toLowerCase();
 
-{{--                                $.each(errors, function(key, messages) {--}}
-{{--                                    $.each(messages, function(index, message) {--}}
-{{--                                        errorHtml += '<li>' + message + '</li>';--}}
-{{--                                    });--}}
-{{--                                });--}}
+                    if (ext === "pdf") {
+                        previewBox.html('<object data="' + fileURL + '" type="application/pdf" width="100%" height="250px"></object>');
+                    }
+                    else if (ext === "doc" || ext === "docx") {
+                        previewBox.html(
+                            '<div class="p-2 border rounded bg-light d-flex align-items-center">' +
+                            '<i class="bi bi-file-earmark-word text-primary fs-4 me-2"></i>' +
+                            '<span class="me-2">' + file.name + '</span>' +
+                            '<a href="' + fileURL + '" target="_blank" class="btn btn-sm btn-outline-primary">Ouvrir</a>' +
+                            '</div>'
+                        );
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Format non supporté',
+                            text: 'Veuillez sélectionner un fichier PDF, DOC ou DOCX.',
+                            confirmButtonColor: '#d50100'
+                        });
+                    }
+                }
+            }
+            // Appels sur changement de fichier
+            $("#cv").on("change", function () {
+                previewFile(this, "cvPreview");
+            });
 
-{{--                                errorHtml += '</ul></div>';--}}
-{{--                                $('#formFeedback').html(errorHtml);--}}
-{{--                            } else {--}}
-{{--                                $('#formFeedback').html(--}}
-{{--                                    '<div class="alert alert-danger">Une erreur est survenue, veuillez réessayer.</div>'--}}
-{{--                                );--}}
-{{--                            }--}}
-{{--                        },--}}
-{{--                        complete: function() {--}}
-{{--                            $('#candidatureForm button[type="submit"]').prop('disabled', false)--}}
-{{--                                .text('Envoyer la candidature');--}}
-{{--                        }--}}
-{{--                    });--}}
-{{--                });--}}
-{{--            });--}}
-{{--        </script>--}}
-{{--    @endsection--}}
+            $("#lettre_motivation").on("change", function () {
+                previewFile(this, "lettrePreview");
+            });
+
+        });
+    </script>
+@endsection
+

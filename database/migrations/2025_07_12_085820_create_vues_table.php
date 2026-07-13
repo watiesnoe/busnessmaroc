@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('vues', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->foreignId('immobilier_id')->constrained()->onDelete('cascade');
             $table->string('ip_visiteur');
             $table->string('user_agent')->nullable();

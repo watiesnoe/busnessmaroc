@@ -64,6 +64,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorieSeer::class,
             OffreSeeder::class,
+            SiteDataSeeder::class,
         ]);
         $imagesPath = database_path('seeders/images');
          $imageFiles = glob($imagesPath . '/*.{jpg,jpeg,png}', GLOB_BRACE);

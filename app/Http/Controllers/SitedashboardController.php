@@ -13,12 +13,16 @@ class SitedashboardController extends Controller
 {
     public function index()
     {
+
         // Charger uniquement les biens avec AU MOINS UNE chambre qui n’est ni "occupée" ni "réservée"
         $immobiliers = Immobilier::with(['category', 'photoPrincipale', 'chambres'])
             ->whereHas('chambres', function ($q) {
-                $q->whereNotIn('statut', ['occupée', 'réservée']);
+                $q->whereNotIn('statut', ['occupee', 'reservee', 'occupée', 'réservée', 'indisponible']);
             })
             ->get();
+        $actualites = Actualite::orderBy('date_publication','desc')
+            ->paginate(12)
+            ->appends(request()->query());
 
         // Annonces vedette (non filtrées par statut de chambre, sauf si tu veux)
         $annoncesVedette = Immobilier::where('en_vedette', true)
@@ -29,7 +33,8 @@ class SitedashboardController extends Controller
 
         return view('dashboard', [
             'immobiliers' => $immobiliers,
-            'annoncesVedette' => $annoncesVedette
+            'annoncesVedette' => $annoncesVedette,
+            'actualites'=> $actualites
         ]);
     }
 
@@ -40,9 +45,9 @@ class SitedashboardController extends Controller
     $cities = Immobilier::select('ville')->distinct()->pluck('ville');
 
     $immobiliers = Immobilier::with(['category', 'photoPrincipale', 'photos', 'chambres'])
-        ->whereNotIn('statut', ['loue', 'occupe', 'reserve']) // exclure ces statuts du bien
+        ->whereNotIn('statut', ['loue', 'occupe', 'reserve', 'louée', 'occupée', 'réservée']) // exclure ces statuts du bien
         ->whereHas('chambres', function ($query) {
-            $query->whereNotIn('statut', ['occupee', 'reservee', 'loue']); // au moins une chambre libre
+            $query->whereNotIn('statut', ['occupee', 'reservee', 'loue', 'occupée', 'réservée', 'louée', 'indisponible']); // au moins une chambre libre
         })
         ->paginate(10);
 
@@ -88,7 +93,18 @@ class SitedashboardController extends Controller
 
     public function showImmobilier($id)
     {
-        $immobilier = Immobilier::with(['category', 'photos', 'chambres'])->findOrFail($id);
+        $query = Immobilier::with(['category', 'photos', 'chambres']);
+        if (\Illuminate\Support\Facades\Schema::hasColumn('immobiliers', 'uuid')) {
+            $query->where('uuid', $id)->orWhere('id', $id);
+        } else {
+            $query->where('id', $id);
+        }
+        $immobilier = $query->firstOrFail();
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn('immobiliers', 'uuid') && $id == $immobilier->id && !empty($immobilier->uuid)) {
+            return redirect()->route('immobilier.detail', $immobilier->uuid);
+        }
+
         return view('details_immobilier', compact('immobilier'));
     }
     public function actualite(Request $request)

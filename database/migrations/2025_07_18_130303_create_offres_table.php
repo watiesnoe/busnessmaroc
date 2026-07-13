@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('offres', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->string('titre');
             $table->enum('type_offre', ['emploi', 'stage']);
             $table->date('date_publication');

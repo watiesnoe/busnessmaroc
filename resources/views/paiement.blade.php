@@ -5,7 +5,7 @@
     <section class="section-box-2 position-relative text-white d-flex align-items-center"
         style="
     height: 400px;
-    background-image: url('{{ asset('asset/imgs/bg-job.jpg') }}');
+    background-image: url('{{ asset('asset/imgs/bg-job.png') }}');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;">
@@ -30,21 +30,21 @@
             <div class="col-lg-5 col-md-7">
                 <div class="card shadow-lg border-0 rounded-4 p-4 bg-white">
                     <div class="text-center mb-4">
-                        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center"
-                            style="width: 60px; height: 60px;">
+                        <div class="text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+                            style="width: 60px; height: 60px; background-color: var(--brand-red) !important;">
                             <i class="bi bi-credit-card fs-4"></i>
                         </div>
-                        <h3 class="mt-3">Résumé de votre réservation</h3>
+                        <h3 class="mt-3 text-navy fw-bold">Résumé de votre réservation</h3>
                         <p class="text-muted">Vérifiez les détails avant de confirmer</p>
                     </div>
 
-                    <div class="bg-light rounded-4 p-3 mb-4">
-                        <p><strong>Type de contrat :</strong> {{ ucfirst($data['type_contrat']) }}</p>
-                        <p><strong>Période :</strong> du {{ $data['date_debut'] }} au {{ $data['date_fin'] }}</p>
+                    <div class="bg-light rounded-4 p-3 mb-4 border">
+                        <p class="mb-2"><strong><i class="bi bi-file-earmark-text text-brand-red me-1"></i> Type de contrat :</strong> {{ ucfirst($data['type_contrat']) }}</p>
+                        <p class="mb-0"><strong><i class="bi bi-calendar-range text-brand-red me-1"></i> Période :</strong> du {{ $data['date_debut'] }} au {{ $data['date_fin'] }}</p>
 
-                        <div class="bg-white shadow-sm p-3 rounded-3 mt-3 text-center">
-                            <h5 class="text-primary">Prix estimé</h5>
-                            <h2 class="fw-bold text-dark">{{ $data['prix_total'] }} F CFA</h2>
+                        <div class="bg-white shadow-sm p-3 rounded-3 mt-3 text-center border">
+                            <h5 class="text-brand-red fw-bold mb-1">Prix total estimé</h5>
+                            <h2 class="fw-bold text-navy mb-0">{{ $data['prix_total'] }} F CFA</h2>
                         </div>
                     </div>
 
@@ -54,7 +54,7 @@
                             <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                         @endforeach
 
-                        <button type="submit" class="btn btn-primary w-100 py-2 mt-2">
+                        <button type="submit" class="btn btn-brand w-100 py-2.5 mt-2">
                             <i class="bi bi-check-circle me-2"></i> Confirmer la réservation
                         </button>
                     </form>

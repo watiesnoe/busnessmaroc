@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Actualite extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Traits\HasUuid;
 
     // Nom de la table (optionnel si le nom suit la convention)
     protected $table = 'actualites';

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Paiements extends Model
 {
+    use \App\Traits\HasUuid;
     //
     protected $table = 'paiements'; // Specify the table name if it's not the plural of the model name
     protected $fillable = [

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Candidature extends Model
 {
+    use \App\Traits\HasUuid;
     protected $fillable = [
         'user_id',
         'offre_id',

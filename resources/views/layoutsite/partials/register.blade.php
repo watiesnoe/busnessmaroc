@@ -4,7 +4,7 @@
             <div class="col-lg-4 col-md-12 col-sm-12 mx-auto">
                 <div class="text-center">
                     <h3 class="mt-5 mb-5 text-brand-1">Creation de compte</h3>
-                    <button class="btn social-login hover-up mb-20"> <img src="{{ asset('asset/imgs/template/icons/icon-google.svg') }}" alt="Google login"><strong>Sign up with Google</strong></button>
+                    <a href="{{ route('auth.google.redirect') }}" class="btn social-login hover-up mb-20 text-decoration-none text-dark d-flex align-items-center justify-content-center gap-2"> <img src="{{ asset('asset/imgs/template/icons/icon-google.svg') }}" alt="Google login"><strong>Sign up with Google</strong></a>
                     <div class="divider-text-center"><span>Or continue with</span></div>
                 </div>
                 <form method="POST" id="createform"  data-action="{{ route('register.ajax') }}">

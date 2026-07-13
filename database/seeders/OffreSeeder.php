@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
+use App\Models\Offre;
+
 class OffreSeeder extends Seeder
 {
     public function run(): void
@@ -28,7 +30,7 @@ class OffreSeeder extends Seeder
         ];
 
         for ($i = 0; $i < 20; $i++) {
-            DB::table('offres')->insert([
+            Offre::create([
                 'titre' => 'Offre ' . Str::random(5),
                 'type_offre' => $types[array_rand($types)],
                 'date_publication' => Carbon::now()->subDays(rand(1, 30)),
@@ -42,10 +44,7 @@ class OffreSeeder extends Seeder
                 'description' => 'Description de l\'offre : ' . Str::random(50),
                 'mode_candidature' => $modes[array_rand($modes)], // interne ou externe
                 'lien_candidature' => $liens[array_rand($liens)],
-                'created_at' => now(),
-                'updated_at' => now(),
             ]);
         }
     }
-
 }

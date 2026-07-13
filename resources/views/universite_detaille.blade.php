@@ -1,221 +1,283 @@
 @extends('layoutsite.site')
 
-@section('titre', $universite->nom)
+@section('titre', $universite->nom . ' — Business Maroc')
+
+@push('styles')
+<style>
+    :root {
+        --uni-primary: #d50100;
+        --uni-navy: #0d1b2a;
+        --uni-bg: #f8f9fa;
+    }
+
+    .uni-detail-hero {
+        background: linear-gradient(135deg, rgba(13, 27, 42, 0.45) 0%, rgba(26, 46, 68, 0.5) 100%), url('{{ asset("asset/imgs/Université.png") }}') center/cover no-repeat;
+        height: 320px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        border-bottom: 4px solid var(--uni-primary);
+    }
+    .uni-detail-hero::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 50px;
+        background: linear-gradient(to top, var(--uni-bg), transparent);
+        pointer-events: none;
+    }
+
+    .glass-badge {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.78rem;
+        padding: 0.4rem 1rem;
+        border-radius: 30px;
+        letter-spacing: 1px;
+    }
+
+    .profile-card {
+        background: #ffffff;
+        border-radius: 24px;
+        border: 1px solid #f0f0f0;
+        box-shadow: 0 15px 35px rgba(13, 27, 42, 0.04);
+        padding: 2.5rem;
+        margin-top: -100px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .logo-container {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 4px solid #ffffff;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        overflow: hidden;
+        margin: 0 auto 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .logo-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .section-title-custom {
+        font-weight: 800;
+        color: var(--uni-navy);
+        font-size: 1.25rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .section-title-custom::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 18px;
+        background: var(--uni-primary);
+        border-radius: 2px;
+    }
+
+    .contact-info-list li {
+        margin-bottom: 0.75rem;
+        color: #1e293b !important;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .contact-info-list i {
+        color: var(--uni-primary);
+        font-size: 1.1rem;
+    }
+
+    .gallery-img-wrapper {
+        border-radius: 16px;
+        overflow: hidden;
+        aspect-ratio: 1;
+        cursor: pointer;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .gallery-img-wrapper:hover {
+        transform: scale(1.04);
+        box-shadow: 0 10px 25px rgba(13, 27, 42, 0.1);
+    }
+    .gallery-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .filiere-card-custom {
+        background: #ffffff;
+        border: 1px solid #f0f0f0;
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 8px 25px rgba(13, 27, 42, 0.02);
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+    .filiere-card-custom:hover {
+        transform: translateY(-3px);
+        border-color: rgba(213, 1, 0, 0.15);
+        box-shadow: 0 12px 30px rgba(213, 1, 0, 0.06);
+    }
+    .filiere-card-custom h5 {
+        font-weight: 800;
+        color: var(--uni-navy);
+        font-size: 1.05rem;
+        margin-bottom: 0.5rem;
+    }
+    .filiere-card-custom p {
+        color: #4b5563 !important;
+        font-size: 0.88rem;
+        line-height: 1.5;
+        margin-bottom: 0;
+    }
+    .uni-description {
+        color: #1e293b !important;
+        line-height: 1.75;
+        font-size: 0.98rem;
+        margin-bottom: 0;
+    }
+</style>
+@endpush
 
 @section('content')
-    <section class="hero-section position-relative text-white"
-        style="background-image: url('{{ asset('asset/imgs/Université.png') }}'); 
-           background-size: cover; 
-           background-position: center; 
-           height: 400px;">
+{{-- Hero header --}}
+<section class="uni-detail-hero">
+    <div class="container position-relative z-2 py-5 text-center text-lg-start">
+        <span class="glass-badge mb-3 d-inline-block">🎓 FIÈREMENT PARTENAIRE</span>
+        <h1 class="display-5 fw-extrabold text-white mb-0" style="font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.65);">Détails de l'établissement</h1>
+    </div>
+</section>
 
-        <!-- Overlay léger pour améliorer la visibilité de l'image -->
-        <div class="overlay position-absolute w-100 h-100" style="background-color: rgba(0, 0, 0, 0.3); top: 0; left: 0;">
-        </div>
+{{-- Main Details --}}
+<main style="background: var(--uni-bg); padding-bottom: 5rem;">
+    <div class="container">
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
 
-        <div class="container position-relative z-2 h-100 d-flex flex-column justify-content-center">
-            <div class="row justify-content-center text-center">
-                <div class="col-lg-10">
-                    <h1 class="display-4 fw-bold mb-4 wow animate__animated animate__fadeInDown">
-                        <span style="color: #d50100;">Rejoignez</span> votre futur <br class="d-none d-md-block"> université
-                        en
-                        quelques clics
-                    </h1>
-                    <p class="lead mb-5 wow animate__animated animate__fadeInUp"
-                        style="color: #fff; text-shadow: 1px 1px 6px rgba(0,0,0,0.6);">
-                        Découvrez les meilleures universités, programmes et opportunités académiques pour construire votre
-                        avenir
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+                <div class="profile-card mb-4">
+                    {{-- Header Profile logo & Title --}}
+                    <div class="text-center mb-5">
+                        @if ($universite->logo)
+                            <div class="logo-container">
+                                <img src="{{ asset('storage/' . $universite->logo) }}" alt="Logo {{ $universite->nom }}">
+                            </div>
+                        @endif
+                        <h2 class="fw-extrabold text-navy" style="font-weight: 800; color: var(--uni-navy);">{{ $universite->nom }}</h2>
+                        <p class="text-muted small mb-0"><i class="bi bi-geo-alt me-1"></i> {{ $universite->ville }}, {{ $universite->pays }}</p>
+                    </div>
 
-    {{-- <div class="container py-5">
+                    {{-- Section 1: Presentation --}}
+                    @if ($universite->description)
+                        <div class="mb-5">
+                            <h4 class="section-title-custom">Présentation de l'établissement</h4>
+                            <p class="uni-description">
+                                {{ $universite->description }}
+                            </p>
+                        </div>
+                    @endif
 
-        <!-- Titre + logo -->
-        <div class="text-center mb-4">
-            @if ($universite->logo)
-                <img src="{{ asset('storage/' . $universite->logo) }}" alt="{{ $universite->nom }}"
-                    class="rounded-circle mb-3 shadow-sm border border-3"
-                    style="border-color: #ff6600; width:120px; height:120px; object-fit:cover;">
-            @endif
-            <h1 class="fw-bold" style="color: #ff6600;">{{ $universite->nom }}</h1>
-            <p class="text-muted">{{ $universite->ville }}, {{ $universite->pays }}</p>
-        </div>
+                    {{-- Section 2: Contact Info --}}
+                    <div class="mb-5">
+                        <h4 class="section-title-custom">Informations de contact</h4>
+                        <ul class="list-unstyled contact-info-list mb-0">
+                            @if ($universite->adresse)
+                                <li>
+                                    <i class="bi bi-map"></i>
+                                    <span><strong>Adresse :</strong> {{ $universite->adresse }}</span>
+                                </li>
+                            @endif
+                            @if ($universite->email)
+                                <li>
+                                    <i class="bi bi-envelope"></i>
+                                    <span><strong>Adresse e-mail :</strong> <a href="mailto:{{ $universite->email }}" class="text-decoration-none text-dark fw-bold">{{ $universite->email }}</a></span>
+                                </li>
+                            @endif
+                            @if ($universite->telephone)
+                                <li>
+                                    <i class="bi bi-telephone"></i>
+                                    <span><strong>Téléphone :</strong> {{ $universite->telephone }}</span>
+                                </li>
+                            @endif
+                        </ul>
+                    </div>
 
-        <!-- Description -->
-        @if ($universite->description)
-            <div class="mb-4">
-                <h4 style="color: #ff6600;">Présentation</h4>
-                <p>{{ $universite->description }}</p>
-            </div>
-        @endif
-
-        <!-- Infos de contact -->
-        <div class="mb-4">
-            <h4 style="color: #ff6600;">Informations de contact</h4>
-            <ul class="list-unstyled">
-                @if ($universite->adresse)
-                    <li><i class="bi bi-geo-alt" style="color: #ff6600;"></i> {{ $universite->adresse }}</li>
-                @endif
-                @if ($universite->email)
-                    <li><i class="bi bi-envelope" style="color: #ff6600;"></i> {{ $universite->email }}</li>
-                @endif
-                @if ($universite->telephone)
-                    <li><i class="bi bi-telephone" style="color: #ff6600;"></i> {{ $universite->telephone }}</li>
-                @endif
-            </ul>
-        </div>
-
-        <!-- Photos -->
-        @if ($universite->photos->count())
-            <div class="mb-5">
-                <h4 style="color: #ff6600;">Galerie</h4>
-                <div class="d-flex flex-wrap gap-2">
-                    @foreach ($universite->photos as $photo)
-                        <img src="{{ asset('storage/' . $photo->photo) }}" alt="Photo {{ $universite->nom }}"
-                            class="rounded-3 shadow-sm border border-2 universite-photo"
-                            style="border-color: #ff6600; width:150px; height:150px; object-fit:cover; cursor:pointer;">
-                    @endforeach
-                </div>
-            </div>
-        @endif
-
-        <!-- Filières -->
-        @if ($universite->filieres->count())
-            <div>
-                <h4 style="color: #ff6600;">Filières proposées</h4>
-                <div class="row g-3">
-                    @foreach ($universite->filieres as $filiere)
-                        <div class="col-md-4">
-                            <div class="card h-100 shadow-sm border-0"
-                                style="background-color: #FFE0B2; border-radius: 10px;">
-                                <div class="card-body">
-                                    <h5 class="fw-bold" style="color: #BF360C;">{{ $filiere->nom }}</h5>
-                                    <p style="color: #5D4037;">
-                                        {{ $filiere->description ?? 'Aucune description disponible' }}</p>
-                                </div>
+                    {{-- Section 3: Gallery --}}
+                    @if ($universite->photos->count())
+                        <div class="mb-5">
+                            <h4 class="section-title-custom">Galerie de photos</h4>
+                            <div class="row g-3">
+                                @foreach ($universite->photos as $photo)
+                                    <div class="col-6 col-sm-4 col-md-3">
+                                        <div class="gallery-img-wrapper class-photo-click">
+                                            <img src="{{ asset('storage/' . $photo->photo) }}" alt="Aperçu {{ $universite->nom }}" class="universite-photo">
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                    @endforeach
-                </div>
-            </div>
-        @endif
+                    @endif
 
-    </div> --}}
-    <div class="container py-5">
-
-    <!-- Titre + logo -->
-    <div class="text-center mb-5">
-        @if ($universite->logo)
-            <img src="{{ asset('storage/' . $universite->logo) }}" alt="{{ $universite->nom }}"
-                class="rounded-circle mb-3 shadow-sm border border-3"
-                style="border-color: #d50100; width:130px; height:130px; object-fit:cover;">
-        @endif
-        <h1 class="fw-bold mb-2" style="color: #d50100;">{{ $universite->nom }}</h1>
-        <p class="text-muted fst-italic">{{ $universite->ville }}, {{ $universite->pays }}</p>
-    </div>
-
-    <!-- Description -->
-    @if ($universite->description)
-        <div class="mb-5 p-4 bg-light rounded-4 shadow-sm">
-            <h4 class="fw-semibold mb-3" style="color: #d50100;">Présentation</h4>
-            <p class="mb-0" style="line-height: 1.6;">{{ $universite->description }}</p>
-        </div>
-    @endif
-
-    <!-- Infos de contact -->
-    <div class="mb-5 p-4 bg-light rounded-4 shadow-sm">
-        <h4 class="fw-semibold mb-3" style="color: #d50100;">Informations de contact</h4>
-        <ul class="list-unstyled mb-0">
-            @if ($universite->adresse)
-                <li class="mb-2"><i class="bi bi-geo-alt me-2" style="color: #d50100;"></i>{{ $universite->adresse }}</li>
-            @endif
-            @if ($universite->email)
-                <li class="mb-2"><i class="bi bi-envelope me-2" style="color: #d50100;"></i>{{ $universite->email }}</li>
-            @endif
-            @if ($universite->telephone)
-                <li class="mb-2"><i class="bi bi-telephone me-2" style="color: #d50100;"></i>{{ $universite->telephone }}</li>
-            @endif
-        </ul>
-    </div>
-
-    <!-- Galerie -->
-    @if ($universite->photos->count())
-        <div class="mb-5">
-            <h4 class="fw-semibold mb-3" style="color: #d50100;">Galerie</h4>
-            <div class="d-flex flex-wrap gap-3 justify-content-center">
-                @foreach ($universite->photos as $photo)
-                    <div class="position-relative">
-                        <img src="{{ asset('storage/' . $photo->photo) }}" alt="Photo {{ $universite->nom }}"
-                            class="rounded-4 shadow-sm universite-photo"
-                            style="width:160px; height:160px; object-fit:cover; cursor:pointer; transition: transform 0.3s;">
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    @endif
-
-    <!-- Filières -->
-    @if ($universite->filieres->count())
-        <div>
-            <h4 class="fw-semibold mb-4" style="color: #d50100;">Filières proposées</h4>
-            <div class="row g-4">
-                @foreach ($universite->filieres as $filiere)
-                    <div class="col-md-4">
-                        <div class="card h-100 shadow-sm border-0" style="background-color: #feddd4; border-radius: 15px; transition: transform 0.3s;">
-                            <div class="card-body">
-                                <h5 class="fw-bold mb-2" style="color: #BF360C;">{{ $filiere->nom }}</h5>
-                                <p class="mb-0" style="color: #5D4037;">
-                                    {{ $filiere->description ?? 'Aucune description disponible' }}
-                                </p>
+                    {{-- Section 4: Programs/Courses --}}
+                    @if ($universite->filieres->count())
+                        <div>
+                            <h4 class="section-title-custom">Filières &amp; Formations proposées</h4>
+                            <div class="row g-4">
+                                @foreach ($universite->filieres as $filiere)
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="filiere-card-custom">
+                                            <h5>{{ $filiere->nom }}</h5>
+                                            <p>{{ $filiere->description ?? 'Aucune description détaillée disponible pour cette filière.' }}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endif
+
+                </div>
+
             </div>
         </div>
-    @endif
 
+    </div>
+</main>
+
+{{-- Lightbox HTML --}}
+<div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(13, 27, 42, 0.95); justify-content:center; align-items:center; z-index:1080; cursor:pointer;">
+    <img id="lightbox-img" src="" alt="Agrandissement" style="max-width:90%; max-height:85%; border-radius:16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: transform 0.2s;">
 </div>
-
-<!-- Effets hover -->
-<style>
-.universite-photo:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-</style>
-
-
-    <!-- Lightbox HTML -->
-    <div id="lightbox"
-        style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1050; cursor:pointer;">
-        <img id="lightbox-img" src="" alt="Agrandie"
-            style="max-width:90%; max-height:90%; border-radius:8px; box-shadow:0 0 15px #fff;">
-    </div>
 @endsection
 
 @section('scripts')
-    <!-- jQuery (si pas déjà inclus dans ton layout) -->
-    <script>
-        $(document).ready(function() {
-            $('.universite-photo').on('click', function() {
-                var src = $(this).attr('src');
-                $('#lightbox-img').attr('src', src);
-                $('#lightbox').fadeIn();
-            });
+<script>
+    $(document).ready(function() {
+        $('.universite-photo').on('click', function() {
+            var src = $(this).attr('src');
+            $('#lightbox-img').attr('src', src);
+            $('#lightbox').css('display', 'flex').hide().fadeIn(300);
+        });
 
-            $('#lightbox').on('click', function() {
-                $('#lightbox').fadeOut(function() {
-                    $('#lightbox-img').attr('src', '');
-                });
+        $('#lightbox').on('click', function() {
+            $('#lightbox').fadeOut(300, function() {
+                $('#lightbox-img').attr('src', '');
             });
         });
-    </script>
+    });
+</script>
 @endsection

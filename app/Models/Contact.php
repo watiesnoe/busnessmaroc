@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    use HasFactory; // ← OBLIGATOIRE !
+    use HasFactory, \App\Traits\HasUuid; // ← OBLIGATOIRE !
 
     protected $fillable = ['immobilier_id', 'nom', 'email', 'message'];
 

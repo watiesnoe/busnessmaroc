@@ -26,7 +26,7 @@ class LoginController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function sotre(Request $request)
+    public function store(Request $request)
     {
         $credentials = $request->validate([
             'email' => 'required|email',
@@ -35,22 +35,22 @@ class LoginController extends Controller
 
         $remember = $request->has('remember');
 
-        if (session()->has('redirect_after_login')) {
-            $redirectUrl = session('redirect_after_login');
-            session()->forget('redirect_after_login'); // Nettoyer la session après redirection
-            return redirect($redirectUrl);
-        }
         // Authentification de l'utilisateur
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
-            // Redirection selon rôle
-            if (Auth::user()->role === 'admin'|| Auth::user()->role === 'superadmin') {
-                return redirect()->route('admindash');
-            } elseif (Auth::user()->role === 'client') {
-                return redirect()->route('dashboard');
+
+            if (session()->has('redirect_after_login')) {
+                $redirectUrl = session('redirect_after_login');
+                session()->forget('redirect_after_login'); // Nettoyer la session après redirection
+                return redirect($redirectUrl);
             }
 
-            return redirect()->intended('/');
+            // Redirection selon rôle
+            if (Auth::user()->role === 'admin'|| Auth::user()->role === 'superadmin') {
+                return redirect()->intended(route('home.index'));
+            } else {
+                return redirect()->intended(route('homesite.index'));
+            }
         }
 
         return back()->withErrors([

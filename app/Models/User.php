@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    use \App\Traits\HasUuid;
     use HasFactory, Notifiable;
 
     /**

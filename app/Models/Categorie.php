@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categorie extends Model
 {
+    use \App\Traits\HasUuid;
     protected $fillable = ['nom'];
 
     public function immobiliers()

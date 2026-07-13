@@ -29,7 +29,7 @@
     <script src="{{ asset('admin/js/pages/be_forms_validation.min.js') }}"></script>
 {{-- <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>--}}
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('temp_assets/sweetalert2.all.min.js') }}"></script>
 
 <script>
     $(document).ready(function () {

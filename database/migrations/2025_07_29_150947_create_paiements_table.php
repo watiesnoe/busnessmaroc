@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('paiements', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
 
             // Clé étrangère correcte vers contrat_locations
             $table->unsignedBigInteger('contratlocation_id');

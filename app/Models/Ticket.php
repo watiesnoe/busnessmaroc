@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
+    use \App\Traits\HasUuid;
     protected $fillable = [
         'evenement_id', 'user_id', 'quantite', 'montant_total', 'statut'
     ];

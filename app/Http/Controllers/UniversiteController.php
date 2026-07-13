@@ -55,7 +55,18 @@ class UniversiteController extends Controller
     }
     public function deitalle($id)
     {
-        $universite = Universite::with(['filieres', 'photos'])->findOrFail($id);
+        $query = Universite::with(['filieres', 'photos']);
+        if (\Illuminate\Support\Facades\Schema::hasColumn('universites', 'uuid')) {
+            $query->where('uuid', $id)->orWhere('id', $id);
+        } else {
+            $query->where('id', $id);
+        }
+        $universite = $query->firstOrFail();
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn('universites', 'uuid') && $id == $universite->id && !empty($universite->uuid)) {
+            return redirect()->route('universite.detaille', $universite->uuid);
+        }
+
         return view('universite_detaille', compact('universite'));
     }
 

@@ -1,246 +1,128 @@
-<style>
-    .bg-location {
-        height: 400px;
-        background-image: url('../asset/imgs/location.avif');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: relative;
-    }
-
-    /* contenus de la page */
-    .section-box {
-        padding: 40px 0;
-        background-color: #f9f9f9;
-    }
-
-    .content-page {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-
-    .box-filters-job {
-        padding-bottom: 20px;
-        border-bottom: 1px solid #e0e0e0;
-        margin-bottom: 30px;
-    }
-
-    .text-showing {
-        font-size: 1rem;
-        color: #555;
-    }
-
-    .box-border {
-        padding: 5px 10px;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        margin-right: 10px;
-        display: flex;
-        align-items: center;
-        background-color: #fff;
-    }
-
-    .text-sortby {
-        font-size: 0.9rem;
-        margin-right: 5px;
-        color: #666;
-    }
-
-    .btn.dropdown-toggle {
-        background-color: transparent;
-        border: none;
-        font-weight: 500;
-        color: #333;
-    }
-
-    .view-type img {
-        width: 22px;
-        margin-left: 8px;
-    }
-
-    .sidebar-filters {
-        background-color: #fff;
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }
-
-    .sidebar-filters h4 {
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-        color: #333;
-    }
-
-    .sidebar-filters label {
-        font-weight: 500;
-        margin-top: 15px;
-        margin-bottom: 5px;
-        display: block;
-        color: #444;
-    }
-
-    .sidebar-filters .form-control {
-        font-size: 0.95rem;
-        padding: 8px 12px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-    }
-
-    .filter-block h5 {
-        font-size: 1rem;
-        margin-bottom: 20px;
-        color: #444;
-    }
-
-    .filter-block .link-reset {
-        float: right;
-        font-size: 0.9rem;
-        color: #999;
-        text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-        .box-filters-job {
-            text-align: center;
-        }
-
-        .display-flex2 {
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .view-type img {
-            margin: 0 5px;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar-filters {
-                background: #f8f9fa;
-                padding: 10px;
-                border-radius: 10px;
-            }
-        }
-
-    }
-</style>
 @extends('layoutsite.site')
+
+@section('titre', 'Tous les logements disponibles')
+
 @section('content')
-   <!-- SECTION HERO AVEC HAUTEUR AJUSTÉE -->
-    <section class="text-white d-flex align-items-center"
-        style="background-image: url('{{ asset('asset/imgs/location.jpg') }}'); background-size: cover; background-position: center; height: 400px;">
-        <div class="container text-center">
-            <div class="container text-center">
-                <h3 class="fw-bold mb-3" style="font-size: 2.8rem; color: #f5f5f5;">
-                    <span class="" style="color: #d50100;">Trouvez</span> le logement idéal <br class="d-none d-md-block"> pour vous dès
-                    aujourd’hui
-                </h3>
-                <p class="lead mx-auto" style="max-width: 750px; color: #f0f0f0; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">
-                    Explorez une large sélection d’appartements, maisons et studios, soigneusement choisis pour répondre à
-                    toutes vos envies.
-                </p>
-            </div>
 
-        </div>
+{{-- Hero --}}
+<section class="position-relative d-flex align-items-center text-white"
+    style="min-height:340px; background-image:url('{{ asset('asset/imgs/location.png') }}'); background-size:cover; background-position:center;">
+    <div class="hero-overlay position-absolute w-100 h-100" style="top:0;left:0;"></div>
+    <div class="container position-relative z-2 py-5 text-center">
+        <span class="section-badge bg-white bg-opacity-10 border border-white border-opacity-25 text-white mb-3 d-inline-block" style="letter-spacing:2px;">Location</span>
+        <h1 class="display-5 fw-bold text-white mb-2" style="text-shadow:0 2px 16px rgba(0,0,0,0.5);">
+            Trouvez le logement <span style="color:#f87171;">idéal</span> pour vous
+        </h1>
+        <p class="lead opacity-90 mb-0">Explorez notre catalogue complet de biens disponibles au Maroc</p>
+    </div>
+</section>
 
-    </section>
-    {{-- section principale --}}
-    <section class="section-box mt-50">
-        <div class="section-box wow animate__animated animate__fadeIn">
-            <div class="container-fluid" style="padding-left: 30px; padding-right: 30px;">
-                <div class="row gx-5 mx-auto" style="max-width: 95%;">
+{{-- Main content --}}
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
 
-                    <!-- Filtres : ordre 0 en mobile (en haut) + marge-bottom en mobile uniquement -->
-                    <div class="col-12 col-lg-3 order-0 mb-4 mb-lg-0">
-                        <div class="sidebar-filters p-3 shadow rounded bg-white">
-                            <div class="filter-block head-border mb-3 d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0">Filtres avancés</h5>
-                                <a class="link-reset text-decoration-none small text-danger"
-                                    href="#">Réinitialiser</a>
-                            </div>
-                            <form id="filterForm">
-                                <div class="mb-3">
-                                    <label class="form-label">Catégorie</label>
-                                    <select name="category" class="form-select">
-                                        <option value="">Toutes</option>
-                                        @foreach ($categories as $cat)
-                                            <option value="{{ $cat->id }}">{{ $cat->nom }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Ville</label>
-                                    <select name="city" class="form-select">
-                                        <option value="">Toutes</option>
-                                        @foreach ($cities as $city)
-                                            <option value="{{ $city }}">{{ $city }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Prix minimum</label>
-                                    <input type="number" name="min_price" class="form-control" placeholder="Ex: 100000">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Prix maximum</label>
-                                    <input type="number" name="max_price" class="form-control" placeholder="Ex: 500000">
-                                </div>
-                            </form>
-                        </div>
+            {{-- ===== SIDEBAR FILTERS ===== --}}
+            <div class="col-lg-3">
+                <div class="bg-white rounded-3 shadow-sm p-4 sticky-top" style="top:90px;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h6 class="fw-bold mb-0 text-navy"><i class="bi bi-funnel me-2" style="color:var(--brand-red)"></i>Filtres</h6>
+                        <a href="{{ route('location') }}" class="text-muted small text-decoration-none hover-red">Réinitialiser</a>
                     </div>
-
-                    <!-- Résultats : ordre 1 en mobile (en bas) -->
-                    <div class="col-12 col-lg-9 order-1">
-                        <div class="content-page">
-                            <div class="row g-4" id="immobilier-data">
-                                @include('layoutsite.partials.resultats', ['immobiliers' => $immobiliers])
+                    <form id="filterForm">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing:.5px;">Catégorie</label>
+                            <select name="category" class="form-select form-select-sm">
+                                <option value="">Toutes les catégories</option>
+                                @foreach($categories as $cat)
+                                    <option value="{{ $cat->id }}">{{ $cat->nom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing:.5px;">Ville</label>
+                            <select name="city" class="form-select form-select-sm">
+                                <option value="">Toutes les villes</option>
+                                @foreach($cities as $city)
+                                    <option value="{{ $city }}">{{ $city }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold small text-muted text-uppercase" style="letter-spacing:.5px;">Budget (MAD/mois)</label>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <input type="number" name="min_price" class="form-control form-control-sm" placeholder="Min">
+                                </div>
+                                <div class="col-6">
+                                    <input type="number" name="max_price" class="form-control form-control-sm" placeholder="Max">
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <button type="submit" class="btn btn-brand w-100 mt-2">
+                            <i class="bi bi-search me-1"></i> Filtrer
+                        </button>
+                    </form>
 
+                    <hr class="my-4">
+                    <div class="text-center">
+                        <p class="small text-muted mb-1">Besoin d'aide ?</p>
+                        <a href="#" class="btn btn-outline-secondary btn-sm w-100"><i class="bi bi-headset me-1"></i>Contacter le support</a>
+                    </div>
                 </div>
             </div>
+
+            {{-- ===== RESULTS ===== --}}
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                    <p class="mb-0 text-muted small">
+                        <span class="fw-semibold text-dark" id="result-count">{{ $immobiliers->total() }}</span> bien(s) trouvé(s)
+                    </p>
+                    <div class="d-flex gap-2 align-items-center">
+                        <span class="text-muted small">Trier :</span>
+                        <select class="form-select form-select-sm" style="width:auto;" id="sortSelect">
+                            <option>Les plus récents</option>
+                            <option>Prix croissant</option>
+                            <option>Prix décroissant</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-4" id="immobilier-data">
+                    @include('layoutsite.partials.resultats', ['immobiliers' => $immobiliers])
+                </div>
+            </div>
+
         </div>
-    </section>
-    {{-- fin  section principale --}}
-    @endsection
-    @section('scripts')
-        <script>
-            $(document).ready(function() {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+    </div>
+</section>
 
-                $('#filterForm').on('submit', function(e) {
-                    e.preventDefault();
-                    fetchData();
-                });
-
-                $('#filterForm select, #filterForm input').on('change', function() {
-                    fetchData();
-                });
-
-                function fetchData() {
-                    $.ajax({
-                        url: "{{ route('location.filter') }}",
-                        method: 'POST',
-                        data: $('#filterForm').serialize(),
-                        beforeSend: function() {
-                            $('#immobilier-data').html('<p>Chargement...</p>');
-                        },
-                        success: function(data) {
-                            $('#immobilier-data').html(data);
-                        },
-                        error: function(xhr) {
-                            $('#immobilier-data').html('<p>Erreur lors du chargement.</p>');
-                            console.log(xhr.responseText);
-                        }
-                    });
-                }
-            });
-        </script>
 @endsection
 
+@section('scripts')
+<script>
+$(document).ready(function(){
+    $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+
+    // Auto-filter on change
+    $('#filterForm select, #filterForm input').on('change', debounce(fetchData, 400));
+    $('#filterForm').on('submit', function(e){ e.preventDefault(); fetchData(); });
+
+    function fetchData(){
+        $('#immobilier-data').html('<div class="col-12 text-center py-5"><div class="spinner-border" style="color:var(--brand-red)"></div><p class="text-muted mt-2 small">Chargement...</p></div>');
+        $.ajax({
+            url: "{{ route('location.filter') }}",
+            method: 'POST',
+            data: $('#filterForm').serialize(),
+            success: function(data){ $('#immobilier-data').html(data); },
+            error: function(){ $('#immobilier-data').html('<div class="col-12"><p class="text-danger text-center">Erreur lors du chargement.</p></div>'); }
+        });
+    }
+
+    function debounce(fn, delay){
+        let timer;
+        return function(){ clearTimeout(timer); timer = setTimeout(fn, delay); };
+    }
+});
+</script>
+@endsection

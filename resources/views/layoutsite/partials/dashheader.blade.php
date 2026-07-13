@@ -1,7 +1,7 @@
-<!-- Bootstrap + Icons -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{{--<!-- Bootstrap + Icons -->--}}
+<link href="{{ asset('temp_assets/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ asset('temp_assets/bootstrap-icons.css') }}" rel="stylesheet">
+<script src="{{ asset('temp_assets/bootstrap.bundle.min.js') }}"></script>
 
 <div id="preloader-active">
     <div class="preloader d-flex align-items-center justify-content-center">
@@ -93,15 +93,16 @@
             </nav>
 
             <!-- Actions utilisateur -->
-           
+
             <div class="d-flex align-items-center gap-3">
                 <div class="block-signin d-none d-lg-flex">
                     <!-- Bouton "S'inscrire" -->
-                    <a class="btn btn-sm btn-shadow hover-up me-2" href="{{ route('register.client') }}"
-                        style="background-color: #d50100; color: #fff; border: 1px solid #d50100;">
-                        S'inscrire
-                    </a>
-
+                    @if (!Auth::check())
+                        <a class="btn btn-sm btn-shadow hover-up me-2" href="{{ route('register.client') }}"
+                            style="background-color: #d50100; color: #fff; border: 1px solid #d50100;">
+                            S'inscrire
+                        </a>
+                    @endif
                     @if (Auth::check())
                         <!-- Bouton "Deconnexion" -->
                         <a class="btn btn-sm btn-shadow hover-up" href="{{ url('/logout') }}"
@@ -170,7 +171,7 @@
         </ul>
         <hr>
 
-       
+
         <div class="block-signin">
             <!-- Bouton "S'inscrire" -->
             <a href="{{ route('register.client') }}"  class="btn w-100 mb-2"

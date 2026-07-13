@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Entreprise extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Traits\HasUuid;
 
     protected $table = 'entreprises';
 

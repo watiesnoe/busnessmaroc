@@ -30,6 +30,7 @@ use App\Http\Controllers\SecteuractiviteController;
 use App\Http\Controllers\details_offreController;
 use App\Http\Controllers\connexionController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\CommandePouletController;
 
 //Route::get('/', function () {
 //    return view('welcome');
@@ -70,7 +71,20 @@ use App\Http\Controllers\GoogleAuthController;
 //    }
 //});
 
+
+
+Route::get('busnessmaroc/public', function () {
+    return redirect('/');
+});
+Route::any('busnessmaroc/public/{any}', function ($any) {
+    return redirect('/' . $any);
+})->where('any', '.*');
+
 Route::get('/', [SitedashboardController::class, 'index'])->name('homesite.index');
+
+// === Élevage Poulets de Chair ===
+Route::get('/poulets-de-chair', [CommandePouletController::class, 'index'])->name('poulets.index');
+Route::post('/poulets-de-chair/commander', [CommandePouletController::class, 'store'])->name('poulets.store');
 Route::get('/actualite', [SitedashboardController::class, 'actualite']);
 Route::get('/location', [SitedashboardController::class, 'location'])->name('location');
 Route::post('/location/filter', [SitedashboardController::class, 'filter'])->name('location.filter');
@@ -78,7 +92,9 @@ Route::get('/detail/{id}', [SitedashboardController::class, 'showImmobilier'])->
 Route::get('/chambre/{id}/reserver', [ReservationController::class, 'reserver'])->name('reserver.chambre');
 // Corrige ça :
 Route::post('/reservation/{immobilier}/{chambre}', [ReservationController::class, 'store']);
-//Route::post('/login/utilisateur', [LoginController::class, 'store'])->name('login');
+Route::post('/login/utilisateur', [LoginController::class, 'store'])->name('login.post');
+Route::post('/se_connecter', [LoginController::class, 'store']);
+Route::post('/login', [LoginController::class, 'store']);
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 //Partie google forme
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google.redirect');
@@ -99,7 +115,9 @@ Route::get('/universite', [UniversiteController::class, 'index']);
 Route::get('/admin/universite', [UniversiteController::class, 'index_admin'])->name('adminuniversite.index_admin');
 Route::get('/universite/{id}/daille', [UniversiteController::class, 'deitalle'])->name('universite.detaille');
 Route::get('/details_offre/{id}', [details_offreController::class, 'show'])->name('details_offre.show');
-Route::get('/se_connecter', [connexionController::class, 'index'])->name('se_connecter');
+Route::get('/se_connecter', [connexionController::class, 'index'])->name('login');
+Route::get('/login', [connexionController::class, 'index']);
+Route::get('/connexion', [connexionController::class, 'index'])->name('se_connecter');
 //Route::get('/registre', [RegisteredUserController::class, 'create'])->name('registre.create');
 Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -136,7 +154,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/offres/{offre}/candidats', [UtilisateurController::class, 'candidats'])->name('admin.offres.candidats');
     Route::post('candidature/{candidature}/status', [UtilisateurController::class, 'updateStatus'])->name('candidature.updateStatus');
     // Pour lister les candidats d’une offre avec filtrage
-    Route::get('/candidature/{offre}', [UtilisateurController::class, 'candidats'])
+    Route::get('/candidature/postuler/{offre}', [UtilisateurController::class, 'candidats'])
         ->name('candidature.candidats');
 
     Route::post('/candidatures/{id}/alerte', [CandidatureController::class, 'envoyerAlerte'])->name('candidature.alerte');
@@ -184,5 +202,192 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
+Route::get('/apply-uuid', function() {
+    ob_start();
+    include base_path('apply_uuid_trait.php');
+    $output = ob_get_clean();
+    return response($output)->header('Content-Type', 'text/plain');
+});
+
+Route::get('/run-migrations', function() {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        return response("Migrations run successfully:\n" . \Illuminate\Support\Facades\Artisan::output(), 200)
+            ->header('Content-Type', 'text/plain');
+    } catch (\Exception $e) {
+        return response("Error running migrations: " . $e->getMessage(), 500)
+            ->header('Content-Type', 'text/plain');
+    }
+});
+
+Route::get('/setup-poulets', function() {
+    $out = [];
+    // Copy hero image
+    $src  = '/home/snt/.gemini/antigravity/brain/091fe5d1-3ead-400b-9e50-6e2d64409236/poulet_hero_1783383024275.png';
+    $dest = public_path('asset/imgs/poulet_hero.png');
+    if (file_exists($src)) {
+        @copy($src, $dest);
+        $out[] = file_exists($dest) ? "✅ Image copiée vers $dest" : "❌ Échec de la copie de l'image";
+    } else {
+        $out[] = "⚠️  Image source introuvable : $src";
+    }
+    // Run migrations
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        $out[] = "✅ Migrations:\n" . \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Exception $e) {
+        $out[] = "❌ Migration error: " . $e->getMessage();
+    }
+    return response(implode("\n", $out))->header('Content-Type', 'text/plain');
+});
+
+Route::get('/view-laravel-log', function() {
+    $log = storage_path('logs/laravel.log');
+    if (!file_exists($log)) {
+        return "Log file does not exist";
+    }
+    $lines = file($log);
+    $last_lines = array_slice($lines, -100);
+    return response(implode("", $last_lines))->header('Content-Type', 'text/plain');
+});
+
+Route::get('/test-link', function() {
+    return response(shell_exec('ls -la ' . public_path()))->header('Content-Type', 'text/plain');
+});
+
+Route::get('/check-base-path', function() {
+    $path = base_path();
+    return [
+        'path' => $path,
+        'perms' => sprintf('%o', fileperms($path)),
+        'owner' => fileowner($path),
+        'group' => filegroup($path),
+    ];
+});
+
+Route::get('/check-tree', function() {
+    $paths = [
+        base_path('storage'),
+        base_path('storage/app'),
+        base_path('storage/app/public'),
+        base_path('storage/app/public/photos'),
+        storage_path('framework/views'),
+    ];
+    $out = [];
+    foreach ($paths as $path) {
+        $out[$path] = [
+            'exists' => file_exists($path),
+            'perms' => sprintf('%o', fileperms($path)),
+            'owner' => fileowner($path),
+            'group' => filegroup($path),
+        ];
+    }
+    return $out;
+});
+
+Route::get('/debug-photo', function() {
+    $file = storage_path('app/public/photos/sh3DpqvMu1TVC9musW3l.jpg');
+    if (!file_exists($file)) {
+        return "File does not exist: $file";
+    }
+    clearstatcache();
+    $perms = fileperms($file);
+    return [
+        'file' => $file,
+        'readable_by_php' => is_readable($file),
+        'owner' => fileowner($file),
+        'group' => filegroup($file),
+        'perms' => sprintf('%o', $perms),
+        'whoami_terminal' => trim(shell_exec('whoami')),
+        'whoami_web' => get_current_user(),
+        'parent_perms' => sprintf('%o', fileperms(dirname($file)))
+    ];
+});
+
+Route::get('/check-symlink', function() {
+    clearstatcache();
+    $link = public_path('storage');
+    $exists = file_exists($link);
+    $isLink = is_link($link);
+    $target = $isLink ? readlink($link) : 'not a link';
+    $targetExists = file_exists($isLink ? (dirname($link) . '/' . $target) : $link);
+    return [
+        'link_path' => $link,
+        'exists' => $exists,
+        'is_link' => $isLink,
+        'target' => $target,
+        'target_exists' => $targetExists,
+        'real_path' => realpath($link)
+    ];
+});
+
+Route::get('/fix-storage-link', function() {
+    clearstatcache();
+    $link = public_path('storage');
+    $out = [];
+    if (file_exists($link)) {
+        if (!is_link($link)) {
+            $backup = public_path('storage_old_' . time());
+            if (rename($link, $backup)) {
+                $out[] = "✅ Renamed physical public/storage directory to " . basename($backup);
+            } else {
+                return "❌ Failed to rename physical public/storage directory";
+            }
+        } else {
+            unlink($link);
+            $out[] = "✅ Removed old symlink public/storage";
+        }
+    }
+    try {
+        \Illuminate\Support\Facades\Artisan::call('storage:link');
+        $out[] = "✅ Created storage symlink:\n" . \Illuminate\Support\Facades\Artisan::output();
+    } catch (\Exception $e) {
+        $out[] = "❌ storage:link error: " . $e->getMessage();
+    }
+    return response(implode("\n", $out))->header('Content-Type', 'text/plain');
+});
+
+Route::get('/fix-perms', function() {
+    $path = storage_path();
+    if (!file_exists($path)) {
+        return "Storage path does not exist";
+    }
+    @chmod($path, 0777);
+    
+    // Fix FontAwesome icons 404 by copying webfonts
+    $src = public_path('admin/fonts/fontawesome');
+    $dest = public_path('webfonts');
+    if (!file_exists($dest)) {
+        @mkdir($dest, 0775, true);
+    }
+    if (file_exists($src) && is_dir($src)) {
+        $files = scandir($src);
+        foreach ($files as $file) {
+            if ($file !== '.' && $file !== '..') {
+                @copy("$src/$file", "$dest/$file");
+            }
+        }
+    }
+    
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::SELF_FIRST
+    );
+    $count = 0;
+    foreach ($iterator as $item) {
+        $pathname = $item->getPathname();
+        if ($item->isDir()) {
+            if (@chmod($pathname, 0777)) {
+                $count++;
+            }
+        } else {
+            if (@chmod($pathname, 0666)) {
+                $count++;
+            }
+        }
+    }
+    return "Permissions fixed recursively for $count items! FontAwesome fonts copied.";
+});
 
 require __DIR__ . '/auth.php';

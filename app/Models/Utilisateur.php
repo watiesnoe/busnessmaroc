@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Utilisateur extends Model
 {
+    use \App\Traits\HasUuid;
     //
 }

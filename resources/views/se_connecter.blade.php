@@ -1,202 +1,236 @@
-    @extends('layoutsite.site')
-    @section('content')
-        <style>
-            .card-body {
-                background-color: #fefefe;
-                /* Fond très clair pour bien contraster */
-                color: #222222;
-                /* Texte bien foncé */
-                font-size: 1rem;
-                /* Taille de police confortable */
-                line-height: 1.5;
-                /* Meilleure lisibilité */
-                padding: 1.5rem !important;
-                /* Espace autour du contenu */
-            }
+@extends('layoutsite.site')
 
-            .card-header {
-                font-weight: 600;
-                font-size: 1.25rem;
-            }
+@section('titre', 'Connexion — Business Maroc')
 
-            a.text-decoration-none.text-dark:hover {
-                color: #0d6efd;
-                /* Bootstrap primary blue au hover */
-            }
+@push('styles')
+<style>
+    .login-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f4f7f6 0%, #e9ecef 100%);
+        padding: 4rem 1rem;
+    }
+    .login-card {
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.03);
+        border: 1px solid rgba(0, 0, 0, 0.03);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+    .login-header {
+        background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 100%);
+        padding: 3rem 2rem;
+        color: #ffffff;
+        text-align: center;
+    }
+    .login-header h3 {
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin-bottom: 0.5rem;
+    }
+    .login-header p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+        margin-bottom: 0;
+    }
+    .login-body {
+        padding: 3rem 2.5rem;
+    }
+    .btn-google-auth {
+        background: #ffffff;
+        border: 1.5px solid #e9ecef;
+        border-radius: 12px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #495057;
+        transition: all 0.2s ease;
+        text-decoration: none;
+    }
+    .btn-google-auth:hover {
+        background: #f8f9fa;
+        border-color: #ced4da;
+        color: #212529;
+        transform: translateY(-1px);
+    }
+    .separator-text {
+        position: relative;
+        text-align: center;
+        margin: 2rem 0;
+    }
+    .separator-text::before {
+        content: "";
+        position: absolute;
+        top: 50%; left: 0; right: 0;
+        height: 1px;
+        background: #e9ecef;
+        z-index: 1;
+    }
+    .separator-text span {
+        position: relative;
+        background: #ffffff;
+        padding: 0 15px;
+        color: #adb5bd;
+        font-size: 0.85rem;
+        font-weight: 600;
+        z-index: 2;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .form-group-custom {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+    .form-group-custom label {
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: #0d1b2a;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    .form-icon-addon {
+        position: absolute;
+        left: 15px;
+        bottom: 15px;
+        color: #adb5bd;
+        font-size: 1.1rem;
+        pointer-events: none;
+    }
+    .form-control-custom {
+        padding-left: 45px;
+        height: 50px;
+        border-radius: 12px;
+        border: 1.5px solid #e9ecef;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #0d1b2a;
+        transition: all 0.2s ease;
+        width: 100%;
+        background-color: #fdfdfd;
+    }
+    .form-control-custom:focus {
+        border-color: #d50100;
+        box-shadow: 0 0 0 4px rgba(213, 1, 0, 0.1);
+        background-color: #ffffff;
+        outline: none;
+    }
+    .btn-submit-login {
+        background: linear-gradient(135deg, #d50100 0%, #b30000 100%);
+        border: none;
+        color: #fff;
+        height: 50px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+        box-shadow: 0 5px 15px rgba(213, 1, 0, 0.2);
+    }
+    .btn-submit-login:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(213, 1, 0, 0.35);
+        color: #fff;
+    }
+    .link-register {
+        color: #d50100;
+        font-weight: 700;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .link-register:hover {
+        color: #b30000;
+        text-decoration: underline;
+    }
+</style>
+@endpush
 
-            .badge.bg-light.text-dark {
-                font-weight: 500;
-            }
-        </style>
-
-        <main class="main bg-light-primary">
-            <section class="section-box-2">
-                <div class="container">
-                    <div class="banner-hero banner-single banner-single-bg">
-                        <div class="block-banner text-center">
-                            <h3 class="wow animate__animated animate__fadeInUp"><span class="color-brand-2">22 Jobs</span>
-                                Available Now</h3>
-                            <div class="font-sm color-text-paragraph-2 mt-10 wow animate__animated animate__fadeInUp"
-                                data-wow-delay=".1s">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
-                                repellendus magni, <br class="d-none d-xl-block">atque delectus molestias quis?</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="section-box mt-30">
-                <div class="container">
-                    <div class="row flex-row-reverse">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-12 mb-4">
-                                <div class="card shadow-sm rounded border-0" style="min-height: 420px;">
-                                    <div class="card-header bg-primary text-white text-center rounded-top py-3">
-                                        <h5 class="mb-0 text-white">Se connecter</h5>
-                                    </div>
-                                    <div class="card-body d-flex flex-column">
-
-                                        <form class="login-register text-start mt-20" action="#">
-                                            <div class="form-group">
-                                                <label class="form-label" for="input-1">Username or Email address *</label>
-                                                <input class="form-control" id="input-1" type="text" required=""
-                                                    name="fullname" placeholder="Steven Job">
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label" for="input-4">Password *</label>
-                                                <input class="form-control" id="input-4" type="password" required=""
-                                                    name="password" placeholder="************">
-                                            </div>
-                                            <div class="login_footer form-group d-flex justify-content-between">
-                                                <label class="cb-container">
-                                                    <input type="checkbox"><span class="text-small">Remenber me</span><span
-                                                        class="checkmark"></span>
-                                                </label><a class="text-muted" href="page-contact.html">Forgot Password</a>
-                                            </div>
-                                            <div class="form-group">
-                                                <button class="btn btn-brand-1 hover-up w-100" type="submit"
-                                                    name="login">Login</button>
-                                            </div>
-                                            <div class="text-muted text-center">Don't have an Account? <a
-                                                    href="page-signin.html">Sign
-                                                    up</a></div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12 mb-4">
-                                <div class="card shadow-sm rounded border-0">
-                                    <div class="card-header bg-primary text-white text-center rounded-top py-3">
-                                        <h5 class="mb-0 text-white">S'inscrire</h5>
-                                    </div>
-                                    <div class="card-body">
-
-                                        <!-- Bouton Google -->
-                                        <div class="d-grid mb-3">
-                                            <button type="button"
-                                                class="btn btn-outline-secondary d-flex align-items-center justify-content-center gap-2 py-2">
-                                                <img src="{{ asset('assets/imgs/template/icons/icon-google.svg') }}"
-                                                    alt="Google" style="width:20px; height:20px;">
-                                                <span class="fw-bold">S'inscrire avec Google</span>
-                                            </button>
-                                        </div>
-
-                                        <!-- Séparateur -->
-                                        <div class="text-center mb-4">
-                                            <span class="text-muted small">Ou continuer avec</span>
-                                        </div>
-
-                                        <!-- Formulaire -->
-                                        <form class="login-register" action="#" method="POST">
-                                            <div class="mb-3">
-                                                <label for="fullname" class="form-label">Nom complet *</label>
-                                                <input type="text" class="form-control" id="fullname" name="fullname"
-                                                    required placeholder="Ex: Steven Job">
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="emailaddress" class="form-label">Email *</label>
-                                                <input type="email" class="form-control" id="emailaddress"
-                                                    name="emailaddress" required placeholder="Ex: job@example.com">
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="username" class="form-label">Nom d'utilisateur *</label>
-                                                <input type="text" class="form-control" id="username" name="username"
-                                                    required placeholder="Ex: stevenjob">
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="password" class="form-label">Mot de passe *</label>
-                                                <input type="password" class="form-control" id="password"
-                                                    name="password" required>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="re-password" class="form-label">Confirmer le mot de passe
-                                                    *</label>
-                                                <input type="password" class="form-control" id="re-password"
-                                                    name="re-password" required>
-                                            </div>
-
-                                            <!-- Case à cocher -->
-                                            <div class="login_footer form-group d-flex justify-content-between">
-                                                <label class="cb-container">
-                                                    <input type="checkbox" required>
-                                                    <span class="text-small">J'accepte les <a href="#"
-                                                            class="text-decoration-underline">conditions
-                                                            d'utilisation</a></span>
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                                <a class="text-muted" href="page-contact.html">En savoir plus</a>
-                                            </div>
-
-                                            <!-- Bouton d'envoi -->
-                                            <div class="d-grid mb-3">
-                                                <button type="submit" class="btn btn-primary">Soumettre et
-                                                    s'inscrire</button>
-                                            </div>
-
-                                            <!-- Lien déjà inscrit -->
-                                            {{-- <div class="text-center text-muted">
-                                                Déjà inscrit ? <a href="page-signin.html" class="text-decoration-none">Se
-                                                    connecter</a>
-                                            </div> --}}
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-
+@section('content')
+<main class="login-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-8 col-sm-10">
+                <div class="login-card">
+                    {{-- Header --}}
+                    <div class="login-header">
+                        <h3>Bienvenue</h3>
+                        <p>Connectez-vous pour gérer vos réservations et candidatures</p>
                     </div>
 
-                </div>
-                </div>
-            </section>
-            {{-- Section newsletter inchangée --}}
-            <section class="section-box mt-50 mb-20">
-                <div class="container">
-                    <div class="box-newsletter">
-                        <div class="row">
-                            <div class="col-xl-3 col-12 text-center d-none d-xl-block">
-                                <img src="assets/imgs/template/newsletter-left.png" alt="joxBox">
-                            </div>
-                            <div class="col-lg-12 col-xl-6 col-12">
-                                <h2 class="text-md-newsletter text-center">New Things Will Always<br> Update Regularly</h2>
-                                <div class="box-form-newsletter mt-40">
-                                    <form class="form-newsletter">
-                                        <input class="input-newsletter" type="text" value=""
-                                            placeholder="Enter your email here">
-                                        <button class="btn btn-default font-heading icon-send-letter">Subscribe</button>
-                                    </form>
+                    {{-- Body --}}
+                    <div class="login-body">
+                        {{-- Google Auth Button --}}
+                        <div class="d-grid">
+                            <a href="{{ route('auth.google.redirect') }}" class="btn-google-auth">
+                                <img src="{{ asset('asset/imgs/template/icons/icon-google.svg') }}" alt="Google" style="width:20px; height:20px;">
+                                <span>Se connecter avec Google</span>
+                            </a>
+                        </div>
+
+                        {{-- Separator --}}
+                        <div class="separator-text">
+                            <span>Ou continuer avec</span>
+                        </div>
+
+                        {{-- Form --}}
+                        <form action="{{ route('login') }}" method="POST">
+                            @csrf
+                            
+                            @if ($errors->any())
+                                <div class="alert alert-danger py-2 mb-3 small border-0 rounded-3">
+                                    <ul class="mb-0 list-unstyled">
+                                        @foreach ($errors->all() as $error)
+                                            <li><i class="bi bi-exclamation-circle-fill me-1"></i> {{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            <div class="form-group-custom">
+                                <label for="email">Adresse e-mail</label>
+                                <div class="position-relative">
+                                    <i class="bi bi-envelope form-icon-addon"></i>
+                                    <input class="form-control-custom @error('email') is-invalid @enderror" id="email" type="email" required name="email" value="{{ old('email') }}" placeholder="Ex: contact@exemple.com">
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-12 text-center d-none d-xl-block">
-                                <img src="assets/imgs/template/newsletter-right.png" alt="joxBox">
+
+                            <div class="form-group-custom">
+                                <label for="password">Mot de passe</label>
+                                <div class="position-relative">
+                                    <i class="bi bi-lock form-icon-addon"></i>
+                                    <input class="form-control-custom" id="password" type="password" required name="password" placeholder="••••••••••••">
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" style="cursor: pointer;">
+                                    <label class="form-check-label text-muted small" for="remember" style="cursor: pointer; user-select: none;">
+                                        Se souvenir de moi
+                                    </label>
+                                </div>
+                                <a class="text-muted small text-decoration-none" href="#">Mot de passe oublié ?</a>
+                            </div>
+
+                            <div class="d-grid">
+                                <button class="btn btn-submit-login w-100" type="submit">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i> Se connecter
+                                </button>
+                            </div>
+
+                            <div class="text-muted text-center small mt-4">
+                                Vous n'avez pas encore de compte ? <a href="{{ route('register.client') }}" class="link-register">S'inscrire</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </section>
-        </main>
-    @endsection
+            </div>
+        </div>
+    </div>
+</main>
+@endsection

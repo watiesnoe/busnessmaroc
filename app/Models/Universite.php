@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Universite extends Model
 {
+    use \App\Traits\HasUuid;
     //
 
     protected $fillable = [

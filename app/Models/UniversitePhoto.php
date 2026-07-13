@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UniversitePhoto extends Model
 {
     //
-    use HasFactory;
+    use HasFactory, \App\Traits\HasUuid;
 
     protected $fillable = ['universite_id', 'photo'];
 

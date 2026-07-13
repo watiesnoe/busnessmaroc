@@ -1,33 +1,36 @@
-
 @extends('layoutsite.site')
+
+@section('titre', 'Étape 2 : Confirmation des informations — Business Maroc')
+
 @section('content')
-    <div class="container py-4">
-        <h3>Étape 2 : Informations client</h3>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden bg-white">
+                <div class="card-header text-white border-0 py-3" style="background: var(--brand-navy); border-bottom: 4px solid var(--brand-red) !important;">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-person-check me-2 text-brand-red"></i>Étape 2 : Informations client</h5>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <p class="text-muted mb-4">
+                        Vous êtes connecté en tant que <strong>{{ auth()->user()->nom }} {{ auth()->user()->prenom }}</strong>.<br>
+                        Cliquez sur Valider pour finaliser votre réservation.
+                    </p>
 
-        <form method="POST" action="{{ route('reservation.step3') }}">
-            @csrf
-            @foreach ($data as $key => $value)
-                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-            @endforeach
+                    <form method="POST" action="{{ route('reservation.step3') }}">
+                        @csrf
+                        @foreach ($data as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
 
-{{--            <div class="mb-3">--}}
-{{--                <label>Nom</label>--}}
-{{--                <input type="text" name="nom" class="form-control" value="{{ auth()->user()->name }}" required>--}}
-{{--            </div>--}}
-
-{{--            <div class="mb-3">--}}
-{{--                <label>Email</label>--}}
-{{--                <input type="email" name="email" class="form-control" value="{{ auth()->user()->email }}" required>--}}
-{{--            </div>--}}
-
-{{--            <div class="mb-3">--}}
-{{--                <label>Téléphone</label>--}}
-{{--                <input type="text" name="telephone" class="form-control" required>--}}
-{{--            </div>--}}
-
-            <button type="submit" class="btn btn-primary">Valider</button>
-        </form>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-brand py-2">
+                                <i class="bi bi-check-circle me-1"></i> Valider
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 @endsection
-
-

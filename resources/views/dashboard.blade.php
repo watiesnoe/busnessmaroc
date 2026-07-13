@@ -1,377 +1,408 @@
 @extends('layoutsite.site')
+
+@section('titre', 'Trouvez votre logement idéal au Maroc')
+
+@push('styles')
+<style>
+    @keyframes zoomBackground {
+        from { transform: scale(1.08); }
+        to { transform: scale(1); }
+    }
+    .bm-hero-bg {
+        animation: zoomBackground 8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        background-image: url('{{ asset('asset/imgs/accueil1.png') }}');
+        background-size: cover;
+        background-position: center;
+    }
+    .glass-search-container {
+        background: rgba(255, 255, 255, 0.12) !important;
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.22) !important;
+        box-shadow: 0 24px 50px rgba(0, 0, 0, 0.25) !important;
+        border-radius: 20px !important;
+    }
+    .glass-search-input {
+        background: rgba(255, 255, 255, 0.95) !important;
+        color: #0d1b2a !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        border-radius: 12px !important;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .glass-search-input:focus {
+        background: #ffffff !important;
+        box-shadow: 0 0 0 4px rgba(192, 57, 43, 0.2) !important;
+        border-color: var(--brand-red) !important;
+    }
+    .hover-scale {
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .hover-scale:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 12px 30px rgba(192, 57, 43, 0.4) !important;
+    }
+    .why-card:hover {
+        transform: translateY(-8px);
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-color: rgba(192, 57, 43, 0.4) !important;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+    }
+    .why-card:hover .icon-box {
+        background: var(--brand-red) !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 20px rgba(192, 57, 43, 0.6) !important;
+        transform: scale(1.08);
+    }
+    .btn-cta-primary {
+        background: #ffffff;
+        color: var(--brand-red) !important;
+        border: none;
+        font-weight: 700;
+        padding: 0.7rem 2.2rem;
+        border-radius: 30px;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        text-decoration: none;
+    }
+    .btn-cta-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        background: #fdfdfd;
+        color: var(--brand-red-dark) !important;
+    }
+    .btn-cta-outline {
+        background: transparent;
+        border: 2px solid #ffffff;
+        color: #ffffff !important;
+        font-weight: 700;
+        padding: 0.7rem 2.2rem;
+        border-radius: 30px;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        text-decoration: none;
+    }
+    .btn-cta-outline:hover {
+        background: #ffffff;
+        color: var(--brand-red) !important;
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+    }
+</style>
+@endpush
+
 @section('content')
-    <section class="hero-section position-relative bg-cover text-white py-5"
-        style="background-image: url('{{ asset('asset/imgs/accueil1.jpg') }}'); background-size: cover; background-position: center; height: 400px;">
 
-        {{-- <div class="overlay position-absolute w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6); top: 0; left: 0;">
-        </div> --}}
-        <div class="container position-relative z-2">
-            <div class="row justify-content-center text-center">
-                <div class="col-lg-10">
-                    <h1 class="display-4 fw-bold mb-4 wow animate__animated animate__fadeInDown">
-                        <span class="" style="color: #d50100;">Trouvez</span> votre futur <br class="d-none d-md-block">
-                        logement en
-                        quelques clics
-                    </h1>
-                    <p class="lead text-white mb-5 wow animate__animated animate__fadeInUp"
-                        style="text-shadow: 1px 1px 6px rgba(0,0,0,0.6);">
-                        Découvrez les meilleures offres de location – maisons, appartements, immeubles
-                    </p>
-
-                    <!-- Form Card -->
-                    <div class="bg-white rounded-pill shadow-lg mx-auto px-3 py-2 d-flex flex-column flex-md-row align-items-center justify-content-between gap-2"
-                        style="max-width: 850px;">
-                        <input type="text" name="keyword" class="form-control border-0 rounded-pill px-4"
-                            placeholder="Ville, quartier ou mot-clé..." />
-
-                        <select name="type" class="form-select border-0 bg-light rounded-pill px-4">
-                            <option value="">Catégorie</option>
-                            <option value="maison">Maison</option>
-                            <option value="appartement">Appartement</option>
-                            <option value="immeuble">Immeuble</option>
-                        </select>
-
-                        <button type="submit" class="btn rounded-pill px-4 py-2"
-                            style="background-color: #d50100; color: #ffffff; border: none;">
-                            Rechercher
-                        </button>
-
-                    </div>
-                </div>
-            </div>
-    </section>
-    {{-- section top a la une --}}
-    <section class="section-box mt-5 ">
-        <div class="container wow animate__animated animate__fadeIn">
-            <div class="text-center mb-4">
-                <h2 class="section-title wow animate__animated animate__fadeInUp" style="color: #d50100;">Top annonces à la
-                    une</h2>
-                <p class="text-muted wow animate__animated animate__fadeInUp">
-                    Parcourez nos meilleures offres immobilières en un clic
+{{-- ===== HERO ===== --}}
+<section class="bm-hero position-relative d-flex align-items-center overflow-hidden" style="min-height: 600px;">
+    <div class="bm-hero-bg position-absolute inset-0 w-100 h-100"></div>
+    <div class="hero-overlay position-absolute inset-0 w-100 h-100 z-1" style="background: linear-gradient(to bottom, rgba(13, 27, 42, 0.4) 0%, rgba(13, 27, 42, 0.6) 100%);"></div>
+    <div class="container position-relative z-2 py-5">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <p class="section-badge text-white bg-white bg-opacity-10 border border-white border-opacity-25 mb-3 animate-fade-in-up" style="font-size:0.8rem; letter-spacing:2px;">N°1 au Maroc</p>
+                <h1 class="display-4 fw-800 text-white mb-3 lh-sm animate-fade-in-up delay-1" style="font-weight:800; text-shadow: 0 2px 20px rgba(0,0,0,0.4);">
+                    Trouvez votre<br>
+                    <span style="color:#f87171;">logement idéal</span> au Maroc
+                </h1>
+                <p class="lead text-white mb-5 opacity-90 animate-fade-in-up delay-2" style="text-shadow: 0 1px 6px rgba(0,0,0,0.5);">
+                    Maisons, appartements, chambres et événements — tout en un seul endroit.
                 </p>
-            </div>
 
-            <div class="box-swiper mt-4">
-                <div class="swiper-container swiper-group-6 mh-none swiper">
-                    <div class="swiper-wrapper pb-5 pt-3">
-                        @foreach ($annoncesVedette as $annonce)
-                            <div class="swiper-slide">
-                                <a href="{{ route('immobiliers.show', $annonce->id) }}" class="text-decoration-none">
-                                    <div class="card-grid-5 card-category position-relative rounded-3 shadow-sm overflow-hidden"
-                                        style="background-image: url('{{ asset('storage/' . $annonce->photoPrincipale->url) }}'); background-size: cover; background-position: center; height: 280px;">
-
-                                        <div class="box-cover-img position-relative h-100">
-                                            <div class="content-bottom">
-                                                <h6 class="mb-1 text-white">{{ $annonce->titre }}</h6>
-                                                <p class="font-xs mb-0">
-                                                    {{ number_format($annonce->prix, 0, ',', ' ') }} MAD
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        @endforeach
+                {{-- Search bar --}}
+                <div class="glass-search-container p-3 d-flex flex-column flex-md-row gap-2 align-items-stretch animate-fade-in-up delay-3" style="max-width:760px; margin:0 auto;">
+                    <div class="input-group flex-grow-1">
+                        <span class="input-group-text bg-transparent border-0"><i class="bi bi-search text-muted"></i></span>
+                        <input type="text" class="form-control border-0 shadow-none glass-search-input" placeholder="Ville, quartier ou mot-clé...">
                     </div>
+                    <select class="form-select border-0 shadow-none glass-search-input bg-light" style="max-width:180px; min-width:140px;">
+                        <option value="">Catégorie</option>
+                        <option>Maison</option>
+                        <option>Appartement</option>
+                        <option>Chambre</option>
+                        <option>Immeuble</option>
+                    </select>
+                    <a href="{{ route('location') }}" class="btn btn-brand px-4 text-nowrap rounded-2 hover-scale" style="background: var(--brand-red); border-color: var(--brand-red);">
+                        <i class="bi bi-search me-1"></i> Rechercher
+                    </a>
                 </div>
 
-                <!-- Flèches de navigation -->
-                <div class="swiper-button-next swiper-button-next-1"></div>
-                <div class="swiper-button-prev swiper-button-prev-1"></div>
+                {{-- Quick stats --}}
+                <div class="d-flex justify-content-center gap-4 mt-5 flex-wrap animate-fade-in-up delay-4">
+                    <div class="text-white text-center">
+                        <div class="fs-3 fw-bold">1 200+</div>
+                        <div class="opacity-75 small">Annonces actives</div>
+                    </div>
+                    <div class="text-white text-center">
+                        <div class="fs-3 fw-bold">40+</div>
+                        <div class="opacity-75 small">Villes couvertes</div>
+                    </div>
+                    <div class="text-white text-center">
+                        <div class="fs-3 fw-bold">5 000+</div>
+                        <div class="opacity-75 small">Utilisateurs satisfaits</div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
-    {{-- fin de section top annonces à la une --}}
-    {{-- section maison a loue --}}
-    <section class="section-box mt-30">
-        <div class="container">
-            <div class="text-center mb-3">
-                <h2 class="section-title fw-bold mb-1 wow animate__animated animate__fadeInUp "
-                    style="font-size: 2.2rem; color: #d50100;">
-                    Maisons à louer au Maroc
-                </h2>
-                <p class="lead text-muted wow animate__animated animate__fadeInUp text-nowrap"
-                    style="max-width: 600px; margin: auto; overflow: hidden; text-overflow: ellipsis;">
-                    Découvrez nos meilleures offres de location — maisons, appartements et immeubles sélectionnés pour vous.
-                </p>
+    </div>
+</section>
 
-            </div>
-
-            <div class="mt-50">
-                <div class="tab-content" id="myTabContent-1">
-                    <div class="tab-pane fade show active" id="tab-job-1" role="tabpanel" aria-labelledby="tab-job-1">
-                        <div class="row">
-                            @foreach ($immobiliers as $immobilier)
-                                @if (strtolower($immobilier->category->nom) !== 'chambre')
-                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                        <div class="card-grid-2 grid-bd-16 hover-up">
-                                            <div class="card-grid-2-image">
-                                                <span class="lbl-hot bg-green">
-                                                    <span>{{ $immobilier->category->nom }}</span>
-                                                </span>
-
-                                                <div class="image-box">
-                                                    <a href="{{ route('immobilier.detail', $immobilier->id) }}">
-                                                        <figure>
-                                                            @if ($immobilier->photoPrincipale)
-                                                                <img src="{{ asset('storage/' . $immobilier->photoPrincipale->url) }}"
-                                                                    height="250" style="object-fit: cover; width: 100%;"
-                                                                    alt="Photo chambre" alt="Photo principale"
-                                                                    class="img-fluid rounded">
-                                                            @else
-                                                                <img src="{{ asset('admin/media/photos/bg_minecraft.png') }}"
-                                                                    height="250" style="object-fit: cover; width: 100%;"
-                                                                    alt="Photo chambre" alt="Aucune image"
-                                                                    class="img-fluid rounded">
-                                                            @endif
-                                                        </figure>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="card-block-info">
-                                                <h5>
-                                                    <a href="{{ route('immobilier.detail', $immobilier->id) }}">
-                                                        {{ $immobilier->titre }}
-                                                    </a>
-                                                </h5>
-
-                                                <div class="mt-3">
-                                                    <span class="card-location mr-15">
-                                                        {{ $immobilier->ville . ' / ' . $immobilier->quartier }}
-                                                    </span>
-                                                </div>
-
-                                                <div
-                                                    class="card-2-bottom mt-3 d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        @if ($immobilier->chambres->isEmpty())
-                                                            <span class="text-danger">Aucune chambre</span>
-                                                        @endif
-                                                    </div>
-                                                    <div class="text-end">
-                                                        <span class="card-text-price fw-bold"
-                                                            style="color: #d50100;">{{ $immobilier->prix }}</span>
-                                                        <span class="text-muted">/Mois</span>
-                                                    </div>
-                                                </div>
-
-                                                <p class="font-sm color-text-paragraph mt-3">
-                                                    {{ $immobilier->description }}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endforeach
-
-
+{{-- ===== ANNONCES VEDETTE (carousel) ===== --}}
+@if($annoncesVedette->count())
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-badge">Sélection</span>
+            <h2 class="section-heading">Annonces à la une</h2>
+            <p class="section-sub">Nos meilleures offres sélectionnées pour vous</p>
+        </div>
+        <div class="row g-4">
+            @foreach($annoncesVedette as $annonce)
+            <div class="col-md-4 col-lg-{{ $annoncesVedette->count() >= 5 ? '2' : '4' }}">
+                <a href="{{ route('immobilier.detail', $annonce->uuid ?? $annonce->id) }}" class="text-decoration-none">
+                    <div class="position-relative rounded-3 overflow-hidden" style="height:260px;">
+                        <img src="{{ $annonce->photoPrincipale?->url ? asset('storage/'.$annonce->photoPrincipale->url) : asset('admin/media/photos/bg_minecraft.png') }}"
+                            class="w-100 h-100" style="object-fit:cover; transition:transform 0.4s;"
+                            onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+                        <div class="position-absolute bottom-0 start-0 end-0 p-3" style="background:linear-gradient(transparent, rgba(0,0,0,0.75));">
+                            <div class="text-white fw-bold">{{ $annonce->titre }}</div>
+                            <div class="text-white opacity-75 small">{{ number_format($annonce->prix,0,',',' ') }} MAD/mois</div>
                         </div>
+                        <span class="position-absolute top-0 end-0 m-2 badge" style="background:var(--brand-red); font-size:0.72rem;">À la une</span>
                     </div>
-                </div>
+                </a>
             </div>
+            @endforeach
         </div>
-    </section>
-    {{-- fin section maison a loue --}}
-    {{-- Section Location par Chambre --}}
-    <section class="py-5 bg-light">
-        <div class="container">
-            <!-- En-tête section -->
-            <div class="text-center mb-5">
-                <h1 class="fw-bold  display-5" style="font-size: 2.2rem; color: #d50100;">Location par Chambre</h1>
-                <p class="text-muted fs-5">
-                    Découvrez nos offres de chambres à louer — confortables, pratiques et bien situées.
-                </p>
+    </div>
+</section>
+@endif
+
+{{-- ===== BIENS IMMOBILIERS ===== --}}
+<section class="py-5" style="background:#f5f6fa;">
+    <div class="container">
+        <div class="d-flex align-items-end justify-content-between mb-5 flex-wrap gap-3">
+            <div>
+                <span class="section-badge">Logements</span>
+                <h2 class="section-heading mb-0">Maisons & Appartements</h2>
+                <p class="text-muted mt-1 mb-0">Découvrez nos meilleures offres de location au Maroc</p>
             </div>
+            <a href="{{ route('location') }}" class="btn-brand-outline btn">Voir tout <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
 
-            <!-- Grille des cartes -->
-            <div class="row">
-                @forelse ($immobiliers as $immobi)
-                    @if (strtolower($immobi->category->nom) === 'chambre')
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                            <div class="card-grid-2 grid-bd-16 hover-up">
-                                <!-- En-tête avec badge + image -->
-                                <div class="card-grid-2-image">
-
-
-                                    <div class="image-box">
-                                        <a href="{{ route('reservation.chambre', $immobi->id) }}">
-                                            <figure>
-                                                <img src="{{ asset($immobi->photos->first()->url ?? 'images/default.jpg') }}"
-                                                    height="250" style="object-fit: cover; width: 100%;"
-                                                    alt="Photo chambre">
-                                            </figure>
-                                        </a>
-                                    </div>
+        <div class="row g-4">
+            @php $count = 0; @endphp
+            @foreach($immobiliers as $immobilier)
+                @if(strtolower($immobilier->category->nom ?? '') !== 'chambre' && $count < 6)
+                @php $count++; @endphp
+                <div class="col-xl-4 col-md-6">
+                    <div class="prop-card">
+                        <div class="prop-card-img">
+                            @if($immobilier->photoPrincipale?->url)
+                                <img src="{{ asset('storage/'.$immobilier->photoPrincipale->url) }}" alt="{{ $immobilier->titre }}">
+                            @else
+                                <img src="{{ asset('admin/media/photos/bg_minecraft.png') }}" alt="{{ $immobilier->titre }}">
+                            @endif
+                            <span class="prop-card-badge green">{{ $immobilier->category->nom ?? 'Logement' }}</span>
+                        </div>
+                        <div class="prop-card-body">
+                            <div class="prop-card-location mb-1">
+                                <i class="bi bi-geo-alt-fill" style="color:var(--brand-red);font-size:0.82rem;"></i>
+                                {{ $immobilier->ville }}{{ $immobilier->quartier ? ' · '.$immobilier->quartier : '' }}
+                            </div>
+                            <h6 class="prop-card-title">
+                                <a href="{{ route('immobilier.detail', $immobilier->uuid ?? $immobilier->id) }}">{{ $immobilier->titre }}</a>
+                            </h6>
+                            <div class="prop-card-meta">
+                                @if($immobilier->surface)<span><i class="bi bi-aspect-ratio"></i>{{ $immobilier->surface }} m²</span>@endif
+                                @if($immobilier->etage)<span><i class="bi bi-building"></i>Étage {{ $immobilier->etage }}</span>@endif
+                                <span><i class="bi bi-door-open"></i>{{ $immobilier->chambres->where('statut','disponible')->count() }} chambre(s)</span>
+                            </div>
+                            <p class="prop-card-desc">{{ Str::limit($immobilier->description, 90) }}</p>
+                            <div class="prop-card-footer">
+                                <div>
+                                    <div class="prop-card-price">{{ number_format($immobilier->prix, 0, ',', ' ') }} MAD <small>/mois</small></div>
                                 </div>
-
-                                <!-- Contenu principal -->
-                                <div class="card-block-info">
-                                    <h5>
-                                        <a
-                                            href="{{ route('reservation.chambre', $immobi->id) }}">{{ $immobi->titre }}</a>
-                                    </h5>
-                                    <div class="mt-2 mb-3">
-                                        <span class="card-location me-2">
-                                            {{ $immobi->ville }}/{{ $immobi->quartier }}
-                                        </span>
-
-                                    </div>
-
-                                    <!-- Prix -->
-                                    <div class="card-2-bottom mt-3">
-                                        <div class="row">
-                                            <div class="col text-end">
-                                                <span class="card-text-price  fw-bold" style="color: #d50100;">
-                                                    {{ number_format($immobi->prix, 0, ',', ' ') }} FCFA
-                                                </span>
-                                                <span class="text-muted">/mois</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Description (optionnelle) -->
-                                    <p class="font-sm color-text-paragraph mt-3">
-                                        {{ Str::limit($immobi->description, 100) }}
-                                    </p>
-
-                                    <!-- Bouton réserver -->
-                                    <div class="mt-3 text-end">
-
-                                        <a href="{{ route('reservation.chambre', $immobi->id) }}" class="btn mb-3"
-                                            style="color: #28a745; border: 1px solid #28a745; background-color: #fff;">Réserver</a>
-                                    </div>
-                                </div>
+                                <a href="{{ route('immobilier.detail', $immobilier->uuid ?? $immobilier->id) }}" class="prop-card-btn">Voir détails</a>
                             </div>
                         </div>
-                    @endif
-                @empty
-                    <div class="col-12">
-                        <p class="text-center text-muted">Aucune chambre disponible pour le moment.</p>
                     </div>
-                @endforelse
-            </div>
-
+                </div>
+                @endif
+            @endforeach
         </div>
-    </section>
-    {{-- fin Section Location par Chambre --}}
-    {{-- Section actualite --}}
-    <section class="section-box mt-50 mb-50">
-        <div class="container">
-            <!-- Titre + description -->
-            <div class="text-center mb-4">
-                <h2 class="section-title fw-bold wow animate__animated animate__fadeInUp "
-                    style="font-size: 2.2rem; color: #d50100;">
-                    Actualités & Conseils
-                </h2>
-                <p class="font-lg text-muted wow animate__animated animate__fadeInUp"
-                    style="max-width: 600px; margin: 0 auto;">
-                    Retrouvez les dernières nouveautés, conseils pratiques et astuces pour bien louer votre logement.
-                </p>
+
+        @if($count === 0)
+        <div class="text-center py-5 text-muted">
+            <i class="bi bi-house fs-1 d-block mb-3 opacity-25"></i>
+            Aucun bien disponible pour le moment.
+        </div>
+        @endif
+    </div>
+</section>
+
+{{-- ===== LOCATION PAR CHAMBRE ===== --}}
+@php $chambres = $immobiliers->filter(fn($i) => strtolower($i->category->nom ?? '') === 'chambre'); @endphp
+@if($chambres->count())
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="d-flex align-items-end justify-content-between mb-5 flex-wrap gap-3">
+            <div>
+                <span class="section-badge">Chambres</span>
+                <h2 class="section-heading mb-0">Location par Chambre</h2>
+                <p class="text-muted mt-1 mb-0">Des chambres confortables, pratiques et bien situées</p>
             </div>
-
-
-            <!-- Cartes articles -->
-            <div class="row gy-4">
-                <!-- Exemple de carte article -->
-                <div class="col-md-4">
-                    <div class="card shadow-sm border-0 hover-up"
-                        style="transition: transform 0.3s; height: 450px; display: flex; flex-direction: column;">
-                        <img src="assets/imgs/news/news1.jpg" class="card-img-top" alt="Conseil pour location"
-                            style="height: 180px; object-fit: cover;">
-                        <div class="card-body d-flex flex-column flex-grow-1">
+            <a href="{{ route('location') }}" class="btn-brand-outline btn">Voir tout <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+        <div class="row g-4">
+            @foreach($chambres->take(6) as $immobi)
+            <div class="col-xl-4 col-md-6">
+                <div class="prop-card">
+                    <div class="prop-card-img">
+                        @php $firstPhoto = $immobi->photos->first(); @endphp
+                        @if($firstPhoto)
+                            <img src="{{ asset('storage/'.$firstPhoto->url) }}" alt="{{ $immobi->titre }}">
+                        @else
+                            <img src="{{ asset('admin/media/photos/bg_minecraft.png') }}" alt="{{ $immobi->titre }}">
+                        @endif
+                        <span class="prop-card-badge navy">Chambre</span>
+                    </div>
+                    <div class="prop-card-body">
+                        <div class="prop-card-location mb-1">
+                            <i class="bi bi-geo-alt-fill" style="color:var(--brand-red);font-size:0.82rem;"></i>
+                            {{ $immobi->ville }}{{ $immobi->quartier ? ' · '.$immobi->quartier : '' }}
+                        </div>
+                        @php
+                            $targetChambre = $immobi->chambres->where('statut', 'disponible')->first() ?? $immobi->chambres->first();
+                        @endphp
+                        <h6 class="prop-card-title">
+                            @if($targetChambre)
+                                <a href="{{ route('reservation.chambre', $targetChambre->id) }}">{{ $immobi->titre }}</a>
+                            @else
+                                <a href="#">{{ $immobi->titre }}</a>
+                            @endif
+                        </h6>
+                        <p class="prop-card-desc">{{ Str::limit($immobi->description, 90) }}</p>
+                        <div class="prop-card-footer">
                             <div>
-                                <span class="badge bg-primary mb-2">Conseils</span>
-                                <h5 class="card-title"><a href="#" class="text-dark text-decoration-none">Comment
-                                        préparer son logement pour la location ?</a></h5>
-                                <p class="card-text text-muted small"
-                                    style="max-height: 90px; overflow: hidden; flex-grow: 1;">
-                                    Découvrez nos astuces pour rendre votre maison ou chambre attractive et trouver
-                                    rapidement un locataire fiable.
-                                </p>
+                                <div class="prop-card-price">{{ number_format($immobi->prix, 0, ',', ' ') }} MAD <small>/mois</small></div>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                <div class="d-flex align-items-center">
-                                    <img src="assets/imgs/users/author1.jpg" alt="Auteur" class="rounded-circle me-2"
-                                        width="40" height="40">
-                                    <div>
-                                        <div class="small fw-semibold">Aminata Diallo</div>
-                                        <div class="small text-muted">15 juillet 2025</div>
-                                    </div>
-                                </div>
-                                <small class="text-muted">5 min de lecture</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Copier ce bloc et changer contenu pour chaque article -->
-                <div class="col-md-4">
-                    <div class="card shadow-sm border-0 hover-up"
-                        style="transition: transform 0.3s; height: 450px; display: flex; flex-direction: column;">
-                        <img src="assets/imgs/news/news2.jpg" class="card-img-top" alt="Tendances du marché"
-                            style="height: 180px; object-fit: cover;">
-                        <div class="card-body d-flex flex-column flex-grow-1">
-                            <div>
-                                <span class="badge bg-success mb-2">Marché</span>
-                                <h5 class="card-title"><a href="#" class="text-dark text-decoration-none">Les
-                                        tendances de la location immobilière en 2025</a></h5>
-                                <p class="card-text text-muted small"
-                                    style="max-height: 90px; overflow: hidden; flex-grow: 1;">
-                                    Analyse du marché immobilier actuel et conseils pour choisir la meilleure offre de
-                                    location selon votre budget.
-                                </p>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                <div class="d-flex align-items-center">
-                                    <img src="assets/imgs/users/author2.jpg" alt="Auteur" class="rounded-circle me-2"
-                                        width="40" height="40">
-                                    <div>
-                                        <div class="small fw-semibold">Mamadou Coulibaly</div>
-                                        <div class="small text-muted">10 juillet 2025</div>
-                                    </div>
-                                </div>
-                                <small class="text-muted">7 min de lecture</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card shadow-sm border-0 hover-up"
-                        style="transition: transform 0.3s; height: 450px; display: flex; flex-direction: column;">
-                        <img src="assets/imgs/news/news3.jpg" class="card-img-top" alt="Guide location"
-                            style="height: 180px; object-fit: cover;">
-                        <div class="card-body d-flex flex-column flex-grow-1">
-                            <div>
-                                <span class="badge bg-warning text-dark mb-2">Guide</span>
-                                <h5 class="card-title"><a href="#" class="text-dark text-decoration-none">Les
-                                        pièges à éviter lors d’une location</a></h5>
-                                <p class="card-text text-muted small"
-                                    style="max-height: 90px; overflow: hidden; flex-grow: 1;">
-                                    Apprenez à identifier les arnaques et à sécuriser votre contrat de location pour un
-                                    séjour en toute sérénité.
-                                </p>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                <div class="d-flex align-items-center">
-                                    <img src="assets/imgs/users/author3.jpg" alt="Auteur" class="rounded-circle me-2"
-                                        width="40" height="40">
-                                    <div>
-                                        <div class="small fw-semibold">Fatoumata Traoré</div>
-                                        <div class="small text-muted">5 juillet 2025</div>
-                                    </div>
-                                </div>
-                                <small class="text-muted">6 min de lecture</small>
-                            </div>
+                            @if($targetChambre)
+                                <a href="{{ route('reservation.chambre', $targetChambre->id) }}" class="prop-card-btn">Réserver</a>
+                            @else
+                                <button class="prop-card-btn" style="background:#6c757d;" disabled>Complet</button>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
-
-
+            @endforeach
         </div>
-    </section>
-    {{-- fin Section actualite  --}}
+    </div>
+</section>
+@endif
+
+{{-- ===== WHY CHOOSE US ===== --}}
+<section class="py-5" style="background: linear-gradient(180deg, var(--brand-navy) 0%, #08111a 100%);">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-badge bg-white bg-opacity-10 text-white border border-white border-opacity-25">Pourquoi nous</span>
+            <h2 class="text-white fw-bold fs-1 mt-2">La plateforme de référence au Maroc</h2>
+        </div>
+        <div class="row g-4 text-center">
+            <div class="col-md-3 col-6">
+                <div class="why-card p-4 rounded-4 h-100" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <div class="icon-box d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 70px; height: 70px; background: rgba(192, 57, 43, 0.1); border: 1px solid rgba(192, 57, 43, 0.25); color: #f87171; font-size: 1.8rem; transition: all 0.3s ease;">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+                    <h6 class="text-white fw-bold mb-2">Fiable & Vérifié</h6>
+                    <p class="text-white opacity-50 small mb-0">Toutes nos annonces sont vérifiées par notre équipe</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="why-card p-4 rounded-4 h-100" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <div class="icon-box d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 70px; height: 70px; background: rgba(192, 57, 43, 0.1); border: 1px solid rgba(192, 57, 43, 0.25); color: #f87171; font-size: 1.8rem; transition: all 0.3s ease;">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                    </div>
+                    <h6 class="text-white fw-bold mb-2">Rapide</h6>
+                    <p class="text-white opacity-50 small mb-0">Réservez en quelques clics depuis votre smartphone</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="why-card p-4 rounded-4 h-100" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <div class="icon-box d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 70px; height: 70px; background: rgba(192, 57, 43, 0.1); border: 1px solid rgba(192, 57, 43, 0.25); color: #f87171; font-size: 1.8rem; transition: all 0.3s ease;">
+                        <i class="bi bi-shield-lock-fill"></i>
+                    </div>
+                    <h6 class="text-white fw-bold mb-2">Sécurisé</h6>
+                    <p class="text-white opacity-50 small mb-0">Paiements sécurisés et contrats numériques protégés</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="why-card p-4 rounded-4 h-100" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);">
+                    <div class="icon-box d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 70px; height: 70px; background: rgba(192, 57, 43, 0.1); border: 1px solid rgba(192, 57, 43, 0.25); color: #f87171; font-size: 1.8rem; transition: all 0.3s ease;">
+                        <i class="bi bi-bullseye"></i>
+                    </div>
+                    <h6 class="text-white fw-bold mb-2">Personnalisé</h6>
+                    <p class="text-white opacity-50 small mb-0">Des offres adaptées à votre budget et localisation</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{-- ===== ACTUALITES ===== --}}
+@if(isset($actualites) && $actualites->count())
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="section-badge">Blog</span>
+            <h2 class="section-heading">Actualités & Conseils</h2>
+            <p class="section-sub">Les dernières nouveautés et conseils pour bien louer votre logement</p>
+        </div>
+        <div class="row g-4">
+            @foreach($actualites->take(3) as $actu)
+            <div class="col-md-4">
+                <div class="prop-card h-100">
+                    <div class="prop-card-img" style="height:200px;">
+                        @if($actu->image)
+                            <img src="{{ asset('storage/'.$actu->image) }}" alt="{{ $actu->titre }}">
+                        @else
+                            <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background:linear-gradient(135deg,#1a2e44,var(--brand-red));">
+                                <i class="bi bi-newspaper text-white" style="font-size:3rem;opacity:0.4;"></i>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="prop-card-body">
+                        <span class="badge mb-2" style="background:rgba(192,57,43,0.1);color:var(--brand-red);font-size:0.72rem;">Actualité</span>
+                        <h6 class="prop-card-title">{{ $actu->titre }}</h6>
+                        <p class="prop-card-desc">{{ Str::limit(strip_tags($actu->contenu ?? $actu->description ?? ''), 100) }}</p>
+                        <div class="prop-card-footer">
+                            <small class="text-muted"><i class="bi bi-calendar3 me-1"></i>{{ \Carbon\Carbon::parse($actu->date_publication)->format('d M Y') }}</small>
+                            <a href="#" class="prop-card-btn">Lire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
+{{-- ===== CTA ===== --}}
+<section class="py-5" style="background: linear-gradient(135deg, var(--brand-red) 0%, #781d14 50%, var(--brand-navy) 100%);">
+    <div class="container text-center py-4">
+        <h2 class="text-white fw-bold fs-1 mb-3">Prêt à trouver votre logement ?</h2>
+        <p class="text-white opacity-80 mb-5 fs-5">Rejoignez des milliers de Marocains qui font confiance à Business Maroc.</p>
+        <div class="d-flex gap-4 justify-content-center flex-wrap">
+            <a href="{{ route('location') }}" class="btn-cta-primary">
+                <i class="bi bi-search me-2"></i>Parcourir les annonces
+            </a>
+            @if(!Auth::check())
+            <a href="{{ route('register.client') }}" class="btn-cta-outline">
+                <i class="bi bi-person-plus me-2"></i>Créer un compte
+            </a>
+            @endif
+        </div>
+    </div>
+</section>
+
 @endsection
-{{-- ancien --}}

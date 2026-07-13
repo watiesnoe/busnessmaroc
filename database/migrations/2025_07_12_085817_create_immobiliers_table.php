@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('immobiliers', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
 
             // Relation avec une entreprise (optionnelle)
             $table->foreignId('entreprise_id')

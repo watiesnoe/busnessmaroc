@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Favori extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Traits\HasUuid;
 
     protected $fillable = ['user_id', 'immobilier_id'];
 

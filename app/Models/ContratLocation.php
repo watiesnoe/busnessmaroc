@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContratLocation extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Traits\HasUuid;
 
     protected $fillable = [
         'user_id',
@@ -17,6 +17,8 @@ class ContratLocation extends Model
         'date_fin',
         'type_contrat',
         'prix_total',
+        'poulet_chair_qty',
+        'poulet_cuit_qty',
         'statut',
         'conditions_particulieres',
         'transaction_id'

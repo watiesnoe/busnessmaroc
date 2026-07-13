@@ -60,7 +60,7 @@ class ActualiteController extends Controller
             'contenu'           => 'required|string',
             'auteur'            => 'nullable|string|max:150',
             'date_publication'  => 'nullable|date',
-            'image'             => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image'             => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4000',
         ]);
 
         try {
@@ -121,7 +121,7 @@ class ActualiteController extends Controller
             'contenu' => 'required|string',
             'auteur' => 'nullable|string|max:255',
             'date_publication' => 'required|date',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4000',
         ]);
 
         // Mise à jour des champs

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use function Symfony\Component\String\b;
 
 class ComptclientController extends Controller
 {
@@ -15,7 +16,12 @@ class ComptclientController extends Controller
     public function index()
     {
         //
-        return view('auth.clientRegister');
+        if(!Auth::check()){
+            return view('auth.clientRegister');
+        }else{
+            return back();
+        }
+
     }
 
     /**

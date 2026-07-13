@@ -1,154 +1,318 @@
-    @extends('layoutsite.site')
-    @section('content')
-        <style>
-            .card-body {
-                background-color: #fefefe;
-                /* Fond très clair pour bien contraster */
-                color: #222222;
-                /* Texte bien foncé */
-                font-size: 1rem;
-                /* Taille de police confortable */
-                line-height: 1.5;
-                /* Meilleure lisibilité */
-                padding: 1.5rem !important;
-                /* Espace autour du contenu */
-            }
+@extends('layoutsite.site')
 
-            .card-header {
-                font-weight: 600;
-                font-size: 1.25rem;
-            }
+@section('titre', $offre->titre . ' — Business Maroc')
 
-            a.text-decoration-none.text-dark:hover {
-                color: #0d6efd;
-                /* Bootstrap primary blue au hover */
-            }
+@push('styles')
+<style>
+    :root {
+        --job-primary: #d50100;
+        --job-navy: #0d1b2a;
+        --job-bg: #f8f9fa;
+    }
 
-            .badge.bg-light.text-dark {
-                font-weight: 500;
-            }
-        </style>
-        <section class="hero-section position-relative text-white d-flex align-items-center py-5"
-            style="
-                background-image: url('{{ asset('asset/imgs/offre2.jpg') }}');
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center;
-                width: 100%;
-                height: 400px;  /* hauteur réduite */
-            ">
+    .job-details-hero {
+        background: linear-gradient(135deg, rgba(13, 27, 42, 0.45) 0%, rgba(26, 46, 68, 0.5) 100%), url('{{ asset("asset/imgs/offre2.png") }}') center/cover no-repeat;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        border-bottom: 4px solid var(--job-primary);
+    }
+    .job-details-hero::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 50px;
+        background: linear-gradient(to top, var(--job-bg), transparent);
+        pointer-events: none;
+    }
 
-            <div class="container text-center">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                        <h1 class="display-5 fw-bold mb-3" style="color: #ffffff; text-shadow: 2px 2px 6px rgba(0,0,0,0.7);">
-                            <span style="color: #d50100;">Découvrez</span> nos meilleures offres
-                        </h1>
-                        <p class="lead"
-                            style="color: #ffffff; 
-                            text-shadow: 1px 1px 5px rgba(0,0,0,0.6); 
-                            font-size: 1.5rem;    /* texte plus grand */
-                            line-height: 1.8;">
-                            Parcourez toutes les opportunités disponibles et trouvez l’offre qui vous correspond le mieux.
-                        </p>
+    .glass-badge {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.78rem;
+        padding: 0.4rem 1rem;
+        border-radius: 30px;
+        letter-spacing: 1px;
+    }
 
+    .details-card {
+        background: #ffffff;
+        border-radius: 24px;
+        border: 1px solid #f0f0f0;
+        box-shadow: 0 15px 35px rgba(13, 27, 42, 0.05);
+        overflow: hidden;
+    }
+    .details-header {
+        background: var(--job-navy);
+        padding: 2.2rem;
+        color: #ffffff;
+        border-bottom: 4px solid var(--job-primary);
+    }
+    .details-header h2 {
+        color: #ffffff !important;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        margin-bottom: 0.75rem;
+    }
+    .details-header .meta-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        font-size: 0.9rem;
+        color: #e2e8f0 !important;
+    }
+    .details-header .meta-info i {
+        color: #ff4d4d !important;
+    }
+
+    .details-body {
+        padding: 2.5rem;
+    }
+
+    .widget-info-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 2.5rem;
+        background: #f8f9fa;
+        padding: 1.8rem;
+        border-radius: 16px;
+        border: 1px solid #e9ecef;
+    }
+    .widget-info-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .widget-icon-box {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: #ffffff;
+        color: var(--job-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
+    .widget-label {
+        font-size: 0.78rem;
+        color: #4b5563 !important;
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 2px;
+        display: block;
+    }
+    .widget-value {
+        font-size: 0.95rem;
+        color: #0f172a !important;
+        font-weight: 700;
+    }
+
+    .details-section-title {
+        font-weight: 800;
+        color: var(--job-navy);
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .details-section-title::before {
+        content: '';
+        display: inline-block;
+        width: 4px;
+        height: 18px;
+        background: var(--job-primary);
+        border-radius: 2px;
+    }
+
+    .details-content {
+        color: #1e293b !important;
+        font-size: 1rem;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+    }
+
+    .btn-apply-job {
+        background: linear-gradient(135deg, var(--job-primary) 0%, #b30000 100%);
+        border: none;
+        color: #ffffff;
+        padding: 0.9rem 2rem;
+        border-radius: 12px;
+        font-weight: 700;
+        box-shadow: 0 5px 15px rgba(213, 1, 0, 0.2);
+        transition: all 0.2s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .btn-apply-job:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(213, 1, 0, 0.35);
+        color: #ffffff;
+    }
+
+    .btn-back-job {
+        background: #f1f3f5;
+        color: #495057;
+        padding: 0.9rem 2rem;
+        border-radius: 12px;
+        font-weight: 700;
+        border: none;
+        transition: all 0.2s;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .btn-back-job:hover {
+        background: #e9ecef;
+        color: #212529;
+    }
+</style>
+@endpush
+
+@section('content')
+{{-- Hero header --}}
+<section class="job-details-hero">
+    <div class="container position-relative z-2 py-5 text-center text-lg-start">
+        <span class="glass-badge mb-3 d-inline-block">💼 OFFRE D'EMPLOI ACTIVE</span>
+        <h1 class="display-5 fw-extrabold text-white mb-0" style="font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.65);">Détails de l'opportunité</h1>
+    </div>
+</section>
+
+{{-- Main Details --}}
+<main class="py-5" style="background: var(--job-bg);">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                
+                {{-- Tip info badge --}}
+                <div class="alert alert-danger shadow-sm rounded-4 mb-4 border-0 py-3" style="background: #fdf2e9; color: #c0392b;">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-info-circle-fill fs-5"></i>
+                        <span><strong>Astuce :</strong> Relisez attentivement le profil recherché et préparez vos documents avant de postuler.</span>
                     </div>
                 </div>
-            </div>
-        </section>
 
-
-
-       <main class="main bg-light">
-    <div class="container my-5">
-
-        <!-- Message en haut -->
-        <div class="alert alert-danger shadow-sm rounded-3 mb-4" role="alert">
-            <i class="bi bi-info-circle-fill me-2"></i>
-            <strong>Astuce :</strong> Vérifiez bien les informations avant de postuler !
-        </div>
-
-        <div class="row g-4 align-items-stretch">
-            <!-- Colonne image -->
-            <div class="col-md-5 d-flex">
-                <div class="card shadow-sm border-0 rounded-4 overflow-hidden w-100 h-100">
-                    <img src="{{ $offre->image ?? asset('asset/imgs/img-big3.png') }}" 
-                         alt="Offre d'emploi"
-                         class="img-fluid w-100 h-100"
-                         style="object-fit: cover;">
-                </div>
-            </div>
-
-            <!-- Colonne infos -->
-            <div class="col-md-7 d-flex">
-                <div class="card shadow-lg border-0 rounded-4 w-100 h-100 d-flex flex-column">
-                    <!-- En-tête -->
-                    <div class="card-header text-white rounded-top"
-                         style="background: linear-gradient(135deg, #d50100, #ff4d4d);">
-                        <h3 class="mb-0">{{ $offre->titre }}</h3>
-                        <small>
-                            <i class="bi bi-briefcase me-1"></i> {{ ucfirst($offre->type_offre) }}
-                            | <i class="bi bi-calendar-event me-1"></i> Publiée le
-                            {{ \Carbon\Carbon::parse($offre->date_publication)->format('d/m/Y') }}
-                        </small>
+                <div class="details-card">
+                    {{-- Header --}}
+                    <div class="details-header">
+                        <h2>{{ $offre->titre }}</h2>
+                        <div class="meta-info">
+                            <span><i class="bi bi-building"></i> {{ $offre->entreprise }}</span>
+                            <span>•</span>
+                            <span><i class="bi bi-geo-alt"></i> {{ $offre->lieu }}</span>
+                            <span>•</span>
+                            <span><i class="bi bi-tag"></i> {{ $offre->secteur }}</span>
+                        </div>
                     </div>
 
-                    <!-- Corps -->
-                    <div class="card-body flex-grow-1">
-                        <ul class="list-unstyled mb-4">
-                            <li class="mb-2">
-                                <i class="bi bi-building text-danger me-2"></i>
-                                <strong>Entreprise :</strong> {{ $offre->entreprise }}
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-geo-alt-fill text-danger me-2"></i>
-                                <strong>Lieu :</strong> {{ $offre->lieu }}
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-diagram-3 text-danger me-2"></i>
-                                <strong>Secteur :</strong> {{ $offre->secteur }}
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-mortarboard text-danger me-2"></i>
-                                <strong>Niveau requis :</strong> {{ $offre->niveau }}
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-calendar2-x text-danger me-2"></i>
-                                <strong>Date limite :</strong> {{ \Carbon\Carbon::parse($offre->date_limite)->format('d/m/Y') }}
-                            </li>
-                            <li>
-                                <i class="bi bi-cash-stack text-danger me-2"></i>
-                                <strong>Salaire :</strong> {{ $offre->salaire ? $offre->salaire . ' FCFA' : 'Non spécifié' }}
-                            </li>
-                        </ul>
+                    {{-- Body --}}
+                    <div class="details-body">
+                        
+                        {{-- Info widget grid --}}
+                        <div class="widget-info-list">
+                            <div class="widget-info-item">
+                                <div class="widget-icon-box">
+                                    <i class="bi bi-file-earmark-text"></i>
+                                </div>
+                                <div>
+                                    <span class="widget-label">Type Contrat</span>
+                                    <span class="widget-value">{{ ucfirst($offre->type_offre) }}</span>
+                                </div>
+                            </div>
+                            <div class="widget-info-item">
+                                <div class="widget-icon-box">
+                                    <i class="bi bi-mortarboard"></i>
+                                </div>
+                                <div>
+                                    <span class="widget-label">Niveau Requis</span>
+                                    <span class="widget-value">{{ $offre->niveau }}</span>
+                                </div>
+                            </div>
+                            <div class="widget-info-item">
+                                <div class="widget-icon-box">
+                                    <i class="bi bi-cash-stack"></i>
+                                </div>
+                                <div>
+                                    <span class="widget-label">Salaire Proposé</span>
+                                    <span class="widget-value">
+                                        {{ $offre->salaire ? number_format($offre->salaire, 0, ',', ' ') . ' FCFA' : 'Non précisé' }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="widget-info-item">
+                                <div class="widget-icon-box">
+                                    <i class="bi bi-calendar-check"></i>
+                                </div>
+                                <div>
+                                    <span class="widget-label">Date Limite</span>
+                                    <span class="widget-value">
+                                        {{ \Carbon\Carbon::parse($offre->date_limite)->format('d/m/Y') }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
 
-                        <h5 class="text-danger fw-bold mb-2">Profil recherché :</h5>
-                        <p class="text-muted">{{ $offre->profil_recherche }}</p>
+                        {{-- Section 1: Profil --}}
+                        <h4 class="details-section-title">Profil recherché</h4>
+                        <div class="details-content">
+                            <p style="white-space: pre-line;">{{ $offre->profil_recherche }}</p>
+                        </div>
 
-                        <h5 class="text-danger fw-bold mb-2 mt-4">Description du poste :</h5>
-                        <p class="text-muted">{{ $offre->description }}</p>
+                        {{-- Section 2: Description --}}
+                        <h4 class="details-section-title">Description du poste</h4>
+                        <div class="details-content mb-0">
+                            <p style="white-space: pre-line;">{{ $offre->description }}</p>
+                        </div>
+
                     </div>
 
-                    <!-- Footer -->
-                    <div class="card-footer d-flex justify-content-between align-items-center flex-wrap gap-2">
-                        @if ($offre->mode_candidature === 'externe' && $offre->lien_candidature)
-                            <a href="{{ $offre->lien_candidature }}" target="_blank" class="btn btn-danger px-4">
-                                <i class="bi bi-box-arrow-up-right me-1"></i> Postuler sur le site
-                            </a>
-                        @else
-                            <a href="{{ route('candidature.form', $offre->id) }}" class="btn btn-danger px-4">
-                                <i class="bi bi-send me-1"></i> Postuler maintenant
-                            </a>
-                        @endif
-
-                        <a href="{{ route('offres') }}" class="btn btn-outline-secondary px-4">
-                            <i class="bi bi-arrow-left me-1"></i> Retour
+                    {{-- Actions Footer --}}
+                    <div class="p-4 bg-light border-top d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div>
+                            @if ($offre->mode_candidature === 'externe')
+                                @if (filter_var($offre->lien_candidature, FILTER_VALIDATE_URL))
+                                    <a href="{{ $offre->lien_candidature }}" target="_blank" class="btn-apply-job">
+                                        <i class="bi bi-box-arrow-up-right"></i> Postuler sur le site externe
+                                    </a>
+                                @elseif (str_contains($offre->lien_candidature, '@'))
+                                    <a href="mailto:{{ $offre->lien_candidature }}" class="btn-apply-job">
+                                        <i class="bi bi-envelope"></i> Postuler par email
+                                    </a>
+                                @elseif (!empty($offre->lien_candidature))
+                                    <div class="alert alert-info py-2 px-3 mb-0 small rounded-3 d-inline-block">
+                                        <i class="bi bi-info-circle-fill me-1"></i> <strong>Candidature externe :</strong> {{ $offre->lien_candidature }}
+                                    </div>
+                                @else
+                                    <span class="text-muted small"><i class="bi bi-info-circle me-1"></i> Aucun lien de candidature fourni.</span>
+                                @endif
+                            @else
+                                <a href="{{ route('candidature.form', $offre->uuid ?? $offre->id) }}" class="btn-apply-job">
+                                    <i class="bi bi-send"></i> Postuler maintenant
+                                </a>
+                            @endif
+                        </div>
+                        
+                        <a href="{{ route('offres') }}" class="btn-back-job">
+                            <i class="bi bi-arrow-left"></i> Retour aux offres
                         </a>
                     </div>
                 </div>
+
             </div>
         </div>
+
     </div>
 </main>
-
-    @endsection
+@endsection

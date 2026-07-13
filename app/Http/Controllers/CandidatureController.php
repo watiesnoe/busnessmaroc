@@ -13,11 +13,21 @@ class CandidatureController extends Controller
     // Affiche le formulaire de candidature pour une offre donnée
     public function create($offreId)
     {
-        $offre = Offre::findOrFail($offreId);
+        $query = Offre::query();
+        if (\Illuminate\Support\Facades\Schema::hasColumn('offres', 'uuid')) {
+            $query->where('uuid', $offreId)->orWhere('id', $offreId);
+        } else {
+            $query->where('id', $offreId);
+        }
+        $offre = $query->firstOrFail();
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn('offres', 'uuid') && $offreId == $offre->id && !empty($offre->uuid)) {
+            return redirect()->route('candidature.form', $offre->uuid);
+        }
 
         // Vérifie si le mode candidature est interne
         if ($offre->mode_candidature !== 'interne') {
-            return redirect()->route('details_offre.show', $offreId)
+            return redirect()->route('details_offre.show', $offre->uuid ?? $offre->id)
                 ->with('error', 'La candidature interne n\'est pas disponible pour cette offre.');
         }
 
@@ -28,13 +38,19 @@ class CandidatureController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'offre_id' => 'required|exists:offres,id',
+            'offre_id' => 'required', // could be ID or UUID
             'cv' => 'required|file|mimes:pdf|max:8048',
             'lettre_motivation' => 'nullable|file|mimes:pdf,doc,docx|max:8048',
             'message' => 'nullable|string',
         ]);
 
-        $offre = Offre::findOrFail($request->offre_id);
+        $query = Offre::query();
+        if (\Illuminate\Support\Facades\Schema::hasColumn('offres', 'uuid')) {
+            $query->where('uuid', $request->offre_id)->orWhere('id', $request->offre_id);
+        } else {
+            $query->where('id', $request->offre_id);
+        }
+        $offre = $query->firstOrFail();
 
         $nombreCandidats = $offre->candidatures()->count();
 
@@ -58,7 +74,7 @@ class CandidatureController extends Controller
 
         Candidature::create([
             'user_id' => Auth::id(),
-            'offre_id' => $request->offre_id,
+            'offre_id' => $offre->id, // Store numerical ID in DB
             'cv' => $cvPath,
             'lettre_motivation' => $lettrePath,
             'message' => $request->message,
@@ -72,7 +88,7 @@ class CandidatureController extends Controller
             ]);
         }
 
-        return redirect()->route('details_offre.show', $request->offre_id)
+        return redirect()->route('details_offre.show', $offre)
             ->with('success', 'Votre candidature a été envoyée avec succès.');
     }
 

@@ -21,23 +21,23 @@
                 <!-- Regular -->
                 <div class="mb-4">
                     <label class="form-label" for="val-select2">Veuillez selectionner un immobilier <span class="text-danger">*</span></label>
-                    <select class="js-select2 form-selec mb-5" id="immobilier_id" name="immobilier_id" style="width: 100%;" data-placeholder="Choose one..">
+                    <select class="js-select2 form-select mb-5" id="immobilier_id" name="immobilier_id" style="width: 100%;" data-placeholder="Choose one..">
                     @foreach($immobiliers as $immo)
-                        <option value="{{ $immo->id }}">{{ $immo->typeimmeuble }}</option>
+                        <option value="{{ $immo->id }}">{{ $immo->titre }}</option>
                     @endforeach
                 </select>
                 </div>
             
                  <div id="chambres-wrapper">
-                  <div class="chambre-row row ">
+                  <div class="chambre-row row border-bottom pb-3 mb-3">
                     <div class="col-lg-4 col-md-4">
                         <div class="form-group  mb-2">
-                            <label     class="form-label">Categorie</label>
-                            <select name="chambres[0][typechambre]"  class="form-control">
+                            <label     class="form-label">Categorie (Type)</label>
+                            <select name="chambres[0][typechambre]"  class="form-control" required>
                                 <option value="">-- Choisir catégorie --</option>
-                                <option value="1">Standard</option>
-                                <option value="2">Confort</option>
-                                <option value="3">VIP</option>
+                                <option value="Standard">Standard</option>
+                                <option value="Confort">Confort</option>
+                                <option value="VIP">VIP</option>
                             </select>
 
                         </div>
@@ -54,6 +54,7 @@
                             <select name="chambres[0][statut]" required class="form-control">
                                 <option value="disponible">Disponible</option>
                                 <option value="reservee">Réservée</option>
+                                <option value="occupee">Occupée</option>
                             </select>
                         </div>
                     </div>
@@ -82,25 +83,21 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col">
-                            <button type="button"  class="remove-btn btn btn-danger btn-sm float-end" >
-                                <span class="fa fa-trash"></span></button>
+                    <div class="row mt-2">
+                        <div class="col text-end">
+                            <button type="button"  class="remove-btn btn btn-danger btn-sm" style="display: none;">
+                                <span class="fa fa-trash"></span> Supprimer cette chambre
+                            </button>
                         </div>
                     </div>
 
                 </div>
             </div>
              <div class="col  mb-2">
-                <button type="button"  class="btn btn-default btn-sm btn-primary" id="addRow"><span class="fa fa-plus"></span> une chambre</button>
-                <button type="submit" class="btn btn-default btn-sm btn-primary">Soumettre</button>
+                <button type="button"  class="btn btn-sm btn-primary" id="addRow"><span class="fa fa-plus"></span> Ajouter une chambre</button>
+                <button type="submit" class="btn btn-sm btn-success"><span class="fa fa-check"></span> Soumettre</button>
             </div>
           </form>
-          <!-- jQuery Validation -->
-
-          <!-- Terms Modal -->
-    
-          <!-- END Terms Modal -->
  </div>
     
 @endsection

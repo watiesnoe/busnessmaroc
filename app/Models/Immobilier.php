@@ -4,10 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Immobilier extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Traits\HasUuid;
+
+    /** Route model binding via UUID */
+    protected $routeKeyName = 'uuid';
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            if (empty($model->uuid)) {
+                $model->uuid = (string) Str::uuid();
+            }
+        });
+    }
 
     protected $fillable = [
         'entreprise_id',

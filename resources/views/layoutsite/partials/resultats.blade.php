@@ -1,95 +1,84 @@
-<style>
-    .image-box img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-        border-radius: 8px;
-    }
+@if($immobiliers->count())
+    @foreach($immobiliers as $immobilier)
+    <div class="col-12">
+         <a href="{{ route('immobilier.detail', $immobilier->uuid ?? $immobilier->id) }}" class="text-decoration-none">
+            <div class="bg-white rounded-3 shadow-sm overflow-hidden d-flex flex-column flex-md-row hover-card" style="transition:all 0.25s; border:1px solid #f0f0f0;">
 
-    .card-grid-2 {
-        min-height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 10px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-    }
-</style>
-@if ($immobiliers->count())
-    @foreach ($immobiliers as $immobilier)
-        <div class="col-12 col-md-6 mb-4">
-            <!-- Toute la carte est un lien -->
-            <a href="{{ route('immobilier.detail', $immobilier->id) }}" class="text-decoration-none text-dark">
-                <div class="card-grid-2 hover-up">
-                    <div class="row">
-                        <!-- Image -->
-                        <div class="col-12">
-                            <div class="image-box mb-3">
-                                @if ($immobilier->photoPrincipale)
-                                    <img src="{{ asset('storage/' . $immobilier->photoPrincipale->url) }}" alt="Photo principale" class="img-fluid rounded">
-                                @else
-                                    <img src="{{ asset('admin/media/photos/bg_minecraft.png') }}" alt="Aucune image" class="img-fluid rounded">
-                                @endif
-                            </div>
+                {{-- Image --}}
+                <div class="flex-shrink-0 position-relative overflow-hidden" style="width:100%; max-width:280px; min-height:200px;">
+                    @if($immobilier->photoPrincipale)
+                        <img src="{{ asset('storage/'.$immobilier->photoPrincipale->url) }}" alt="{{ $immobilier->titre }}"
+                            class="w-100 h-100" style="object-fit:cover; min-height:200px; transition:transform 0.4s;">
+                    @else
+                        <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background:#e9ecef; min-height:200px;">
+                            <i class="bi bi-house text-muted" style="font-size:3rem;opacity:0.3;"></i>
                         </div>
+                    @endif
+                    <span class="position-absolute top-0 start-0 m-2 badge" style="background:var(--brand-red); font-size:0.72rem;">
+                        {{ $immobilier->category->nom ?? 'Logement' }}
+                    </span>
+                </div>
 
-                        <!-- Infos principales -->
-                        <div class="col-12">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="fw-bold text-success">
-                                    {{ $immobilier->category->nom ?? 'Catégorie inconnue' }}
-                                </span>
-                                <span class="text-muted">{{ $immobilier->ville ?? 'Localisation inconnue' }}</span>
-                            </div>
+                {{-- Body --}}
+                <div class="p-4 flex-grow-1 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-start gap-2 flex-wrap mb-1">
+                            <h5 class="fw-bold mb-0" style="color:var(--brand-navy);">{{ $immobilier->titre }}</h5>
+                            <span class="badge bg-light text-muted border" style="font-size:0.72rem;">{{ $immobilier->created_at->diffForHumans() }}</span>
+                        </div>
+                        <p class="text-muted small mb-2">
+                            <i class="bi bi-geo-alt-fill me-1" style="color:var(--brand-red);"></i>
+                            {{ $immobilier->ville }}{{ $immobilier->quartier ? ' · '.$immobilier->quartier : '' }}
+                        </p>
+                        <p class="text-muted small mb-3" style="line-height:1.6;">{{ Str::limit($immobilier->description, 120) }}</p>
 
-                            <h5 class="mb-2">{{ $immobilier->titre ?? 'Sans titre' }}</h5>
-
-                            <p class="font-sm text-muted">
-                                {{ Str::limit($immobilier->description, 100) }}
-                            </p>
-
-                            <!-- Chambres disponibles -->
-                            <div class="mb-3">
-                                @foreach ($immobilier->chambres->whereNotIn('statut', ['occupee', 'reservee']) as $chambre)
-                                    <span class="badge bg-light text-dark me-2">
-                                        {{ ucfirst($chambre->type) }}
-                                    </span>
-                                @endforeach
-
-                                <div class="mt-1">
-                                    <small class="text-success fw-semibold">
-                                        {{ $immobilier->chambres->whereNotIn('statut', ['occupee', 'reservee'])->count() }} chambre(s) disponible(s)
-                                    </small>
-                                </div>
-                            </div>
-
-                            <!-- Bas de carte -->
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong class="text-success">
-                                        {{ number_format($immobilier->prix, 0, ',', ' ') }} F CFA
-                                    </strong>
-                                    <small class="text-muted">/mois</small>
-                                </div>
-                                <span class="badge bg-secondary">{{ $immobilier->statut ?? 'Statut inconnu' }}</span>
-                            </div>
-
-                            <div class="mt-2 text-muted">{{ $immobilier->created_at->diffForHumans() }}</div>
+                        {{-- Tags --}}
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            @if($immobilier->surface)
+                            <span class="badge bg-light text-dark border small"><i class="bi bi-aspect-ratio me-1 text-muted"></i>{{ $immobilier->surface }} m²</span>
+                            @endif
+                            @if($immobilier->etage)
+                            <span class="badge bg-light text-dark border small"><i class="bi bi-building me-1 text-muted"></i>Étage {{ $immobilier->etage }}</span>
+                            @endif
+                            @php $dispo = $immobilier->chambres->whereNotIn('statut',['occupee','reservee'])->count(); @endphp
+                            <span class="badge border small {{ $dispo > 0 ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger' }}">
+                                <i class="bi bi-door-open me-1"></i>{{ $dispo }} chambre(s) libre(s)
+                            </span>
+                            @foreach($immobilier->chambres->whereNotIn('statut',['occupee','reservee'])->take(3) as $ch)
+                            <span class="badge bg-light text-dark border small">{{ ucfirst($ch->type) }}</span>
+                            @endforeach
                         </div>
                     </div>
+
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-3 border-top">
+                        <div>
+                            <span class="fw-bold fs-5" style="color:var(--brand-red);">{{ number_format($immobilier->prix, 0, ',', ' ') }} MAD</span>
+                            <span class="text-muted small">/mois</span>
+                        </div>
+                        <span class="btn btn-brand btn-sm px-3">Voir détails <i class="bi bi-arrow-right ms-1"></i></span>
+                    </div>
                 </div>
-            </a>
-        </div>
+            </div>
+        </a>
+    </div>
     @endforeach
 
-    <!-- Pagination -->
-    <div class="d-flex justify-content-center mt-4">
-        {{ $immobiliers->links() }}
+    {{-- Pagination --}}
+    @if($immobiliers->hasPages())
+    <div class="col-12 d-flex justify-content-center mt-2">
+        <nav>{{ $immobiliers->links('pagination::bootstrap-5') }}</nav>
     </div>
+    @endif
+
 @else
-    <p>Aucun bien trouvé.</p>
+    <div class="col-12 text-center py-5">
+        <i class="bi bi-house-x" style="font-size:3.5rem;color:#ddd;"></i>
+        <p class="text-muted mt-3 fs-5">Aucun bien ne correspond à vos critères.</p>
+        <a href="{{ route('location') }}" class="btn btn-brand-outline mt-2">Effacer les filtres</a>
+    </div>
 @endif
 
+<style>
+.hover-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important; }
+.hover-card:hover img { transform: scale(1.04); }
+</style>
