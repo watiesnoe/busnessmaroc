@@ -13,8 +13,6 @@ use App\Models\User;
 use App\Models\Vue;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -66,33 +64,21 @@ class DatabaseSeeder extends Seeder
             OffreSeeder::class,
             SiteDataSeeder::class,
         ]);
-        $imagesPath = database_path('seeders/images');
-         $imageFiles = glob($imagesPath . '/*.{jpg,jpeg,png}', GLOB_BRACE);
+        $imagesPath = public_path('image');
+        $imageFiles = glob($imagesPath . '/*.{jpg,jpeg,png,JPG,JPEG,PNG}', GLOB_BRACE);
 
-        Immobilier::factory(15)->create()->each(function ($bien) use ($imageFiles) {
+        // Construire la liste des chemins relatifs (ex: "image/IMG-20260811-WA0047.jpg")
+        $imagePaths = array_map(fn($f) => 'image/' . basename($f), $imageFiles);
+
+        Immobilier::factory(15)->create()->each(function ($bien) use ($imagePaths) {
 
     // Créer un nombre aléatoire de chambres (1 à 3)
     $chambres = Chambre::factory(rand(1, 3))->create(['immobilier_id' => $bien->id]);
 
-    // Pour chaque chambre, lui associer une image
+    // Pour chaque chambre, lui associer une image directement depuis public/image/
     foreach ($chambres as $chambre) {
-        // Choisir une image aléatoire
-        $randomImage = $imageFiles[array_rand($imageFiles)];
-
-        if (!file_exists($randomImage)) {
-            throw new \Exception("Fichier image introuvable : $randomImage");
-        }
-
-        $extension = pathinfo($randomImage, PATHINFO_EXTENSION);
-        $fileName = Str::random(20) . '.' . $extension;
-        $storagePath = 'chambres/' . $fileName;
-
-        // Copier l'image dans storage/app/public/chambres
-        Storage::disk('public')->put($storagePath, file_get_contents($randomImage));
-
-        // Mettre à jour la chambre avec le chemin de l'image
         $chambre->update([
-            'image' => $storagePath,
+            'image' => $imagePaths[array_rand($imagePaths)],
         ]);
     }
 
@@ -102,20 +88,16 @@ class DatabaseSeeder extends Seeder
     // Créer vues
     Vue::factory(rand(2, 6))->create(['immobilier_id' => $bien->id]);
 
-    // Créer photos immobiliers (3 par bien)
-    for ($i = 0; $i < 3; $i++) {
-        $randomImage = $imageFiles[array_rand($imageFiles)];
-        if (!file_exists($randomImage)) {
-            throw new \Exception("Fichier image introuvable : $randomImage");
-        }
-        $extension = pathinfo($randomImage, PATHINFO_EXTENSION);
-        $fileName = Str::random(20) . '.' . $extension;
-        $storagePath = 'photos/' . $fileName;
-        Storage::disk('public')->put($storagePath, file_get_contents($randomImage));
+    // Créer photos immobiliers (3 par bien) — depuis public/image/ directement
+    $shuffled = $imagePaths;
+    shuffle($shuffled);
+    $selectedPhotos = array_slice($shuffled, 0, 3);
+
+    foreach ($selectedPhotos as $idx => $photoPath) {
         Photo::create([
             'immobilier_id' => $bien->id,
-            'url' => $storagePath,
-            'principale' => ($i === 0) ? 1 : 0,
+            'url'           => $photoPath,
+            'principale'    => ($idx === 0) ? 1 : 0,
         ]);
     }
 });

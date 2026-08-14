@@ -11,62 +11,74 @@ use App\Models\Photo;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class SiteDataSeeder extends Seeder
 {
-    /** Picks a random already-downloaded image from storage, copies a local premium image, or downloads a new one. */
-    private function getImage(string $folder, string $fallbackUrl): ?string
+    /**
+     * Liste des images locales dans public/image/.
+     * Ces chemins sont directement accessibles par le serveur web (pas de Storage nécessaire).
+     */
+    private array $publicImages = [];
+
+    /**
+     * Charge la liste des images depuis public/image/ une seule fois.
+     */
+    private function loadPublicImages(): void
     {
-        // 1. Réutiliser une image déjà présente dans ce dossier (rapide, pas de réseau)
-        $existing = Storage::disk('public')->files($folder);
-        if (count($existing) > 0) {
-            return $existing[array_rand($existing)];
+        if (!empty($this->publicImages)) {
+            return;
         }
 
-        // 2. Sinon, copier une de nos images premium locales des seeders (évite le réseau et garantit une belle image)
-        $localImages = glob(database_path('seeders/images/*.{jpg,jpeg,png}'), GLOB_BRACE);
-        if (!empty($localImages)) {
-            $randomImage = $localImages[array_rand($localImages)];
-            $extension = pathinfo($randomImage, PATHINFO_EXTENSION);
-            $fileName = Str::random(20) . '.' . $extension;
-            $storagePath = $folder . '/' . $fileName;
-            Storage::disk('public')->put($storagePath, file_get_contents($randomImage));
-            return $storagePath;
+        $imageDir = public_path('image');
+        $files    = glob($imageDir . '/*.{jpg,jpeg,png,JPG,JPEG,PNG}', GLOB_BRACE);
+
+        foreach ($files as $file) {
+            // Retourne un chemin relatif à public/, ex: "image/IMG-20260811-WA0047.jpg"
+            $this->publicImages[] = 'image/' . basename($file);
         }
 
-        // 3. Sinon télécharger depuis l'URL
-        return $this->downloadImage($fallbackUrl, $folder);
+        // Mélange aléatoire pour varier les assignations
+        shuffle($this->publicImages);
     }
 
-    private function downloadImage(string $url, string $folder): ?string
+    /**
+     * Retourne un chemin d'image aléatoire depuis public/image/.
+     * Le chemin retourné est relatif au dossier public (ex: "image/IMG-20260811-WA0047.jpg").
+     * Compatible avec les colonnes 'url' et 'image' des modèles.
+     *
+     * @param  string  $folder     (ignoré — conservé pour compatibilité de signature)
+     * @param  string  $fallbackUrl (ignoré — on utilise nos images locales)
+     */
+    private function getImage(string $folder = '', string $fallbackUrl = ''): ?string
     {
-        try {
-            $context = stream_context_create([
-                'http' => ['timeout' => 15, 'ignore_errors' => true, 'header' => "User-Agent: Mozilla/5.0\r\n"],
-                'ssl'  => ['verify_peer' => false, 'verify_peer_name' => false],
-            ]);
+        $this->loadPublicImages();
 
-            $content = @file_get_contents($url, false, $context);
-            if (!$content || strlen($content) < 1000) {
-                // Fallback : utiliser une image locale des seeders
-                $localImages = glob(database_path('seeders/images/*.{jpg,jpeg,png}'), GLOB_BRACE);
-                if (!empty($localImages)) {
-                    $content = file_get_contents($localImages[array_rand($localImages)]);
-                } else {
-                    return null;
-                }
-            }
-
-            $fileName = Str::random(20) . '.jpg';
-            $path     = $folder . '/' . $fileName;
-            Storage::disk('public')->put($path, $content);
-            return $path;
-        } catch (\Exception $e) {
-            $this->command->warn("  ⚠  " . $e->getMessage());
+        if (empty($this->publicImages)) {
             return null;
         }
+
+        return $this->publicImages[array_rand($this->publicImages)];
+    }
+
+    /**
+     * Retourne N images distinctes depuis public/image/ (évite les doublons dans un même bien).
+     *
+     * @param  int  $count  Nombre d'images souhaitées
+     * @return array<string>
+     */
+    private function getImages(int $count = 3): array
+    {
+        $this->loadPublicImages();
+
+        if (empty($this->publicImages)) {
+            return [];
+        }
+
+        $shuffled = $this->publicImages;
+        shuffle($shuffled);
+
+        return array_slice($shuffled, 0, min($count, count($shuffled)));
     }
 
     public function run(): void
@@ -106,7 +118,6 @@ class SiteDataSeeder extends Seeder
                 'etage'       => 3,
                 'category'    => 'Appartement',
                 'en_vedette'  => true,
-                'images'      => ['https://picsum.photos/seed/apt1/800/600', 'https://picsum.photos/seed/apt1b/800/600', 'https://picsum.photos/seed/apt1c/800/600'],
                 'chambres'    => [
                     ['type' => 'Standard', 'prix_jour' => 350, 'prix_mois' => 8500, 'prix_annee' => 90000, 'capacite' => 2],
                     ['type' => 'Confort',  'prix_jour' => 450, 'prix_mois' => 10000,'prix_annee' => 108000,'capacite' => 3],
@@ -122,7 +133,6 @@ class SiteDataSeeder extends Seeder
                 'etage'       => 0,
                 'category'    => 'Villa',
                 'en_vedette'  => true,
-                'images'      => ['https://picsum.photos/seed/villa2/800/600', 'https://picsum.photos/seed/villa2b/800/600', 'https://picsum.photos/seed/villa2c/800/600'],
                 'chambres'    => [
                     ['type' => 'VIP',     'prix_jour' => 1200, 'prix_mois' => 35000,'prix_annee' => 360000,'capacite' => 4],
                     ['type' => 'VIP',     'prix_jour' => 1000, 'prix_mois' => 30000,'prix_annee' => 300000,'capacite' => 3],
@@ -139,7 +149,6 @@ class SiteDataSeeder extends Seeder
                 'etage'       => 1,
                 'category'    => 'Maison',
                 'en_vedette'  => true,
-                'images'      => ['https://picsum.photos/seed/riad3/800/600', 'https://picsum.photos/seed/riad3b/800/600', 'https://picsum.photos/seed/riad3c/800/600'],
                 'chambres'    => [
                     ['type' => 'Standard', 'prix_jour' => 500, 'prix_mois' => 15000,'prix_annee' => 160000,'capacite' => 2],
                     ['type' => 'VIP',      'prix_jour' => 800, 'prix_mois' => 22000,'prix_annee' => 240000,'capacite' => 4],
@@ -155,7 +164,6 @@ class SiteDataSeeder extends Seeder
                 'etage'       => 2,
                 'category'    => 'Studio',
                 'en_vedette'  => false,
-                'images'      => ['https://picsum.photos/seed/studio4/800/600', 'https://picsum.photos/seed/studio4b/800/600'],
                 'chambres'    => [
                     ['type' => 'Standard', 'prix_jour' => 200, 'prix_mois' => 4200, 'prix_annee' => 45000,'capacite' => 2],
                 ],
@@ -170,7 +178,6 @@ class SiteDataSeeder extends Seeder
                 'etage'       => 5,
                 'category'    => 'Appartement',
                 'en_vedette'  => true,
-                'images'      => ['https://picsum.photos/seed/tanger5/800/600', 'https://picsum.photos/seed/tanger5b/800/600', 'https://picsum.photos/seed/tanger5c/800/600'],
                 'chambres'    => [
                     ['type' => 'Confort', 'prix_jour' => 500, 'prix_mois' => 12000,'prix_annee' => 130000,'capacite' => 3],
                     ['type' => 'Standard','prix_jour' => 350, 'prix_mois' => 8000, 'prix_annee' => 85000, 'capacite' => 2],
@@ -186,7 +193,6 @@ class SiteDataSeeder extends Seeder
                 'etage'       => 1,
                 'category'    => 'Chambre',
                 'en_vedette'  => false,
-                'images'      => ['https://picsum.photos/seed/chambre6/800/600', 'https://picsum.photos/seed/chambre6b/800/600'],
                 'chambres'    => [
                     ['type' => 'Standard', 'prix_jour' => 80, 'prix_mois' => 1800,'prix_annee' => 20000,'capacite' => 1],
                 ],
@@ -201,7 +207,6 @@ class SiteDataSeeder extends Seeder
                 'etage'       => 5,
                 'category'    => 'Immeuble',
                 'en_vedette'  => true,
-                'images'      => ['https://picsum.photos/seed/immeuble7/800/600', 'https://picsum.photos/seed/immeuble7b/800/600'],
                 'chambres'    => [
                     ['type' => 'Confort', 'prix_jour' => 800,  'prix_mois' => 20000,'prix_annee' => 220000,'capacite' => 4],
                     ['type' => 'Confort', 'prix_jour' => 700,  'prix_mois' => 18000,'prix_annee' => 190000,'capacite' => 3],
@@ -218,7 +223,6 @@ class SiteDataSeeder extends Seeder
                 'etage'       => 0,
                 'category'    => 'Maison',
                 'en_vedette'  => false,
-                'images'      => ['https://picsum.photos/seed/meknes8/800/600', 'https://picsum.photos/seed/meknes8b/800/600'],
                 'chambres'    => [
                     ['type' => 'Standard', 'prix_jour' => 400, 'prix_mois' => 9500, 'prix_annee' => 100000,'capacite' => 5],
                 ],
@@ -244,23 +248,21 @@ class SiteDataSeeder extends Seeder
                 'en_vedette'  => $data['en_vedette'],
             ]);
 
-            // Photos du bien — réutilise les images déjà en storage
+            // Photos du bien — utilise des images locales depuis public/image/
+            $photoImages = $this->getImages(3);
             $isFirst = true;
-            foreach ($data['images'] as $imgUrl) {
-                $path = $this->getImage('photos', $imgUrl);
-                if ($path) {
-                    Photo::create([
-                        'immobilier_id' => $immobilier->id,
-                        'url'           => $path,
-                        'principale'    => $isFirst,
-                    ]);
-                    $isFirst = false;
-                }
+            foreach ($photoImages as $imgPath) {
+                Photo::create([
+                    'immobilier_id' => $immobilier->id,
+                    'url'           => $imgPath,
+                    'principale'    => $isFirst,
+                ]);
+                $isFirst = false;
             }
 
             // Chambres du bien
             foreach ($data['chambres'] as $chambreData) {
-                $chambreImg = $this->getImage('chambres', 'https://picsum.photos/seed/room' . $i . rand(1,99) . '/600/400');
+                $chambreImg = $this->getImage();
 
                 Chambre::create([
                     'immobilier_id' => $immobilier->id,
