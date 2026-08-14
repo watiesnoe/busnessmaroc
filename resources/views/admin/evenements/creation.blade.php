@@ -118,7 +118,7 @@
                             <input type="file" name="image" class="form-control" id="image" accept="image/*">
                             <div id="preview-container" class="mt-3 text-center">
                                 @if (isset($evenement) && $evenement->image)
-                                    <img src="{{ asset('storage/' . $evenement->image) }}" class="img-fluid rounded border p-1" style="max-height:200px;">
+                                    <img src="{{ get_image_url($evenement->image) }}" class="img-fluid rounded border p-1" style="max-height:200px;">
                                 @else
                                     <i class="fa fa-image fa-3x text-muted"></i>
                                 @endif

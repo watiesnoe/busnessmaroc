@@ -46,6 +46,9 @@ class UniversiteController extends Controller
 
     public function index()
     {
+        if (Universite::count() === 0 && class_exists(\Database\Seeders\SiteDataSeeder::class)) {
+            app(\Database\Seeders\SiteDataSeeder::class)->run();
+        }
         $universites = Universite::with(['filieres', 'photos'])->get();
         return view('universite', compact('universites'));
     }

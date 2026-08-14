@@ -71,7 +71,7 @@
                                         accept="image/*">
                                     <div id="preview-container" class="mt-3 text-center">
                                         @if (isset($actualite) && $actualite->image)
-                                            <img src="{{ asset('storage/' . $actualite->image) }}"
+                                            <img src="{{ get_image_url($actualite->image) }}"
                                                 class="img-fluid mt-3 rounded shadow" style="max-height:250px;">
                                         @else
                                             <i class="fa fa-image fa-3x text-muted"></i>

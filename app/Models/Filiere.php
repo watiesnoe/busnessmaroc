@@ -8,7 +8,7 @@ class Filiere extends Model
 {
     use \App\Traits\HasUuid;
     //
-    protected $fillable = ['universite_id', 'nom', 'description'];
+    protected $fillable = ['uuid', 'universite_id', 'nom', 'description'];
 
     public function universite()
     {

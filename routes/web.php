@@ -203,6 +203,17 @@ Route::middleware('auth')->group(function () {
 
 
 
+
+
+Route::get('/reseed-site', function() {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'SiteDataSeeder', '--force' => true]);
+        return response("Seed OK:\n" . \Illuminate\Support\Facades\Artisan::output(), 200)->header('Content-Type', 'text/plain');
+    } catch (\Exception $e) {
+        return response("Seed Error: " . $e->getMessage(), 500)->header('Content-Type', 'text/plain');
+    }
+});
+
 Route::get('/apply-uuid', function() {
     ob_start();
     include base_path('apply_uuid_trait.php');

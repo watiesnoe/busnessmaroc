@@ -10,6 +10,7 @@ class Universite extends Model
     //
 
     protected $fillable = [
+        'uuid',
         'nom',
         'adresse',
         'ville',
@@ -29,5 +30,8 @@ class Universite extends Model
         return $this->hasMany(UniversitePhoto::class);
     }
 
-
+    public function getLogoUrlAttribute(): string
+    {
+        return get_image_url($this->logo);
+    }
 }

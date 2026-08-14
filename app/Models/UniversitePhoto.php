@@ -16,4 +16,9 @@ class UniversitePhoto extends Model
     {
         return $this->belongsTo(Universite::class);
     }
+
+    public function getImageUrlAttribute(): string
+    {
+        return get_image_url($this->photo);
+    }
 }

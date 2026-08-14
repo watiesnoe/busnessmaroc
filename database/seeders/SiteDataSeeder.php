@@ -6,8 +6,11 @@ use App\Models\Actualite;
 use App\Models\Category;
 use App\Models\Chambre;
 use App\Models\Evenement;
+use App\Models\Filiere;
 use App\Models\Immobilier;
 use App\Models\Photo;
+use App\Models\Universite;
+use App\Models\UniversitePhoto;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -411,7 +414,109 @@ class SiteDataSeeder extends Seeder
             $this->command->line("  ✅  Actualité : " . Str::limit($actu['titre'], 55));
         }
 
+        // ───────────────────────────────────────────
+        // 5. Universités Partenaires & Filières
+        // ───────────────────────────────────────────
+        $this->command->line("\n  🎓  Création des universités partenaires...");
+
+        $universitesData = [
+            [
+                'nom'         => 'Université Mohammed V de Rabat',
+                'description' => 'Établissement public de référence au Maroc proposant une vaste gamme de formations d\'excellence en sciences, médecine, droit, économie et sciences humaines.',
+                'ville'       => 'Rabat',
+                'pays'        => 'Maroc',
+                'adresse'     => 'Avenue des Nations Unies, Agdal, Rabat',
+                'email'       => 'contact@um5.ac.ma',
+                'telephone'   => '+212 5 37 67 34 20',
+                'filieres'    => [
+                    ['nom' => 'Médecine et Pharmacie', 'description' => 'Formation doctorale et spécialisée en santé publique et chirurgie.'],
+                    ['nom' => 'Génie Informatique & IA', 'description' => 'Spécialisation en développement logiciel, big data et intelligence artificielle.'],
+                    ['nom' => 'Sciences Économiques & Gestion', 'description' => 'Master et Licence en finance, comptabilité et management international.'],
+                    ['nom' => 'Droit & Sciences Politiques', 'description' => 'Droit public, privé et études diplomatiques.'],
+                ],
+            ],
+            [
+                'nom'         => 'Université Hassan II de Casablanca',
+                'description' => 'Plus grande université pluridisciplinaire du Maroc située dans la capitale économique, reconnue pour ses laboratoires de recherche avancée.',
+                'ville'       => 'Casablanca',
+                'pays'        => 'Maroc',
+                'adresse'     => 'Route d\'El Jadida, Maarif, Casablanca',
+                'email'       => 'contact@univh2c.ma',
+                'telephone'   => '+212 5 22 23 06 80',
+                'filieres'    => [
+                    ['nom' => 'Ingénierie & Systèmes Embarqués', 'description' => 'Cursus d\'ingénieur d\'état en automatique et systèmes intelligents.'],
+                    ['nom' => 'Commerce International & Logistique', 'description' => 'Management de la supply chain et stratégie commerciale globale.'],
+                    ['nom' => 'Sciences Biologiques & Chimie', 'description' => 'Recherche fondamentale et appliquée aux biotechnologies.'],
+                ],
+            ],
+            [
+                'nom'         => 'Université Internationale de Rabat (UIR)',
+                'description' => 'Université sous partenariat public-privé offrant un campus moderne d\'exception, un enseignement multilingue et des doubles diplômes internationaux.',
+                'ville'       => 'Rabat',
+                'pays'        => 'Maroc',
+                'adresse'     => 'Technopolis Rabat-Salé, Rocade de Rabat',
+                'email'       => 'contact@uir.ac.ma',
+                'telephone'   => '+212 5 30 10 30 00',
+                'filieres'    => [
+                    ['nom' => 'Aéronautique & Énergies Renouvelables', 'description' => 'Formation sur les technologies vertes et ingénierie aérospatiale.'],
+                    ['nom' => 'Rabat Business School', 'description' => 'École de commerce accréditée AACSB proposant des masters internationaux.'],
+                    ['nom' => 'Architecture & Design Urbain', 'description' => 'Conception bioclimatique et urbanisme durable.'],
+                ],
+            ],
+            [
+                'nom'         => 'Université Cadi Ayyad de Marrakech',
+                'description' => 'Centre universitaire majeur dans le sud marocain, pionnier dans l\'innovation pédagogique numérique et les sciences environnementales.',
+                'ville'       => 'Marrakech',
+                'pays'        => 'Maroc',
+                'adresse'     => 'Boulevard Abdelkrim Al Khattabi, Marrakech',
+                'email'       => 'contact@uca.ma',
+                'telephone'   => '+212 5 24 43 48 13',
+                'filieres'    => [
+                    ['nom' => 'Tourisme, Hôtellerie & Patrimoine', 'description' => 'Management hôtelier et valorisation du patrimoine culturel.'],
+                    ['nom' => 'Sciences de l\'Environnement & Eau', 'description' => 'Gestion durable des ressources en eau et agroécologie.'],
+                    ['nom' => 'Mathématiques & Data Science', 'description' => 'Analyse quantitative, modélisation et intelligence artificielle.'],
+                ],
+            ],
+        ];
+
+        foreach ($universitesData as $uData) {
+            $logoPath = $this->getImage();
+
+            $univ = Universite::create([
+                'uuid'        => (string) Str::uuid(),
+                'nom'         => $uData['nom'],
+                'description' => $uData['description'],
+                'ville'       => $uData['ville'],
+                'pays'        => $uData['pays'],
+                'adresse'     => $uData['adresse'],
+                'email'       => $uData['email'],
+                'telephone'   => $uData['telephone'],
+                'logo'        => $logoPath,
+            ]);
+
+            // Filières
+            foreach ($uData['filieres'] as $fData) {
+                Filiere::create([
+                    'uuid'          => (string) Str::uuid(),
+                    'universite_id' => $univ->id,
+                    'nom'           => $fData['nom'],
+                    'description'   => $fData['description'],
+                ]);
+            }
+
+            // Photos de l'université
+            $uPhotos = $this->getImages(3);
+            foreach ($uPhotos as $uPhotoPath) {
+                UniversitePhoto::create([
+                    'universite_id' => $univ->id,
+                    'photo'         => $uPhotoPath,
+                ]);
+            }
+
+            $this->command->line("  ✅  Université : " . $univ->nom);
+        }
+
         $this->command->info("\n  🎉  SiteDataSeeder terminé avec succès !");
-        $this->command->info("  📊  " . Immobilier::count() . " biens | " . Chambre::count() . " chambres | " . Evenement::count() . " événements | " . Actualite::count() . " actualités");
+        $this->command->info("  📊  " . Immobilier::count() . " biens | " . Chambre::count() . " chambres | " . Evenement::count() . " événements | " . Actualite::count() . " actualités | " . Universite::count() . " universités");
     }
 }

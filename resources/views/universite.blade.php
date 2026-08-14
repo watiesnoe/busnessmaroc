@@ -217,7 +217,7 @@
                     {{-- Logo --}}
                     <div class="uni-logo-wrapper">
                         @if ($universite->logo)
-                            <img src="{{ asset('storage/' . $universite->logo) }}" alt="Logo {{ $universite->nom }}">
+                            <img src="{{ get_image_url($universite->logo) }}" alt="Logo {{ $universite->nom }}">
                         @else
                             <div class="w-100 h-100 bg-light d-flex align-items-center justify-content-center text-muted rounded-3">
                                 <i class="bi bi-building fs-1" style="opacity: 0.3;"></i>
@@ -249,7 +249,7 @@
                         @if ($universite->photos->count())
                             <div class="uni-gallery">
                                 @foreach ($universite->photos->take(4) as $photo)
-                                    <img src="{{ asset('storage/' . $photo->photo) }}" alt="Aperçu {{ $universite->nom }}" class="uni-thumb">
+                                    <img src="{{ get_image_url($photo->photo) }}" alt="Aperçu {{ $universite->nom }}" class="uni-thumb">
                                 @endforeach
                             </div>
                         @endif

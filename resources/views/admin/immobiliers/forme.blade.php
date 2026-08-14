@@ -150,7 +150,7 @@
                         <div class="row">
                             @foreach ($immobilier->photos as $photo)
                                 <div class="col-md-3 text-center mb-3">
-                                    <img src="{{ asset('storage/' . $photo->url) }}" alt="photo"
+                                    <img src="{{ get_image_url($photo->url) }}" alt="photo"
                                          class="img-fluid rounded mb-2" style="height: 100px; object-fit: cover;">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="photo_principale"

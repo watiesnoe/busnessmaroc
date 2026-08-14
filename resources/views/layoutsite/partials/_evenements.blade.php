@@ -43,7 +43,7 @@
                 <div class="card shadow-sm h-100 border-0 rounded-3 overflow-hidden event-card">
                     <!-- Image -->
                     <div class="position-relative">
-                        <img src="{{ asset('storage/' . $event->image) }}"
+                        <img src="{{ get_image_url($event->image) }}"
                              class="card-img-top"
                              alt="{{ $event->titre }}"
                              style="height: 220px; object-fit: cover;">

@@ -13,7 +13,7 @@
                 <div class="card shadow-sm border-0 rounded-3 overflow-hidden actu-card h-100">
                     <!-- Image -->
                     @if($actu->image)
-                        <img src="{{ asset('storage/' . $actu->image) }}"
+                        <img src="{{ get_image_url($actu->image) }}"
                              class="card-img-top"
                              alt="{{ $actu->titre }}"
                              style="height: 180px; object-fit: cover;">

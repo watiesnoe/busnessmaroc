@@ -175,7 +175,7 @@
                     <div class="text-center mb-5">
                         @if ($universite->logo)
                             <div class="logo-container">
-                                <img src="{{ asset('storage/' . $universite->logo) }}" alt="Logo {{ $universite->nom }}">
+                                <img src="{{ get_image_url($universite->logo) }}" alt="Logo {{ $universite->nom }}">
                             </div>
                         @endif
                         <h2 class="fw-extrabold text-navy" style="font-weight: 800; color: var(--uni-navy);">{{ $universite->nom }}</h2>
@@ -225,7 +225,7 @@
                                 @foreach ($universite->photos as $photo)
                                     <div class="col-6 col-sm-4 col-md-3">
                                         <div class="gallery-img-wrapper class-photo-click">
-                                            <img src="{{ asset('storage/' . $photo->photo) }}" alt="Aperçu {{ $universite->nom }}" class="universite-photo">
+                                            <img src="{{ get_image_url($photo->photo) }}" alt="Aperçu {{ $universite->nom }}" class="universite-photo">
                                         </div>
                                     </div>
                                 @endforeach

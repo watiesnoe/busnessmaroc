@@ -6,8 +6,9 @@
 
                 {{-- Image --}}
                 <div class="flex-shrink-0 position-relative overflow-hidden" style="width:100%; max-width:280px; min-height:200px;">
-                    @if($immobilier->photoPrincipale)
-                        <img src="{{ asset('storage/'.$immobilier->photoPrincipale->url) }}" alt="{{ $immobilier->titre }}"
+                    @php $photoUrl = $immobilier->photoPrincipale?->url ?? $immobilier->photos->first()?->url; @endphp
+                    @if($photoUrl)
+                        <img src="{{ get_image_url($photoUrl) }}" alt="{{ $immobilier->titre }}"
                             class="w-100 h-100" style="object-fit:cover; min-height:200px; transition:transform 0.4s;">
                     @else
                         <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background:#e9ecef; min-height:200px;">

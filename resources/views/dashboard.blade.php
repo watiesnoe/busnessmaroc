@@ -159,7 +159,7 @@
             <div class="col-md-4 col-lg-{{ $annoncesVedette->count() >= 5 ? '2' : '4' }}">
                 <a href="{{ route('immobilier.detail', $annonce->uuid ?? $annonce->id) }}" class="text-decoration-none">
                     <div class="position-relative rounded-3 overflow-hidden" style="height:260px;">
-                        <img src="{{ $annonce->photoPrincipale?->url ? asset('storage/'.$annonce->photoPrincipale->url) : asset('admin/media/photos/bg_minecraft.png') }}"
+                        <img src="{{ get_image_url($annonce->photoPrincipale?->url) }}"
                             class="w-100 h-100" style="object-fit:cover; transition:transform 0.4s;"
                             onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
                         <div class="position-absolute bottom-0 start-0 end-0 p-3" style="background:linear-gradient(transparent, rgba(0,0,0,0.75));">
@@ -196,11 +196,7 @@
                 <div class="col-xl-4 col-md-6">
                     <div class="prop-card">
                         <div class="prop-card-img">
-                            @if($immobilier->photoPrincipale?->url)
-                                <img src="{{ asset('storage/'.$immobilier->photoPrincipale->url) }}" alt="{{ $immobilier->titre }}">
-                            @else
-                                <img src="{{ asset('admin/media/photos/bg_minecraft.png') }}" alt="{{ $immobilier->titre }}">
-                            @endif
+                            <img src="{{ get_image_url($immobilier->photoPrincipale?->url) }}" alt="{{ $immobilier->titre }}">
                             <span class="prop-card-badge green">{{ $immobilier->category->nom ?? 'Logement' }}</span>
                         </div>
                         <div class="prop-card-body">
@@ -258,11 +254,7 @@
                 <div class="prop-card">
                     <div class="prop-card-img">
                         @php $firstPhoto = $immobi->photos->first(); @endphp
-                        @if($firstPhoto)
-                            <img src="{{ asset('storage/'.$firstPhoto->url) }}" alt="{{ $immobi->titre }}">
-                        @else
-                            <img src="{{ asset('admin/media/photos/bg_minecraft.png') }}" alt="{{ $immobi->titre }}">
-                        @endif
+                        <img src="{{ get_image_url($firstPhoto?->url ?? $immobi->chambres->first()?->image) }}" alt="{{ $immobi->titre }}">
                         <span class="prop-card-badge navy">Chambre</span>
                     </div>
                     <div class="prop-card-body">
@@ -363,7 +355,7 @@
                 <div class="prop-card h-100">
                     <div class="prop-card-img" style="height:200px;">
                         @if($actu->image)
-                            <img src="{{ asset('storage/'.$actu->image) }}" alt="{{ $actu->titre }}">
+                            <img src="{{ get_image_url($actu->image) }}" alt="{{ $actu->titre }}">
                         @else
                             <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background:linear-gradient(135deg,#1a2e44,var(--brand-red));">
                                 <i class="bi bi-newspaper text-white" style="font-size:3rem;opacity:0.4;"></i>

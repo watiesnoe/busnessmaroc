@@ -82,7 +82,7 @@
             <div class="carousel-inner h-100">
                 @foreach ($evenements as $key => $event)
                     <div class="carousel-item @if ($key == 0) active @endif h-100">
-                        <img src="{{ asset('storage/' . $event->image) }}" class="evenement-img" alt="{{ $event->titre }}">
+                        <img src="{{ get_image_url($event->image) }}" class="evenement-img" alt="{{ $event->titre }}">
                     </div>
                 @endforeach
             </div>

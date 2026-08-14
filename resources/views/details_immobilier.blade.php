@@ -31,7 +31,7 @@
                             ?? $immobilier->photos->first();
                     @endphp
                     @if($photoPrincipale)
-                        <img id="main-photo" src="{{ asset('storage/'.$photoPrincipale->url) }}"
+                        <img id="main-photo" src="{{ get_image_url($photoPrincipale->url) }}"
                             alt="{{ $immobilier->titre }}" class="w-100 h-100" style="object-fit:cover;">
                     @else
                         <div class="w-100 h-100 d-flex align-items-center justify-content-center" style="background:#e9ecef;">
@@ -49,7 +49,7 @@
                 @if($immobilier->photos->count() > 1)
                 <div class="d-flex gap-2 mb-4 flex-wrap">
                     @foreach($immobilier->photos as $photo)
-                    <img src="{{ asset('storage/'.$photo->url) }}" alt="Photo"
+                    <img src="{{ get_image_url($photo->url) }}" alt="Photo"
                         class="rounded-2 thumb-photo"
                         style="width:80px;height:60px;object-fit:cover;cursor:pointer;border:2px solid transparent;transition:all 0.2s;"
                         onclick="document.getElementById('main-photo').src=this.src; document.querySelectorAll('.thumb-photo').forEach(t=>t.style.borderColor='transparent'); this.style.borderColor='var(--brand-red)';">
@@ -129,7 +129,7 @@
                         <div class="col-md-6">
                             <div class="border rounded-3 overflow-hidden" style="transition:all 0.25s;" onmouseover="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.1)'" onmouseout="this.style.boxShadow='none'">
                                 @if($chambre->image)
-                                <img src="{{ asset('storage/'.$chambre->image) }}" alt="{{ $chambre->type }}"
+                                <img src="{{ get_image_url($chambre->image) }}" alt="{{ $chambre->type }}"
                                     class="w-100" style="height:160px;object-fit:cover;">
                                 @else
                                 <div class="d-flex align-items-center justify-content-center" style="height:120px;background:linear-gradient(135deg,#1a2e44,#2c3e50);">
